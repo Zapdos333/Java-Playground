@@ -14,5 +14,5 @@ exit
 :rerun
 echo waitung for restart...
 pause
-java %jpath%
+java %jpath% %jargs%
 goto end
