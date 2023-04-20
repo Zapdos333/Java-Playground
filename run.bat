@@ -2,9 +2,13 @@
 :start
 set /P jpath=please enter the path from \com\Ace009\ in "" : 
 :rerun
-set /P jname=name of entry class point: 
+echo compiling...
+javac com\Ace009\%jpath%\*.java
+echo files in path:
+dir "com\Ace009\%jpath%\"
+set /P jname=name of entry class : 
 set /P jargs=arguments for main : 
-javac "com\Ace009\%jpath%\*.java"
+echo executing...
 java "com.Ace009.%jpath:\=.%.%jname%" %jargs%
 :end
 choice /c CRS /m "C for closing the window; R running again from same path; S for running a different file"
