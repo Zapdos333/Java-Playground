@@ -1,5 +1,6 @@
 package com.Ace009.Apk.Audioplayer;
 
+import com.Ace009.library.RNG;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -20,7 +21,6 @@ class AudioPlayer {
 		}
 	}
 	public static void main(String[] args) {
-		RNG random = new RNG();
-		random.main(args);
+		RNG.main(args);
 	}
 }
