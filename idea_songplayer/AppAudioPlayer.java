@@ -1,10 +1,10 @@
-//package com.Ace009.Apk;
+//package
 
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class AudioPlayer {
+class AudioPlayer {
 	//define Song Object
 	private class Song {
 		int nId;
