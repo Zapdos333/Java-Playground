@@ -1,6 +1,5 @@
 package com.Ace009.Apk.Audioplayer;
 
-import com.Ace009.library.RNG;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -20,7 +19,16 @@ class AudioPlayer {
 			length[1]=lengthMin;
 		}
 	}
+	//internal limited Int RNG
+	private static int limitedRandom(int min, int max) {
+		Double random=Math.random()*((max+1)-min)+min;
+		return random.intValue();
+	}
+	//debug Main function
 	public static void main(String[] args) {
-		RNG.main(args);
+		for (int i = 1; i <= 15; i++) {
+			System.out.println("Iteration: "+i);
+			System.out.println("Result: "+limitedRandom(10,20));
+		}
 	}
 }
