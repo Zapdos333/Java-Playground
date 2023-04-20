@@ -1,6 +1,6 @@
 @echo off
 :start
-set /P jpath=please enter the filepath in "" : 
+set /P jpath=please enter the (relative)filepath in "" : 
 set /P jargs=arguments for main : 
 java %jpath% %jargs%
 :end
