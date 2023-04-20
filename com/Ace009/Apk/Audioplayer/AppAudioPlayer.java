@@ -1,6 +1,5 @@
-//package
+package com.Ace009.Apk.Audioplayer;
 
-import java.util.Random;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -20,16 +19,8 @@ class AudioPlayer {
 			length[1]=lengthMin;
 		}
 	}
-	//function for RNG
-	public static int limitedRandom(int min, int max) {
-		Random rng=new Random();
-		return rng.nextInt(max - min + 1) + min;
-	}
-	//debug Main function
 	public static void main(String[] args) {
-		for (int i = 1; i <= 10; i++) {
-			System.out.println(i);
-			System.out.println(limitedRandom(0,10));
-		}
+		RNG random = new RNG();
+		random.main(args);
 	}
 }
