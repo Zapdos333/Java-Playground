@@ -1,14 +1,15 @@
 @echo off
 :start
 set /P jpath=please enter the path from \com\Ace009\ in "" : 
-:rerun
 echo compiling...
+:restart
 javac com\Ace009\%jpath%\*.java
 echo files in path:
 echo:
 dir "com\Ace009\%jpath%\"
 echo:
 set /P jname=name of entry class : 
+if %jname% equ \recompile (goto rerun)
 set /P jargs=arguments for main : 
 echo executing...
 echo:
@@ -20,3 +21,6 @@ if errorlevel 2 (goto rerun)
 echo closing...
 pause
 exit
+:rerun
+echo recompiling...
+goto restart
