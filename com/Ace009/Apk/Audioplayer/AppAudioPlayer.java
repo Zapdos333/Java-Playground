@@ -6,14 +6,16 @@ import java.util.Arrays;
 class AudioPlayer {
 	//define Song Object
 	private class Song {
-		int nId;
-		String name;
-		int[] length;
-		ArrayList<Integer> fitsToId;
-		ArrayList<Integer> noFitId;
-		public Song(int index, String s_name, int lengthMin, int lengthSec) {
-			nId=index;
-			name=s_name;
+		int id;	//id as number in (play)list
+		String fName;	//file name
+		String fPath; //file path
+		int[] length; //array [sec,min]
+		ArrayList<Integer> fitsToId; //ArrayList of ids of Songs that fit
+		ArrayList<Integer> noFitId; //ArrayList of ids of Songs that don't fit
+		public Song(int index, String f_name, String f_path, int lengthMin, int lengthSec) {
+			id=index;
+			fName=f_name;
+			fPath=f_path;
 			length=new int[2];
 			length[0]=lengthSec;
 			length[1]=lengthMin;
