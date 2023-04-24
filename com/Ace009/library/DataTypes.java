@@ -18,25 +18,27 @@ class Circle {
 		center=f_Center;
 		radius=r;
 	}
-	public Coordinate positionDegrees(float degrees) {
-		float x;
-		float y;
+	public Coordinate positionDegrees(float degrees) throws Exception {
+		float deltax= 0;
+		float deltay= 0;
 		if (degrees%360 > 0) {
 			degrees= degrees-((degrees%360)*degrees);
 		}
 		if (degrees < 90) {
-			
+			deltax=radius*(float)Math.sin(degrees);
+			deltay=radius*(float)Math.cos(degrees);
 		} else if (degrees < 180) {
-			
+			deltay=radius*(float)Math.sin(degrees);
+			deltax=radius*(float)Math.cos(degrees);
 		} else if (degrees < 270) {
-			
+			deltax=radius*(float)Math.sin(degrees);
+			deltay=radius*(float)Math.cos(degrees);
 		} else if (degrees < 360) {
-			
+			deltay=radius*(float)Math.sin(degrees);
+			deltax=radius*(float)Math.cos(degrees);
 		} else {
 			throw new Exception("invalid degree number");
 		}
-	}
-	public static void main(String[] args) {
-
+		return new Coordinate(center.x+deltax,center.y+deltay);
 	}
 }
