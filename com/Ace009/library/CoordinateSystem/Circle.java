@@ -1,5 +1,7 @@
 package com.Ace009.library.CoordinateSystem;
 
+import java.util.List;
+
 class Circle {
 	Coordinate center;
 	float radius;
@@ -26,6 +28,13 @@ class Circle {
 			deltax=radius*(float)Math.cos(Math.toRadians(degrees));
 		}
 		return new Coordinate(center.x+deltax,center.y+deltay);
+	}
+	public List<Coordinate> construct(float interval) {
+		List<Coordinate> output = new List<Coordinate>;
+		for(float i=0; i<360;i=i+interval) {
+			output.add(this.positionDegrees(i));
+		}
+		return output;
 	}
 	public static void main(String[] args) {
 		System.out.println("Test program: ");
