@@ -1,6 +1,6 @@
 package com.Ace009.library.CoordinateSystem;
 
-import java.util.List;
+import java.util.ArrayList;
 
 class Circle {
 	Coordinate center;
@@ -13,7 +13,6 @@ class Circle {
 		float deltax= 0;
 		float deltay= 0;
 		degrees= degrees%360;
-		System.out.println("Debug:: "+Math.sin(degrees)+"; "+Math.cos(degrees));
 		if (degrees < 90) {
 			deltax=radius*(float)Math.sin(Math.toRadians(degrees));
 			deltay=radius*(float)Math.cos(Math.toRadians(degrees));
@@ -29,8 +28,8 @@ class Circle {
 		}
 		return new Coordinate(center.x+deltax,center.y+deltay);
 	}
-	public List<Coordinate> construct(float interval) {
-		List<Coordinate> output = new List<Coordinate>;
+	public ArrayList<Coordinate> construct(float interval) {
+		ArrayList<Coordinate> output = new ArrayList<Coordinate>();
 		for(float i=0; i<360;i=i+interval) {
 			output.add(this.positionDegrees(i));
 		}
@@ -38,7 +37,7 @@ class Circle {
 	}
 	public static void main(String[] args) {
 		System.out.println("Test program: ");
-		System.out.println("1: CenterX; 2: CenterY; 3: Radius; 4: Degrees");
+		System.out.println("1: CenterX; 2: CenterY; 3: Radius; 4: DegreesInterval");
 		float aX= Float.parseFloat(args[0]);
 		float aY= Float.parseFloat(args[1]);
 		float aR= Float.parseFloat(args[2]);
@@ -48,7 +47,7 @@ class Circle {
 		System.out.print(" CenterY="+test.center.y);
 		System.out.print(" Radius="+test.radius);
 		System.out.println(" Degrees="+(aD%360));
-		Coordinate result = test.positionDegrees(aD);
-		System.out.println("PosX="+result.x+" PosY="+result.y);
+		ArrayList<Coordinate> result = test.construct(aD);
+		System.out.println("");
 	}
 }
