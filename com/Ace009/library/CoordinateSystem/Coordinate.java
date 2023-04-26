@@ -4,9 +4,14 @@ class Coordinate {
 	public Coordinate(double f_x, double f_y) {
 		x=f_x;y=f_y;
 	}
+	public static double Distance(Coordinate pA, Coordinate pB) {
+		double deltax = pA.x-pB.x;
+		double deltay = pA.y-pB.y;
+		return Math.hypot(deltax,deltay);
+	}
 	@Override
 	public String toString() {
-		return "{x:"+this.x+", y:"+this.y+"}";
+		return "[x:"+this.x+", y:"+this.y+"]";
 	}
 	public boolean equals(Object o) {
 		if (o==this) {return true;}
