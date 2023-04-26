@@ -35,23 +35,22 @@ class Circle {
 		}
 		return output;
 	}
+	public ArrayList<Coordinate> constructPoly(int corners) {
+		return this.construct(360/corners);
+	}
 	public static void main(String[] args) {
 		System.out.println("Test program: ");
-		System.out.println("1: CenterX; 2: CenterY; 3: Radius; 4: DegreesInterval");
+		System.out.println("1: CenterX; 2: CenterY; 3: Radius; 4: Corners");
 		double aX= Double.parseDouble(args[0]);
 		double aY= Double.parseDouble(args[1]);
 		double aR= Double.parseDouble(args[2]);
-		double aD= Double.parseDouble(args[3]);
+		int aC= Integer.parseInt(args[3]);
 		Circle test = new Circle(new Coordinate(aX,aY),aR);
 		System.out.print("CenterX="+test.center.x);
 		System.out.print(" CenterY="+test.center.y);
 		System.out.print(" Radius="+test.radius);
-		System.out.println(" Degrees="+(aD%360));
-		ArrayList<Coordinate> result = test.construct(aD);
-		System.out.print("HashCodes:[");
-		result.forEach(element->{
-			System.out.print(element.hashCode()+", ");
-		});
-		System.out.println("]");
+		System.out.println(" Corners="+(aC));
+		ArrayList<Coordinate> result = test.constructPoly(aC);
+		System.out.println("Circle: "+result.toString());
 	}
 }
