@@ -2,6 +2,7 @@ package com.Ace009.Apk.Audioplayer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import com.Ace009.library.CMath;
 
 class AudioPlayer {
 	//define Song Object
@@ -20,11 +21,6 @@ class AudioPlayer {
 			length[0]=lengthSec;
 			length[1]=lengthMin;
 		}
-	}
-	//internal limited Int RNG
-	private static int limitedRandom(int min, int max) {
-		Double random=Math.random()*((max+1)-min)+min;
-		return random.intValue();
 	}
 	//debug Main function
 	public static void main(String[] args) {
