@@ -1,8 +1,8 @@
 # Package for Coordinate Systems
 `package com.Ace009.library.CoordinateSystem`
 
-1. [DataType `Coordinate`](https://github.com/Zapdos333/Java-Playground#datatype-coordinate)
-2. [Creating `"Circles"`](https://github.com/Zapdos333/Java-Playground#circles)
+1. [DataType `Coordinate`](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library/CoordinateSystem#datatype-coordinate)
+2. [Creating `"Circles"`](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library/CoordinateSystem#circles)
 
 ## Datatype Coordinate
 
