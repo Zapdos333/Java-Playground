@@ -21,11 +21,6 @@ class AudioPlayer {
 			length[1]=lengthMin;
 		}
 	}
-	//internal limited Int RNG
-	private static int limitedRandom(int min, int max) {
-		Double random=Math.random()*((max+1)-min)+min;
-		return random.intValue();
-	}
 	//debug Main function
 	public static void main(String[] args) {
 		for (int i = 1; i <= 15; i++) {
