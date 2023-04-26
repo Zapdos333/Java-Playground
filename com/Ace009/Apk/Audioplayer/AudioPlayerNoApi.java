@@ -5,8 +5,8 @@ import java.util.Arrays;
 import com.Ace009.library.CMath;
 
 class TrackManager {
-	ArrayList<Track> history=new ArrayList<Track>;
-	ArrayList<Track> playlist=new ArrayList<Track>;
+	ArrayList<Track> history=new ArrayList<Track>();
+	ArrayList<Track> playlist=new ArrayList<Track>();
 	//define Music Track Object
 	public class Track {
 		int id;	//id as number in (play)list
@@ -18,6 +18,8 @@ class TrackManager {
 		float amplification;
 		public Track(int index, String f_name, String f_path, int lengthMin, int lengthSec) {
 			amplification=1;
+			fitsToName=new ArrayList<String>();
+			noFitName=new ArrayList<String>();
 			id=index;
 			fName=f_name;
 			fPath=f_path;
@@ -30,8 +32,8 @@ class TrackManager {
 	public void reset(boolean full) {
 		if (full) {
 			playlist.forEach(element->{
-				element.fitsToName=ArrayList<String>;
-				element.noFitName=ArrayList<String>;
+				element.fitsToName=new ArrayList<String>();
+				element.noFitName=new ArrayList<String>();
 				element.amplification=1;
 			});
 		}
@@ -41,7 +43,7 @@ class TrackManager {
 	public static void main(String[] args) {
 		for (int i = 1; i <= 15; i++) {
 			System.out.println("Iteration: "+i);
-			System.out.println("Result: "+limitedRandom(10,20));
+			System.out.println("Result: "+CMath.limitedRandom(10,20));
 		}
 	}
 }
