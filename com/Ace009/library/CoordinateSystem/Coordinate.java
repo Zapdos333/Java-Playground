@@ -2,17 +2,18 @@ package com.Ace009.library.CoordinateSystem;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-//import java.util.stream.Stream;
 
-class Coordinate {
+final class Coordinate {
 	double x;double y;
 	public Coordinate(double f_x, double f_y) {
 		x=f_x;y=f_y;
 	}
 	public static double distance(Coordinate pA, Coordinate pB) {
-		double deltax = pA.x-pB.x;
-		double deltay = pA.y-pB.y;
+		double deltax = pA.x-pB.x; double deltay = pA.y-pB.y;
 		return Math.hypot(deltax,deltay);
+	}
+	public double distanceTo(Coordinate target) {
+		return distance(this,target);
 	}
 	public static double totalDistance(ArrayList<Coordinate> list,boolean polygon) {
 		double output=0;
