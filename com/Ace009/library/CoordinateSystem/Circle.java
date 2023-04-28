@@ -12,27 +12,16 @@ class Circle {
 	public Coordinate positionDegrees(double degrees) {
 		double deltax= 0;
 		double deltay= 0;
-		degrees= degrees%360;
-		if (degrees < 90) {
-			deltax=radius*Math.sin(Math.toRadians(degrees));
-			deltay=radius*Math.cos(Math.toRadians(degrees));
-		} else if (degrees < 180) {
-			deltay=radius*Math.sin(Math.toRadians(degrees));
-			deltax=radius*Math.cos(Math.toRadians(degrees));
-		} else if (degrees < 270) {
-			deltax=radius*Math.sin(Math.toRadians(degrees));
-			deltay=radius*Math.cos(Math.toRadians(degrees));
-		} else if (degrees < 360) {
-			deltay=radius*Math.sin(Math.toRadians(degrees));
-			deltax=radius*Math.cos(Math.toRadians(degrees));
-		}
+		degrees=degrees%360;
+		deltax=radius*Math.sin(Math.toRadians(degrees));
+		deltay=radius*Math.cos(Math.toRadians(degrees));
 		return new Coordinate(center.x+deltax,center.y+deltay);
 	}
 	public ArrayList<Coordinate> construct(double interval) {
 		ArrayList<Coordinate> output = new ArrayList<Coordinate>();
 		System.out.println("Debug, interval: "+interval);
 		if (interval<0) {interval=Math.abs(interval);}
-		if (interval=0) {interval=360;}
+		if (interval==0) {interval=360;}
 		if (interval>360) {interval=interval%360;}
 		while (true) {
 			try {
