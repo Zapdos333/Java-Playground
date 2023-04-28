@@ -17,11 +17,11 @@ final class Coordinate {
 	}
 	public static double totalDistance(ArrayList<Coordinate> list,boolean polygon) {
 		double output=0;
-		for (int i=0; i<list.size();i++) {
-			output=+distance(list.get(i),list.get(i+1));
+		for (int i=1; i<list.size();i++) {
+			output=output+distance(list.get(i-1),list.get(i));
 		}
 		if (polygon) {
-			output=+distance(list.get(list.size()-1),list.get(0));
+			output=output+distance(list.get(list.size()-1),list.get(0));
 		}
 		return output;
 	}
@@ -37,7 +37,7 @@ final class Coordinate {
 	}
 	@Override
 	public String toString() {
-		return "[x:"+this.x+", y:"+this.y+"]";
+		return "[x:"+this.x+",y:"+this.y+"]";
 	}
 	public boolean equals(Object o) {
 		if (o==this) {return true;}
