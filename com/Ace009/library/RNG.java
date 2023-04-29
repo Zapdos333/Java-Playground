@@ -37,7 +37,7 @@ public class RNG extends Random{
 		return seed;
 	}
 	public static void helpMain() {
-		//documentation output
+		//documentation output for main
 		System.out.println("Testing Function for Random Number generator");
 		System.out.println("first argument is for the amount of iterations");
 		System.out.println("second argument is the highest maximum number");
