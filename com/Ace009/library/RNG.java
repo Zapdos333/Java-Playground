@@ -8,10 +8,10 @@ public class RNG extends Random{
 		return this.nextInt(max - min + 1) + min;
 	}
 	public double limitedDoubleRandom(double min, double max) {
-		return this.nextDouble()*((max+1)-min)+min;
+		return this.nextDouble()*((max)-min)+min;
 	}
 	public float limitedFloatRandom(float min, float max) {
-		return this.nextFloat()*((max+1)-min)+min;
+		return this.nextFloat()*((max)-min)+min;
 	}
 	public long limitedLongRandom(long min, long max) {
 		//yes were cheesing this with a double 0-1, because Random.nextLong() is not limitable and doesn't give all the same chance
@@ -73,7 +73,7 @@ public class RNG extends Random{
 		//output requested random numbers
 		for (int i = 1; i <= limit; i++) {
 			System.out.println("Iteration: "+i);
-			System.out.println("Result: "+testRng.limitedLongRandom(0,max));
+			System.out.println("Result: "+testRng.limitedFloatRandom(0,max));
 		}
 	}
 }
