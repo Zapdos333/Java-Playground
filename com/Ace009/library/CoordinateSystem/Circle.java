@@ -9,6 +9,10 @@ class Circle {
 		center=f_Center;
 		radius=r;
 	}
+	public double circumferance() {
+		final double two=2;
+		return Math.PI*radius*two;
+	}
 	public Coordinate positionDegrees(double degrees) {
 		double deltax= 0;
 		double deltay= 0;
@@ -42,11 +46,11 @@ class Circle {
 		final double circ=360.0;
 		return this.construct(circ/(double)corners);
 	}
-	public static String getCircularity(ArrayList<Coordinate> polygon, double radius) {
+	public static double getCircularity(ArrayList<Coordinate> polygon, double radius) {
 		double circumferance= Coordinate.totalDistance(polygon,true);
-		final double two=2;
-		double circleU=Math.PI*radius*two;
-		return circumferance+"/"+circleU;
+		Circle temp=new Circle(0,0,radius);
+		double circleU=temp.circumferance();
+		return circumferance/circleU;
 	}
 	public static void main(String[] args) {
 		System.out.println("Test program: ");
@@ -62,7 +66,7 @@ class Circle {
 		ArrayList<Coordinate> result = test.constructPoly(aC);
 		//result= Coordinate.roundCoordList(result,(float)1);
 		System.out.println("Circle: "+result.toString());
-		System.out.println("Circluarity: "+getCircularity(result,test.radius));
+		System.out.println("Circluarity: "+test.circumferance()+"/"+Coordinate.totalDistance(result,true)+"="Circle.getCircularity(result,aR));
 		System.out.println("Corners: "+result.size());
 		/*CoordinateMap map= new CoordinateMap((int)aR*2,(int)aR*2);
 		map.inputList(result,"Circle");
