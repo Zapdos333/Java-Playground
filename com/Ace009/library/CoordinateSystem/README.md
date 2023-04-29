@@ -7,7 +7,7 @@
 
 ## Datatype Coordinate
 
-is a final class, supposed to be used as a property to easily store x and y coordinates
+is a final class, supposed to be used as a property to easily store x and y coordinates.
 
 ### Constructor
 
@@ -32,9 +32,9 @@ the `public static double totalDistance(ArrayList<Coordinate> list,boolean polyg
 ### Overrides
 
 the `equals(Object o)` method has been overridden to make different Instances with the same x and y values equal.
-(this also required overriding the `hashCode()` method)
+(this also required overriding the `hashCode()` method).
 
-the `toString()` method has been overridden to give a readable output,
+the `toString()` method has been overridden to give a readable output.
 
 
 ## Circles
@@ -50,7 +50,7 @@ the method `public Coordinate positionDegree(double degrees)` returns the Coordi
 
 
 ### Circumference
-the method `public double circumference()` return the circumference of the `Circle` instances radius
+the method `public double circumference()` return the circumference of the `Circle` instances radius.
 ```Java
 return Math.PI*radius*2;
 ```
@@ -79,7 +79,7 @@ the method `public static String getCircularity(ArrayList<Coordinate> polygon, d
 ### sub-class Position
 ***this sub-class in particular should only be used for testing purposes***
 
-has two properties, directly set by its constructor `public Position(Coordinate coords, Object cont)` .
+has two properties, directly set by its constructor `public Position(Coordinate coords, Object cont)`.
 ```Java
 Coordinate pos; Object content;
 public Position(Coordinate coords, Object cont) {
