@@ -48,7 +48,7 @@ class Circle {
 	}
 	public static double getCircularity(ArrayList<Coordinate> polygon, double radius) {
 		double circumferance= Coordinate.totalDistance(polygon,true);
-		Circle temp=new Circle(0,0,radius);
+		Circle temp=new Circle(new Coordinate(0,0),radius);
 		double circleU=temp.circumferance();
 		return circumferance/circleU;
 	}
@@ -66,7 +66,7 @@ class Circle {
 		ArrayList<Coordinate> result = test.constructPoly(aC);
 		//result= Coordinate.roundCoordList(result,(float)1);
 		System.out.println("Circle: "+result.toString());
-		System.out.println("Circluarity: "+test.circumferance()+"/"+Coordinate.totalDistance(result,true)+"="Circle.getCircularity(result,aR));
+		System.out.println("Circluarity: "+test.circumferance()+"/"+Coordinate.totalDistance(result,true)+"="+Circle.getCircularity(result,aR));
 		System.out.println("Corners: "+result.size());
 		/*CoordinateMap map= new CoordinateMap((int)aR*2,(int)aR*2);
 		map.inputList(result,"Circle");
