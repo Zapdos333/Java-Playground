@@ -1,4 +1,4 @@
-package com.Ace009.library;
+package com.Ace009.library.CClass;
 
 public class CMath {
 	public static int limitedRandom(int min, int max) {

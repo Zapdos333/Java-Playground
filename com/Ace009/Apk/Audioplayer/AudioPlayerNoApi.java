@@ -2,7 +2,7 @@ package com.Ace009.Apk.Audioplayer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import com.Ace009.library.CMath;
+import com.Ace009.library.CClass.CMath;
 
 class TrackManager {
 	ArrayList<Track> history=new ArrayList<Track>();
