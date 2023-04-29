@@ -15,9 +15,9 @@ public class RNG extends Random{
 	}
 	public long limitedLongRandom(long min, long max) {
 		//yes were cheesing this with a double 0-1, because Random.nextLong() is not limitable and doesn't give all the same chance
-		double preRN = 0.0;
-		preRN=this.nextDouble()*((max+1)-min)+min;
-		long rn = Long.parseLong(Double.toString(preRN).replaceAll("\\.|E",""));
+		double preRN=this.nextDouble();
+		long mult = ((max+1)-min)+min;
+		long rn = (long)(preRN*mult);
 		return rn;
 	}
 	public long rerollRandom(int length) { //Long max=9.223.372.036.854.775.808
@@ -36,14 +36,6 @@ public class RNG extends Random{
 		this.setSeed(seed);
 		return seed;
 	}
-	public static void help() {
-		System.out.println("The RNG class extends java.util.Random");
-		System.out.println("It adds multiple Functions: limitedIntRandom, limitedFloatRandom, limitedDoubleRandom and rerollRandom");
-		System.out.println("limited[Type]Random takes a minimum and maximum of [Type] and returns a random [Type] between the two(inclusive)");
-		System.out.println("rerollRandom takes an integer and creates a randomized long with the given length (caps at 18 digits)");
-		System.out.println("that long is then set as seed for the rng");
-		//System.out.println("");
-	}
 	public static void helpMain() {
 		//documentation output
 		System.out.println("Testing Function for Random Number generator");
@@ -54,12 +46,6 @@ public class RNG extends Random{
 	}
 	//debug Main function
 	public static void main(String[] args) {
-		if (args.length > 0 && args[0].matches("help|\\?")) {
-			help();
-			System.out.println("");
-			helpMain();
-			return;
-		}
 		RNG testRng= new RNG();
 		helpMain();
 		int limit;
@@ -87,7 +73,7 @@ public class RNG extends Random{
 		//output requested random numbers
 		for (int i = 1; i <= limit; i++) {
 			System.out.println("Iteration: "+i);
-			System.out.println("Result: "+testRng.limitedFloatRandom(0,max));
+			System.out.println("Result: "+testRng.limitedLongRandom(0,max));
 		}
 	}
 }
