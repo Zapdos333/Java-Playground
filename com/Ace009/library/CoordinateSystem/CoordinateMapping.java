@@ -5,7 +5,7 @@ import java.util.ArrayList;
 final class CoordinateMap {
 	ArrayList<ArrayList<Position>> map=new ArrayList<ArrayList<Position>>();
 	public class Position {
-		Coordinate pos ;Object content;
+		Coordinate pos; Object content;
 		public Position(Coordinate coords, Object cont) {
 			content=cont;pos=coords;
 		}
@@ -15,8 +15,10 @@ final class CoordinateMap {
 		}
 	}
 	public CoordinateMap (int sizeX, int sizeY) {
+		this.map.ensureCapacity(sizeY);
 		for (int i1=0; i1<sizeY; i1++) {
 			this.map.add(new ArrayList<Position>());
+			this.map.get(i1).ensureCapacity(sizeX);
 			for (int i2=0; i2<sizeX; i2++) {
 				this.map.get(i1).add(new Position(new Coordinate(i2,i1)," "));
 			}
