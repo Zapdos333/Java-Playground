@@ -12,7 +12,7 @@ extends `java.util.Random`.
 
 ### limited random methods
 
-`public T limited<T>Random(T min, T max)` returns a number of Type T that is between `min` and `max`
+`public T limited<T>Random(T min, T max)` returns a number of Type T that is between `min` and `max` (inclusive for `int` and `long`, exclusive for `float` and `double`)
 
 
 ### rerollSeed
