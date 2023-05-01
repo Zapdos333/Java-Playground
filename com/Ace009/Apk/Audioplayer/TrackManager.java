@@ -3,8 +3,9 @@ package com.Ace009.Apk.Audioplayer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import com.Ace009.library.CClass.CMath;
+import com.Ace009.library.CClass.CList;
 
-class TrackManager {
+public final class TrackManager {
 	ArrayList<Track> history=new ArrayList<Track>();
 	ArrayList<Track> playlist=new ArrayList<Track>();
 	//define Music Track Object
@@ -36,8 +37,19 @@ class TrackManager {
 				element.noFitName=new ArrayList<String>();
 				element.amplification=1;
 			});
+			playlist=new ArrayList<Track>();
 		}
 		history=new ArrayList<Track>();
+	}
+	public Track getNextTrack(Track currTrack) {
+		Track output;
+		if (CMath.limitedRandom(0,3)>1) {
+			String outputName=CList.getRandom(currTrack.fitsToName);
+			output=playlist.stream().filter(element->element.fName.equals(outputName)).findFirst().get();
+		} else {
+			output=CList.getRandom(playlist);
+		}
+		return output;
 	}
 	//debug Main method
 	public static void main(String[] args) {
