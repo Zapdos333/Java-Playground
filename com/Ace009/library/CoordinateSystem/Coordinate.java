@@ -26,7 +26,7 @@ final class Coordinate {
 		return output;
 	}
 	public static ArrayList<Coordinate> roundCoordList(ArrayList<Coordinate> list, float interval) {
-		ArrayList<Coordinate> output=new ArrayList<Coordinate>();
+		ArrayList<Coordinate> output=new ArrayList<>();
 		int i=0;
 		while (output.size()<list.size()) {
 			final double iteration=interval*i;

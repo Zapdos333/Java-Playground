@@ -22,7 +22,7 @@ class Circle {
 		return new Coordinate(center.x+deltax,center.y+deltay);
 	}
 	public ArrayList<Coordinate> construct(double interval) {
-		ArrayList<Coordinate> output = new ArrayList<Coordinate>();
+		ArrayList<Coordinate> output = new ArrayList<>();
 		System.out.println("Debug, interval: "+interval);
 		if (interval<0) {interval=Math.abs(interval);}
 		if (interval==0) {interval=360;}
