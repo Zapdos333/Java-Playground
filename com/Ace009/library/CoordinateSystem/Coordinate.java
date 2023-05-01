@@ -46,6 +46,9 @@ final class Coordinate {
 		return Double.compare(this.x,c.x)==0 && Double.compare(this.y,c.y)==0;
 	}
 	public int hashCode() {
-		return Double.hashCode(x)+Double.hashCode(y);
+		StringBuilder output = new StringBuilder();
+		output.append(this.x);
+		output.append(this.y);
+		return Integer.parseInt(output.toString());
 	}
 }
