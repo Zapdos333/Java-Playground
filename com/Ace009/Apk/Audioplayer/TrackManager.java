@@ -1,21 +1,20 @@
 package com.Ace009.Apk.Audioplayer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import com.Ace009.library.CClass.CMath;
 import com.Ace009.library.CClass.CList;
 
 public final class TrackManager {
-	ArrayList<Integer> history=new ArrayList<Integer>();	//list of ids in allTracks
-	ArrayList<Integer> playlist=new ArrayList<Integer>();	//""
-	ArrayList<Track> allTracks=new ArrayList<Track>();
+	ArrayList<Integer> history=new ArrayList<>();	//list of ids in allTracks
+	ArrayList<Integer> playlist=new ArrayList<>();	//""
+	ArrayList<Track> allTracks=new ArrayList<>();
 	//define Music Track Object
-	public class Track {
+	public static class Track {
 		String fName;	//file name
 		String fPath; //file path
 		int[] length; //array [sec,min]
-		ArrayList<Integer> fitsToId=new ArrayList<Integer>(); //ArrayList of allTrackIds of Tracks that fit
-		ArrayList<Integer> noFitId=new ArrayList<Integer>(); //ArrayList of allTrackIds of Tracks that don't fit
+		ArrayList<Integer> fitsToId=new ArrayList<>(); //ArrayList of allTrackIds of Tracks that fit
+		ArrayList<Integer> noFitId=new ArrayList<>(); //ArrayList of allTrackIds of Tracks that don't fit
 		float amplification;
 		public Track(String f_name, String f_path, int lengthMin, int lengthSec) {
 			//id is index in _allTracks_
@@ -31,13 +30,13 @@ public final class TrackManager {
 	public void reset(boolean full) {
 		if (full) {
 			allTracks.forEach(element->{
-				element.fitsToId=new ArrayList<String>();
-				element.noFitId=new ArrayList<String>();
+				element.fitsToId=new ArrayList<>();
+				element.noFitId=new ArrayList<>();
 				element.amplification=1;
 			});
-			playlist=new ArrayList<Integer>();
+			playlist=new ArrayList<>();
 		}
-		history=new ArrayList<Integer>();
+		history=new ArrayList< >();
 	}
 	//method to get a random next Track based on fits
 	public Track getNextTrack(Track currTrack) {
