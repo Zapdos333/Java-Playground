@@ -26,7 +26,7 @@ final class Coordinate {
 		return output;
 	}
 	public static ArrayList<Coordinate> roundCoordList(ArrayList<Coordinate> list, float interval) {
-		ArrayList<Coordinate> output=new ArrayList<Coordinate>();
+		ArrayList<Coordinate> output=new ArrayList<>();
 		int i=0;
 		while (output.size()<list.size()) {
 			final double iteration=interval*i;
@@ -46,6 +46,9 @@ final class Coordinate {
 		return Double.compare(this.x,c.x)==0 && Double.compare(this.y,c.y)==0;
 	}
 	public int hashCode() {
-		return Double.hashCode(x)+Double.hashCode(y);
+		StringBuilder output = new StringBuilder();
+		output.append(this.x);
+		output.append(this.y);
+		return Integer.parseInt(output.toString());
 	}
 }
