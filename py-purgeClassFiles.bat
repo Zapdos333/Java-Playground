@@ -1,2 +1,2 @@
-python purge_class.py
+py purge_class.py class
 pause
