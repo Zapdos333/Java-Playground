@@ -38,8 +38,7 @@ def recursiveScanRun(origin,task):
 				new_results.append(result)
 		results=scanPulseRun(new_results,scanned,task)
 		scanned.extend(results)
-		print("found in cycle: ",end="",flush=True)
-		print(results,sep=", \n",end="\n\n",flush=True)
+		print("found in cycle: ",results,sep=", \n",end="\n\n")
 		scanned=deduplicate(scanned)
 	print("\nrun complete")
 #default setup
