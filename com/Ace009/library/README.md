@@ -1,14 +1,17 @@
 # personal `library` package
 `package com.Ace009.library`
 
-0. [CoordinatSystem(see it's ReadMe)](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library/CoordinateSystem)
+packages (redirecting to their page):
+1. [CoordinatSystem](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library/CoordinateSystem)
+2. [CClass](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library/CClass)
+
+content:
 1. [RNG](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library#rng)
 2. [JavaConsole](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library#javaconsole)
-3. [CClass](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library/CClass)
 
 ## RNG
 
-extends `java.util.Random`.
+extends `java.util.Random`
 
 ### limited random methods
 
@@ -22,5 +25,5 @@ extends `java.util.Random`.
 
 ## JavaConsole
 
-**an _attempt_ at creating a console that exepts java method/commands via commandline. _unfinished_**
+**an _attempt_ at creating a console that exepts java methods/commands via commandline. _unfinished_ due to a lack of _`ScriptEngine`s_**
 
