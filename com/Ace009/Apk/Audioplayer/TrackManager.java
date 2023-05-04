@@ -9,7 +9,7 @@ public final class TrackManager {
 	ArrayList<Integer> playlist=new ArrayList<>();	//""
 	ArrayList<Track> allTracks=new ArrayList<>();
 	//define Music Track Object
-	public static class Track {
+	public final class Track {
 		String fName;	//file name
 		String fPath; //file path
 		int[] length; //array [sec,min]
