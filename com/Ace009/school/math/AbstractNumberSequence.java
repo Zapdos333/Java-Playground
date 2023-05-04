@@ -13,10 +13,10 @@ abstract public class AbstractNumberSequence extends ArrayList<Double> {
 		}
 	}
 	//should be overridden
-	private double calculateNext(double prev) {
+	protected double calculateNext(double prev) {
 		return prev+1;
 	}
-	private double calculateAt(int pos){
+	protected double calculateAt(int pos){
 		return pos;
 	}
 }
