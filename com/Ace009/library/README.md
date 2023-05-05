@@ -2,7 +2,7 @@
 `package com.Ace009.library`
 
 packages (redirecting to their page):
-1. [CoordinatSystem](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library/CoordinateSystem)
+1. [CoordinateSystem](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library/CoordinateSystem)
 2. [CClass](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library/CClass)
 
 content:
@@ -25,5 +25,6 @@ extends `java.util.Random`
 
 ## JavaConsole
 
-**an _attempt_ at creating a console that exepts java methods/commands via commandline. _unfinished_ due to a lack of _`ScriptEngine`s_**
+an *attempt* at creating a console that exepts java methods/commands via commandline. ***W.I.P.***
+<br/>imports `RhinoScriptEngine`
 

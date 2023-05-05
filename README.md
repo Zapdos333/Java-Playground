@@ -4,7 +4,7 @@ here I keep all personal code experimenting I do in my free time
 
 further documentation(`READMEs`) in subsequent folder
 
-if no documentation is present or documntation states it, things are work in progress or simply non-functional/abandoned
+if no documentation is present or documntation states it, things are work in progress or simply non-functional
 
 ## files in this(root) folder
 
@@ -17,8 +17,8 @@ runs `purge_class.py`
 ### `run.bat`:
 
 TL;DR: compilies, shows and then runs a java class with given arguments
-<br/>(has `com\ext\*` as addition to `class-path`)
 
+(has `com\ext\*` as addition to `class-path`)
 1. asks for sub-path from `\com\Ace009\`
 2. compiles `*.java` in that directory
 3. prints the directory content (to read the name and timestamp off `*.class`)
