@@ -1,3 +1,4 @@
 *.class
 *.jar
 *.lnk
+!rhino*.jar
