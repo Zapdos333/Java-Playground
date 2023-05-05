@@ -17,15 +17,16 @@ runs `purge_class.py`
 ### `run.bat`:
 
 TL;DR: compilies, shows and then runs a java class with given arguments
+<br/>(has `com\ext\*` as addition to `class-path`)
 
 1. asks for sub-path from `\com\Ace009\`
 2. compiles `*.java` in that directory
 3. prints the directory content (to read the name and timestamp off `*.class`)
-4. asks for name of class to run <br />
+4. asks for name of class to run <br/>
 &ensp;if the given classname is `\recompile`, jump back to `2.`
 5. asks for arguments (to main methods `String[] args`)
 6. runs given class with given arguments
-7. asks for further operation <br />
-&ensp;[C] to close the window <br />
-&ensp;[R] to jump to `2.` <br />
-&ensp;[S] to jump to `1.` <br />
+7. asks for further operation <br/>
+&ensp;[C] to close the window <br/>
+&ensp;[R] to jump to `2.` <br/>
+&ensp;[S] to jump to `1.` <br/>
