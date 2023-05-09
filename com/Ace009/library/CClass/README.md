@@ -16,5 +16,12 @@
 
 ### getRandom
 
-`public static <Type> Type getRandom(ArrayList<Type> list)` returns random entry of `list`.
+`public static <Type> Type getRandom(ArrayList<Type> list)` returns a random entry of `list`.
+
+
+## CString
+
+### formatToLength
+
+`public static String formatToLength(String input, int length)` returns a new `String`, which has at least the `length()` of `int length`.
 
