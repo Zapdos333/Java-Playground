@@ -1,6 +1,7 @@
 package com.Ace009.library.CClass;
 
-public class CString {
+final public class CString {
+	private CString() {}
 	public static String formatToLength(String input, int length) {
 		StringBuilder output=new StringBuilder(input);
 		output.ensureCapacity(length);
