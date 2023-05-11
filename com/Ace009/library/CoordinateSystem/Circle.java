@@ -34,12 +34,11 @@ class Circle {
 				interval=360/((360/interval)-1);
 				System.out.println("retry, interval: "+interval);
 				continue;
-			} finally {
-				for(int i=0; i*interval<360;i++) {
-					output.add(this.positionDegrees(i*interval));
-				}
-				return output;			
 			}
+			for(int i=0; i*interval<360;i++) {
+				output.add(this.positionDegrees(i*interval));
+			}
+			return output;
 		}
 	}
 	public ArrayList<Coordinate> constructPoly(int corners) {

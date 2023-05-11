@@ -19,7 +19,7 @@ abstract public class AbstractNumberSequence extends ArrayList<Double> {
 			i++;
 		}
 	}
-	protected void calculateNext(int amount, boolean next) {
+	protected void calculateNextAmount(int amount, boolean next) {
 		this.calculateNextTo(this.size()+amount,next);
 	}
 	//	should be overridden

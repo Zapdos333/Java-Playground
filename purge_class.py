@@ -47,6 +47,7 @@ test=re.compile("\.class")
 exclude=[".git"]
 if __name__ == "__main__":
 	import sys
-	test=re.compile("\."+sys.argv[1])
+	if len(sys.argv)>1:
+		test=re.compile("\."+sys.argv[1])
 	print(test)
 	recursiveScanRun(".",deletion)
