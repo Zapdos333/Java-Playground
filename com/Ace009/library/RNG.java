@@ -1,7 +1,6 @@
 package com.Ace009.library;
 
 import java.util.Random;
-import java.util.Arrays;
 
 public class RNG extends Random{
 	public int limitedIntRandom(int min, int max) {
