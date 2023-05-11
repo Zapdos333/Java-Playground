@@ -2,9 +2,6 @@
     "MD033":{
         "allowed_elements": ["sub","sup","br"]
     },
-    "MD013":{
-        "tables": false,
-        "line_length": 100
-    },
+    "MD013":false,
     "MD022":false
 }
