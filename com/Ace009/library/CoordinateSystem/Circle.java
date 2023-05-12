@@ -36,10 +36,11 @@ class Circle {
 	Coordinate center;
 	double radius;
 	/**
-	 * creates a circle with the given <code>center</code> and <code>radius</code,
+	 * creates a circle with the given <code>center</code> and <code>radius</code>,
 	 * calculations are the instances methods
 	 * @param f_Center
 	 * @param r
+	 * @see Circle
 	 */
 	public Circle(Coordinate f_Center, double r) {
 		center=f_Center;
@@ -99,7 +100,7 @@ class Circle {
 	 * simply runs <code>Circle.construct(double interval)</code> with <code>360/corners</code> as <code>interval</code>
 	 * @param corners int
 	 * @return <code>ArrayList</code> of <code>Coordinates</code>
-	 * @see Circle#construct(double)
+	 * @see #construct(double)
 	 */
 	public ArrayList<Coordinate> constructPoly(int corners) {
 		final double circ=360.0;
