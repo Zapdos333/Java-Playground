@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 final class Coordinate {
+	final public static class Int{
+		int x;int y;
+		public Int(int f_x,int f_y) {
+			x=f_x;y=f_y;
+		}
+	}
 	double x;double y;
 	public Coordinate(double f_x, double f_y) {
 		x=f_x;y=f_y;
