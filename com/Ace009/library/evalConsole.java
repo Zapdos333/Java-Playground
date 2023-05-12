@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import javax.script.ScriptEngine;
-import org.mozilla.javascript.engine.RhinoScriptEngine;
+//import org.mozilla.javascript.engine.RhinoScriptEngine;
 import org.mozilla.javascript.engine.RhinoScriptEngineFactory;
 
 public class evalConsole {
@@ -48,5 +48,6 @@ public class evalConsole {
 				e.printStackTrace();
 			}
 		}
+		//scanner.close();
 	}
 }
