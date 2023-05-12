@@ -42,9 +42,9 @@ def recursiveScanRun(origin,task):
 		scanned=deduplicate(scanned)
 	print("run complete")
 #default setup
-#when run from command line
 test=re.compile("\.class")
 exclude=[".git"]
+#when run from command line
 if __name__ == "__main__":
 	import sys
 	if len(sys.argv)>1:
