@@ -1,5 +1,5 @@
 # projects based on school-lessons/material
-`package com.Ace009.school.*`
+`package com.Ace009.non_library.school.*`
 
 ## math
 
