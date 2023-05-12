@@ -1,4 +1,15 @@
+# Ignore compiled Java-code
 *.class
 *.jar
-*.lnk
+
+#keep any java libraries
 !rhino*.jar
+
+#keep gradle
+!gradle/*/*
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
