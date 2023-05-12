@@ -9,7 +9,10 @@
 			"name": "Current File",
 			"request": "launch",
 			"mainClass": "${file}",
-			"classPaths": ["/","/com/ext"],
+			"classPaths": [
+				"/",
+				"/com/ext"
+			],
 			"args": "${command:SpecifyProgramArgs}",
 		}
 	]
