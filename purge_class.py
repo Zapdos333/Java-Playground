@@ -44,7 +44,7 @@ def recursiveScanRun(origin,task):
 #default setup
 test=re.compile("\.class")
 exclude=[".git"]
-#when run from command lien
+#when run from command line
 if __name__ == "__main__":
 	import sys
 	if len(sys.argv)>1:
