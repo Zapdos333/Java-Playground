@@ -26,7 +26,7 @@ final class Coordinate {
 	 * @param pA <code>Coordinate</code> point A
 	 * @param pB <code>Coordinate</code> point B
 	 * @return <code>double</code>: distance
-	 * @see Coordinate#distanceTo(Coordinate)
+	 * @see #distanceTo(Coordinate)
 	 */
 	public static double distance(Coordinate pA, Coordinate pB) {
 		double deltax = pA.x-pB.x; double deltay = pA.y-pB.y;
@@ -79,7 +79,7 @@ final class Coordinate {
 	 * returns the distance to the target <code>Coordinate</code>
 	 * @param target <code>Coordinate</code>
 	 * @return <code>double</code>: distance
-	 * @see Coordinate#distance(Coordinate, Coordinate)
+	 * @see #distance(Coordinate, Coordinate)
 	 */
 	public double distanceTo(Coordinate target) {
 		return distance(this,target);
