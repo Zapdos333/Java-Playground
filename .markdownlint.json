@@ -1,7 +1,8 @@
 {
     "MD033":{
-        "allowed_elements": ["sub","sup","br"]
+        "allowed_elements": ["sub","sup","br","details","summary"]
     },
     "MD013":false,
-    "MD022":false
+    "MD022":false,
+    "MD026":false
 }
