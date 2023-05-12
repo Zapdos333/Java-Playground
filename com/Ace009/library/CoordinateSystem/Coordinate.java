@@ -33,7 +33,7 @@ final class Coordinate {
 		return Math.hypot(deltax,deltay);
 	}/**
 	 * Returns the distance between all the coordinates in the list in the order they are in.
-	 * @param list <code>ArrayList<Coordinate></code>
+	 * @param list <code>ArrayList</code> of <code>Coordinates</code>
 	 * @param polygon <code>boolean</code> value indicating if the list is a polygon or not
 	 * @return <code>double</code>: distance
 	 * @see Circle
@@ -49,10 +49,10 @@ final class Coordinate {
 		return output;
 	}
 	/**
-	 * returns a new <code>ArrayList<Coordinate></code>, with the given <code>Coodinates</code> rounded to the given <code>interval</code>
-	 * @param list <code>ArrayList<Coordinate></code>
+	 * returns a new <code>ArrayList</code> of <code>Coordinates</code>, with the given <code>Coodinates</code> rounded to the given <code>interval</code>
+	 * @param list <code>ArrayList</code> of <code>Coordinates</code>
 	 * @param interval <code>float</code> value for rounding interval
-	 * @return <code>ArrayList<Coordinate></code> rounded to <code>interval</code>
+	 * @return <code>ArrayList</code> of <code>Coordinates</code> rounded to <code>interval</code>
 	 */
 	public static ArrayList<Coordinate> roundCoordList(ArrayList<Coordinate> list, float interval) {
 		ArrayList<Coordinate> output=new ArrayList<>();
@@ -70,6 +70,7 @@ final class Coordinate {
 	 * Simply stores <code>x</code> and <code>y</code> in the classes <code>doubles</code>
 	 * @param f_x
 	 * @param f_y
+	 * @see Coordinate
 	 */
 	public Coordinate(double f_x, double f_y) {
 		x=f_x;y=f_y;
@@ -83,21 +84,23 @@ final class Coordinate {
 	public double distanceTo(Coordinate target) {
 		return distance(this,target);
 	}
-	@Override
 	/**
 	 * returns a <code>String</code> representing the <code>Coordinate</code>,
-	 * e.g. "[x:1,y:2]"
+	 * for example: "[x:1,y:2]"
 	 * @return <code>String</code>: string representation of the <code>Coordinate</code>
 	 */
+	@Override
 	public String toString() {
 		return "[x:"+this.x+",y:"+this.y+"]";
 	}
+	@Override
 	public boolean equals(Object o) {
 		if (o==this) {return true;}
 		if (!(o instanceof Coordinate)) {return false;}
 		Coordinate c = (Coordinate) o;
 		return Double.compare(this.x,c.x)==0 && Double.compare(this.y,c.y)==0;
 	}
+	@Override
 	public int hashCode() {
 		StringBuilder output = new StringBuilder();
 		output.append(this.x);
