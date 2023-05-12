@@ -2,5 +2,10 @@
     "java.project.sourcePaths": [
         "com\\ext",
         "."
+    ],
+    "java.dependency.packagePresentation": "hierarchical",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.project.referencedLibraries": [
+        "com/ext/*.jar"
     ]
 }
