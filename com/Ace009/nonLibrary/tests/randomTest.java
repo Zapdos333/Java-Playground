@@ -1,4 +1,4 @@
-package com.Ace009.non_library.tests;
+package com.Ace009.nonLibrary.tests;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
