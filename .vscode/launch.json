@@ -5,15 +5,51 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "java",
-			"name": "Current File",
+			"name": "Python: Selected File",
+			"type": "python",
 			"request": "launch",
-			"mainClass": "${file}",
-			"classPaths": [
-				"/",
-				"/com/ext"
-			],
-			"args": "${command:SpecifyProgramArgs}",
+			"program": "${input:file}",
+			"justMyCode": true,
+			"args": "${input:arguments}",
+		},
+		{
+			"type": "java",
+			"name": "Java: Selected File",
+			"request": "launch",
+			"mainClass": "${input:class}",
+			"args": "${input:arguments}",
+			"stepFilters": {
+				"skipClasses": [
+					"org.mozilla.*"
+				],
+				"skipSynthetics": false,
+				"skipStaticInitializers": false,
+				"skipConstructors": false
+			},
+			"stopOnEntry": true,
+		}
+	],
+	"inputs": [
+		{
+			"id": "arguments",
+			"type": "promptString",
+			"default": "",
+			"description": "arguments for the file",
+			"password": false,
+		},
+		{
+			"id": "class",
+			"type": "promptString",
+			"default": "com.Ace009.",
+			"description": "path to the class",
+			"password": false,
+		},
+		{
+			"id": "file",
+			"type": "promptString",
+			"default": "",
+			"description": "file to run with path",
+			"password": false,
 		}
 	]
 }
