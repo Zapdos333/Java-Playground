@@ -2,6 +2,10 @@ package com.Ace009.library.CoordinateSystem;
 
 import java.util.ArrayList;
 
+/**
+ * class to represent/calculate a Circle
+ * @author Ace009
+ */
 class Circle {
 	/**
 	 * returns the quotient of the totalDistance of the <code>polygon</code> over the circumferance of a circle with the given <code>radius</code>,

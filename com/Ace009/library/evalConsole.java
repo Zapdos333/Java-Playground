@@ -8,8 +8,17 @@ import javax.script.ScriptEngine;
 //import org.mozilla.javascript.engine.RhinoScriptEngine;
 import org.mozilla.javascript.engine.RhinoScriptEngineFactory;
 
+/**
+ * a class defining a console 
+ * @author Ace009
+ */
 public class evalConsole {
-	//base on: from "https://www.oracle.com/technical-resources/articles/javase/scripting.html"
+	/**
+	 * prints out all available script engines,
+	 * currently usning RhinoScriptEngine,
+	 * script copied from
+	 * <a href="https://www.oracle.com/technical-resources/articles/javase/scripting.html">here</a>
+	 */
 	public static void check() {
 		RhinoScriptEngineFactory factory=new RhinoScriptEngineFactory();
 		//for (RhinoScriptEngineFactory factory: factories) {
