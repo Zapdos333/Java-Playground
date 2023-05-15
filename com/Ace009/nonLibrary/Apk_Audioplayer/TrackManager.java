@@ -5,9 +5,6 @@ import com.Ace009.library.CClass.CMath;
 import com.Ace009.library.CClass.CList;
 
 public final class TrackManager {
-	ArrayList<Integer> history=new ArrayList<>();	//list of ids in allTracks
-	ArrayList<Integer> playlist=new ArrayList<>();	//""
-	ArrayList<Track> allTracks=new ArrayList<>();
 	//define Music Track Object
 	public final class Track {
 		String fName;	//file name
@@ -26,6 +23,16 @@ public final class TrackManager {
 			length[1]=lengthMin;
 		}
 	}
+	//debug Main method
+	public static void main(String[] args) {
+		for (int i = 1; i <= 15; i++) {
+			System.out.println("Iteration: "+i);
+			System.out.println("Result: "+CMath.limitedRandom(10,20));
+		}
+	}
+	ArrayList<Integer> history=new ArrayList<>();	//list of ids in allTracks
+	ArrayList<Integer> playlist=new ArrayList<>();	//""
+	ArrayList<Track> allTracks=new ArrayList<>();
 	//reset playlist method
 	public void reset(boolean full) {
 		if (full) {
@@ -57,13 +64,6 @@ public final class TrackManager {
 			case -1:
 				allTracks.get(currTrack).noFitId.add(playlist.get(nextTrack));
 				break;
-		}
-	}
-	//debug Main method
-	public static void main(String[] args) {
-		for (int i = 1; i <= 15; i++) {
-			System.out.println("Iteration: "+i);
-			System.out.println("Result: "+CMath.limitedRandom(10,20));
 		}
 	}
 }
