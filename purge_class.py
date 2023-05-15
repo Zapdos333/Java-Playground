@@ -43,7 +43,7 @@ def recursiveScanRun(origin,task):
 	print("run complete")
 #default setup
 test=re.compile("\.class")
-exclude=[".git"]
+exclude=[".git",".venb",".vscode"]
 #when run from command line
 if __name__ == "__main__":
 	import sys
