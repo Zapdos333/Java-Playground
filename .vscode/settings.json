@@ -8,4 +8,5 @@
 	"java.project.referencedLibraries": [
 		"com/ext/*.jar"
 	],
+	"java.debug.settings.vmArgs": "-ea",
 }

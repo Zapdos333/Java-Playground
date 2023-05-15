@@ -1,4 +1,4 @@
-package com.Ace009.non_library.school.math;
+package com.Ace009.nonLibrary.school.math;
 
 import java.util.ArrayList;
 
