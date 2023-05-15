@@ -8,7 +8,7 @@
 			"name": "Python: Selected File",
 			"type": "python",
 			"request": "launch",
-			"program": "${input:file}",
+			"program": "${input:pythonFile}",
 			"justMyCode": true,
 			"args": "${input:arguments}",
 		},
@@ -45,7 +45,7 @@
 			"password": false,
 		},
 		{
-			"id": "file",
+			"id": "pythonFile",
 			"type": "promptString",
 			"default": "",
 			"description": "file to run with path",
