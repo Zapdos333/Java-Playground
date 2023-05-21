@@ -8,18 +8,7 @@ import java.util.stream.Collectors;
  * stores {@code x} and {@code y} values as {@code doubles}
  * @author Ace009
  */
-public class DoubleCoordinate implements Coordinate {
-	/**
-	 * returns the distance between the two coordinates
-	 * @param pA {@code Coordinate} point A
-	 * @param pB {@code Coordinate} point B
-	 * @return {@code double}: distance
-	 * @see #distanceTo(Coordinate)
-	 */
-	public static double distance(DoubleCoordinate pA, DoubleCoordinate pB) {
-		double deltax = pA.x-pB.x; double deltay = pA.y-pB.y;
-		return Math.hypot(deltax,deltay);
-	}
+public class DoubleCoordinate extends Coordinate {
 	/**
 	 * Returns the distance between all the coordinates in the list in the order they are in.
 	 * @param list {@code ArrayList} of {@code Coordinates}
@@ -62,7 +51,19 @@ public class DoubleCoordinate implements Coordinate {
 	 * @see Coordinate
 	 */
 	public DoubleCoordinate(double f_x, double f_y) {
+		super();
 		x=f_x;y=f_y;
+	}
+	/**
+	 * returns the distance between the two coordinates
+	 * @param pA {@code Coordinate} point A
+	 * @param pB {@code Coordinate} point B
+	 * @return {@code double}: distance
+	 * @see #distanceTo(Coordinate)
+	 */
+	public static double distance(IntCoordinate pA,IntCoordinate pB) {
+		double deltax = pA.x-pB.x; double deltay = pA.y-pB.y;
+		return Math.hypot(deltax,deltay);
 	}
 	/**
 	 * returns the distance to the target {@code Coordinate}
@@ -73,27 +74,11 @@ public class DoubleCoordinate implements Coordinate {
 	public double distanceTo(DoubleCoordinate target) {
 		return distance(this,target);
 	}
-	/**
-	 * returns a {@code String} representing the {@code Coordinate},
-	 * for example: "[x:1,y:2]"
-	 * @return {@code String}: string representation of the {@code Coordinate}
-	 */
-	@Override
-	public String toString() {
-		return "[x:"+this.x+",y:"+this.y+"]";
-	}
 	@Override
 	public boolean equals(Object o) {
 		if (o==this) {return true;}
 		if (!(o instanceof DoubleCoordinate)) {return false;}
 		DoubleCoordinate c = (DoubleCoordinate) o;
 		return Double.compare(this.x,c.x)==0 && Double.compare(this.y,c.y)==0;
-	}
-	@Override
-	public int hashCode() {
-		StringBuilder output = new StringBuilder();
-		output.append(this.x);
-		output.append(this.y);
-		return Integer.parseInt(output.toString());
-	}
+	};
 }
