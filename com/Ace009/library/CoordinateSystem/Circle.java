@@ -14,9 +14,9 @@ public class Circle {
 	 * @param radius
 	 * @return 
 	 */
-	public static double getCircularity(ArrayList<Coordinate> polygon, double radius) {
-		double circumferance= Coordinate.totalDistance(polygon,true);
-		Circle temp=new Circle(new Coordinate(0,0),radius);
+	public static double getCircularity(ArrayList<DoubleCoordinate> polygon, double radius) {
+		double circumferance= DoubleCoordinate.totalDistance(polygon,true);
+		Circle temp=new Circle(new DoubleCoordinate(0,0),radius);
 		double circleU=temp.circumferance();
 		return circumferance/circleU;
 	}
@@ -27,17 +27,16 @@ public class Circle {
 		double aX= 5;
 		double aY= 5;
 		double aR= 5;
-		Circle test = new Circle(new Coordinate(aX,aY),aR);
+		Circle test = new Circle(new DoubleCoordinate(aX,aY),aR);
 		System.out.print("CenterX="+test.center.x);
 		System.out.print(" CenterY="+test.center.y);
 		System.out.println(" Radius="+test.radius);
-		ArrayList<Coordinate> result = test.constructPoly(aC);
-		//result= Coordinate.roundCoordList(result,(float)1);
+		ArrayList<DoubleCoordinate> result = test.constructPoly(aC);
 		System.out.println("Circle: "+result.toString());
-		System.out.println("Circluarity: "+test.circumferance()+"/"+Coordinate.totalDistance(result,true)+"="+Circle.getCircularity(result,aR));
+		System.out.println("Circluarity: "+test.circumferance()+"/"+DoubleCoordinate.totalDistance(result,true)+"="+Circle.getCircularity(result,aR));
 		System.out.println("Corners: "+result.size());
 	}
-	Coordinate center;
+	DoubleCoordinate center;
 	double radius;
 	/**
 	 * creates a circle with the given <code>center</code> and <code>radius</code>,
@@ -46,7 +45,7 @@ public class Circle {
 	 * @param r
 	 * @see Circle
 	 */
-	public Circle(Coordinate f_Center, double r) {
+	public Circle(DoubleCoordinate f_Center, double r) {
 		center=f_Center;
 		radius=r;
 	}
@@ -64,13 +63,13 @@ public class Circle {
 	 * @param degrees double
 	 * @return the <code>Coordinates</code> of the <code>degrees</code> position on the <code>Circle</code>
 	 */
-	public Coordinate positionDegrees(double degrees) {
+	public DoubleCoordinate positionDegrees(double degrees) {
 		double deltax= 0;
 		double deltay= 0;
 		degrees=degrees%360;
 		deltax=radius*Math.sin(Math.toRadians(degrees));
 		deltay=radius*Math.cos(Math.toRadians(degrees));
-		return new Coordinate(center.x+deltax,center.y+deltay);
+		return new DoubleCoordinate(center.x+deltax,center.y+deltay);
 	}
 	/**
 	 * returns a <code>ArrayList</code> of <code>Coordinates</code> using <code>Circle.positionDegrees</code>,
@@ -78,8 +77,8 @@ public class Circle {
 	 * @param interval double
 	 * @return <code>ArrayList</code> of <code>Coordinates</code> with all <code>Coordinates</code> on <code>Circle</code>
 	 */
-	public ArrayList<Coordinate> construct(double interval) {
-		ArrayList<Coordinate> output = new ArrayList<>();
+	public ArrayList<DoubleCoordinate> construct(double interval) {
+		ArrayList<DoubleCoordinate> output = new ArrayList<>();
 		System.out.println("Debug, interval: "+interval);
 		if (interval<0) {interval=Math.abs(interval);}
 		if (interval>360) {interval=interval%360;}
@@ -106,7 +105,7 @@ public class Circle {
 	 * @return <code>ArrayList</code> of <code>Coordinates</code>
 	 * @see #construct(double)
 	 */
-	public ArrayList<Coordinate> constructPoly(int corners) {
+	public ArrayList<DoubleCoordinate> constructPoly(int corners) {
 		final double circ=360.0;
 		return this.construct(circ/(double)corners);
 	}
