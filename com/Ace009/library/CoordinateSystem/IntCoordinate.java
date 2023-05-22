@@ -10,31 +10,21 @@ import java.util.stream.Collectors;
  * @see Coordinate
  */
 
-class IntCoordinate extends Coordinate{
+class IntCoordinate implements Coordinate{
 	int x;int y;
-	/**
-	 * Simply stores {@code x} and {@code y} in the classes {@code ints}
-	 * @param f_x
-	 * @param f_y
-	 */
 	public IntCoordinate(int f_x,int f_y) {
 		x=f_x;y=f_y;
 	}
-	/**
-	 * converts the input {@code DoubleCoordinate} to a new {@code IntCoordinate}
-	 * @param coord
-	 */
 	public IntCoordinate(DoubleCoordinate coord){
-		int f_x=(int)Math.round(coord.x);
-		int f_y=(int)Math.round(coord.y);
-		x=f_x;y=f_y;
+		x=(int)Math.round(coord.x);
+		y=(int)Math.round(coord.y);
 	}
 	/**
-	 * returns the distance between the two coordinates
-	 * @param pA {@code Coordinate} point A
-	 * @param pB {@code Coordinate} point B
-	 * @return {@code double}: distance
-	 * @see #distanceTo(Coordinate)
+	 * Integer implementation of {@code Coordinate.distance}
+	 * @param pA {@code CoordinateInt} point A
+	 * @param pB {@code CoordinateInt} point B
+	 * @return {@code double}: distance between given points
+	 * @see Coordinate#distance(Coordinate, Coordinate)
 	 */
 	public static double distance(IntCoordinate pA,IntCoordinate pB) {
 		double deltax = pA.x-pB.x; double deltay = pA.y-pB.y;
@@ -85,10 +75,21 @@ class IntCoordinate extends Coordinate{
 		return IntCoordinate.toCoordinate(this);
 	}
 	@Override
+	public String toString() {
+		return "[x:"+this.x+",y:"+this.y+"]";
+	}
+	@Override
 	public boolean equals(Object o) {
 		if (o==this) {return true;}
 		if (!(o instanceof IntCoordinate)) {return false;}
 		IntCoordinate c = (IntCoordinate) o;
 		return Integer.compare(this.x,c.x)==0 && Integer.compare(this.y,c.y)==0;
+	}
+	@Override
+	public int hashCode() {
+		StringBuilder output = new StringBuilder();
+		output.append(this.x);
+		output.append(this.y);
+		return Integer.parseInt(output.toString());
 	}
 }
