@@ -17,14 +17,14 @@ final class CoordinateMap {
 	 * @see Coordinate
 	 */
 	public static class Position {
-		Coordinate pos; Object content;
+		DoubleCoordinate pos; Object content;
 		/**
 		 * creates an instance of <code>Position</code>
 		 * @param coords the <code>Coordinate</code>
 		 * @param cont the content <code>Object</code>
 		 * @see Position
 		 */
-		public Position(Coordinate coords, Object cont) {
+		public Position(DoubleCoordinate coords, Object cont) {
 			content=cont;pos=coords;
 		}
 		/**
@@ -50,7 +50,7 @@ final class CoordinateMap {
 			this.map.add(new ArrayList<>());
 			this.map.get(i1).ensureCapacity(sizeX);
 			for (int i2=0; i2<sizeX; i2++) {
-				this.map.get(i1).add(new Position(new Coordinate(i2,i1)," "));
+				this.map.get(i1).add(new Position(new DoubleCoordinate(i2,i1)," "));
 			}
 		}
 	}
@@ -60,10 +60,10 @@ final class CoordinateMap {
 	 * @param list an <code>ArrayList</code> of <code>Coordinate</code>
 	 * @param f_content an <code>Object</code> used as content
 	 */
-	public void inputList(ArrayList<Coordinate> list,Object f_content) {
-		for (Coordinate pos: list) {
+	public void inputList(ArrayList<DoubleCoordinate> list,Object f_content) {
+		for (DoubleCoordinate pos: list) {
 			this.map.get((int)pos.y).get((int)pos.x).content=f_content;
-			Coordinate coord=map.get((int)pos.y).get((int)pos.x).pos;
+			DoubleCoordinate coord=map.get((int)pos.y).get((int)pos.x).pos;
 			if (!(pos.x==coord.x)) {
 				System.out.println("unequal x");
 			} if (!(pos.y==coord.y)) {

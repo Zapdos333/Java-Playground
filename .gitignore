@@ -1,4 +1,9 @@
+#compiled java
 *.class
 *.jar
+
+#librarys
 !rhino*.jar
+
+#vscode
 .venv
