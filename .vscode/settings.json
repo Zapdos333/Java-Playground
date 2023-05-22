@@ -9,4 +9,8 @@
 		"com/ext/*.jar"
 	],
 	"java.debug.settings.vmArgs": "-ea",
+	"files.exclude": {
+		".history": true
+	},
+	"explorerExclude.backup": {},
 }
