@@ -38,8 +38,8 @@ public class Range extends ArrayList<Integer> {
 	}
 	/**
 	 * create an {@code ArrayList<Integer>} with the first element being {@code start}
-	 * adding {@code steps} and adding it to the listt each iteration, until it reaches {@code stop},
-	 * {@code (stop-start)%steps} should be 0
+	 * adding {@code steps} and adding it to the list each iteration,
+	 * before(exclusive) it reaches {@code stop}
 	 * @param start starting integer
 	 * @param stop end integer
 	 * @param steps integer step in each iteration
