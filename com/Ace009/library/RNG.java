@@ -1,6 +1,7 @@
 package com.Ace009.library;
 
 import java.util.Random;
+import com.Ace009.library.Range;
 
 /**
  * a random number generator,
@@ -42,7 +43,7 @@ public class RNG extends Random{
 		//reroll for seed
 		System.out.println("new Seed is: "+testRng.rerollRandom(seedLength));
 		//output requested random numbers
-		for (int i = 1; i <= limit; i++) {
+		for (int i : new Range(1,limit+1)) {
 			System.out.println("Iteration: "+i);
 			System.out.println("Result: "+testRng.limitedFloatRandom(0,max));
 		}
@@ -103,7 +104,7 @@ public class RNG extends Random{
 		StringBuilder outputS=new StringBuilder();
 		Long output;
 		if (length>18) {length=18;}
-		for (int i = 0; i<length; i++) {
+		for (int i : Range.arrayRange(length)) {
 			outputS.append(limitedIntRandom(0,9));
 		}
 		if (this.nextBoolean()) {

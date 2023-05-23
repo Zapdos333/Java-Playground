@@ -46,7 +46,7 @@ public class Range extends ArrayList<Integer> {
 	 * @return {@code ArrayList<Integer>} containing the specified {@code Integers}
 	 */
 	public Range(int start, int stop, int steps) {
-		this.ensureCapacity(stop-start);
+		this.ensureCapacity((stop-start)/steps);
 		for (int i = start; i < stop; i+=steps) {
 			this.add(i);
 		}
@@ -83,10 +83,24 @@ public class Range extends ArrayList<Integer> {
 	 * @return an {@code int array} containing the specified {@code int}
 	 */
 	public static int[] arrayRange(int start, int stop, int steps) {
-		int[] output = new int[stop-start];
+		int[] output = new int[(stop-start)/steps];
 		for (int i = start; i < stop; i+=steps) {
 			output[(i-start)/steps] = i;
 		}
 		return output;
+	}
+	public static void main(String[] args) {
+		assert args.length > 0 : "No arguments";
+		int start=0; int stop=0; int step=1;
+		for (int i : new Range(args.length)) {
+			switch (i) {
+				case 0:stop=Integer.parseInt(args[0]); break;
+				case 1:start=Integer.parseInt(args[1]); break;
+				case 2:step=Integer.parseInt(args[2]); break;
+			}
+		}
+		for (int i : Range.arrayRange(start, stop, step)) {
+			System.out.println(i);
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.Ace009.nonLibrary.tests;
 
+import com.Ace009.library.Range;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import com.Ace009.library.CClass.CString;
@@ -25,7 +26,7 @@ final class randomTest {
 	public static ArrayList<Value> newValues(int maxTarget) {
 		int nr=0;
 		ArrayList<Value> output=new ArrayList<>();
-		for (int i2=1; i2<=maxTarget; i2++) {
+		for (int i2 : Range.arrayRange(1, maxTarget+1)) {
 			int i1=0;
 			while (nr!=i2) {
 				i1++;
@@ -51,13 +52,12 @@ final class randomTest {
 		return output.toString();
 	}
 	public static void main(String[] args) throws AssertionError {
-		if (args.length<2) {
+		if (args.length<2||args.length<1) {
 			throw new AssertionError("not sufficient arguments given");
 		}
 		int target=Integer.parseInt(args[0]);
 		int iterations=Integer.parseInt(args[1]);
-		int i3=0;
-		while (i3<iterations) {
+		for (int i3 : Range.arrayRange(iterations)) {
 			final int iter=i3;
 			list.addAll(newValues(target).stream().map(e -> new Value(iter,e.i2,e.nr)).collect(Collectors.toList()));
 			i3++;
