@@ -9,10 +9,6 @@ import java.util.Scanner;
  * @see #Args(String, String...) constuctor(String type, String...args)
  */
 public class Args {
-	/** internal variable for the console input */
-	private static Scanner scanner;
-	/** internal variable for the {@code String} returned by the {@code scanner} */
-	private static String input;
 	/** copy of {@code args} */
 	String[] Sargs;
 	/** {@code int} output array */
@@ -48,7 +44,8 @@ public class Args {
 				case "float": outputFloat = new float[args.length]; break;
 				case "double": outputDouble = new double[args.length]; break;
 			}
-		scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
+		String input;
 		for (int i : new Range(args.length)) {
 			input = "";
 			System.out.print(args[i] + ":");
@@ -61,6 +58,5 @@ public class Args {
 				case "double": outputDouble[i] = Double.parseDouble(input); break;
 			}
 		}
-		scanner.close();
 	}
 }
