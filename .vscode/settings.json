@@ -1,7 +1,13 @@
 {
+	"java.dependency.packagePresentation": "hierarchical",
+	"java.configuration.updateBuildConfiguration": "automatic",
 	//java.project configuration
 	"java.project.sourcePaths": [
+		"com/ext",
 		"."
+	],
+	"java.project.referencedLibraries": [
+		"com/ext/*.jar"
 	],
 	"java.project.resourceFilters": [
 		"\\.git",
@@ -9,18 +15,11 @@
 		"\\.history"
 	],
 	"java.project.exportJar.targetPath": "${workspaceFolder}/bin-jar/${workspaceFolderBasename}.jar",
+	"java.project.explorer.showNonJavaResources": true,
 	//
-	"java.dependency.packagePresentation": "hierarchical",
-	"java.configuration.updateBuildConfiguration": "automatic",
 	"java.debug.settings.vmArgs": "-ea",
 	"files.exclude": {
-		"**/.git": true,
-		"**/.svn": true,
-		"**/.hg": true,
-		"**/CVS": true,
-		"**/.DS_Store": true,
-		"**/Thumbs.db": true,
 		".history": true
 	},
-	"explorerExclude.backup": {},
+	"explorerExclude.backup": {}
 }

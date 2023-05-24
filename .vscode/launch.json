@@ -19,6 +19,9 @@
 			"mainClass": "${input:class}",
 			"args": "${input:arguments}",
 			"stepFilters": {
+				"skipClasses": [
+					"org.mozilla.*"
+				],
 				"skipSynthetics": false,
 				"skipStaticInitializers": false,
 				"skipConstructors": false
