@@ -69,7 +69,6 @@ public class Args {
 	 * @param type {@code String} number type
 	 */
 	public void parseAsType(String type) {
-		if (type==createdType) {return;}
 		switch (type.toLowerCase()) {
 			case "int": outputInt = new int[output.length]; break;
 			case "long": outputLong = new long[output.length]; break;
