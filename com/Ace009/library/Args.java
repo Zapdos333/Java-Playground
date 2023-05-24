@@ -35,6 +35,7 @@ public class Args {
 	 * @see #outputDouble {@code outputDouble} double[]
 	 * @see #Sargs {@code Sargs} String[] (copy of {@code args})
 	 */
+	@SuppressWarnings("resource")
 	public Args(String type, String...args) {
 		Sargs = args;
 		output = new String[args.length];

@@ -37,6 +37,7 @@ public class evalConsole {
 					langName, langVersion);
 		//}
 	}
+	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		if (args.length>0 && (Arrays.toString(args).contains("info"))) {
 			check();
