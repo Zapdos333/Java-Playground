@@ -18,7 +18,7 @@ public class Range extends ArrayList<Integer> {
 	 * @see #Range(int,int,int)
 	 */
 	public Range(int stop) {
-		this.ensureCapacity(stop);
+		this.ensureCapacity(stop+1);
 		for (int i = 0; i < stop; i++) {
 			this.add(i);
 		}
@@ -32,7 +32,7 @@ public class Range extends ArrayList<Integer> {
 	 * @see #Range(int,int,int)
 	 */
 	public Range(int start, int stop) {
-		this.ensureCapacity(stop-start);
+		this.ensureCapacity(1+stop-start);
 		for (int i = start; i < stop; i++) {
 			this.add(i);
 		}
@@ -47,7 +47,7 @@ public class Range extends ArrayList<Integer> {
 	 * @return {@code ArrayList<Integer>} containing the specified {@code Integers}
 	 */
 	public Range(int start, int stop, int steps) {
-		this.ensureCapacity((stop-start)/steps);
+		this.ensureCapacity(((stop-start)/steps)+1);
 		for (int i = start; i < stop; i+=steps) {
 			this.add(i);
 		}
@@ -84,7 +84,7 @@ public class Range extends ArrayList<Integer> {
 	 * @return an {@code int array} containing the specified {@code int}
 	 */
 	public static int[] arrayRange(int start, int stop, int steps) {
-		int[] output = new int[(stop-start)/steps];
+		int[] output = new int[((stop-start)/steps)+1];
 		for (int i = start; i < stop; i+=steps) {
 			output[(i-start)/steps] = i;
 		}
