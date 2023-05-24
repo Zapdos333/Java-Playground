@@ -1,17 +1,26 @@
 {
+	//java.project configuration
 	"java.project.sourcePaths": [
-		"com/ext",
 		"."
 	],
+	"java.project.resourceFilters": [
+		"\\.git",
+		"\\.venv",
+		"\\.history"
+	],
+	"java.project.exportJar.targetPath": "${workspaceFolder}/bin-jar/${workspaceFolderBasename}.jar",
+	//
 	"java.dependency.packagePresentation": "hierarchical",
 	"java.configuration.updateBuildConfiguration": "automatic",
-	"java.project.referencedLibraries": [
-		"com/ext/*.jar"
-	],
 	"java.debug.settings.vmArgs": "-ea",
 	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/Thumbs.db": true,
 		".history": true
 	},
 	"explorerExclude.backup": {},
-	"java.debug.settings.onBuildFailureProceed": true,
 }
