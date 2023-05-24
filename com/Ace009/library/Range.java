@@ -1,6 +1,7 @@
 package com.Ace009.library;
 
 import java.util.ArrayList;
+//import com.Ace009.library.Args;
 
 /**
  * class to create Lists or Arrays that work like pythons for(i in range(x)),
@@ -90,16 +91,11 @@ public class Range extends ArrayList<Integer> {
 		return output;
 	}
 	public static void main(String[] args) {
-		assert args.length > 0 : "No arguments";
-		int start=0; int stop=0; int step=1;
-		for (int i : new Range(args.length)) {
-			switch (i) {
-				case 0:stop=Integer.parseInt(args[0]); break;
-				case 1:start=Integer.parseInt(args[1]); break;
-				case 2:step=Integer.parseInt(args[2]); break;
-			}
-		}
-		for (int i : Range.arrayRange(start, stop, step)) {
+		Args arguments = new Args("int", "Stop","Start","Steps");
+		int start = arguments.outputInt[1];
+		int stop = arguments.outputInt[0];
+		int steps = arguments.outputInt[2];
+		for (int i : Range.arrayRange(start, stop, steps)) {
 			System.out.println(i);
 		}
 	}
