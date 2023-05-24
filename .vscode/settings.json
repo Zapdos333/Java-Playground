@@ -13,4 +13,5 @@
 		".history": true
 	},
 	"explorerExclude.backup": {},
+	"java.debug.settings.onBuildFailureProceed": true,
 }
