@@ -42,12 +42,12 @@ def recursiveScanRun(origin,task):
 		scanned=deduplicate(scanned)
 	print("run complete")
 #default setup
-test=re.compile("\.class")
+test=re.compile(r"\.class")
 exclude=[".git",".venv",".vscode",".history"]
 #when run from command line
 if __name__ == "__main__":
 	import sys
 	if len(sys.argv)>1:
-		test=re.compile("\."+sys.argv[1])
-	print(test)
-	recursiveScanRun(".",deletion)
+		test=re.compile(r"\."+sys.argv[1])
+print(test)
+recursiveScanRun(".",deletion)
