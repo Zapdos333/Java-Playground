@@ -2,7 +2,7 @@
 import purge_class,os,re
 scan = purge_class
 #defenitions
-def compile(filePath):
+def compile(filePath:str):
 	os.system('javac '+filePath)
 	print (filePath," compiled")
 #default setup

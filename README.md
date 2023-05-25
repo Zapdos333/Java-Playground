@@ -8,11 +8,13 @@ if no documentation is present or documntation states it, things are work in pro
 
 ## files in this(root) folder
 
-[`purge_class.py`](https://github.com/Zapdos333/Java-Playground/tree/main/purge_class.py):
-deletes all `*.class`-files in all lower folders
+### python-files
 
-`py-purgeClassFiles.bat`:
-runs `purge_class.py`
+purge_class.py
+
+compile.py
+
+tags.py
 
 ### [`run.bat`](https://github.com/Zapdos333/Java-Playground/tree/main/run.bat):
 

@@ -1,18 +1,18 @@
 #import
 import os,re
 #defenitions
-def deduplicate(List):
+def deduplicate(List:list):
 	output=[]
 	for i in range(len(List)):
 		if List[i] not in output:
 			output.append(List[i])
 	return output
 #
-def deletion(filePath):
+def deletion(filePath:str):
 	os.remove(filePath)
 	print(filePath,"deleted")
 #
-def scanPulseRun(f_paths, f_scanned, task):
+def scanPulseRun(f_paths:list[str], f_scanned:list[str], task):
 	output=[]
 	for path in f_paths:
 		with os.scandir(path) as it:
@@ -27,7 +27,7 @@ def scanPulseRun(f_paths, f_scanned, task):
 	output=deduplicate(output)
 	return output
 #
-def recursiveScanRun(origin,task):
+def recursiveScanRun(origin:str,task):
 	results=[]
 	scanned=exclude
 	results=scanPulseRun([origin],scanned,task)
@@ -43,7 +43,7 @@ def recursiveScanRun(origin,task):
 	print("run complete")
 #default setup
 test=re.compile(r"\.class")
-exclude=[".git",".venv",".vscode",".history"]
+exclude=[".git",".venv",".vscode",".history","__pycache__"]
 #when run from command line
 if __name__ == "__main__":
 	import sys
