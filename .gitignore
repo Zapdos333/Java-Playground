@@ -5,6 +5,9 @@
 #librarys
 !rhino*.jar
 
-#vscode
+#python
+__pycache__
 .venv
+
+#vscode
 .history
