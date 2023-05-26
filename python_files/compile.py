@@ -4,8 +4,8 @@ import pyScan
 scan = pyScan
 #defenitions
 def compile(filePath:str):
+	print ("Compiling:",filePath)
 	os.system('javac '+filePath)
-	print (filePath," compiled")
 #default setup
 scan.test=re.compile(r"\.java")
 source = "."
