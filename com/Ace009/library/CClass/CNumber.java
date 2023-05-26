@@ -200,7 +200,4 @@ public class CNumber {
 	public static float formFloat(String nrS) {
 		return Float.parseFloat(protoForm(nrS));
 	}
-	public static void main(String[] args) {
-		format(formFloat(args[0]));
-	}
 }
