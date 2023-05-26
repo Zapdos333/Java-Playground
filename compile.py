@@ -1,6 +1,7 @@
 #import
-import purge_class,os,re
-scan = purge_class
+import os,re
+from python_imports import pyScan
+scan = pyScan
 #defenitions
 def compile(filePath:str):
 	os.system('javac '+filePath)
