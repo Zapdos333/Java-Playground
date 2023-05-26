@@ -1,6 +1,6 @@
 #imports
 import shutil,re
-from python_imports import pyScan
+import pyScan
 scan=pyScan
 #defenitions
 def deletion(filePath:str):

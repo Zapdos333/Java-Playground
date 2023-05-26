@@ -1,6 +1,6 @@
 #import
 import os,re
-from python_imports import pyScan,platformCheck # import: ignore
+import pyScan,platformCheck # import: ignore
 scan = pyScan
 #platformCheck
 if platformCheck.system == "Windows":
