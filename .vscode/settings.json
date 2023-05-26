@@ -18,8 +18,15 @@
 	"java.project.explorer.showNonJavaResources": true,
 	//
 	"java.debug.settings.vmArgs": "-ea",
+	"explorer.excludeGitIgnore": false,
 	"files.exclude": {
-		".history": true
+		"script.js": true,
+		"stylesheet.css": true,
+		"*.html": true,
+		"*/*.html": true,
+		"*/**/*.html": true,
+		".history": true,
+		"package-list": true
 	},
 	"explorerExclude.backup": {},
 	"python.analysis.typeCheckingMode": "basic"

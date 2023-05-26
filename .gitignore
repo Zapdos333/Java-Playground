@@ -11,3 +11,9 @@ __pycache__
 
 #vscode
 .history
+
+#javadocs
+*.html
+script.js
+stylesheet.css
+package-list
