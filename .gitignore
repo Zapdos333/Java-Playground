@@ -8,3 +8,7 @@
 #vscode
 .history
 .vscode
+
+#python
+.venv
+__pycache__
