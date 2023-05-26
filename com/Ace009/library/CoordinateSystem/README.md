@@ -1,9 +1,9 @@
 # Package for Coordinate Systems
 `package com.Ace009.library.CoordinateSystem`
 
-1. [DataType `DoubleCoordinate`](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library/CoordinateSystem#datatype-coordinate)
-2. [Creating `"Circles"`](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library/CoordinateSystem#circles)
-3. [Creating `Coordinate"Map"`](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library/CoordinateSystem#coordinatemap)
+1. [DataType `DoubleCoordinate`](#datatype-doublecoordinate)
+2. [Creating `"Circles"`](#circles)
+3. [Creating `Coordinate"Map"`](#coordinatemap)
 
 ## Datatype DoubleCoordinate
 

@@ -2,7 +2,7 @@
 `package com.ext`
 
 this is the folder containing all imported code <br/>
-own code is under [`package com.Ace009`](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/)
+own code is under [`package com.Ace009`](../Ace009/)
 
 ## rhino ScriptEngine
 

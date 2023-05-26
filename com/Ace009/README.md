@@ -2,6 +2,6 @@
 `package com.Ace009`
 
 this is the folder containing all of my own code <br/>
-imported/copied code is under [`package com.ext`](https://github.com/Zapdos333/Java-Playground/tree/main/com/ext/)
+imported/copied code is under [`package com.ext`](../ext/)
 
 for further documentation check the `README.md`s in the appropiate folders

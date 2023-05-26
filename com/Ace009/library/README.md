@@ -3,14 +3,14 @@
 
 packages (redirecting to their page):
 
-1. [CoordinateSystem](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library/CoordinateSystem)
-2. [CClass](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library/CClass)
+1. [CoordinateSystem](./CoordinateSystem/)
+2. [CClass](./CClass/)
 
 content:
 
-1. [RNG](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library#rng)
-2. [Range](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library#range)
-3. [Arguments](https://github.com/Zapdos333/Java-Playground/tree/main/com/Ace009/library#arguments)
+1. [RNG](#rng)
+2. [Range](#range)
+3. [Arguments](#arguments)
 
 ## RNG
 
