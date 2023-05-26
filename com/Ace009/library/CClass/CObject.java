@@ -12,6 +12,11 @@ import java.util.ArrayList;
  */
 public class CObject {
 	/**
+	 * don't
+	 * @see CObject
+	 */
+	private CObject() {}
+	/**
 	 * returns all findable fields of the class {@code clas},
 	 * uses {@code Class.getDeclaredFields} and {@code Class.getFields}
 	 * @param clas the class to scan
@@ -140,8 +145,6 @@ public class CObject {
 	 * @see #entries(Object, boolean)
 	 */
 	public static boolean equals(Object a, Object b, boolean checkPrivate) throws IllegalAccessException {
-		if (a==b) {return true;}
-		//check contents
 		Object[][] entriesA = entries(a, checkPrivate);
 		Object[][] entriesB = entries(b, checkPrivate);
 		if (entriesA.length != entriesB.length) {return false;}

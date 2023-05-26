@@ -31,7 +31,7 @@ final public class CList {
 	 * @param allLists the array of all {@code Collection}
 	 * @return an {@code ArrayList} with all entries
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")//to allow {@code Collection<T>[]}
 	public static <T> ArrayList<T> merge(Collection<T> ... allLists) {
 		ArrayList<T> output = new ArrayList<>();
 		for (Collection<T> list : allLists) {

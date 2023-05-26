@@ -38,7 +38,7 @@ public class Args {
 	 * @see #Sargs {@code Sargs} String[] (copy of {@code args})
 	 * @see #createdType {@code createdType} String (copy of {@code type})
 	 */
-	@SuppressWarnings("resource")
+	@SuppressWarnings("resource") //never close System.in
 	public Args(String type, String...args) {
 		Sargs = args;
 		createdType = type;
