@@ -12,3 +12,9 @@
 #python
 .venv
 __pycache__
+
+#javadocs
+*.html
+script.js
+stylesheet.css
+package-list
