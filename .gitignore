@@ -18,3 +18,8 @@ __pycache__
 script.js
 stylesheet.css
 package-list
+
+# gradle
+.gradle
+build
+!gradle*.jar
