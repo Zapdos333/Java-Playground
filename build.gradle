@@ -1,0 +1,29 @@
+apply plugin: 'maven-publish'
+group = 'com.github.Zapdos333'
+def packVer = '1.0.0'
+
+apply plugin: 'java'
+
+sourceSets {
+	main {
+		java{ srcDir './com/Ace009/library'}
+	}
+}
+jar {
+    archiveFileName = "${project.archivesBaseName}-${packVer}.jar"
+	def source = sourceSets.main.output
+    from source
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = 'library'
+            version = packVer
+            from components.java
+        }
+    }
+}
+
+publish.dependsOn jar
