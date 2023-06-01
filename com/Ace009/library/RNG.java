@@ -11,43 +11,6 @@ import java.util.Random;
  */
 public class RNG extends Random{
 	/**
-	 * uses <code>args</code> as values to run specified iterations of random number generation.
-	 * @param args String Array:
-	 * @param args [0] iteration count (default:10)
-	 * @param args [1] highest number (default:10)
-	 * @param args [2] custom start seed length (default:15)
-	 */
-	public static void main(String[] args) {
-		RNG testRng= new RNG();
-		int limit;
-		int max;
-		int seedLength;
-		//checking for custom values, else use defaults
-		if (args.length < 1) {
-			limit=10;
-		} else {
-			limit=Integer.parseInt(args[0]);
-			System.out.println("Set limit to custom: "+limit);
-		} if (args.length < 2) {
-			max=10;
-		} else {
-			max=Integer.parseInt(args[1]);
-			System.out.println("Set max to custom: "+max);
-		} if (args.length < 3) {
-			seedLength=15;
-		} else {
-			seedLength=Integer.parseInt(args[2]);
-			System.out.println("Set seedLength to custom: "+seedLength);
-		}
-		//reroll for seed
-		System.out.println("new Seed is: "+testRng.rerollRandom(seedLength));
-		//output requested random numbers
-		for (int i = 1; i <= limit; i++) {
-			System.out.println("Iteration: "+i);
-			System.out.println("Result: "+testRng.limitedFloatRandom(0,max));
-		}
-	}
-	/**
 	 * returns a random integer, based on <code>Random</code>
 	 * @param min
 	 * @param max

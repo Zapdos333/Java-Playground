@@ -9,16 +9,7 @@ import java.util.stream.Collectors;
  * @author Ace009
  * @see Coordinate
  */
-
-class IntCoordinate implements Coordinate{
-	int x;int y;
-	public IntCoordinate(int f_x,int f_y) {
-		x=f_x;y=f_y;
-	}
-	public IntCoordinate(DoubleCoordinate coord){
-		x=(int)Math.round(coord.x);
-		y=(int)Math.round(coord.y);
-	}
+public class IntCoordinate {
 	/**
 	 * Integer implementation of {@code Coordinate.distance}
 	 * @param pA {@code CoordinateInt} point A
@@ -29,22 +20,10 @@ class IntCoordinate implements Coordinate{
 	public static double distance(IntCoordinate pA,IntCoordinate pB) {
 		double deltax = pA.x-pB.x; double deltay = pA.y-pB.y;
 		return Math.hypot(deltax,deltay);
-	}
-	public static ArrayList<IntCoordinate> roundCoordList(ArrayList<DoubleCoordinate> list) {
+	}public static ArrayList<IntCoordinate> roundCoordList(ArrayList<DoubleCoordinate> list) {
 		ArrayList<IntCoordinate> output;
 		output=new ArrayList<>(list.stream().map(e->new IntCoordinate(e)).collect(Collectors.toList()));
 		return output;
-	}
-	/**
-	 * Integer implementation of {@code Coordinate.distanceTo},
-	 * also simply calls the {@code .distance(this,target)}
-	 * @param target {@code CoordinateInt} target point
-	 * @return {@code double}: distance to given points
-	 * @see Coordinate#distanceTo(Coordinate)
-	 * @see CoordinateInt#distance(CoordinateInt, CoordinateInt)
-	 */
-	public double distanceTo(IntCoordinate target) {
-		return IntCoordinate.distance(this, target);
 	}
 	/**
 	 * converts the {@code CoordinateInt} of {@code list} into {@code Coordinates}
@@ -65,6 +44,26 @@ class IntCoordinate implements Coordinate{
 	 */
 	public static DoubleCoordinate toCoordinate(IntCoordinate point) {
 		return new DoubleCoordinate(point.x,point.y);
+	}
+	public int x;
+	public int y;
+	public IntCoordinate(int f_x,int f_y) {
+		x=f_x;y=f_y;
+	}
+	public IntCoordinate(DoubleCoordinate coord){
+		x=(int)Math.round(coord.x);
+		y=(int)Math.round(coord.y);
+	}
+	/**
+	 * Integer implementation of {@code Coordinate.distanceTo},
+	 * also simply calls the {@code .distance(this,target)}
+	 * @param target {@code CoordinateInt} target point
+	 * @return {@code double}: distance to given points
+	 * @see Coordinate#distanceTo(Coordinate)
+	 * @see CoordinateInt#distance(CoordinateInt, CoordinateInt)
+	 */
+	public double distanceTo(IntCoordinate target) {
+		return IntCoordinate.distance(this, target);
 	}
 	/**
 	 * returns {@code CoordinateInt.toCoordinate} on {@code this}

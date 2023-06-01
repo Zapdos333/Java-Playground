@@ -90,13 +90,4 @@ public class Range extends ArrayList<Integer> {
 		}
 		return output;
 	}
-	public static void main(String[] args) {
-		Args arguments = new Args("int", "Stop","Start","Steps");
-		int start = arguments.outputInt[1];
-		int stop = arguments.outputInt[0];
-		int steps = arguments.outputInt[2];
-		for (int i : Range.arrayRange(start, stop, steps)) {
-			System.out.println(i);
-		}
-	}
 }
