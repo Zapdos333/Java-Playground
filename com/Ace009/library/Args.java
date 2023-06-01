@@ -86,4 +86,44 @@ public class Args {
 			}
 		}
 	}
+	public void parseWithDefaults(long[] defaults) {
+		assert defaults.length >= output.length;
+		outputLong = new long[output.length];
+		for (int i : new Range(output.length)) {
+			if (output[i]=="") {outputLong[i] = defaults[i];}
+			outputLong[i] = Long.parseLong(output[i]);
+		}
+	}
+	public void parseWithDefaults(int[] defaults) {
+		assert defaults.length >= output.length;
+		outputInt = new int[output.length];
+		for (int i : new Range(output.length)) {
+			if (output[i]=="") {outputInt[i] = defaults[i];}
+			outputInt[i] = Integer.parseInt(output[i]);
+		}
+	}
+	public void parseWithDefaults(double[] defaults) {
+		assert defaults.length >= output.length;
+		outputDouble = new double[output.length];
+		for (int i : new Range(output.length)) {
+			if (output[i]=="") {outputDouble[i] = defaults[i];}
+			outputDouble[i] = Double.parseDouble(output[i]);
+		}
+	}
+	public void parseWithDefaults(float[] defaults) {
+		assert defaults.length >= output.length;
+		outputFloat = new float[output.length];
+		for (int i : new Range(output.length)) {
+			if (output[i]=="") {outputFloat[i] = defaults[i];}
+			outputFloat[i] = Float.parseFloat(output[i]);
+		}
+	}
+	public void parseWithDefaults(String[] defaults) {
+		assert defaults.length >= output.length;
+		for (int i : new Range(output.length)) {
+			if (output[i]=="") {
+				output[i] = defaults[i];
+			}
+		}
+	}
 }
