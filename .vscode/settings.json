@@ -26,7 +26,8 @@
 		"*/*.html": true,
 		"*/**/*.html": true,
 		".history": true,
-		"package-list": true
+		"package-list": true,
+		".gradle": true
 	},
 	"explorerExclude.backup": {},
 	"python.analysis.typeCheckingMode": "basic"
