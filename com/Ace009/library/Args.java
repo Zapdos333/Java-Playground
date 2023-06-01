@@ -77,10 +77,18 @@ public class Args {
 		}
 		for (int i : new Range(output.length)) {
 			switch (type.toLowerCase()) {
-				case "int": outputInt[i] = Integer.parseInt(output[i]); break;
-				case "long": outputLong[i] = Long.parseLong(output[i]); break;
-				case "float": outputFloat[i] = Float.parseFloat(output[i]); break;
-				case "double": outputDouble[i] = Double.parseDouble(output[i]); break;
+				case "int":
+					if (output[i]=="") {outputInt[i] = 0; break;}
+					outputInt[i] = Integer.parseInt(output[i]); break;
+				case "long":
+					if (output[i]=="") {outputLong[i] = 0; break;}
+					outputLong[i] = Long.parseLong(output[i]); break;
+				case "float":
+					if (output[i]=="") {outputFloat[i] = 0; break;}
+					outputFloat[i] = Float.parseFloat(output[i]); break;
+				case "double":
+					if (output[i]=="") {outputDouble[i] = 0; break;}
+					outputDouble[i] = Double.parseDouble(output[i]); break;
 			}
 		}
 	}
