@@ -21,4 +21,5 @@ package-list
 # gradle
 .gradle
 build
+bin
 !gradle*.jar
