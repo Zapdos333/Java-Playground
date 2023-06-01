@@ -43,26 +43,20 @@ public class Args {
 		Sargs = args;
 		createdType = type;
 		output = new String[args.length];
-		switch (type.toLowerCase()) {
-				case "int": outputInt = new int[args.length]; break;
-				case "long": outputLong = new long[args.length]; break;
-				case "float": outputFloat = new float[args.length]; break;
-				case "double": outputDouble = new double[args.length]; break;
-		}
 		Scanner scanner = new Scanner(System.in);
 		String input;
+		System.out.println("Args class input:");
+		System.out.println("type: " + type);
+		if (type=="int"||type=="float"||type=="double"||type=="long") {
+			System.out.println("defaults to 0");
+		}
 		for (int i : new Range(args.length)) {
 			input = "";
 			System.out.print(args[i] + ":");
 			input = scanner.nextLine();
 			output[i] = input;
-			switch (type.toLowerCase()) {
-				case "int": outputInt[i] = Integer.parseInt(input); break;
-				case "long": outputLong[i] = Long.parseLong(input); break;
-				case "float": outputFloat[i] = Float.parseFloat(input); break;
-				case "double": outputDouble[i] = Double.parseDouble(input); break;
-			}
 		}
+		this.parseAsType(createdType);
 	}
 	/**
 	 * parses {@code output[]} as {@code type} number into the corresponding {@code outputnumber[]}
