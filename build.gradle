@@ -6,7 +6,7 @@ apply plugin: 'java'
 
 sourceSets {
 	main {
-		java{ srcDir './com/Ace009/library'}
+		java{ srcDir '.'}
 	}
 }
 jar {
