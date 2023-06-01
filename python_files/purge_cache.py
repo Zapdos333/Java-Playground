@@ -7,7 +7,7 @@ def deletion(filePath:str):
 	shutil.rmtree(filePath)
 	print(filePath,"deleted")
 #default setup
-scan.test=re.compile(r"__pycache__|\.history")
+scan.test=re.compile(r"^__pycache__$|^\.history$|^bin$")
 scan.exclude=[".venv",".git"]
 #when run from command line
 if __name__ == "__main__":
