@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @see Position
  */
 final class CoordinateMap {
-	ArrayList<ArrayList<Position>> map=new ArrayList<>();
+	public ArrayList<ArrayList<Position>> map=new ArrayList<>();
 	/**
 	 * a static class containing only a <code>Coordinate</code> and content <code>Object</code>,
 	 * should not be used outside of testing

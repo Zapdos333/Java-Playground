@@ -40,5 +40,5 @@ def recursiveScanRun(origin:str,task,scandir:bool=False):
 		scanned=deduplicate(scanned)
 	print("run complete")
 #export defenitions
-exclude:list[str]=[".git",".venv",".vscode",".history","__pycache__"]
+exclude:list[str]=[".git",".venv",".vscode",".history","__pycache__","bin","build"]
 test=re.compile(r"")
