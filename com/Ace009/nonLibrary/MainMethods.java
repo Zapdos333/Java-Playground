@@ -8,14 +8,16 @@ import java.util.ArrayList;
 
 /**
  * A class containing all of {@code com.Ace009.library} {@code main}-methods
+ * <p>all methods get their necessary arguments using {@link Args}
  * @author Ace009
+ * @see #main(String[])
  */
 public class MainMethods {
 	/**
 	 * {@code Range}s main method:
 	 * <p>
 	 * prints the iterator created by 
-	 * {@link com.Ace009.library.Range#arrayRange(int,int,int)}
+	 * {@link Range#arrayRange(int,int,int)}
 	 * in new lines
 	 * 
 	 * @see com.Ace009.library.Range
@@ -76,6 +78,8 @@ public class MainMethods {
 	 * <p>
 	 * creates a test circle with the given parameters,
 	 * prints out the list of coordinates, and the 'Circularity'
+	 * 
+	 * @see com.Ace009.library.Circle
 	 */
 	public static void CircleMain() {
 		Args input = new Args("double", "X","Y","Radius","Corners");
@@ -92,23 +96,22 @@ public class MainMethods {
 		System.out.println("Circluarity: "+test.circumferance()+"/"
 		+DoubleCoordinate.totalDistance(result,true)+"="+Circle.getCircularity(result,aR));
 	}
+	/**
+	 * launches a specified main method.
+	 * <p> specification is possible through {@link Args} or {@code args}
+	 * @param args {@code String[]}, irrelevant, arguments gathered using {@link Args}
+	 * @param args [0] optional, main method name,
+	 * skips specification launch of {@link Args}
+	 * @see com.Ace009.library.Args
+	 * @see #rangeMain()
+	 * @see #RNGMain()
+	 * @see #CircleMain()
+	 */
 	public static void main(String[] args) {
-		if (args.length==0) {
-			int argNum = new Args("int", "argument Amount").outputInt[0];
-			String[] argNames=new String[argNum+1];
-			for (int i : Range.arrayRange(argNum+1)) {
-				if (i==0) {argNames[0]="type"; continue;}
-				argNames[i] = Integer.toString(i);
-			}
-			args = new Args("String", argNames).output;
-		}
-		assert args.length>0;
-		final String[] Nargs = new String[args.length-1];
 		String type = "";
-		for (int i : new Range(args.length)) {
-			if (i==0) {type = args[0].toLowerCase();continue;}
-			Nargs[i-1] = args[i];
-		}
+		if (args.length==0) {
+			type = new Args("String", "method").output[0].toLowerCase();
+		} else { type = args[0].toLowerCase(); }
 		switch (type) {
 			case "circle":
 			case "circlemain":
