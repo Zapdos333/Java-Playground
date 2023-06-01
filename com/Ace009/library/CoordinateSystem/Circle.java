@@ -20,24 +20,8 @@ public class Circle {
 		double circleU=temp.circumferance();
 		return circumferance/circleU;
 	}
-	public static void main(String[] args) {
-		System.out.println("Test program: ");
-		System.out.println("1: Corners");
-		int aC= Integer.parseInt(args[0]);
-		double aX= 5;
-		double aY= 5;
-		double aR= 5;
-		Circle test = new Circle(new DoubleCoordinate(aX,aY),aR);
-		System.out.print("CenterX="+test.center.x);
-		System.out.print(" CenterY="+test.center.y);
-		System.out.println(" Radius="+test.radius);
-		ArrayList<DoubleCoordinate> result = test.constructPoly(aC);
-		System.out.println("Circle: "+result.toString());
-		System.out.println("Circluarity: "+test.circumferance()+"/"+DoubleCoordinate.totalDistance(result,true)+"="+Circle.getCircularity(result,aR));
-		System.out.println("Corners: "+result.size());
-	}
-	DoubleCoordinate center;
-	double radius;
+	public DoubleCoordinate center;
+	public double radius;
 	/**
 	 * creates a circle with the given <code>center</code> and <code>radius</code>,
 	 * calculations are the instances methods

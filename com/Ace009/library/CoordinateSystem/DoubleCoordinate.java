@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
  * stores {@code x} and {@code y} values as {@code doubles}
  * @author Ace009
  */
-public class DoubleCoordinate implements Coordinate {
+public class DoubleCoordinate {
 	/**
 	 * returns the distance between the two coordinates
 	 * @param pA {@code Coordinate} point A
@@ -53,8 +53,8 @@ public class DoubleCoordinate implements Coordinate {
 		}
 		return output;
 	}
-	double x;
-	double y;
+	public double x;
+	public double y;
 	/**
 	 * Simply stores {@code x} and {@code y} in the classes {@code doubles}
 	 * @param f_x
