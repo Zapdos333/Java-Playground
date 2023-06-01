@@ -10,9 +10,9 @@ import java.util.Scanner;
  */
 public class Args {
 	/** copy of {@code type} */
-	public String createdType;
+	public final String createdType;
 	/** copy of {@code args} */
-	public String[] Sargs;
+	public final String[] Sargs;
 	/** {@code int} output array */
 	public int[] outputInt;
 	/** {@code long} output array */
@@ -22,7 +22,7 @@ public class Args {
 	/** {@code float} output array */
 	public float[] outputFloat;
 	/** {@code String} output array, always filled */
-	public String[] output;
+	public final String[] output;
 	/**
 	 * constructs an {@code Args} object, which contains the in {@code @see} mentioned properties,
 	 * which are filled by printing {@code args[i]} and storing the response in {@code output[i]}
