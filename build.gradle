@@ -1,29 +1,86 @@
+// package
 apply plugin: 'maven-publish'
 group = 'com.github.Zapdos333'
-def packVer = '1.1.0'
-
+project.setVersion('1.1.1')
 apply plugin: 'java'
-
-sourceSets {
-	main {
-		java{ srcDir '.'}
+publishing {
+	publications {
+		maven(MavenPublication) {
+			groupId = group
+			artifactId = 'Java-Playground'
+			version = project.getVersion()
+			from components.java
+		}
 	}
 }
+publish.dependsOn build
+// projects
+subprojects {
+	apply plugin: 'java'
+	project.setVersion(project.getRootProject().getVersion())
+	def projectName = project.getRootProject().getName()
+	compileJava() {
+
+	}
+}
+project(':library') {
+	sourceSets {
+		main {
+			java {
+				srcDir(project.getRootDir())
+				exclude '.history','gradle','com/ext'
+				exclude 'com/Ace009/nonLibrary'
+				destinationDirectory = file("${project.getRootDir()}/bin")
+			}
+		}
+	}
+	jar {
+		archiveFileName = "${project.getRootProject().getName()}-library-${project.getVersion()}.jar"
+		from sourceSets.main.output
+		destinationDirectory.set(file("${project.getRootDir()}/build/libs"))
+	}
+}
+project(':nonLibrary') {
+	sourceSets {
+		main {
+			java {
+				srcDir(project.getRootDir())
+				exclude '.history','gradle','com/ext'
+				exclude 'com/Ace009/library'
+				destinationDirectory = file("${project.getRootDir()}/bin")
+			}
+		}
+	}
+	jar {
+		archiveFileName = "${project.getRootProject().getName()}-nonLibrary-${project.getVersion()}.jar"
+		from sourceSets.main.output
+		destinationDirectory.set(file("${project.getRootDir()}/build/libs"))
+	}
+}
+//dependecie management
+dependencies {
+	implementation project(':nonLibrary') {
+		dependencies {
+			implementation project(':library')
+		}
+	}
+	implementation project(':library')
+}
+//main jar
 jar {
-    archiveFileName = "${project.archivesBaseName}-${packVer}.jar"
-	def source = sourceSets.main.output
-    from source
+	archiveFileName = "${project.archivesBaseName}-${project.getVersion()}.jar"
+	destinationDirectory.set(file("build/libs"))
 }
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = group
-            artifactId = 'library'
-            version = packVer
-            from components.java
-        }
-    }
+// set main classpath
+sourceSets {
+	main.java {
+		srcDir(project.getRootDir())
+		exclude '.history','gradle','com/ext'
+	}
 }
-
-publish.dependsOn jar
+//debug
+task printCheck(){
+	doLast{
+		println(publish.dependsOn)
+	}
+}
