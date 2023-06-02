@@ -1,18 +1,19 @@
 // package
-/* apply plugin: 'maven-publish'
-group = 'com.github.Zapdos333' */
+apply plugin: 'maven-publish'
+group = 'com.github.Zapdos333'
 project.setVersion('1.1.0')
 apply plugin: 'java'
-/* publishing {
+publishing {
 	publications {
 		maven(MavenPublication) {
 			groupId = group
-			artifactId = 'library'
+			artifactId = 'Java-Playground'
 			version = project.getVersion()
 			from components.java
 		}
 	}
-} */
+}
+publish.dependsOn build
 // projects
 subprojects {
 	apply plugin: 'java'
@@ -27,7 +28,7 @@ project(':library') {
 		main {
 			java {
 				srcDir(project.getRootDir())
-				exclude '.history'//,'gradle','com/ext'
+				exclude '.history','gradle','com/ext'
 				exclude 'com/Ace009/nonLibrary'
 				destinationDirectory = file("${project.getRootDir()}/bin")
 			}
@@ -56,6 +57,7 @@ project(':nonLibrary') {
 		destinationDirectory.set(file("${project.getRootDir()}/build/libs"))
 	}
 }
+//dependecie management
 dependencies {
 	implementation project(':nonLibrary') {
 		dependencies {
@@ -64,14 +66,21 @@ dependencies {
 	}
 	implementation project(':library')
 }
-/* jar {
+//main jar
+jar {
 	archiveFileName = "${project.archivesBaseName}-${project.getVersion()}.jar"
-	from project(':library').sourceSets.main.output 
-	from project(':nonLibrary').sourceSets.main.output
 	destinationDirectory.set(file("build/libs"))
-} */
+}
+// set main classpath
+sourceSets {
+	main.java {
+		srcDir(project.getRootDir())
+		exclude '.history','gradle','com/ext'
+	}
+}
+//debug
 task printCheck(){
 	doLast{
-		println(project(':library').sourceSets.main.compileClasspath.getFiles())
+		println(publish.dependsOn)
 	}
 }
