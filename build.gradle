@@ -1,29 +1,77 @@
-apply plugin: 'maven-publish'
-group = 'com.github.Zapdos333'
-def packVer = '1.0.0'
-
+// package
+/* apply plugin: 'maven-publish'
+group = 'com.github.Zapdos333' */
+project.setVersion('1.1.0')
 apply plugin: 'java'
+/* publishing {
+	publications {
+		maven(MavenPublication) {
+			groupId = group
+			artifactId = 'library'
+			version = project.getVersion()
+			from components.java
+		}
+	}
+} */
+// projects
+subprojects {
+	apply plugin: 'java'
+	project.setVersion(project.getRootProject().getVersion())
+	def projectName = project.getRootProject().getName()
+	compileJava() {
 
-sourceSets {
-	main {
-		java{ srcDir '.'}
 	}
 }
-jar {
-    archiveFileName = "${project.archivesBaseName}-${packVer}.jar"
-	def source = sourceSets.main.output
-    from source
+project(':library') {
+	sourceSets {
+		main {
+			java {
+				srcDir(project.getRootDir())
+				exclude '.history'//,'gradle','com/ext'
+				exclude 'com/Ace009/nonLibrary'
+				destinationDirectory = file("${project.getRootDir()}/bin")
+			}
+		}
+	}
+	jar {
+		archiveFileName = "${project.getRootProject().getName()}-library-${project.getVersion()}.jar"
+		from sourceSets.main.output
+		destinationDirectory.set(file("${project.getRootDir()}/build/libs"))
+	}
 }
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = group
-            artifactId = 'library'
-            version = packVer
-            from components.java
-        }
-    }
+project(':nonLibrary') {
+	sourceSets {
+		main {
+			java {
+				srcDir(project.getRootDir())
+				exclude '.history','gradle','com/ext'
+				exclude 'com/Ace009/library'
+				destinationDirectory = file("${project.getRootDir()}/bin")
+			}
+		}
+	}
+	jar {
+		archiveFileName = "${project.getRootProject().getName()}-nonLibrary-${project.getVersion()}.jar"
+		from sourceSets.main.output
+		destinationDirectory.set(file("${project.getRootDir()}/build/libs"))
+	}
 }
-
-publish.dependsOn jar
+dependencies {
+	implementation project(':nonLibrary') {
+		dependencies {
+			implementation project(':library')
+		}
+	}
+	implementation project(':library')
+}
+/* jar {
+	archiveFileName = "${project.archivesBaseName}-${project.getVersion()}.jar"
+	from project(':library').sourceSets.main.output 
+	from project(':nonLibrary').sourceSets.main.output
+	destinationDirectory.set(file("build/libs"))
+} */
+task printCheck(){
+	doLast{
+		println(project(':library').sourceSets.main.compileClasspath.getFiles())
+	}
+}
