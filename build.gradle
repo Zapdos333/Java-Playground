@@ -1,7 +1,7 @@
 // package
 apply plugin: 'maven-publish'
 group = 'com.github.Zapdos333'
-project.setVersion('1.1.0')
+project.setVersion('1.1.1')
 apply plugin: 'java'
 publishing {
 	publications {
