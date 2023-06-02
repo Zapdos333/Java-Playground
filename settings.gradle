@@ -8,3 +8,5 @@
  */
 
 rootProject.name = 'Java-Playground'
+
+include ':library',':nonLibrary'
