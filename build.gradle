@@ -1,8 +1,9 @@
-// package
+// plugins
 apply plugin: 'maven-publish'
-group = 'com.github.Zapdos333'
-project.setVersion('1.1.1')
 apply plugin: 'java'
+//project publish
+group = 'com.github.Zapdos333'
+project.setVersion('1.2.0')
 publishing {
 	publications {
 		maven(MavenPublication) {
@@ -18,69 +19,113 @@ publish.dependsOn build
 subprojects {
 	apply plugin: 'java'
 	project.setVersion(project.getRootProject().getVersion())
-	def projectName = project.getRootProject().getName()
-	compileJava() {
-
-	}
-}
-project(':library') {
-	sourceSets {
-		main {
-			java {
-				srcDir(project.getRootDir())
-				exclude '.history','gradle','com/ext'
-				exclude 'com/Ace009/nonLibrary'
-				destinationDirectory = file("${project.getRootDir()}/bin")
-			}
-		}
-	}
+	sourceSets.main.java.destinationDirectory = file("${project.getRootDir()}/bin/${project.getName()}")
+	buildDir = file("${project.getRootDir()}/build/${project.getName()}")
+	compileJava() {}
 	jar {
-		archiveFileName = "${project.getRootProject().getName()}-library-${project.getVersion()}.jar"
-		from sourceSets.main.output
-		destinationDirectory.set(file("${project.getRootDir()}/build/libs"))
+		archiveFileName = "${project.getRootProject().getName()}-${project.getName()}-${project.getVersion()}.jar"
+		destinationDirectory.set(file("${project.getRootDir()}/build/libs/"))
+		duplicatesStrategy = 'exclude'
 	}
 }
-project(':nonLibrary') {
-	sourceSets {
-		main {
-			java {
-				srcDir(project.getRootDir())
-				exclude '.history','gradle','com/ext'
-				exclude 'com/Ace009/library'
-				destinationDirectory = file("${project.getRootDir()}/bin")
-			}
-		}
-	}
-	jar {
-		archiveFileName = "${project.getRootProject().getName()}-nonLibrary-${project.getVersion()}.jar"
-		from sourceSets.main.output
-		destinationDirectory.set(file("${project.getRootDir()}/build/libs"))
-	}
+/*
+project(':template'){
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
+	dependencies {}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
-//dependecie management
+*/
+project(':library-general'){
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
+	dependencies {}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
+project(':library-CClass'){
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
+	dependencies {}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
+project(':library-CoordinateSystem'){
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
+	dependencies {
+		implementation project(':library-CClass')
+	}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
+project(':nonLibrary-general'){
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
+	dependencies {
+		implementation project(':library-CClass')
+		implementation project(':library-CoordinateSystem')
+		implementation project(':library-general')
+	}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
+project(':nonLibrary-HelloWorld'){
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
+	dependencies {}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
+project(':nonLibrary-school'){
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
+	dependencies {
+		implementation project(':library-general')
+	}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
+project(':nonLibrary-tests'){
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
+	dependencies {
+		implementation project(':library-CClass')
+	}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
+//dependecy management
 dependencies {
-	implementation project(':nonLibrary') {
-		dependencies {
-			implementation project(':library')
-		}
-	}
-	implementation project(':library')
+	implementation project(':library-general')
+	implementation project(':library-CoordinateSystem')
+	implementation project(':library-CClass')
+	implementation project(':nonLibrary-general')
+	implementation project(':nonLibrary-HelloWorld')
+	implementation project(':nonLibrary-school')
+	implementation project(':nonLibrary-tests')
 }
 //main jar
 jar {
 	archiveFileName = "${project.archivesBaseName}-${project.getVersion()}.jar"
-	destinationDirectory.set(file("build/libs"))
+	from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	duplicatesStrategy = 'exclude'
+	destinationDirectory.set(file("./build/libs"))
+}
+//secondary jars
+project(':library'){
+	dependencies {
+		implementation project(':library-general')
+		implementation project(':library-CClass')
+		implementation project(':library-CoordinateSystem')
+	}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
+project(':nonLibrary'){
+	dependencies {
+		implementation project(':nonLibrary-general')
+		implementation project(':nonLibrary-HelloWorld')
+		implementation project(':nonLibrary-school')
+		implementation project(':nonLibrary-tests')
+	}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 // set main classpath
 sourceSets {
 	main.java {
-		srcDir(project.getRootDir())
+		srcDir("./src/java/**/")
 		exclude '.history','gradle','com/ext'
 	}
 }
+buildDir="./build/"
 //debug
 task printCheck(){
 	doLast{
-		println(publish.dependsOn)
+		println("Debug")
 	}
 }
