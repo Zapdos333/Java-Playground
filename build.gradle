@@ -25,31 +25,30 @@ subprojects {
 		archiveFileName = "${project.getRootProject().getName()}-${project.getName()}-${project.getVersion()}.jar"
 		from sourceSets.main.output
 		destinationDirectory.set(file("${project.getRootDir()}/build/libs/"))
-		doLast{ println("${project.getName()}::${destinationDirectory.getAsFileTree().getFiles().toArray()}") }
 	}
 }
 /*
 project(':template'){
-	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/")
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {}
 }
 */
 project(':library-general'){
-	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/library-general")
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {}
 }
 project(':library-CClass'){
-	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/library-general")
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {}
 }
 project(':library-CoordinateSystem'){
-	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/library-general")
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-CClass')
 	}
 }
 project(':nonLibrary-general'){
-	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/library-general")
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-CClass')
 		implementation project(':library-CoordinateSystem')
@@ -57,17 +56,17 @@ project(':nonLibrary-general'){
 	}
 }
 project(':nonLibrary-HelloWorld'){
-	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/library-general")
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {}
 }
 project(':nonLibrary-school'){
-	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/library-general")
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-general')
 	}
 }
 project(':nonLibrary-tests'){
-	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/library-general")
+	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-CClass')
 	}
@@ -97,6 +96,6 @@ sourceSets {
 //debug
 task printCheck(){
 	doLast{
-		println(publish.dependsOn)
+		println("Debug")
 	}
 }
