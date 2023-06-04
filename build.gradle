@@ -1,8 +1,9 @@
-// package
+// plugins
 apply plugin: 'maven-publish'
-group = 'com.github.Zapdos333'
-project.setVersion('1.1.1')
 apply plugin: 'java'
+//project publish
+group = 'com.github.Zapdos333'
+project.setVersion('1.2.1')
 publishing {
 	publications {
 		maven(MavenPublication) {
@@ -18,17 +19,68 @@ publish.dependsOn build
 subprojects {
 	apply plugin: 'java'
 	project.setVersion(project.getRootProject().getVersion())
+	sourceSets.main.java.destinationDirectory = file("${project.getRootDir()}/bin/${project.getName()}")
 	compileJava() {}
+	jar {
+		archiveFileName = "${project.getRootProject().getName()}-${project.getName()}-${project.getVersion()}.jar"
+		from sourceSets.main.output
+		destinationDirectory.set(file("${project.getRootDir()}/build/libs/"))
+		doLast{ println("${project.getName()}::${destinationDirectory.getAsFileTree().getFiles().toArray()}") }
+	}
+}
+/*
+project(':template'){
+	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/")
+	dependencies {}
+}
+*/
+project(':library-general'){
+	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/library-general")
+	dependencies {}
+}
+project(':library-CClass'){
+	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/library-general")
+	dependencies {}
+}
+project(':library-CoordinateSystem'){
+	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/library-general")
+	dependencies {
+		implementation project(':library-CClass')
+	}
+}
+project(':nonLibrary-general'){
+	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/library-general")
+	dependencies {
+		implementation project(':library-CClass')
+		implementation project(':library-CoordinateSystem')
+		implementation project(':library-general')
+	}
+}
+project(':nonLibrary-HelloWorld'){
+	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/library-general")
+	dependencies {}
+}
+project(':nonLibrary-school'){
+	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/library-general")
+	dependencies {
+		implementation project(':library-general')
+	}
+}
+project(':nonLibrary-tests'){
+	sourceSets.main.java.srcDir("${project.getRootDir()}/src/java/library-general")
+	dependencies {
+		implementation project(':library-CClass')
+	}
 }
 //dependecy management
 dependencies {
-	implementation(':library-general')
-	implementation(':library-CoordinateSystem')
-	implementation(':library.CClass')
-	implementation(':nonLibrary-general')
-	implementation(':nonLibrary-HelloWorld')
-	implementation(':nonLibrary-school')
-	implementation(':nonLibrary-tests')
+	implementation project(':library-general')
+	implementation project(':library-CoordinateSystem')
+	implementation project(':library-CClass')
+	implementation project(':nonLibrary-general')
+	implementation project(':nonLibrary-HelloWorld')
+	implementation project(':nonLibrary-school')
+	implementation project(':nonLibrary-tests')
 }
 //main jar
 jar {
