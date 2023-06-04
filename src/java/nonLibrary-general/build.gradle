@@ -6,3 +6,8 @@ sourceSets {
 		}
 	}
 }
+dependencies {
+	implementation(':library-CClass')
+	implementation(':library-general')
+	implementation(':library-CoordinateSystem')
+}

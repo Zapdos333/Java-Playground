@@ -6,3 +6,6 @@ sourceSets {
 		}
 	}
 }
+dependencies {
+    implementation(':library-CClass')
+}

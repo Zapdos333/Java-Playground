@@ -22,31 +22,13 @@ subprojects {
 }
 //dependecy management
 dependencies {
-	implementation('library-general')
-	implementation('library-CoordinateSystem') {
-		dependencies {
-			implementation('library-CClass') 
-		}
-	}
-	implementation('library.CClass')
-	implementation('nonLibrary-general') {
-		dependencies {
-			implementation('library-CClass')
-			implementation('library-CoordinateSystem')
-			implementation('library-general')
-		}
-	}
-	implementation('nonLibrary-HelloWorld')
-	implementation('nonLibrary-school') {
-		dependencies {
-			implementation('library-general')
-		}
-	}
-	implementation('nonLibrary-tests') {
-		dependencies {
-			implementation('library-CClass')
-		}
-	}
+	implementation(':library-general')
+	implementation(':library-CoordinateSystem')
+	implementation(':library.CClass')
+	implementation(':nonLibrary-general')
+	implementation(':nonLibrary-HelloWorld')
+	implementation(':nonLibrary-school')
+	implementation(':nonLibrary-tests')
 }
 //main jar
 jar {
