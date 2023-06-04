@@ -1,0 +1,8 @@
+sourceSets {
+	main {
+		java {
+			srcDir('.')
+			destinationDirectory = file("${project.getRootDir()}/bin")
+		}
+	}
+}

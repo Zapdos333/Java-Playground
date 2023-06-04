@@ -18,53 +18,35 @@ publish.dependsOn build
 subprojects {
 	apply plugin: 'java'
 	project.setVersion(project.getRootProject().getVersion())
-	def projectName = project.getRootProject().getName()
-	compileJava() {
-
-	}
+	compileJava() {}
 }
-project(':library') {
-	sourceSets {
-		main {
-			java {
-				srcDir(project.getRootDir())
-				exclude '.history','gradle','com/ext'
-				exclude 'com/Ace009/nonLibrary'
-				destinationDirectory = file("${project.getRootDir()}/bin")
-			}
-		}
-	}
-	jar {
-		archiveFileName = "${project.getRootProject().getName()}-library-${project.getVersion()}.jar"
-		from sourceSets.main.output
-		destinationDirectory.set(file("${project.getRootDir()}/build/libs"))
-	}
-}
-project(':nonLibrary') {
-	sourceSets {
-		main {
-			java {
-				srcDir(project.getRootDir())
-				exclude '.history','gradle','com/ext'
-				exclude 'com/Ace009/library'
-				destinationDirectory = file("${project.getRootDir()}/bin")
-			}
-		}
-	}
-	jar {
-		archiveFileName = "${project.getRootProject().getName()}-nonLibrary-${project.getVersion()}.jar"
-		from sourceSets.main.output
-		destinationDirectory.set(file("${project.getRootDir()}/build/libs"))
-	}
-}
-//dependecie management
+//dependecy management
 dependencies {
-	implementation project(':nonLibrary') {
+	implementation('library-general')
+	implementation('library-CoordinateSystem') {
 		dependencies {
-			implementation project(':library')
+			implementation('library-CClass') 
 		}
 	}
-	implementation project(':library')
+	implementation('library.CClass')
+	implementation('nonLibrary-general') {
+		dependencies {
+			implementation('library-CClass')
+			implementation('library-CoordinateSystem')
+			implementation('library-general')
+		}
+	}
+	implementation('nonLibrary-HelloWorld')
+	implementation('nonLibrary-school') {
+		dependencies {
+			implementation('library-general')
+		}
+	}
+	implementation('nonLibrary-tests') {
+		dependencies {
+			implementation('library-CClass')
+		}
+	}
 }
 //main jar
 jar {
@@ -74,7 +56,7 @@ jar {
 // set main classpath
 sourceSets {
 	main.java {
-		srcDir(project.getRootDir())
+		srcDir("./src/java/**/")
 		exclude '.history','gradle','com/ext'
 	}
 }
