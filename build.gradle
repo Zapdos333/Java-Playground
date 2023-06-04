@@ -97,6 +97,24 @@ jar {
 	duplicatesStrategy = 'exclude'
 	destinationDirectory.set(file("./build/libs"))
 }
+//secondary jars
+project(':library'){
+	dependencies {
+		implementation project(':library-general')
+		implementation project(':library-CClass')
+		implementation project(':library-CoordinateSystem')
+	}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
+project(':nonLibrary'){
+	dependencies {
+		implementation project(':nonLibrary-general')
+		implementation project(':nonLibrary-HelloWorld')
+		implementation project(':nonLibrary-school')
+		implementation project(':nonLibrary-tests')
+	}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
 // set main classpath
 sourceSets {
 	main.java {

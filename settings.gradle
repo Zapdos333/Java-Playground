@@ -16,3 +16,5 @@ include ':nonLibrary-general'
 include ':nonLibrary-HelloWorld'
 include ':nonLibrary-school'
 include ':nonLibrary-tests'
+
+include ':library',':nonLibrary'
