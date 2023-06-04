@@ -23,29 +23,33 @@ subprojects {
 	compileJava() {}
 	jar {
 		archiveFileName = "${project.getRootProject().getName()}-${project.getName()}-${project.getVersion()}.jar"
-		from sourceSets.main.output
 		destinationDirectory.set(file("${project.getRootDir()}/build/libs/"))
+		duplicatesStrategy = 'exclude'
 	}
 }
 /*
 project(':template'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 */
 project(':library-general'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 project(':library-CClass'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 project(':library-CoordinateSystem'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-CClass')
 	}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 project(':nonLibrary-general'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
@@ -54,22 +58,26 @@ project(':nonLibrary-general'){
 		implementation project(':library-CoordinateSystem')
 		implementation project(':library-general')
 	}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 project(':nonLibrary-HelloWorld'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 project(':nonLibrary-school'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-general')
 	}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 project(':nonLibrary-tests'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-CClass')
 	}
+	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 //dependecy management
 dependencies {
@@ -84,6 +92,8 @@ dependencies {
 //main jar
 jar {
 	archiveFileName = "${project.archivesBaseName}-${project.getVersion()}.jar"
+	from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	duplicatesStrategy = 'exclude'
 	destinationDirectory.set(file("build/libs"))
 }
 // set main classpath
