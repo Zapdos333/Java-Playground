@@ -3,11 +3,7 @@
 	"java.configuration.updateBuildConfiguration": "automatic",
 	//java.project configuration
 	"java.project.sourcePaths": [
-		"com/ext",
-		"."
-	],
-	"java.project.referencedLibraries": [
-		"com/ext/*.jar"
+		"src/java/**/"
 	],
 	"java.project.resourceFilters": [
 		"\\.git",

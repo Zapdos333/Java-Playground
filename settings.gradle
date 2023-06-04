@@ -9,4 +9,12 @@
 
 rootProject.name = 'Java-Playground'
 
+include ':library-CClass'
+include ':library-CoordinateSystem'
+include ':library-general'
+include ':nonLibrary-general'
+include ':nonLibrary-HelloWorld'
+include ':nonLibrary-school'
+include ':nonLibrary-tests'
+
 include ':library',':nonLibrary'

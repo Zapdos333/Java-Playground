@@ -14,10 +14,11 @@ def scanPulseRun(f_paths:list[str], f_scanned:list[str], task, scandir:bool=Fals
 		with os.scandir(path) as it:
 			for entry in it:
 				# print ("debug:",bool(re.search(test,entry.name)),bool(entry.is_file()))
-				if entry.is_dir():
-					if entry.name not in f_scanned:
-						output.append(os.path.join(path,entry.name))
-						if scandir and re.search(test,entry.name): task(os.path.join(path,entry.name))
+				if entry.is_dir() and entry.name not in f_scanned:
+					output.append(os.path.join(path,entry.name))
+					if scandir and re.search(test,entry.name):
+						task(os.path.join(path,entry.name))
+						print("executed on:",os.path.join(path,entry.name),end="\n\n")
 				if entry.is_file() and re.search(test,entry.name) and not scandir:
 					task(os.path.join(path,entry.name))
 					print("executed on:",os.path.join(path,entry.name),end="\n\n")
