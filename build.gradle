@@ -27,6 +27,7 @@ subprojects {
 		destinationDirectory.set(file("${project.getRootDir()}/build/libs/"))
 		duplicatesStrategy = 'exclude'
 	}
+	processResources.onlyIf { false }
 }
 /*
 project(':template'){
@@ -42,22 +43,15 @@ project(':library-general'){
 }
 project(':library-CClass'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
-	dependencies {}
+	dependencies {
+		implementation project(':library-general')
+	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 project(':library-CoordinateSystem'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-CClass')
-	}
-	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-}
-project(':nonLibrary-general'){
-	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
-	dependencies {
-		implementation project(':library-CClass')
-		implementation project(':library-CoordinateSystem')
-		implementation project(':library-general')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
@@ -70,13 +64,18 @@ project(':nonLibrary-school'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-general')
+		implementation project(':library-CClass')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 project(':nonLibrary-tests'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
+		implementation project(':library-general')
 		implementation project(':library-CClass')
+		implementation project(':library-CoordinateSystem')
+		implementation project(':nonLibrary-school')
+		//implementation project(':nonLibrary-HelloWorld')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
@@ -114,18 +113,28 @@ project(':nonLibrary'){
 		implementation project(':nonLibrary-tests')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	jar.manifest.attributes("Main-Class": "com.Ace009.nonLibrary.MainMethods")
 }
 // set main classpath
 sourceSets {
 	main.java {
-		srcDir("./src/java/**/")
-		exclude '.history','gradle','com/ext'
+		srcDirs=[
+			file("./src/java/library-general/"),
+			file("./src/java/library-CClass/"),
+			file("./src/java/library-CoordinateSystem/"),
+			file("./src/java/nonLibrary-HelloWorld/"),
+			file("./src/java/nonLibrary-school/"),
+			file("./src/java/nonLibrary-tests/")
+		]
 	}
 }
+//configure root
+compileJava.onlyIf { false }
+processResources.onlyIf { false }
 buildDir="./build/"
 //debug
 task printCheck(){
 	doLast{
-		println("Debug")
+		println(sourceSets.main.java.srcDirs)
 	}
 }

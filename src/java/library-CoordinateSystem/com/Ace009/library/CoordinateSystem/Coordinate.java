@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
  * stores {@code x} and {@code y} values as {@code doubles}
  * @author Ace009
  */
-public class DoubleCoordinate {
+public class Coordinate {
 	/**
 	 * returns the distance between the two coordinates
 	 * @param pA {@code Coordinate} point A
@@ -16,7 +16,7 @@ public class DoubleCoordinate {
 	 * @return {@code double}: distance
 	 * @see #distanceTo(Coordinate)
 	 */
-	public static double distance(DoubleCoordinate pA, DoubleCoordinate pB) {
+	public static double distance(Coordinate pA, Coordinate pB) {
 		double deltax = pA.x-pB.x; double deltay = pA.y-pB.y;
 		return Math.hypot(deltax,deltay);
 	}
@@ -27,7 +27,7 @@ public class DoubleCoordinate {
 	 * @return {@code double}: distance
 	 * @see Circle
 	 */
-	public static double totalDistance(ArrayList<DoubleCoordinate> list,boolean polygon) {
+	public static double totalDistance(ArrayList<Coordinate> list,boolean polygon) {
 		double output=0;
 		for (int i=1; i<list.size();i++) {
 			output=+distance(list.get(i-1),list.get(i));
@@ -43,12 +43,12 @@ public class DoubleCoordinate {
 	 * @param interval {@code float} value for rounding interval
 	 * @return {@code ArrayList} of {@code Coordinates} rounded to {@code interval}
 	 */
-	public static ArrayList<DoubleCoordinate> roundCoordList(ArrayList<DoubleCoordinate> list, float interval) {
-		ArrayList<DoubleCoordinate> output=new ArrayList<>();
+	public static ArrayList<Coordinate> roundCoordList(ArrayList<Coordinate> list, float interval) {
+		ArrayList<Coordinate> output=new ArrayList<>();
 		int i=0;
 		while (output.size()<list.size()) {
 			final double iteration=interval*i;
-			output.addAll(list.stream().filter(e->e.x<iteration).map(e->new DoubleCoordinate(Math.round(e.x/interval)*interval,Math.round(e.y/interval)*interval)).collect(Collectors.toList()));
+			output.addAll(list.stream().filter(e->e.x<iteration).map(e->new Coordinate(Math.round(e.x/interval)*interval,Math.round(e.y/interval)*interval)).collect(Collectors.toList()));
 			i++;
 		}
 		return output;
@@ -61,7 +61,7 @@ public class DoubleCoordinate {
 	 * @param f_y
 	 * @see Coordinate
 	 */
-	public DoubleCoordinate(double f_x, double f_y) {
+	public Coordinate(double f_x, double f_y) {
 		x=f_x;y=f_y;
 	}
 	/**
@@ -70,7 +70,7 @@ public class DoubleCoordinate {
 	 * @return {@code double}: distance
 	 * @see #distance(Coordinate, Coordinate)
 	 */
-	public double distanceTo(DoubleCoordinate target) {
+	public double distanceTo(Coordinate target) {
 		return distance(this,target);
 	}
 	/**
@@ -85,8 +85,8 @@ public class DoubleCoordinate {
 	@Override
 	public boolean equals(Object o) {
 		if (o==this) {return true;}
-		if (!(o instanceof DoubleCoordinate)) {return false;}
-		DoubleCoordinate c = (DoubleCoordinate) o;
+		if (!(o instanceof Coordinate)) {return false;}
+		Coordinate c = (Coordinate) o;
 		return Double.compare(this.x,c.x)==0 && Double.compare(this.y,c.y)==0;
 	}
 	@Override

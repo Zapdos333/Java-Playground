@@ -18,9 +18,10 @@ public class IntCoordinate {
 	 * @see Coordinate#distance(Coordinate, Coordinate)
 	 */
 	public static double distance(IntCoordinate pA,IntCoordinate pB) {
-		double deltax = pA.x-pB.x; double deltay = pA.y-pB.y;
+		int deltax = pA.x-pB.x; int deltay = pA.y-pB.y;
 		return Math.hypot(deltax,deltay);
-	}public static ArrayList<IntCoordinate> roundCoordList(ArrayList<DoubleCoordinate> list) {
+	}
+	public static ArrayList<IntCoordinate> roundCoordList(ArrayList<Coordinate> list) {
 		ArrayList<IntCoordinate> output;
 		output=new ArrayList<>(list.stream().map(e->new IntCoordinate(e)).collect(Collectors.toList()));
 		return output;
@@ -31,9 +32,9 @@ public class IntCoordinate {
 	 * @param list {@code ArrayList} of {@code CoordinateInt}
 	 * @return new {@code ArrayList} of {@code Coordinate}
 	 */
-	public static ArrayList<DoubleCoordinate> toCoordinates(ArrayList<IntCoordinate> list) {
-		ArrayList<DoubleCoordinate> output;
-		output=new ArrayList<>(list.stream().map(e->new DoubleCoordinate(e.x,e.y)).collect(Collectors.toList()));
+	public static ArrayList<Coordinate> toCoordinates(ArrayList<IntCoordinate> list) {
+		ArrayList<Coordinate> output;
+		output=new ArrayList<>(list.stream().map(e->new Coordinate(e.x,e.y)).collect(Collectors.toList()));
 		return output;
 	}
 	/**
@@ -42,15 +43,15 @@ public class IntCoordinate {
 	 * @param point
 	 * @return new {@code Coordinate}
 	 */
-	public static DoubleCoordinate toCoordinate(IntCoordinate point) {
-		return new DoubleCoordinate(point.x,point.y);
+	public static Coordinate toCoordinate(IntCoordinate point) {
+		return new Coordinate(point.x,point.y);
 	}
 	public int x;
 	public int y;
 	public IntCoordinate(int f_x,int f_y) {
 		x=f_x;y=f_y;
 	}
-	public IntCoordinate(DoubleCoordinate coord){
+	public IntCoordinate(Coordinate coord){
 		x=(int)Math.round(coord.x);
 		y=(int)Math.round(coord.y);
 	}
@@ -70,7 +71,7 @@ public class IntCoordinate {
 	 * @return new {@code Coordinate}
 	 * @see CoordinateInt#toCoordinate(Coordinate)
 	 */
-	public DoubleCoordinate toCoordinate() {
+	public Coordinate toCoordinate() {
 		return IntCoordinate.toCoordinate(this);
 	}
 	@Override
