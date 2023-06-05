@@ -43,22 +43,15 @@ project(':library-general'){
 }
 project(':library-CClass'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
-	dependencies {}
+	dependencies {
+		implementation project(':library-general')
+	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 project(':library-CoordinateSystem'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-CClass')
-	}
-	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-}
-project(':nonLibrary-general'){
-	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
-	dependencies {
-		implementation project(':library-CClass')
-		implementation project(':library-CoordinateSystem')
-		implementation project(':library-general')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
@@ -77,7 +70,9 @@ project(':nonLibrary-school'){
 project(':nonLibrary-tests'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
+		implementation project(':library-general')
 		implementation project(':library-CClass')
+		implementation project(':library-CoordinateSystem')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
