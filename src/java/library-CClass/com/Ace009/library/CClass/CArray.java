@@ -28,7 +28,7 @@ public class CArray {
 		}
 		return output;
 	}
-	// #region asObjectArray
+	//region asObjectArray
 		public static Character[] asObjectArray(char[] array) {
 			Character[] output = new Character[array.length];
 			for (int i : Range.arrayRange(array.length)) {
@@ -85,5 +85,5 @@ public class CArray {
 			}
 			return output;
 		}
-	// #endregion asObjectArray
+	//endregion
 }

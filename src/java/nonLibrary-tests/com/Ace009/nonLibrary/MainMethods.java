@@ -1,13 +1,15 @@
 package com.Ace009.nonLibrary;
 
 import com.Ace009.library.*;
+import com.Ace009.library.Args.OutputType;
 import com.Ace009.library.CClass.*;
 import com.Ace009.library.CoordinateSystem.*;
+import com.Ace009.nonLibrary.school.*;
 
 import java.util.ArrayList;
 
 /**
- * A class containing all of {@code com.Ace009.library} {@code main}-methods
+ * A class containing all {@code main}- or debug-methods
  * <p>all methods get their necessary arguments using {@link Args}
  * @author Ace009
  * @see #main(String[])
@@ -23,7 +25,7 @@ public class MainMethods {
 	 * @see com.Ace009.library.Range
 	 */
 	public static void rangeMain() {
-		Args arguments = new Args("int", "Stop","Start","Steps");
+		Args arguments = new Args(OutputType.Int, "Stop","Start","Steps");
 		int stop = arguments.outputInt[0];
 		int start = arguments.outputInt[1];
 		int steps = arguments.outputInt[2];
@@ -42,7 +44,7 @@ public class MainMethods {
 		//create new RNG
 		RNG testRng= new RNG();
 		//ask for Args
-		Args input = new Args("int","amount","max","Seed length");
+		Args input = new Args(OutputType.Int,"amount","max","Seed length");
 		//insert defaults
 		input.parseWithDefaults(new int[]{10,10,15});
 		//set parameters
@@ -50,7 +52,7 @@ public class MainMethods {
 		int max = input.outputInt[1];
 		int seedLength = input.outputInt[2];
 		//ask for type of number
-		String type = new Args("String", "type of numbers").output[0].toLowerCase();
+		String type = new Args(OutputType.String, "type of numbers").output[0].toLowerCase();
 		//reroll for seed
 		System.out.println("new Seed is: "+testRng.rerollRandom(seedLength));
 		//output requested random numbers
@@ -82,7 +84,7 @@ public class MainMethods {
 	 * @see com.Ace009.library.Circle
 	 */
 	public static void CircleMain() {
-		Args input = new Args("double", "X","Y","Radius","Corners");
+		Args input = new Args(OutputType.Double, "X","Y","Radius","Corners");
 		input.parseWithDefaults(new double[] {5,5,5,10});
 		System.out.println("Test program: ");
 		double[] Nargs = input.outputDouble;
@@ -96,7 +98,6 @@ public class MainMethods {
 		System.out.println("Circluarity: "+test.circumferance()+"/"
 		+Coordinate.totalDistance(result,true)+"="+Circle.getCircularity(result,aR));
 	}
-	
 	/* ** object parse test **
 	 * <code>
 	 * int amount = new Args("int", "Amount of Properties").outputInt[0];
@@ -112,14 +113,21 @@ public class MainMethods {
 		String[] values = new Args("String", askVal).output;
 	 * </code>
 	 */
-
+	/**
+	 * {@code CObject}s main method:
+	 * <p>
+	 * creates a test {@code Args} with given parameters,
+	 * prints out its properties using {@link CObject#entries(Args)}
+	 * 
+	 * @see com.Ace009.library.CClass.CObject
+	 */
 	public static void CobjectTest() {
-		int amount = new Args("int", "Amount of Entries").outputInt[0];
+		int amount = new Args(OutputType.Int, "Amount of Entries").outputInt[0];
 		String[] askKey = new String[amount];
 		for (int i : Range.arrayRange(amount)) {
 			askKey[i] = i+". Entry";
 		}
-		Args test = new Args("String", askKey);
+		Args test = new Args(OutputType.String, askKey);
 		Object[][] result = new Object[amount][2];
 		try {
 			result = CObject.entries(test);
@@ -128,6 +136,35 @@ public class MainMethods {
 		}
 		for (int i : Range.arrayRange(result.length)) {
             System.out.printf("Entry: %d, Key: %s, Value: %s\n",i,result[i][0],result[i][1]);
+		}
+	}
+	/**
+	 * {@code CaesarCipher}s main method:
+	 * <p>
+	 * creates a test {@code CaesarCipher} with the given parameters,
+	 * encodes or decodes the given string using {@code CaesarCipher#encode} or {@code CaesarCipher#decode},
+	 * or runs {@code CaesarCipher#crack} on the String, completely ignoring the given key
+	 * 
+	 * @see com.Ace009.nonLibrary.CaesarCipher
+	 */
+	public static void CipherTest() {
+		Args input = new Args(OutputType.String,"cipher Key","mode (encode/decode/crack)","String");
+		input.parseWithDefaults(new String[]{"a","encode","Test"});
+		CaesarCipher cipher = new CaesarCipher(input.output[0].toCharArray()[0]);
+		switch (input.output[1].toLowerCase()) {
+			case "decode":
+				System.out.println(cipher.decode(input.output[2]));
+				break;
+			case "crack":
+				String[] output = CaesarCipher.crack(input.output[2]);
+				for (int i : Range.arrayRange(output.length)) {
+					System.out.printf("%d: %s\n",i,output[i]);
+				}
+				break;
+			case "encode":
+			default:
+				System.out.println(cipher.encode(input.output[2]));
+				break;
 		}
 	}
 	/**
@@ -140,11 +177,12 @@ public class MainMethods {
 	 * @see #rangeMain()
 	 * @see #RNGMain()
 	 * @see #CircleMain()
+	 * @see #CobjectTest()
 	 */
 	public static void main(String[] args) {
 		String type = "";
 		if (args.length==0) {
-			type = new Args("String", "method").output[0].toLowerCase();
+			type = new Args(OutputType.String, "method").output[0].toLowerCase();
 		} else { type = args[0].toLowerCase(); }
 		switch (type) {
 			case "circle":
@@ -162,6 +200,10 @@ public class MainMethods {
 			case "cobject":
 			case "cobjecttest":
 				CobjectTest();
+				break;
+			case "cipher":
+			case "ciphertest":
+				CipherTest();
 				break;
 			default: System.out.println("No implemented type given. type: "+type);
 		}

@@ -64,6 +64,7 @@ project(':nonLibrary-school'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-general')
+		implementation project(':library-CClass')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
@@ -73,6 +74,8 @@ project(':nonLibrary-tests'){
 		implementation project(':library-general')
 		implementation project(':library-CClass')
 		implementation project(':library-CoordinateSystem')
+		implementation project(':nonLibrary-school')
+		//implementation project(':nonLibrary-HelloWorld')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
@@ -110,6 +113,7 @@ project(':nonLibrary'){
 		implementation project(':nonLibrary-tests')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	jar.manifest.attributes("Main-Class": "com.Ace009.nonLibrary.MainMethods")
 }
 // set main classpath
 sourceSets {
