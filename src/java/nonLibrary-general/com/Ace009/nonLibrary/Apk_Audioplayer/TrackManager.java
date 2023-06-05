@@ -5,7 +5,7 @@ import com.Ace009.library.CClass.CMath;
 import com.Ace009.library.CClass.CList;
 
 /**
- * @deprecated in next major version
+ * @deprecated deleted in next major version
  */
 public class TrackManager {
 	//define Music Track Object
