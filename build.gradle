@@ -27,6 +27,7 @@ subprojects {
 		destinationDirectory.set(file("${project.getRootDir()}/build/libs/"))
 		duplicatesStrategy = 'exclude'
 	}
+	processResources.onlyIf { false }
 }
 /*
 project(':template'){
@@ -118,14 +119,16 @@ project(':nonLibrary'){
 // set main classpath
 sourceSets {
 	main.java {
-		srcDir("./src/java/**/")
-		exclude '.history','gradle','com/ext'
+		srcDirs= files(files('src/java/').getAsFileTree().matching{include('**/*.java')}.getAsPath()).getFiles()
 	}
 }
+//configure root
+compileJava.onlyIf { false }
+processResources.onlyIf { false }
 buildDir="./build/"
 //debug
 task printCheck(){
 	doLast{
-		println("Debug")
+		println(sourceSets.main.java.srcDirs)
 	}
 }
