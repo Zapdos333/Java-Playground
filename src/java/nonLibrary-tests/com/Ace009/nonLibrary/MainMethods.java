@@ -1,7 +1,7 @@
 package com.Ace009.nonLibrary;
 
 import com.Ace009.library.*;
-//import com.Ace009.library.CClass.*;
+import com.Ace009.library.CClass.*;
 import com.Ace009.library.CoordinateSystem.*;
 
 import java.util.ArrayList;
@@ -96,6 +96,40 @@ public class MainMethods {
 		System.out.println("Circluarity: "+test.circumferance()+"/"
 		+Coordinate.totalDistance(result,true)+"="+Circle.getCircularity(result,aR));
 	}
+	
+	/* ** object parse test **
+	 * <code>
+	 * int amount = new Args("int", "Amount of Properties").outputInt[0];
+		String[] askKey = new String[amount];
+		for (int i : Range.arrayRange(amount)) {
+			askKey[i] = i+". Key";
+		}
+		String[] askVal = new String[amount];
+		for (int i : Range.arrayRange(amount)) {
+			askVal[i] = i+". Value";
+		}
+		String[] keys = new Args("String", askKey).output;
+		String[] values = new Args("String", askVal).output;
+	 * </code>
+	 */
+
+	public static void CobjectTest() {
+		int amount = new Args("int", "Amount of Entries").outputInt[0];
+		String[] askKey = new String[amount];
+		for (int i : Range.arrayRange(amount)) {
+			askKey[i] = i+". Entry";
+		}
+		Args test = new Args("String", askKey);
+		Object[][] result = new Object[amount][2];
+		try {
+			result = CObject.entries(test);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		for (int i : Range.arrayRange(result.length)) {
+            System.out.printf("Entry: %d, Key: %s, Value: %s\n",i,result[i][0],result[i][1]);
+		}
+	}
 	/**
 	 * launches a specified main method.
 	 * <p> specification is possible through {@link Args} or {@code args}
@@ -124,6 +158,10 @@ public class MainMethods {
 			case "range":
 			case "rangemain":
 				rangeMain();
+				break;
+			case "cobject":
+			case "cobjecttest":
+				CobjectTest();
 				break;
 			default: System.out.println("No implemented type given. type: "+type);
 		}

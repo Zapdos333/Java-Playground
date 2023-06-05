@@ -44,74 +44,46 @@ public class CObject {
 	/**
 	 * returns all property keys/names of the class of the {@code Object obj}
 	 * @param obj Object to scan
-	 * @param accessPrivate {@code boolean} ?access private properties
 	 * @return {@code String[]} containing the property names
 	 */
-	public static String[] keys(Object obj, boolean accessPrivate) {
+	public static String[] keys(Object obj) {
 		Class<?> clas = obj.getClass();
 		Field[] fields = getAllFields(clas);
 		String[] output = new String[fields.length];
 		for (int i=0; i < fields.length; i++) {
-			if (accessPrivate) {
-				fields[i].setAccessible(true);
-			}
+			fields[i].setAccessible(true);
 			output[i]=fields[i].getName();
 		}
 		return output;
 	}
 	/**
-	 * returns all property keys/names of the class of the {@code Object obj},
-	 * param {@code accessPrivate} defaults to {@code false}
-	 * @param obj Object to scan
-	 * @return {@code String[]} containing the property names
-	 * @see #keys(Object,boolean)
-	 */
-	public static String[] keys(Object obj) {
-		return keys(obj,false);
-	}
-	/**
 	 * returns all properties values of the {@code Object obj}
 	 * @param obj Object to scan
-	 * @param accessPrivate {@code boolean} ?access private properties
 	 * @return {@code Object[]} containing the properties values
 	 * @throws IllegalAccessException because of {@link Field#get(Object)}
 	 */
-	public static Object[] values(Object obj, boolean accessPrivate) throws IllegalAccessException {
+	public static Object[] values(Object obj) throws IllegalAccessException {
 		Class<?> clas = obj.getClass();
 		Field[] fields = getAllFields(clas);
 		Object[] output = new Object[fields.length];
 		for (int i=0; i < fields.length; i++) {
-			if (accessPrivate) {
-				fields[i].setAccessible(true);
-			}
+			fields[i].setAccessible(true);
 			output[i]=fields[i].get(obj);
 		}
 		return output;
 	}
 	/**
-	 * returns all properties values of the {@code Object obj},
-	 * param {@code accessPrivate} defaults to {@code false}
-	 * @param obj Object to scan
-	 * @return {@code Object[]} containing the properties values
-	 * @throws IllegalAccessException because of {@link Field#get(Object)}
-	 * @see #values(Object,boolean)
-	 */
-	public static Object[] values(Object obj) throws IllegalAccessException {
-		return values(obj, false);
-	}
-	/**
 	 * returns all properties consisting of {key,value} of the {@code Object obj},
 	 * for example <code>{ {key1, value1}, {key2, value2}, ... } }</code>
 	 * @param obj Object to scan
-	 * @param accessPrivate {@code boolean} ?access private properties
 	 * @return {@code Object[][]} containing the properties
 	 * @throws IllegalAccessException because of {@link #values(Object,boolean)}
 	 * @see #values(Object,boolean)
 	 * @see #keys(Object, boolean)
 	 */
-	public static Object[][] entries(Object obj, boolean accessPrivate) throws IllegalAccessException {
-		String[] keys = keys(obj,accessPrivate);
-		Object[] values = values(obj,accessPrivate);
+	public static Object[][] entries(Object obj) throws IllegalAccessException {
+		String[] keys = keys(obj);
+		Object[] values = values(obj);
 		assert keys.length == values.length;
 		Object[][] output = new Object[keys.length][2];
 		for (int i=0; i < keys.length; i++) {
@@ -121,52 +93,23 @@ public class CObject {
 		return output;
 	}
 	/**
-	 * returns all properties consisting of {key,value} of the {@code Object obj},
-	 * for example <code>{ {key1, value1}, {key2, value2}, ... } }</code>,
-	 * param {@code accessPrivate} defaults to {@code false}
-	 * @param obj Object to scan
-	 * @return {@code Object[][]} containing the properties
-	 * @throws IllegalAccessException because of {@link #values(Object,boolean)}
-	 * @see #values(Object,boolean)
-	 * @see #keys(Object, boolean)
-	 */
-	public static Object[][] entries(Object obj) throws IllegalAccessException {
-		return entries(obj,false);
-	}
-	/**
 	 * compares the objects by {@code Class} and {@code entries},
 	 * if any entry is different between the objects,
 	 * it returns {@code false}
 	 * @param a {@code Object} a
 	 * @param b {@code Object} b
-	 * @param checkPrivate {@code boolean} ?access private properties
 	 * @return {@code true} if all properties are equal
 	 * @throws IllegalAccessException because of {@link #values(Object,boolean)}
 	 * @see #entries(Object, boolean)
 	 */
-	public static boolean equals(Object a, Object b, boolean checkPrivate) throws IllegalAccessException {
-		Object[][] entriesA = entries(a, checkPrivate);
-		Object[][] entriesB = entries(b, checkPrivate);
+	public static boolean equals(Object a, Object b) throws IllegalAccessException {
+		Object[][] entriesA = entries(a);
+		Object[][] entriesB = entries(b);
 		if (entriesA.length != entriesB.length) {return false;}
 		for (int i=0; i<entriesA.length; i++) {
 			if (entriesA[i][0] != entriesB[i][0]) {return false;}
 			if (entriesA[i][1] != entriesB[i][1]) {return false;}
 		}
 		return true;
-	}
-	/**
-	 * compares the objects by {@code Class} and {@code entries},
-	 * if any entry is different between the objects,
-	 * it returns {@code false},
-	 * param {@code accessPrivate} defaults to {@code true}
-	 * @param a {@code Object} a
-	 * @param b {@code Object} b
-	 * @return {@code true} if all properties are equal
-	 * @throws IllegalAccessException because of {@link #values(Object,boolean)}
-	 * @see #equals(Object,Object,boolean)
-	 * @see #entries(Object, boolean)
-	 */
-	public static boolean equals(Object a, Object b) throws IllegalAccessException {
-		return equals(a, b, true);
 	}
 }
