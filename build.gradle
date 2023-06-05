@@ -118,7 +118,6 @@ sourceSets {
 			file("./src/java/library-general/"),
 			file("./src/java/library-CClass/"),
 			file("./src/java/library-CoordinateSystem/"),
-			file("./src/java/nonLibrary-general/"),
 			file("./src/java/nonLibrary-HelloWorld/"),
 			file("./src/java/nonLibrary-school/"),
 			file("./src/java/nonLibrary-tests/")

@@ -90,11 +90,11 @@ public class MainMethods {
 		double aX= Nargs[0];
 		double aY= Nargs[1];
 		double aR= Nargs[2];
-		Circle test = new Circle(new DoubleCoordinate(aX,aY),aR);
-		ArrayList<DoubleCoordinate> result = test.constructPoly(aC);
+		Circle test = new Circle(new Coordinate(aX,aY),aR);
+		ArrayList<Coordinate> result = test.constructPoly(aC);
 		System.out.println("Circle: "+result.toString());
 		System.out.println("Circluarity: "+test.circumferance()+"/"
-		+DoubleCoordinate.totalDistance(result,true)+"="+Circle.getCircularity(result,aR));
+		+Coordinate.totalDistance(result,true)+"="+Circle.getCircularity(result,aR));
 	}
 	/**
 	 * launches a specified main method.
