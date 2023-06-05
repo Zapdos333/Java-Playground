@@ -1,18 +1,35 @@
 #imports
-import shutil,re
-import pyScan
-scan=pyScan
+import shutil,os
 #defenitions
 def deletion(filePath:str):
 	shutil.rmtree(filePath)
 	print(filePath,"deleted")
+class removeEntry:
+    def __init__(self,default:list[str],hard:list[str]):
+        self.default:list[str] = default
+        self.hard:list[str] = hard
 #default setup
-scan.test=re.compile(r"^__pycache__$|^\.history$|^bin$")
-scan.exclude=[".venv",".git"]
+rootRem:removeEntry=removeEntry(["./__pycache__","./.history","./bin"],["./build"])
+pythonRem:removeEntry=removeEntry(["./__pycache__"],[])
+hard:bool = False
 #when run from command line
 if __name__ == "__main__":
 	import sys
 	if len(sys.argv)>1:
-		pass
-print(scan.test)
-scan.recursiveScanRun(".",deletion,True)
+		if sys.argv[1]=="hard": hard = True
+with os.scandir(".") as it:
+	for e in it:
+		if e.name in rootRem.default:
+			shutil.rmtree(e)
+			print(e.path,"removed")
+		if e.name in pythonRem.hard and hard:
+			shutil.rmtree(e)
+			print(e.path,"removed")
+with os.scandir("./src/python") as it:
+    for e in it:
+        if e.name in pythonRem.default:
+            shutil.rmtree(e)
+            print(e.path,"removed")
+        if e.name in pythonRem.hard and hard:
+            shutil.rmtree(e)
+            print(e.path,"removed")
