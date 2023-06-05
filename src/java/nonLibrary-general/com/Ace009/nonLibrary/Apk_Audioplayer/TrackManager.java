@@ -1,9 +1,12 @@
-package com.Ace009.nonLibrary.Apk_Audioplayer;
+//package com.Ace009.nonLibrary.Apk_Audioplayer;
 
 import java.util.ArrayList;
 import com.Ace009.library.CClass.CMath;
 import com.Ace009.library.CClass.CList;
 
+/**
+ * @deprecated deleted in next major version
+ */
 public class TrackManager {
 	//define Music Track Object
 	public static class Track {

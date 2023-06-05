@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Args {
 	/** copy of {@code type} */
-	public final String createdType;
+	public final OutputType createdType;
 	/** copy of {@code args} */
 	public final String[] Sargs;
 	/** {@code int} output array */
@@ -23,6 +23,13 @@ public class Args {
 	public float[] outputFloat;
 	/** {@code String} output array, always filled */
 	public final String[] output;
+	/**
+	 * {@code enum} declaration for Output Types
+	 * possible values are: String, Int, Long, Double, Float
+	 */
+	public static enum OutputType {
+		String, Int, Long, Double, Float;
+	}
 	/**
 	 * constructs an {@code Args} object, which contains the in {@code @see} mentioned properties,
 	 * which are filled by printing {@code args[i]} and storing the response in {@code output[i]}
@@ -39,7 +46,7 @@ public class Args {
 	 * @see #createdType {@code createdType} String (copy of {@code type})
 	 */
 	@SuppressWarnings("resource") //never close System.in
-	public Args(String type, String...args) {
+	public Args(OutputType type, String...args) {
 		Sargs = args;
 		createdType = type;
 		output = new String[args.length];
@@ -47,7 +54,7 @@ public class Args {
 		String input;
 		System.out.println("Args class input:");
 		System.out.println("type: " + type);
-		if (type=="int"||type=="float"||type=="double"||type=="long") {
+		if (type==OutputType.Int||type==OutputType.Double||type==OutputType.Long||type==OutputType.Float) {
 			System.out.println("defaults to 0");
 		}
 		for (int i : new Range(args.length)) {
@@ -62,27 +69,29 @@ public class Args {
 	 * parses {@code output[]} as {@code type} number into the corresponding {@code outputnumber[]}
 	 * @param type {@code String} number type
 	 */
-	public void parseAsType(String type) {
-		switch (type.toLowerCase()) {
-			case "int": outputInt = new int[output.length]; break;
-			case "long": outputLong = new long[output.length]; break;
-			case "float": outputFloat = new float[output.length]; break;
-			case "double": outputDouble = new double[output.length]; break;
+	public void parseAsType(OutputType type) {
+		switch (type) {
+			case Int: outputInt = new int[output.length]; break;
+			case Long: outputLong = new long[output.length]; break;
+			case Float: outputFloat = new float[output.length]; break;
+			case Double: outputDouble = new double[output.length]; break;
+			case String: break;
 		}
 		for (int i : new Range(output.length)) {
-			switch (type.toLowerCase()) {
-				case "int":
+			switch (type) {
+				case Int:
 					if (output[i]=="") {outputInt[i] = 0; break;}
 					outputInt[i] = Integer.parseInt(output[i]); break;
-				case "long":
+				case Long:
 					if (output[i]=="") {outputLong[i] = 0; break;}
 					outputLong[i] = Long.parseLong(output[i]); break;
-				case "float":
+				case Float:
 					if (output[i]=="") {outputFloat[i] = 0; break;}
 					outputFloat[i] = Float.parseFloat(output[i]); break;
-				case "double":
+				case Double:
 					if (output[i]=="") {outputDouble[i] = 0; break;}
 					outputDouble[i] = Double.parseDouble(output[i]); break;
+				case String: break;
 			}
 		}
 	}

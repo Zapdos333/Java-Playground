@@ -83,7 +83,7 @@ public class Range extends ArrayList<Integer> {
 	 * @return an {@code int array} containing the specified {@code int}
 	 */
 	public static int[] arrayRange(int start, int stop, int steps) {
-		int[] output = new int[((stop-start)/steps)+1];
+		int[] output = new int[((stop-start)/steps)];
 		for (int i = start; i < stop; i+=steps) {
 			output[(i-start)/steps] = i;
 		}

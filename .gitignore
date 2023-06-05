@@ -9,10 +9,6 @@
 .history
 .vscode
 
-#python
-.venv
-__pycache__
-
 #javadocs
 *.html
 script.js
