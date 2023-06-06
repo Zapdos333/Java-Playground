@@ -19,7 +19,7 @@ abstract public class AbstractNumberSequence extends ArrayList<Double> {
 	/**
 	 * calculates the next values of the sequence up to value number {@code to}
 	 * @param to {@code int} limit of calculation
-	 * @param next {@code boolean} if true: use {@link AbstractNumberSequence#calculateNext(double)}, else use {@link AbstractNumberSequence#calculateAt(double)}
+	 * @param next {@code boolean} if true: use {@link AbstractNumberSequence#calculateNext(double)}, else use {@link AbstractNumberSequence#calculateAt(int)}
 	 */
 	protected void calculateNextTo(int to, boolean next) {
 		this.ensureCapacity(to);
@@ -33,7 +33,7 @@ abstract public class AbstractNumberSequence extends ArrayList<Double> {
 	/**
 	 * calculates the next {@code amount} values of the sequence
 	 * @param amount {@code int} amount of values to calculate
-	 * @param next {@code boolean} if true: use {@link AbstractNumberSequence#calculateNext(double)}, else use {@link AbstractNumberSequence#calculateAt(double)}
+	 * @param next {@code boolean} if true: use {@link AbstractNumberSequence#calculateNext(double)}, else use {@link AbstractNumberSequence#calculateAt(int)}
 	 * @see AbstractNumberSequence#calculateNextTo(int, boolean)
 	 */
 	protected void calculateNextAmount(int amount, boolean next) {

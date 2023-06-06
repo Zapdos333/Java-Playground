@@ -99,7 +99,7 @@ public class CObject {
 	 * @param a {@code Object} a
 	 * @param b {@code Object} b
 	 * @return {@code true} if all properties are equal
-	 * @throws IllegalAccessException because of {@link CObject#values(Object,boolean)}
+	 * @throws IllegalAccessException because of {@link CObject#values(Object)}
 	 * @see CObject#entries(Object)
 	 */
 	public static boolean equals(Object a, Object b) throws IllegalAccessException {

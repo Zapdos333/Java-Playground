@@ -11,6 +11,15 @@ import java.util.Random;
  */
 public class RNG extends Random{
 	/**
+	 * creates a new instance of {@code RNG}
+	 * based on {@code Random}
+	 * but with the additional instance methods
+	 * @see Random
+	 */
+	public RNG() {
+		super();
+	}
+	/**
 	 * returns a random integer, based on <code>Random</code>
 	 * @param min
 	 * @param max

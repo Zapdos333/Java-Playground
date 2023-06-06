@@ -15,6 +15,8 @@ import java.util.ArrayList;
  * @see #main(String[])
  */
 public class MainMethods {
+	/** don't */
+	private MainMethods() {}
 	/**
 	 * {@code Range}s main method:
 	 * <p>

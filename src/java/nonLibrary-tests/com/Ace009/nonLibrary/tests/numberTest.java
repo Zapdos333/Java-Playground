@@ -9,9 +9,14 @@ import com.Ace009.library.CClass.CNumber;
  * @author Ace009
  */
 public class numberTest {
+	/** don't */
+	private numberTest() {}
 	static double MIN_VALUE;
 	static double MAX_VALUE;
-	/** actual main method */
+	/**
+	 * actual main method
+	 * @param className name of number type to check
+	 */
 	public static void nain(String className) {
 		switch (className.toLowerCase()) {
 			case "integer":
