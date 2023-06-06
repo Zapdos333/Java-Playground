@@ -20,7 +20,9 @@ public class Circle {
 		double circleU=temp.circumferance();
 		return circumferance/circleU;
 	}
+	/** center Coordinate of the circle */
 	public Coordinate center;
+	/** radius of the circle */
 	public double radius;
 	/**
 	 * creates a circle with the given <code>center</code> and <code>radius</code>,

@@ -53,12 +53,14 @@ public class Coordinate {
 		}
 		return output;
 	}
+	/** x coordinate */
 	public double x;
+	/** y coordinate */
 	public double y;
 	/**
 	 * Simply stores {@code x} and {@code y} in the classes {@code doubles}
-	 * @param f_x
-	 * @param f_y
+	 * @param f_x {@code double} x input
+	 * @param f_y {@code double} y input
 	 * @see Coordinate
 	 */
 	public Coordinate(double f_x, double f_y) {

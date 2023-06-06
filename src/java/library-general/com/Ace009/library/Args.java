@@ -95,6 +95,12 @@ public class Args {
 			}
 		}
 	}
+	/**
+	 * parses {@code output[]} as {@code long} number into {@code outputLong[]}
+	 * filling any empty values with {@code defaults[]}
+	 * <p> (assumes that output[] can be parsed as {@code long})
+	 * @param defaults the array to get the defaults from
+	 */
 	public void parseWithDefaults(long[] defaults) {
 		assert defaults.length >= output.length;
 		outputLong = new long[output.length];
@@ -103,6 +109,12 @@ public class Args {
 			outputLong[i] = Long.parseLong(output[i]);
 		}
 	}
+	/**
+	 * parses {@code output[]} as {@code int} number into {@code outputInt[]}
+	 * filling any empty values with {@code defaults[]}
+	 * <p> (assumes that output[] can be parsed as {@code int})
+	 * @param defaults the array to get the defaults from
+	 */
 	public void parseWithDefaults(int[] defaults) {
 		assert defaults.length >= output.length;
 		outputInt = new int[output.length];
@@ -111,6 +123,12 @@ public class Args {
 			outputInt[i] = Integer.parseInt(output[i]);
 		}
 	}
+	/**
+	 * parses {@code output[]} as {@code double} number into {@code outputDouble[]}
+	 * filling any empty values with {@code defaults[]}
+	 * <p> (assumes that output[] can be parsed as {@code double})
+	 * @param defaults the array to get the defaults from
+	 */
 	public void parseWithDefaults(double[] defaults) {
 		assert defaults.length >= output.length;
 		outputDouble = new double[output.length];
@@ -119,6 +137,12 @@ public class Args {
 			outputDouble[i] = Double.parseDouble(output[i]);
 		}
 	}
+	/**
+	 * parses {@code output[]} as {@code float} number into {@code outputFloat[]}
+	 * filling any empty values with {@code defaults[]}
+	 * <p> (assumes that output[] can be parsed as {@code float})
+	 * @param defaults the array to get the defaults from
+	 */
 	public void parseWithDefaults(float[] defaults) {
 		assert defaults.length >= output.length;
 		outputFloat = new float[output.length];
@@ -127,6 +151,11 @@ public class Args {
 			outputFloat[i] = Float.parseFloat(output[i]);
 		}
 	}
+	/**
+	 * fills any empty values in {@code output[]}
+	 * with the corresponding value from {@code defaults[]}
+	 * @param defaults the array to get the defaults from
+	 */
 	public void parseWithDefaults(String[] defaults) {
 		assert defaults.length >= output.length;
 		for (int i : new Range(output.length)) {
