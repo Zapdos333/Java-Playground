@@ -2,9 +2,6 @@
 *.class
 *.jar
 
-#librarys
-!rhino*.jar
-
 #python
 __pycache__
 .venv

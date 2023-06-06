@@ -1,6 +1,11 @@
+## general:
+# ScanRun scans the entire tree provided as origin and executes task on any file that fulfill test while ignoring the directories specified in exclude
+# the task can be run on directories instead if scandir is True (default is False)
+
 #import
 import os,re
 #defenitions
+##// standard list deduplication
 def deduplicate(List:list):
 	output=[]
 	for i in range(len(List)):
@@ -8,6 +13,7 @@ def deduplicate(List:list):
 			output.append(List[i])
 	return output
 #
+##// a single layer pulse of scanning
 def scanPulseRun(f_paths:list[str], f_scanned:list[str], task, scandir:bool=False):
 	output=[]
 	for path in f_paths:
@@ -15,18 +21,19 @@ def scanPulseRun(f_paths:list[str], f_scanned:list[str], task, scandir:bool=Fals
 			for entry in it:
 				# print ("debug:",bool(re.search(test,entry.name)),bool(entry.is_file()))
 				if entry.is_dir() and entry.name not in f_scanned:
-					output.append(os.path.join(path,entry.name))
+					output.append(entry.path)
 					if scandir and re.search(test,entry.name):
-						task(os.path.join(path,entry.name))
-						print("executed on:",os.path.join(path,entry.name),end="\n\n")
+						task(entry.path)
+						print("executed on:",entry.path,end="\n\n")
 				if entry.is_file() and re.search(test,entry.name) and not scandir:
-					task(os.path.join(path,entry.name))
-					print("executed on:",os.path.join(path,entry.name),end="\n\n")
+					task(entry.path)
+					print("executed on:",entry.path,end="\n\n")
 		f_scanned.append(path)
 	output=deduplicate(output)
 	return output
 #
-def recursiveScanRun(origin:str,task,scandir:bool=False):
+##// the main function
+def ScanRun(origin:str,task,scandir:bool=False):
 	results=[]
 	scanned=exclude
 	results=scanPulseRun([origin],scanned,task,scandir)
@@ -41,5 +48,7 @@ def recursiveScanRun(origin:str,task,scandir:bool=False):
 		scanned=deduplicate(scanned)
 	print("run complete")
 #export defenitions
-exclude:list[str]=[".git",".venv",".vscode",".history","__pycache__","bin","build"]
-test=re.compile(r"")
+##// the list of directories to exclude from scanning
+exclude:list[str]=[""]
+##// the pattern that the files/directories must match for task to be executed
+test:re.Pattern[str]=re.compile(r"")

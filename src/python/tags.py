@@ -1,12 +1,10 @@
+## general:
+# scans .git/refs and runs the algorithm to get the tag information from it over any file it finds
+# TODO: figure out how to stop the "fatal:" from popping up in the output
+
 #import
 import os,re
-import pyScan,platformCheck # import: ignore
-scan = pyScan
-#platformCheck
-if platformCheck.system == "Windows":
-    localNull="NUL"
-elif platformCheck.system == "Linux" or platformCheck.system == "Unix":
-    localsNull="/dev/null"
+import pyScan as scan
 #defenitions
 iterator:int=int(1)
 def tagPrint(filePath:str):
@@ -16,7 +14,7 @@ def tagPrint(filePath:str):
     global iterator
     print ("file:",filePath)
     print("tag:",iterator)
-    r=os.popen("git cat-file -p "+tagName+" 2> "+localNull)
+    r=os.popen("git cat-file -p "+tagName+" 2> "+os.path.devnull)
     output= r.read()
     r.close()
     signature=re.compile(r"gpgsig(.|\n)*")
@@ -29,12 +27,12 @@ def tagPrint(filePath:str):
         print(output)
     iterator=+int(1)
 #default setup
-test=re.compile(r".*")
-source = ".\\.git\\refs\\"
+scan.test=re.compile(r".*")
+source = "."+os.path.sep+".git"+os.path.sep+"refs"+os.path.sep
 #when run from command line
 if __name__ == "__main__":
 	import sys
 	if len(sys.argv)>1:
 		source = sys.argv[1]
-print(test)
-scan.recursiveScanRun(source,tagPrint)
+print(scan.test)
+scan.ScanRun(source,tagPrint)
