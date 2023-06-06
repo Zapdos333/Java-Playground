@@ -86,7 +86,7 @@ public class IntCoordinate {
 	/**
 	 * returns {@code IntCoordinate.toCoordinate} on {@code this}
 	 * @return new {@code Coordinate}
-	 * @see IntCoordinate#toCoordinate(Coordinate)
+	 * @see IntCoordinate#toCoordinate(IntCoordinate)
 	 */
 	public Coordinate toCoordinate() {
 		return IntCoordinate.toCoordinate(this);

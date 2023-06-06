@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
  * class to aks console input for arguments
  * @author Ace009
- * @see Args#Args(String, String...) constructor(String type, String...args)
+ * @see com.Ace009.library.Args#Args(String, String...) constructor(String type, String...args)
  */
 public class Args {
 	/** copy of {@code type} */

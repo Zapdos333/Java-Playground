@@ -77,9 +77,9 @@ public class CObject {
 	 * for example <code>{ {key1, value1}, {key2, value2}, ... } }</code>
 	 * @param obj Object to scan
 	 * @return {@code Object[][]} containing the properties
-	 * @throws IllegalAccessException because of {@link CObject#values(Object,boolean)}
-	 * @see CObject#values(Object,boolean)
-	 * @see CObject#keys(Object, boolean)
+	 * @throws IllegalAccessException because of {@link CObject#values(Object)}
+	 * @see CObject#values(Object)
+	 * @see CObject#keys(Object)
 	 */
 	public static Object[][] entries(Object obj) throws IllegalAccessException {
 		String[] keys = keys(obj);
@@ -100,7 +100,7 @@ public class CObject {
 	 * @param b {@code Object} b
 	 * @return {@code true} if all properties are equal
 	 * @throws IllegalAccessException because of {@link CObject#values(Object,boolean)}
-	 * @see CObject#entries(Object, boolean)
+	 * @see CObject#entries(Object)
 	 */
 	public static boolean equals(Object a, Object b) throws IllegalAccessException {
 		Object[][] entriesA = entries(a);
