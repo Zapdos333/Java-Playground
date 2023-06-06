@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'java'
 //project publish
 group = 'com.github.Zapdos333'
-project.setVersion('1.2.1')
+project.setVersion('2.0.0')
 publishing {
 	publications {
 		maven(MavenPublication) {
