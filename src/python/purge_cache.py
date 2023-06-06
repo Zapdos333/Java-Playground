@@ -13,7 +13,7 @@ class removeEntry:
 #default setup
 ##// define the removeEntry instances and the default for hard:bool
 rootRem:removeEntry=removeEntry([".history","bin"],["build"])
-pythonRem:removeEntry=removeEntry([],[])
+pythonRem:removeEntry=removeEntry(["__pycache__"],[])
 hard:bool = False
 #when run from command line
 if __name__ == "__main__":
