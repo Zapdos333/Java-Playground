@@ -9,7 +9,7 @@ import com.Ace009.library.CClass.CArray;
  * has methods for {@link #encode(char[]) encoding} and {@link #decode(char[]) decoding}
  * accepting both {@code String} and {@code char[]}
  * <p>
- * also has a method for {@link #crack(String) cracking} a something encoded with a Caesar Cipher,
+ * also has a method for {@link #crack(String) cracking} a {@code String} encoded with a Caesar Cipher,
  * simply gives an array of all possible decodings
  * @author Ace009
  */

@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import com.Ace009.library.CClass.CString;
 
 /**
- * an over-the-top experimen for randomness
+ * an over-the-top experiment for randomness
  * @author Ace009
  */
 final class randomTest {
