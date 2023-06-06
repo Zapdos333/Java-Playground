@@ -13,7 +13,7 @@ public class Range extends ArrayList<Integer> {
 	 * create an {@code ArrayList<Integer>} with the first element being 0 adding 1
 	 * and adding it to the list each iteration, until it reaches {@code stop}
 	 * @param stop end integer
-	 * @return {@code ArrayList<Integer>} containing the specified {@code Integers}
+	 * @creates {@code ArrayList<Integer>} containing the specified {@code Integers}
 	 * @see #Range(int,int,int)
 	 */
 	public Range(int stop) {
@@ -27,7 +27,7 @@ public class Range extends ArrayList<Integer> {
 	 * adding 1 and adding it to the list each iteration, until it reaches {@code stop}
 	 * @param start starting integer
 	 * @param stop end integer
-	 * @return {@code ArrayList<Integer>} containing the specified {@code Integers}
+	 * @creates {@code ArrayList<Integer>} containing the specified {@code Integers}
 	 * @see #Range(int,int,int)
 	 */
 	public Range(int start, int stop) {
@@ -43,7 +43,7 @@ public class Range extends ArrayList<Integer> {
 	 * @param start starting integer
 	 * @param stop end integer
 	 * @param steps integer step in each iteration
-	 * @return {@code ArrayList<Integer>} containing the specified {@code Integers}
+	 * @creates {@code ArrayList<Integer>} containing the specified {@code Integers}
 	 */
 	public Range(int start, int stop, int steps) {
 		this.ensureCapacity(((stop-start)/steps)+1);

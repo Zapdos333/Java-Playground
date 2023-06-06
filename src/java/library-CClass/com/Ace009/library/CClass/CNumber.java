@@ -162,8 +162,8 @@ public class CNumber {
 	}
 	/**
 	 * parses the input {@code String} as {@code long} using Long.parseLong and CNumber.protoForm
-	 * @param nrS
-	 * @return
+	 * @param nrS {@code String} to parse
+	 * @return {@code long} parsed
 	 * @see Long#parseLong(String)
 	 * @see #protoForm(String,boolean)
 	 */
@@ -172,8 +172,8 @@ public class CNumber {
 	}
 	/**
 	 * parses the input {@code String} as {@code int} using Integer.parseInt and CNumber.protoForm
-	 * @param nrS
-	 * @return
+	 * @param nrS {@code String} to parse
+	 * @return {@code int} parsed
 	 * @see Integer#parseInt(String)
 	 * @see #protoForm(String,boolean)
 	 */
@@ -182,8 +182,8 @@ public class CNumber {
 	}
 	/**
 	 * parses the input {@code String} as {@code double} using Double.parseDouble and CNumber.protoForm
-	 * @param nrS
-	 * @return
+	 * @param nrS {@code String} to parse
+	 * @return {@code double} parsed
 	 * @see Double#parseDouble(String)
 	 * @see #protoForm(String,boolean)
 	 */
@@ -192,8 +192,8 @@ public class CNumber {
 	}
 	/**
 	 * parses the input {@code String} as {@code float} using Float.parseFloat(String) and CNumber.protoForm(String)
-	 * @param nrS
-	 * @return
+	 * @param nrS {@code String} to parse
+	 * @return {@code float} parsed
 	 * @see Float#parseFloat(String)
 	 * @see #protoForm(String,boolean)
 	 */

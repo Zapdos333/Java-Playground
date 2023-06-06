@@ -23,7 +23,7 @@ public class CaesarCipher {
 	/**
 	 * a method that gets all possible decodings of {@code input}
 	 * @param input the {@code String} to attempt decode
-	 * @return 
+	 * @return {@code String[]} containing all possible decodings of {@code input}
 	 */
 	public static String[] crack (String input) {
 		input = input.toLowerCase();

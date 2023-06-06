@@ -10,9 +10,9 @@ public class Circle {
 	/**
 	 * returns the quotient of the totalDistance of the <code>polygon</code> over the circumferance of a circle with the given <code>radius</code>,
 	 * only works if <code>polygon</code> is created with <code>Circles.construct</code> or <code>Circle.conssturcPoly</code>
-	 * @param polygon
-	 * @param radius
-	 * @return 
+	 * @param polygon the polygon {@code ArrayList<Coordinate>} of the circle
+	 * @param radius the circles radius
+	 * @return the quotient of the {@code totalDistance} of the {@code polygon} over the circumference of a circle with the given {@code radius},
 	 */
 	public static double getCircularity(ArrayList<Coordinate> polygon, double radius) {
 		double circumferance= Coordinate.totalDistance(polygon,true);
@@ -27,8 +27,8 @@ public class Circle {
 	/**
 	 * creates a circle with the given <code>center</code> and <code>radius</code>,
 	 * calculations are the instances methods
-	 * @param f_Center
-	 * @param r
+	 * @param f_Center the center {@code Coordinate} of the circle
+	 * @param r {@code double} the radius of the circle
 	 * @see Circle
 	 */
 	public Circle(Coordinate f_Center, double r) {
@@ -36,7 +36,7 @@ public class Circle {
 		radius=r;
 	}
 	/**
-	 * calculates the <code>Circles</code> circumferance by using its <code>radius</code
+	 * calculates the <code>Circles</code> circumferance by using its <code>radius</code>
 	 * @return <code>double</code> the <code>Circles</code> circumferance
 	 */
 	public double circumferance() {

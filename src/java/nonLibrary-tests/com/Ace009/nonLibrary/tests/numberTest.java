@@ -11,6 +11,7 @@ import com.Ace009.library.CClass.CNumber;
 public class numberTest {
 	static double MIN_VALUE;
 	static double MAX_VALUE;
+	/** actual main method */
 	public static void nain(String className) {
 		switch (className.toLowerCase()) {
 			case "integer":
@@ -41,7 +42,7 @@ public class numberTest {
 	}
 	/**
 	 * command line wrapper for {@link #nain(String)}
-	 * @param args
+	 * @param args standard main-method arguments
 	 */
 	public static void main(String[] args) {
 		ArrayList<String> argus=new ArrayList<String>(Arrays.asList(args));

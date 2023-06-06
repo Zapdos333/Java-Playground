@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * final 'static' class,
  * one of the 'C(ustom)Class' libaries,
  * this one works with Objects
- * <p/>(implements the java.lang.reflect.Field )
+ * <p>(implements the java.lang.reflect.Field )
  * @author Ace009
  */
 public class CObject {
@@ -77,9 +77,9 @@ public class CObject {
 	 * for example <code>{ {key1, value1}, {key2, value2}, ... } }</code>
 	 * @param obj Object to scan
 	 * @return {@code Object[][]} containing the properties
-	 * @throws IllegalAccessException because of {@link #values(Object,boolean)}
-	 * @see #values(Object,boolean)
-	 * @see #keys(Object, boolean)
+	 * @throws IllegalAccessException because of {@link CObject#values(Object,boolean)}
+	 * @see CObject#values(Object,boolean)
+	 * @see CObject#keys(Object, boolean)
 	 */
 	public static Object[][] entries(Object obj) throws IllegalAccessException {
 		String[] keys = keys(obj);
@@ -99,8 +99,8 @@ public class CObject {
 	 * @param a {@code Object} a
 	 * @param b {@code Object} b
 	 * @return {@code true} if all properties are equal
-	 * @throws IllegalAccessException because of {@link #values(Object,boolean)}
-	 * @see #entries(Object, boolean)
+	 * @throws IllegalAccessException because of {@link CObject#values(Object,boolean)}
+	 * @see CObject#entries(Object, boolean)
 	 */
 	public static boolean equals(Object a, Object b) throws IllegalAccessException {
 		Object[][] entriesA = entries(a);

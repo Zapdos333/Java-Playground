@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
  * class to aks console input for arguments
  * @author Ace009
- * @see #Args(String, String...) constuctor(String type, String...args)
+ * @see Args#Args(String, String...) constructor(String type, String...args)
  */
 public class Args {
 	/** copy of {@code type} */
@@ -28,7 +28,16 @@ public class Args {
 	 * possible values are: String, Int, Long, Double, Float
 	 */
 	public static enum OutputType {
-		String, Int, Long, Double, Float;
+		/** output type string */
+		String,
+		/** output type integer */
+		Int,
+		/** output type long */
+		Long,
+		/** output type double */
+		Double,
+		/** output type float */
+		Float;
 	}
 	/**
 	 * constructs an {@code Args} object, which contains the in {@code @see} mentioned properties,
@@ -36,7 +45,7 @@ public class Args {
 	 * and if the corresponding type is given, parse it into one of the {@code number[]}
 	 * @param type {@code String} stating the type of output
 	 * @param args {@code String[]} with the arguments names
-	 * @return {@code Args} with output arrays filled with the (if number: parsed) console input
+	 * @creates {@code Args} with output arrays filled with the (if number: parsed) console input
 	 * @see #output {@code output} String[]
 	 * @see #outputInt {@code outputInt} int[]
 	 * @see #outputLong {@code outputLong} long[]

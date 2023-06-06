@@ -81,7 +81,7 @@ public class MainMethods {
 	 * creates a test circle with the given parameters,
 	 * prints out the list of coordinates, and the 'Circularity'
 	 * 
-	 * @see com.Ace009.library.Circle
+	 * @see com.Ace009.library.CoordinateSystem.Circle
 	 */
 	public static void CircleMain() {
 		Args input = new Args(OutputType.Double, "X","Y","Radius","Corners");
@@ -145,7 +145,7 @@ public class MainMethods {
 	 * encodes or decodes the given string using {@code CaesarCipher#encode} or {@code CaesarCipher#decode},
 	 * or runs {@code CaesarCipher#crack} on the String, completely ignoring the given key
 	 * 
-	 * @see com.Ace009.nonLibrary.CaesarCipher
+	 * @see com.Ace009.nonLibrary.school.CaesarCipher
 	 */
 	public static void CipherTest() {
 		Args input = new Args(OutputType.String,"cipher Key","mode (encode/decode/crack)","String");
@@ -171,7 +171,7 @@ public class MainMethods {
 	 * launches a specified main method.
 	 * <p> specification is possible through {@link Args} or {@code args}
 	 * @param args {@code String[]}, irrelevant, arguments gathered using {@link Args}
-	 * @param args [0] optional, main method name,
+	 * <p>if provided: [0] optional, main method name,
 	 * skips specification launch of {@link Args}
 	 * @see com.Ace009.library.Args
 	 * @see #rangeMain()

@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 public class IntCoordinate {
 	/**
 	 * Integer implementation of {@code Coordinate.distance}
-	 * @param pA {@code CoordinateInt} point A
-	 * @param pB {@code CoordinateInt} point B
+	 * @param pA {@code IntCoordinate} point A
+	 * @param pB {@code IntCoordinate} point B
 	 * @return {@code double}: distance between given points
 	 * @see Coordinate#distance(Coordinate, Coordinate)
 	 */
@@ -21,15 +21,20 @@ public class IntCoordinate {
 		int deltax = pA.x-pB.x; int deltay = pA.y-pB.y;
 		return Math.hypot(deltax,deltay);
 	}
+	/**
+	 * rounds the input {@code ArrayList<Coordinate>} to an {@code ArrayList<IntCoordinate>}
+	 * @param list {@code ArrayList<Coordinate>} input list to round
+	 * @return {@code ArrayList<IntCoordinate>} rounded list from input
+	 */
 	public static ArrayList<IntCoordinate> roundCoordList(ArrayList<Coordinate> list) {
 		ArrayList<IntCoordinate> output;
 		output=new ArrayList<>(list.stream().map(e->new IntCoordinate(e)).collect(Collectors.toList()));
 		return output;
 	}
 	/**
-	 * converts the {@code CoordinateInt} of {@code list} into {@code Coordinates}
+	 * converts the {@code IntCoordinate} of {@code list} into {@code Coordinates}
 	 * and returns the new {@code ArrayList}
-	 * @param list {@code ArrayList} of {@code CoordinateInt}
+	 * @param list {@code ArrayList} of {@code IntCoordinate}
 	 * @return new {@code ArrayList} of {@code Coordinate}
 	 */
 	public static ArrayList<Coordinate> toCoordinates(ArrayList<IntCoordinate> list) {
@@ -40,13 +45,15 @@ public class IntCoordinate {
 	/**
 	 * returns the {@code point} as new {@code Coordinate}
 	 * with {@code int}-values cooerced to {@code double}
-	 * @param point
+	 * @param point {@code IntCoordinate} to convert
 	 * @return new {@code Coordinate}
 	 */
 	public static Coordinate toCoordinate(IntCoordinate point) {
 		return new Coordinate(point.x,point.y);
 	}
+	/** x coordinate */
 	public int x;
+	/** y coordinate */
 	public int y;
 	/**
 	 * Simply stores {@code x} and {@code y} in the classes {@code int}s
@@ -68,18 +75,18 @@ public class IntCoordinate {
 	/**
 	 * Integer implementation of {@code Coordinate.distanceTo},
 	 * also simply calls the {@code .distance(this,target)}
-	 * @param target {@code CoordinateInt} target point
+	 * @param target {@code IntCoordinate} target point
 	 * @return {@code double}: distance to given points
 	 * @see Coordinate#distanceTo(Coordinate)
-	 * @see CoordinateInt#distance(CoordinateInt, CoordinateInt)
+	 * @see IntCoordinate#distance(IntCoordinate, IntCoordinate)
 	 */
 	public double distanceTo(IntCoordinate target) {
 		return IntCoordinate.distance(this, target);
 	}
 	/**
-	 * returns {@code CoordinateInt.toCoordinate} on {@code this}
+	 * returns {@code IntCoordinate.toCoordinate} on {@code this}
 	 * @return new {@code Coordinate}
-	 * @see CoordinateInt#toCoordinate(Coordinate)
+	 * @see IntCoordinate#toCoordinate(Coordinate)
 	 */
 	public Coordinate toCoordinate() {
 		return IntCoordinate.toCoordinate(this);
