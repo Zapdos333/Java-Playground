@@ -48,9 +48,19 @@ public class IntCoordinate {
 	}
 	public int x;
 	public int y;
+	/**
+	 * Simply stores {@code x} and {@code y} in the classes {@code int}s
+	 * @param f_x {@code int} x input
+	 * @param f_y {@code int} y input
+	 * @see IntCoordinate
+	 */
 	public IntCoordinate(int f_x,int f_y) {
 		x=f_x;y=f_y;
 	}
+	/**
+	 * creates a new {@code IntCoordinate} based by rounding a {@code Coordinate}
+	 * @param coord input {@code Coordinate}
+	 */
 	public IntCoordinate(Coordinate coord){
 		x=(int)Math.round(coord.x);
 		y=(int)Math.round(coord.y);
@@ -74,6 +84,12 @@ public class IntCoordinate {
 	public Coordinate toCoordinate() {
 		return IntCoordinate.toCoordinate(this);
 	}
+	/**
+	 * returns a {@code String} representing the {@code IntCoordinate},
+	 * for example: "[x:1,y:2]"
+	 * @return {@code String}: string representation of the {@code IntCoordinate}
+	 * @see Coordinate#toString()
+	 */
 	@Override
 	public String toString() {
 		return "[x:"+this.x+",y:"+this.y+"]";

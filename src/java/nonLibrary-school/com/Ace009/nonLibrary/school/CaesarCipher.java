@@ -3,7 +3,16 @@ package com.Ace009.nonLibrary.school;
 import com.Ace009.library.Range;
 import com.Ace009.library.CClass.CArray;
 
-/** */
+/**
+ * a class to create and use Caesar Ciphers
+ * <p>
+ * has methods for {@link #encode(char[]) encoding} and {@link #decode(char[]) decoding}
+ * accepting both {@code String} and {@code char[]}
+ * <p>
+ * also has a method for {@link #crack(String) cracking} a {@code String} encoded with a Caesar Cipher,
+ * simply gives an array of all possible decodings
+ * @author Ace009
+ */
 public class CaesarCipher {
 	/**a {@code char[]} containing the latin alphabet */
 	static final char[] ALPHABET = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
