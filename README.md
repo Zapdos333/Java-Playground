@@ -6,11 +6,9 @@ documentation for the  `java source-code` is written in `javadocs`
 
 all development happens in the [`dev-branch`](https://github.com/Zapdos333/Java-Playground/tree/dev)
 
-[`Source-Code-Only`](https://github.com/Zapdos333/Java-Playground/tree/sourcecode-only) is
-[`main`](https://github.com/Zapdos333/Java-Playground/tree/main) but without 
+releases are on [`main`](https://github.com/Zapdos333/Java-Playground/tree/main)
 
 everything released is documented via javadocs or comments
-TODO: document python files
 
 ## Gradle Configuration
 
