@@ -8,8 +8,8 @@ import java.util.ArrayList;
  */
 public class Circle {
 	/**
-	 * returns the quotient of the totalDistance of the <code>polygon</code> over the circumferance of a circle with the given <code>radius</code>,
-	 * only works if <code>polygon</code> is created with <code>Circles.construct</code> or <code>Circle.conssturcPoly</code>
+	 * returns the quotient of the totalDistance of the {@code polygon} over the circumferance of a circle with the given {@code radius},
+	 * only works if {@code polygon} is created with {@code Circles.construct} or {@code Circle.constructPoly}
 	 * @param polygon the polygon {@code ArrayList<Coordinate>} of the circle
 	 * @param radius the circles radius
 	 * @return the quotient of the {@code totalDistance} of the {@code polygon} over the circumference of a circle with the given {@code radius},
@@ -25,7 +25,7 @@ public class Circle {
 	/** radius of the circle */
 	public double radius;
 	/**
-	 * creates a circle with the given <code>center</code> and <code>radius</code>,
+	 * creates a circle with the given {@code center} and {@code radius},
 	 * calculations are the instances methods
 	 * @param f_Center the center {@code Coordinate} of the circle
 	 * @param r {@code double} the radius of the circle
@@ -36,18 +36,18 @@ public class Circle {
 		radius=r;
 	}
 	/**
-	 * calculates the <code>Circles</code> circumferance by using its <code>radius</code>
-	 * @return <code>double</code> the <code>Circles</code> circumferance
+	 * calculates the {@code Circles} circumferance by using its {@code radius}
+	 * @return {@code double} the {@code Circles} circumferance
 	 */
 	public double circumferance() {
 		final double two=2;
 		return Math.PI*radius*two;
 	}
 	/**
-	 * returns the <code>Coordinates</code> of the <code>degrees</code> position on the <code>Circle</code>,
-	 * while: for <code>degrees</code> = 0 it returns the <code>new Coordinate(center.x,center.y+radius)</code>
+	 * returns the {@code Coordinates} of the {@code degrees} position on the {@code Circle},
+	 * while: for {@code degrees} = 0 it returns the {@code new Coordinate(center.x,center.y+radius)}
 	 * @param degrees double
-	 * @return the <code>Coordinates</code> of the <code>degrees</code> position on the <code>Circle</code>
+	 * @return the {@code Coordinates} of the {@code degrees} position on the {@code Circle}
 	 */
 	public Coordinate positionDegrees(double degrees) {
 		double deltax= 0;
@@ -58,10 +58,10 @@ public class Circle {
 		return new Coordinate(center.x+deltax,center.y+deltay);
 	}
 	/**
-	 * returns a <code>ArrayList</code> of <code>Coordinates</code> using <code>Circle.positionDegrees</code>,
-	 * while every entry uses 0+iterations*interval as <code>degrees</code>
+	 * returns a {@code ArrayList} of {@code Coordinates} using {@code Circle.positionDegrees},
+	 * while every entry uses 0+iterations*interval as degrees
 	 * @param interval double
-	 * @return <code>ArrayList</code> of <code>Coordinates</code> with all <code>Coordinates</code> on <code>Circle</code>
+	 * @return {@code ArrayList} of {@code Coordinates} with all {@code Coordinates} on {@code Circle}
 	 */
 	public ArrayList<Coordinate> construct(double interval) {
 		ArrayList<Coordinate> output = new ArrayList<>();
@@ -86,9 +86,9 @@ public class Circle {
 		// }
 	}
 	/**
-	 * simply runs <code>Circle.construct(double interval)</code> with <code>360/corners</code> as <code>interval</code>
+	 * simply runs {@code Circle.construct(double interval)} with {@code 360/corners} as {@code interval}
 	 * @param corners int
-	 * @return <code>ArrayList</code> of <code>Coordinates</code>
+	 * @return {@code ArrayList} of {@code Coordinates}
 	 * @see #construct(double)
 	 */
 	public ArrayList<Coordinate> constructPoly(int corners) {

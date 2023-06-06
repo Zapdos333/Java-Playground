@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * a random number generator,
- * that <code>extends Random</code>,
+ * that {@code extends Random},
  * has some additional instance methods
  * @see Random
  * @author Ace009
@@ -20,7 +20,7 @@ public class RNG extends Random{
 		super();
 	}
 	/**
-	 * returns a random integer, based on <code>Random</code>
+	 * returns a random integer, based on {@code Random}
 	 * @param min
 	 * @param max
 	 * @return random integer
@@ -30,7 +30,7 @@ public class RNG extends Random{
 		return this.nextInt(max - min + 1) + min;
 	}
 	/**
-	 * returns a random double, based on <code>Random</code>
+	 * returns a random double, based on {@code Random}
 	 * @param min
 	 * @param max
 	 * @return random double
@@ -40,7 +40,7 @@ public class RNG extends Random{
 		return this.nextDouble()*((max)-min)+min;
 	}
 	/**
-	 * returns a random float, based on <code>Random</code>
+	 * returns a random float, based on {@code Random}
 	 * @param min
 	 * @param max
 	 * @return random float
@@ -50,7 +50,7 @@ public class RNG extends Random{
 		return this.nextFloat()*((max)-min)+min;
 	}
 	/**
-	 * creates a random long by calling <code>nextDouble()</code>,
+	 * creates a random long by calling {@code nextDouble()},
 	 * and the doing the old {@code (random)*(max-min)+min},
 	 * unreliable due to this attempting
 	 * @param min

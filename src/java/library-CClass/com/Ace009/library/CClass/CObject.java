@@ -74,7 +74,7 @@ public class CObject {
 	}
 	/**
 	 * returns all properties consisting of {key,value} of the {@code Object obj},
-	 * for example <code>{ {key1, value1}, {key2, value2}, ... } }</code>
+	 * for example {@code { {key1, value1}, {key2, value2}, ... } }}
 	 * @param obj Object to scan
 	 * @return {@code Object[][]} containing the properties
 	 * @throws IllegalAccessException because of {@link CObject#values(Object)}

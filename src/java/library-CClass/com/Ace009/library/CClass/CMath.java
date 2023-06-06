@@ -16,7 +16,7 @@ final public class CMath {
 	 * returns a random integer between min and max
 	 * @param min
 	 * @param max
-	 * @return <code>int</code>: random, between min and max
+	 * @return {@code int}: random, between min and max
 	 */
 	public static int limitedRandom(int min, int max) {
 		Double random=Math.random()*((max+1)-min)+min;
