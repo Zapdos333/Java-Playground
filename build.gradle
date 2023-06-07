@@ -28,6 +28,7 @@ subprojects {
 		duplicatesStrategy = 'exclude'
 	}
 	processResources.onlyIf { false }
+	javadoc.onlyIf { false }
 }
 /*
 project(':template'){
@@ -132,9 +133,21 @@ sourceSets {
 compileJava.onlyIf { false }
 processResources.onlyIf { false }
 buildDir="./build/"
+if (hasProperty('buildScan')) {
+	buildScan {
+		tag "Java-Playground"
+		tag "v"+project.getVersion()
+		link "github dev-branch", "https://github.com/Zapdos333/Java-Playground/tree/dev"
+	}
+}
+
+javadoc {
+	destinationDir=file("${project.getRootDir()}/build/docs")
+	source = project.getRootProject().sourceSets.main.java.srcDirs
+}
 //debug
 task printCheck(){
 	doLast{
-		println(sourceSets.main.java.srcDirs)
+		println()
 	}
 }
