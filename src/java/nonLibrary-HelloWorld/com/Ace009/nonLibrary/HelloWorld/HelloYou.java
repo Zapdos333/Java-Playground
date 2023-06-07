@@ -7,6 +7,8 @@ import java.util.Arrays;
  * @author Ace009
  */
 public class HelloYou {
+	/** don't */
+	private HelloYou() {}
 	/**
 	 * prints out 'Hello You', supliments 'You' with {@code args[0]}
 	 * @param args the standard main-method arguments

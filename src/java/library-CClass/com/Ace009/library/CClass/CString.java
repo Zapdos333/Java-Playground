@@ -15,8 +15,8 @@ final public class CString {
 	/**
 	 * returns a {@code String} with (at least) the given {@code length},
 	 * and th start filled up with " ", if {@code input} is shorter than {@code length}
-	 * @param input
-	 * @param length
+	 * @param input {@code String} to fit to {@code length}
+	 * @param length {@code int} minimum length for output
 	 * @return {@code String}: formatted to {@code length}
 	 */
 	public static String formatToLength(String input, int length) {

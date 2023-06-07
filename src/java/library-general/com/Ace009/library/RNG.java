@@ -4,16 +4,25 @@ import java.util.Random;
 
 /**
  * a random number generator,
- * that <code>extends Random</code>,
+ * that {@code extends Random},
  * has some additional instance methods
  * @see Random
  * @author Ace009
  */
 public class RNG extends Random{
 	/**
-	 * returns a random integer, based on <code>Random</code>
-	 * @param min
-	 * @param max
+	 * creates a new instance of {@code RNG}
+	 * based on {@code Random}
+	 * but with the additional instance methods
+	 * @see Random
+	 */
+	public RNG() {
+		super();
+	}
+	/**
+	 * returns a random integer, based on {@code Random}
+	 * @param min {@code int} minimum value (inclusive)
+	 * @param max {@code int} maximum value (inclusive)
 	 * @return random integer
 	 * @see Random#nextInt(int)
 	 */
@@ -21,9 +30,9 @@ public class RNG extends Random{
 		return this.nextInt(max - min + 1) + min;
 	}
 	/**
-	 * returns a random double, based on <code>Random</code>
-	 * @param min
-	 * @param max
+	 * returns a random double, based on {@code Random}
+	 * @param min {@code double} minimum value (inclusive)
+	 * @param max {@code double} minimum value (exclusive)
 	 * @return random double
 	 * @see Random#nextDouble()
 	 */
@@ -31,9 +40,9 @@ public class RNG extends Random{
 		return this.nextDouble()*((max)-min)+min;
 	}
 	/**
-	 * returns a random float, based on <code>Random</code>
-	 * @param min
-	 * @param max
+	 * returns a random float, based on {@code Random}
+	 * @param min {@code float} minimum value (inclusive)
+	 * @param max {@code float} minimum value (exclusive)
 	 * @return random float
 	 * @see Random#nextFloat()
 	 */
@@ -41,11 +50,11 @@ public class RNG extends Random{
 		return this.nextFloat()*((max)-min)+min;
 	}
 	/**
-	 * creates a random long by calling <code>nextDouble()</code>,
+	 * creates a random long by calling {@code nextDouble()},
 	 * and the doing the old {@code (random)*(max-min)+min},
 	 * unreliable due to this attempting
-	 * @param min
-	 * @param max
+	 * @param min {@code long} minimum value (inclusive)
+	 * @param max {@code long} maximum value (exclusive)
 	 * @return 'random' long
 	 */
 	public long limitedLongRandom(long min, long max) {

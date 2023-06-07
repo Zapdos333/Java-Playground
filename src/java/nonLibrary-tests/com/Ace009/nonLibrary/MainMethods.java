@@ -1,10 +1,11 @@
 package com.Ace009.nonLibrary;
 
 import com.Ace009.library.*;
-import com.Ace009.library.Args.OutputType;
 import com.Ace009.library.CClass.*;
 import com.Ace009.library.CoordinateSystem.*;
 import com.Ace009.nonLibrary.school.*;
+
+import com.Ace009.library.Args.OutputType;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,8 @@ import java.util.ArrayList;
  * @see #main(String[])
  */
 public class MainMethods {
+	/** don't */
+	private MainMethods() {}
 	/**
 	 * {@code Range}s main method:
 	 * <p>
@@ -44,33 +47,34 @@ public class MainMethods {
 		//create new RNG
 		RNG testRng= new RNG();
 		//ask for Args
-		Args input = new Args(OutputType.Int,"amount","max","Seed length");
+		Args input = new Args(OutputType.Int,"amount","min","max","Seed length");
 		//insert defaults
-		input.parseWithDefaults(new int[]{10,10,15});
+		input.parseWithDefaults(new int[]{10,0,10,15});
 		//set parameters
 		int limit = input.outputInt[0];
-		int max = input.outputInt[1];
-		int seedLength = input.outputInt[2];
+		int min = input.outputInt[1];
+		int max = input.outputInt[2];
+		int seedLength = input.outputInt[3];
 		//ask for type of number
 		String type = new Args(OutputType.String, "type of numbers").output[0].toLowerCase();
 		//reroll for seed
 		System.out.println("new Seed is: "+testRng.rerollRandom(seedLength));
 		//output requested random numbers
-		for (int i = 1; i <= limit; i++) {
+		for (int i : Range.arrayRange(1,limit)) {
 			switch (type) {
 				case "long":
-					System.out.printf("Iteration: %d; RNG: %d",i,testRng.limitedLongRandom(0,max));
+					System.out.printf("Iteration: %d; RNG: %d\n",i,testRng.limitedLongRandom(min,max));
 					break;
 				case "double":
-					System.out.printf("Iteration: %d; RNG: %f",i,testRng.limitedDoubleRandom(0,max));
+					System.out.printf("Iteration: %d; RNG: %f\n",i,testRng.limitedDoubleRandom(min,max));
 					break;
 				case "float":
-					System.out.printf("Iteration: %d; RNG: %f",i,testRng.limitedFloatRandom(0,max));
+					System.out.printf("Iteration: %d; RNG: %f\n",i,testRng.limitedFloatRandom(min,max));
 					break;
 				case "int":
 				case "integer":
 				default:
-					System.out.printf("Iteration: %d; RNG: %d",i,testRng.limitedIntRandom(0,max));
+					System.out.printf("Iteration: %d; RNG: %d\n",i,testRng.limitedIntRandom(min,max));
 					break;
 			}
 		}
@@ -81,7 +85,7 @@ public class MainMethods {
 	 * creates a test circle with the given parameters,
 	 * prints out the list of coordinates, and the 'Circularity'
 	 * 
-	 * @see com.Ace009.library.Circle
+	 * @see com.Ace009.library.CoordinateSystem.Circle
 	 */
 	public static void CircleMain() {
 		Args input = new Args(OutputType.Double, "X","Y","Radius","Corners");
@@ -145,7 +149,7 @@ public class MainMethods {
 	 * encodes or decodes the given string using {@code CaesarCipher#encode} or {@code CaesarCipher#decode},
 	 * or runs {@code CaesarCipher#crack} on the String, completely ignoring the given key
 	 * 
-	 * @see com.Ace009.nonLibrary.CaesarCipher
+	 * @see com.Ace009.nonLibrary.school.CaesarCipher
 	 */
 	public static void CipherTest() {
 		Args input = new Args(OutputType.String,"cipher Key","mode (encode/decode/crack)","String");
@@ -157,7 +161,7 @@ public class MainMethods {
 				break;
 			case "crack":
 				String[] output = CaesarCipher.crack(input.output[2]);
-				for (int i : Range.arrayRange(output.length)) {
+				for (int i : Range.arrayRange(1,output.length+1)) {
 					System.out.printf("%d: %s\n",i,output[i]);
 				}
 				break;
@@ -168,10 +172,16 @@ public class MainMethods {
 		}
 	}
 	/**
+	 * debug method, empty on realease, jst for in-dev-deubugging
+	 */
+	public static void debug(){
+		//debugging, usually empty
+	}
+	/**
 	 * launches a specified main method.
 	 * <p> specification is possible through {@link Args} or {@code args}
 	 * @param args {@code String[]}, irrelevant, arguments gathered using {@link Args}
-	 * @param args [0] optional, main method name,
+	 * <p>if provided: [0] optional, main method name,
 	 * skips specification launch of {@link Args}
 	 * @see com.Ace009.library.Args
 	 * @see #rangeMain()
@@ -205,6 +215,8 @@ public class MainMethods {
 			case "ciphertest":
 				CipherTest();
 				break;
+			case "debug":
+				debug();
 			default: System.out.println("No implemented type given. type: "+type);
 		}
 	}

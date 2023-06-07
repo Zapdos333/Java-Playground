@@ -14,8 +14,8 @@ final public class CMath {
 	private CMath() {}
 	/**
 	 * returns a random integer between min and max
-	 * @param min
-	 * @param max
+	 * @param min {@code int} minimum value (inclusive)
+	 * @param max {@code int} maximum value (inclusive)
 	 * @return <code>int</code>: random, between min and max
 	 */
 	public static int limitedRandom(int min, int max) {
