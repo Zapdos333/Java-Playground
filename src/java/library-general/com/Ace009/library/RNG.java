@@ -21,8 +21,8 @@ public class RNG extends Random{
 	}
 	/**
 	 * returns a random integer, based on {@code Random}
-	 * @param min
-	 * @param max
+	 * @param min {@code int} minimum value (inclusive)
+	 * @param max {@code int} maximum value (inclusive)
 	 * @return random integer
 	 * @see Random#nextInt(int)
 	 */
@@ -31,8 +31,8 @@ public class RNG extends Random{
 	}
 	/**
 	 * returns a random double, based on {@code Random}
-	 * @param min
-	 * @param max
+	 * @param min {@code double} minimum value (inclusive)
+	 * @param max {@code double} minimum value (exclusive)
 	 * @return random double
 	 * @see Random#nextDouble()
 	 */
@@ -41,8 +41,8 @@ public class RNG extends Random{
 	}
 	/**
 	 * returns a random float, based on {@code Random}
-	 * @param min
-	 * @param max
+	 * @param min {@code float} minimum value (inclusive)
+	 * @param max {@code float} minimum value (exclusive)
 	 * @return random float
 	 * @see Random#nextFloat()
 	 */
@@ -53,8 +53,8 @@ public class RNG extends Random{
 	 * creates a random long by calling {@code nextDouble()},
 	 * and the doing the old {@code (random)*(max-min)+min},
 	 * unreliable due to this attempting
-	 * @param min
-	 * @param max
+	 * @param min {@code long} minimum value (inclusive)
+	 * @param max {@code long} minimum value (inclusive)
 	 * @return 'random' long
 	 */
 	public long limitedLongRandom(long min, long max) {

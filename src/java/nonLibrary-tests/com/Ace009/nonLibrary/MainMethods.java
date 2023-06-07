@@ -170,6 +170,12 @@ public class MainMethods {
 		}
 	}
 	/**
+	 * debug method, empty on realease, jst for in-dev-deubugging
+	 */
+	public static void debug(){
+		//debugging, usually empty
+	}
+	/**
 	 * launches a specified main method.
 	 * <p> specification is possible through {@link Args} or {@code args}
 	 * @param args {@code String[]}, irrelevant, arguments gathered using {@link Args}
@@ -207,6 +213,8 @@ public class MainMethods {
 			case "ciphertest":
 				CipherTest();
 				break;
+			case "debug":
+				debug();
 			default: System.out.println("No implemented type given. type: "+type);
 		}
 	}
