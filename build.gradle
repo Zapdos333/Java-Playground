@@ -85,7 +85,6 @@ dependencies {
 	implementation project(':library-general')
 	implementation project(':library-CoordinateSystem')
 	implementation project(':library-CClass')
-	implementation project(':nonLibrary-general')
 	implementation project(':nonLibrary-HelloWorld')
 	implementation project(':nonLibrary-school')
 	implementation project(':nonLibrary-tests')
@@ -108,7 +107,6 @@ project(':library'){
 }
 project(':nonLibrary'){
 	dependencies {
-		implementation project(':nonLibrary-general')
 		implementation project(':nonLibrary-HelloWorld')
 		implementation project(':nonLibrary-school')
 		implementation project(':nonLibrary-tests')
@@ -133,6 +131,7 @@ sourceSets {
 compileJava.onlyIf { false }
 processResources.onlyIf { false }
 buildDir="./build/"
+//configure build scan (--scan)
 if (hasProperty('buildScan')) {
 	buildScan {
 		tag "Java-Playground"
@@ -140,7 +139,7 @@ if (hasProperty('buildScan')) {
 		link "github dev-branch", "https://github.com/Zapdos333/Java-Playground/tree/dev"
 	}
 }
-
+//configure javadocs
 javadoc {
 	destinationDir=file("${project.getRootDir()}/build/docs")
 	source = project.getRootProject().sourceSets.main.java.srcDirs
