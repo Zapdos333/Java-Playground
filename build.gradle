@@ -144,6 +144,14 @@ javadoc {
 	destinationDir=file("${project.getRootDir()}/build/docs")
 	source = project.getRootProject().sourceSets.main.java.srcDirs
 }
+task packageDocs(type: Zip) {
+	dependsOn javadoc
+	archiveFileName="${project.archivesBaseName}-JavaDocs-${project.getVersion()}.zip"
+	destinationDirectory=file("${project.getRootDir()}/build/libs")
+	from file("${project.getRootDir()}/build/docs")
+	entryCompression = "deflated"
+
+}
 //debug
 task printCheck(){
 	doLast{
