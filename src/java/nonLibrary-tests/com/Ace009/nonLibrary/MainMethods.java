@@ -1,10 +1,11 @@
 package com.Ace009.nonLibrary;
 
 import com.Ace009.library.*;
-import com.Ace009.library.Args.OutputType;
 import com.Ace009.library.CClass.*;
 import com.Ace009.library.CoordinateSystem.*;
 import com.Ace009.nonLibrary.school.*;
+
+import com.Ace009.library.Args.OutputType;
 
 import java.util.ArrayList;
 
@@ -46,33 +47,34 @@ public class MainMethods {
 		//create new RNG
 		RNG testRng= new RNG();
 		//ask for Args
-		Args input = new Args(OutputType.Int,"amount","max","Seed length");
+		Args input = new Args(OutputType.Int,"amount","min","max","Seed length");
 		//insert defaults
-		input.parseWithDefaults(new int[]{10,10,15});
+		input.parseWithDefaults(new int[]{10,0,10,15});
 		//set parameters
 		int limit = input.outputInt[0];
-		int max = input.outputInt[1];
-		int seedLength = input.outputInt[2];
+		int min = input.outputInt[1];
+		int max = input.outputInt[2];
+		int seedLength = input.outputInt[3];
 		//ask for type of number
 		String type = new Args(OutputType.String, "type of numbers").output[0].toLowerCase();
 		//reroll for seed
 		System.out.println("new Seed is: "+testRng.rerollRandom(seedLength));
 		//output requested random numbers
-		for (int i = 1; i <= limit; i++) {
+		for (int i : Range.arrayRange(1,limit)) {
 			switch (type) {
 				case "long":
-					System.out.printf("Iteration: %d; RNG: %d",i,testRng.limitedLongRandom(0,max));
+					System.out.printf("Iteration: %d; RNG: %d\n",i,testRng.limitedLongRandom(min,max));
 					break;
 				case "double":
-					System.out.printf("Iteration: %d; RNG: %f",i,testRng.limitedDoubleRandom(0,max));
+					System.out.printf("Iteration: %d; RNG: %f\n",i,testRng.limitedDoubleRandom(min,max));
 					break;
 				case "float":
-					System.out.printf("Iteration: %d; RNG: %f",i,testRng.limitedFloatRandom(0,max));
+					System.out.printf("Iteration: %d; RNG: %f\n",i,testRng.limitedFloatRandom(min,max));
 					break;
 				case "int":
 				case "integer":
 				default:
-					System.out.printf("Iteration: %d; RNG: %d",i,testRng.limitedIntRandom(0,max));
+					System.out.printf("Iteration: %d; RNG: %d\n",i,testRng.limitedIntRandom(min,max));
 					break;
 			}
 		}
@@ -159,7 +161,7 @@ public class MainMethods {
 				break;
 			case "crack":
 				String[] output = CaesarCipher.crack(input.output[2]);
-				for (int i : Range.arrayRange(output.length)) {
+				for (int i : Range.arrayRange(1,output.length+1)) {
 					System.out.printf("%d: %s\n",i,output[i]);
 				}
 				break;

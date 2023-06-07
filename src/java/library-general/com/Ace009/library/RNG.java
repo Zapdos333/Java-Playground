@@ -54,7 +54,7 @@ public class RNG extends Random{
 	 * and the doing the old {@code (random)*(max-min)+min},
 	 * unreliable due to this attempting
 	 * @param min {@code long} minimum value (inclusive)
-	 * @param max {@code long} minimum value (inclusive)
+	 * @param max {@code long} maximum value (exclusive)
 	 * @return 'random' long
 	 */
 	public long limitedLongRandom(long min, long max) {
