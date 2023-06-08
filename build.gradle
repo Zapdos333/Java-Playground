@@ -1,20 +1,7 @@
 // plugins
-apply plugin: 'maven-publish'
 apply plugin: 'java'
-//project publish
-group = 'com.github.Zapdos333'
+//project properties
 project.setVersion('2.0.0')
-publishing {
-	publications {
-		maven(MavenPublication) {
-			groupId = group
-			artifactId = 'Java-Playground'
-			version = project.getVersion()
-			from components.java
-		}
-	}
-}
-publish.dependsOn build
 // projects
 subprojects {
 	apply plugin: 'java'
@@ -150,8 +137,8 @@ task packageDocs(type: Zip) {
 	destinationDirectory=file("${project.getRootDir()}/build/libs")
 	from file("${project.getRootDir()}/build/docs")
 	entryCompression = "deflated"
-
 }
+build.dependsOn packageDocs
 //debug
 task printCheck(){
 	doLast{
