@@ -4,7 +4,7 @@ package com.Ace009.library;
 import java.util.Scanner;
 
 /**
- * class to aks console input for arguments
+ * class to asks console input for arguments
  * @author Ace009
  * @see com.Ace009.library.Args#Args(Args.OutputType, String...)  constructor(String type, String...args)
  */
@@ -24,7 +24,7 @@ public class Args {
 	/** {@code String} output array, always filled */
 	public final String[] output;
 	/**
-	 * {@code enum} declaration for Output Types
+	 * {@code enum} declaration for Output Types,
 	 * possible values are: String, Int, Long, Double, Float
 	 */
 	public static enum OutputType {

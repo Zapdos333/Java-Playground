@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.Ace009.library.Range;
 /**
- * final 'static' class,
+ * 'static' class,
  * one of the 'C(ustom)Class' libaries,
  * this one works with Arrays {@code T[]}
  * @author Ace009
@@ -30,7 +30,8 @@ public class CArray {
 		return -1;
 	}
 	/**
-	 * turns the array into an {@code ArrayList} by adding all the elements one by one
+	 * turns the array into an {@code ArrayList}
+	 * by adding all the elements one by one to a new {@code ArrayList}
 	 * @param <T> the type of the elements
 	 * @param array the original array
 	 * @return {@code ArrayList} containing all the elements from the array

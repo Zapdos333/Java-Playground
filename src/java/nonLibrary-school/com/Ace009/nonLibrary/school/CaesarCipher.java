@@ -57,7 +57,7 @@ public class CaesarCipher {
 	}
 	/**
 	 * Character implementation of the default Constructor,
-	 * runs {@code CaesarCipher(byte)} with {@code code}s index if {@code ALPHABET},
+	 * runs {@code CaesarCipher(byte)} with {@code code}s index of {@code ALPHABET},
 	 * {@code (byte)code} defaults to {@code 0}
 	 * @param code {@code char} the key Character
 	 * @see #CaesarCipher(byte)

@@ -1,12 +1,12 @@
 package com.Ace009.library.CClass;
 
 /**
- * final 'static' class,
+ * 'static' class,
  * one of the 'C(ustom)Class' libaries,
  * this one works with simple mathematics
  * @author Ace009
  */
-final public class CMath {
+public class CMath {
 	/**
 	 * don't
 	 * @see CMath

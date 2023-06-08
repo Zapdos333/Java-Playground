@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 /**
- * final 'static' class,
+ * 'static' class,
  * one of the 'C(ustom)Class' libaries,
  * this one works with Objects
  * <p>(implements the java.lang.reflect.Field )

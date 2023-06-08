@@ -3,12 +3,12 @@ package com.Ace009.library.CClass;
 import java.util.ArrayList;
 import java.util.Collection;
 /**
- * final 'static' class,
+ * 'static' class,
  * one of the 'C(ustom)Class' libaries,
  * this one works with {@code ArrayLists}
  * @author Ace009
  */
-final public class CList {
+public class CList {
 	/**
 	 * don't
 	 * @see CList

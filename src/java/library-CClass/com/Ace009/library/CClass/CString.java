@@ -1,12 +1,12 @@
 package com.Ace009.library.CClass;
 
 /**
- * final 'static' class,
+ * 'static' class,
  * one of the 'C(ustom)Class' libaries,
  * this one works with {@code Strings}
  * @author Ace009
  */
-final public class CString {
+public class CString {
 	/**
 	 * don't
 	 * @see CString

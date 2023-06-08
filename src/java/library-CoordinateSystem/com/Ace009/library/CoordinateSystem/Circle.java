@@ -26,7 +26,7 @@ public class Circle {
 	public double radius;
 	/**
 	 * creates a circle with the given {@code center} and {@code radius},
-	 * calculations are the instances methods
+	 * calculations are the instance methods
 	 * @param f_Center the center {@code Coordinate} of the circle
 	 * @param r {@code double} the radius of the circle
 	 * @see Circle
