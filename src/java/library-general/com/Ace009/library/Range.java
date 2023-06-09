@@ -13,14 +13,18 @@ import java.util.Collection;
  */
 public class Range {
 	/**
+	 * don't
+	 */
+	private Range() {}
+	/**
 	 * creates a {@code Collection<Integer>} with the first element being {@code 0} adding {@code 1}
 	 * and adding it to the list each iteration, until it reaches {@code stop}
 	 * <p>
 	 * uses {@link #ListRange(int, int, int)} with start defaulting to {@code 0}
 	 * and steps defaulting to {@code 1}
 	 * @param stop end integer
-	 * @return a {@code List<Integer>}
-	 * @see #ListRange(int,int,int)
+	 * @return a {@code Collection<Integer>}
+	 * @see Range#ListRange(int,int,int)
 	 */
 	public static Collection<Integer> ListRange(int stop) {
 		return ListRange(0, stop, 1);
@@ -28,9 +32,12 @@ public class Range {
 	/**
 	 * create a {@code Collection<Integer>} with the first element being {@code start}
 	 * adding 1 and adding it to the list each iteration, until it reaches {@code stop}
+	 * <p>
+	 * uses {@link #ListRange(int, int, int)} with steps defaulting to {@code 1}
 	 * @param start starting integer
 	 * @param stop end integer
-	 * @see #ListRange(int,int,int)
+	 * @return a {@code Collection<Integer>}
+	 * @see Range#ListRange(int,int,int)
 	 */
 	public static Collection<Integer> ListRange(int start, int stop) {
 		return ListRange(start, stop, 1);
@@ -42,6 +49,7 @@ public class Range {
 	 * @param start starting integer
 	 * @param stop end integer
 	 * @param steps integer step in each iteration
+	 * @return a {@code Collection<Integer>}
 	 */
 	public static Collection<Integer> ListRange(int start, int stop, int steps) {
 		ArrayList<Integer> output = new ArrayList<>();

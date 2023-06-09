@@ -49,7 +49,7 @@ public class Args {
 	 * @see #outputLong {@code outputLong} long[]
 	 * @see #outputFloat {@code outputFloat} float[]
 	 * @see #outputDouble {@code outputDouble} double[]
-	 * @see #Sargs {@code Sargs} String[] (copy of {@code args})
+	 * @see #SArgs {@code SArgs} String[] (copy of {@code args})
 	 * @see #createdType {@code createdType} String (copy of {@code type})
 	 */
 	@SuppressWarnings("resource") //never close System.in

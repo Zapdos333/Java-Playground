@@ -15,7 +15,7 @@ public class IntCoordinate {
 	 * @param pA {@code IntCoordinate} point A
 	 * @param pB {@code IntCoordinate} point B
 	 * @return {@code double}: distance between given points
-	 * @see Coordinate#distance(Coordinate, Coordinate)
+	 * @see com.Ace009.library.CoordinateSystem.Coordinate#distance(Coordinate,Coordinate)
 	 */
 	public static double distance(IntCoordinate pA,IntCoordinate pB) {
 		int deltax = pA.x-pB.x; int deltay = pA.y-pB.y;
@@ -74,18 +74,18 @@ public class IntCoordinate {
 		y=(int)Math.round(coord.y);
 	}
 	/**
-	 * Integer implementation of {@link Coordinate#distanceTo(Coordinate,Coordinate)},
-	 * also simply calls the {@link #distance(this,target)}
+	 * Integer implementation of {@link com.Ace009.library.CoordinateSystem.Coordinate#distanceTo(Coordinate)},
+	 * also simply calls the {@link IntCoordinate#distance(IntCoordinate,IntCoordinate)}
 	 * @param target {@code IntCoordinate} target point
 	 * @return {@code double}: distance to given points
-	 * @see Coordinate#distanceTo(Coordinate)
+	 * @see com.Ace009.library.CoordinateSystem.Coordinate#distanceTo(Coordinate)
 	 */
 	public double distanceTo(IntCoordinate target) {
 		return IntCoordinate.distance(this, target);
 	}
 	/**
-	 * returns {@link #toCoordinate} on {@code this}
-	 * @return new {@link Coordinate}
+	 * returns {@link IntCoordinate#toCoordinate} on {@code this}
+	 * @return new {@code Coordinate}
 	 * @see IntCoordinate#toCoordinate(IntCoordinate)
 	 */
 	public Coordinate toCoordinate() {
@@ -95,7 +95,7 @@ public class IntCoordinate {
 	 * returns a {@code String} representing the {@code IntCoordinate},
 	 * for example: "[x:1,y:2]"
 	 * @return {@code String}: string representation of the {@code IntCoordinate}
-	 * @see Coordinate#toString()
+	 * @see com.Ace009.library.CoordinateSystem.Coordinate#toString()
 	 */
 	@Override
 	public String toString() {
