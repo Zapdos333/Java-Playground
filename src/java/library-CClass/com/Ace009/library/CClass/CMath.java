@@ -25,7 +25,9 @@ public class CMath {
 		return random.intValue();
 	}
 	/** private {@code IntStream} containing {@code {1,2,3,...)}} */
-	private static IntStream numbers = IntStream.iterate(1, i->i+1);
+	private static IntStream numbers;
+	/** private method to reopen {@link #numbers} */
+	private static void refreshNums() { numbers = IntStream.iterate(1, i->i+1); }
 	/**
 	 * private method to check if a number is prime,
 	 * <p> by checking if the part of {@link CMath#numbers} is at max {@code 2} long (1 and itself)
@@ -33,7 +35,8 @@ public class CMath {
 	 * @return true if prime, false otherwise
 	 */
 	private static boolean isPrime(int n) {
-		return numbers.parallel().filter(i->n%i==0).toArray().length <= 2;
+		refreshNums();
+		return numbers.limit(Math.ceilDiv(n,2)).parallel().filter(i->n%i==0).toArray().length <= 2;
 	}
 	/**
 	 * returns an {@code int[]} containing all prime numbers up to {@code max}
@@ -41,7 +44,8 @@ public class CMath {
 	 * @return an {@code int[]}
 	 */
 	public static int[] getPrimesUpTo(final int max) {
-		return numbers.parallel().filter(e->isPrime(e)&&e<=max).toArray();
+		refreshNums();
+		return numbers.limit(max).parallel().filter(e->isPrime(e)).toArray();
 	}
 	/**
 	 * returns an {@code int[]} containing the first {@code length} prime numbers
@@ -49,6 +53,7 @@ public class CMath {
 	 * @return an {@code int[]}
 	 */
 	public static int[] getPrimes(final int length) {
+		refreshNums();
 		return numbers.parallel().filter(e->isPrime(e)).limit(length).toArray();
 	}
 }

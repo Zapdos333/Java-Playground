@@ -29,7 +29,7 @@ public class Fraction {
 		public static int[] seperateToPrimes(long number) {
 			int[] check = CMath.getPrimesUpTo((int)Math.ceil(number/2));
 			List<Integer> output = new ArrayList<>();
-			for (int i = 0; i < check.length; i++) {
+			for (int i = 1; i < check.length; i++) {
 				if (number % check[i] == 0) {
 					output.add(check[i]);
 					number /= check[i];
@@ -123,7 +123,7 @@ public class Fraction {
 	 * calculates the fraction, by dividing the numerator by the denominator
 	 * @return the {@code double} value of the fraction
 	 */
-	public double calculate() { return numerator / denominator; }
+	public double calculate() { return (double)numerator/denominator; }
 	/**
 	 * returns the requested part of the fraction
 	 * @param part {@code Type} part of the fraction
@@ -251,7 +251,7 @@ public class Fraction {
 	}
 	@Override
 	public String toString() {
-		return String.format("%d/%d",numerator,denominator);
+		return String.format("%d/%d=%f",numerator,denominator,calculate());
 	}
 	@Override
 	public boolean equals(Object o) {

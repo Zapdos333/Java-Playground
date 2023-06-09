@@ -233,29 +233,24 @@ public class MainMethods {
 		switch (type) {
 			case "circle":
 			case "circlemain":
-				CircleMain();
-				break;
+				CircleMain(); break;
 			case "rng":
 			case "rngmain":
-				RNGMain();
-				break;
+				RNGMain(); break;
 			case "range":
 			case "rangemain":
-				rangeMain();
-				break;
+				rangeMain(); break;
 			case "cobject":
 			case "cobjecttest":
-				CobjectTest();
-				break;
+				CobjectTest(); break;
 			case "cipher":
 			case "ciphertest":
-				CipherTest();
-				break;
+				CipherTest(); break;
 			case "fraction":
 			case "fractiontest":
-				FractionTest();
+				FractionTest(); break;
 			case "debug":
-				debug();
+				debug(); break;
 			default: System.out.println("No implemented type given. type: "+type);
 		}
 	}
