@@ -249,4 +249,19 @@ public class Fraction {
 		if (numerator < Long.MIN_VALUE) throw new ArithmeticException("numerator out Long range");
 		if (denominator == 0) throw new ArithmeticException("attempt to divide by zero");
 	}
+	@Override
+	public String toString() {
+		return String.format("%d/%d",numerator,denominator);
+	}
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+        if (o == null || this.getClass()!= o.getClass()) return false;
+        Fraction fraction = (Fraction) o;
+        return (numerator == fraction.numerator) && (denominator == fraction.denominator);
+	}
+	@Override
+	public int hashCode() {
+		return (int)Math.ceil(numerator/denominator);
+	}
 }

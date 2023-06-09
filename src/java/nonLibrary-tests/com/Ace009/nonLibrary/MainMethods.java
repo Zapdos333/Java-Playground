@@ -3,6 +3,7 @@ package com.Ace009.nonLibrary;
 import com.Ace009.library.*;
 import com.Ace009.library.CClass.*;
 import com.Ace009.library.CoordinateSystem.*;
+import com.Ace009.library.Math.*;
 import com.Ace009.nonLibrary.school.*;
 
 import java.util.AbstractList;
@@ -179,6 +180,40 @@ public class MainMethods {
 		//debugging, usually empty
 	}
 	/**
+	 * {@code Fraction}s main method:
+	 * <p>
+	 * creates two test {@code Fraction} with the given parameters,
+	 * adds, subtracts, multiplies, or divides the two, depending on the parameters
+	 * and prints out the result
+	 */
+	public static void FractionTest(){
+		int[] input = new Args(Args.OutputType.Int, "numerator","demoninator").outputInt;
+		Fraction test = new Fraction(input[0],input[1]);
+		System.out.printf("Fraction is: %s\n",test.toString());
+		Args operations = new Args(Args.OutputType.String, "operation","numerator","denominator");
+		operations.parseWithDefaults(new String[]{"multiply","33","7"});
+		String operation = operations.output[0].toLowerCase();
+		Fraction T2 = new Fraction(Integer.parseInt(operations.output[1]),Integer.parseInt(operations.output[2]));
+		System.out.printf("Second fraction is: %s\n",T2.toString());
+		switch (operation) {
+			case "multiply":
+				test.multiplyBy(T2);
+				break;
+			case "divide":
+				test.divideBy(T2);
+				break;
+			case "add":
+			case "addition":
+				test.add(T2);
+				break;
+			case "subtract":
+				test.subtract(T2);
+				break;
+			default: System.out.println("No implemented operation given. operation: "+operation);
+		}
+		System.out.printf("Fraction is: %s\n",test.toString());
+	}
+	/**
 	 * launches a specified main method.
 	 * <p> specification is possible through {@link Args} or {@code args}
 	 * @param args {@code String[]}, irrelevant, arguments gathered using {@link Args}
@@ -216,6 +251,9 @@ public class MainMethods {
 			case "ciphertest":
 				CipherTest();
 				break;
+			case "fraction":
+			case "fractiontest":
+				FractionTest();
 			case "debug":
 				debug();
 			default: System.out.println("No implemented type given. type: "+type);

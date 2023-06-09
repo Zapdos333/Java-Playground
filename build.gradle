@@ -69,6 +69,7 @@ project(':nonLibrary-tests'){
 		implementation project(':library-general')
 		implementation project(':library-CClass')
 		implementation project(':library-CoordinateSystem')
+		implementation project(':library-Math')
 		implementation project(':nonLibrary-school')
 		//implementation project(':nonLibrary-HelloWorld')
 	}
