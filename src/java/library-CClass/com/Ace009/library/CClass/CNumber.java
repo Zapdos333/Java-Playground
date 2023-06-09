@@ -3,11 +3,12 @@ package com.Ace009.library.CClass;
 import java.util.Arrays;
 
 /**
- * final 'static' class,
+ * 'static' class,
  * one of the 'C(ustom)Class' libaries,
  * this one adds number formatting
  * @author Ace009
  */
+// TODO: understand properly and maybe clean up
 public class CNumber {
 	/**
 	 * don't

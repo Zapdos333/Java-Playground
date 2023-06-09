@@ -1,12 +1,12 @@
 package com.Ace009.library.CClass;
 
 /**
- * final 'static' class,
+ * 'static' class,
  * one of the 'C(ustom)Class' libaries,
  * this one works with {@code Strings}
  * @author Ace009
  */
-final public class CString {
+public class CString {
 	/**
 	 * don't
 	 * @see CString
@@ -14,7 +14,7 @@ final public class CString {
 	private CString() {}
 	/**
 	 * returns a {@code String} with (at least) the given {@code length},
-	 * and th start filled up with " ", if {@code input} is shorter than {@code length}
+	 * and th start filled up with {@code space}, if {@code input} is shorter than {@code length}
 	 * @param input {@code String} to fit to {@code length}
 	 * @param length {@code int} minimum length for output
 	 * @return {@code String}: formatted to {@code length}
@@ -28,7 +28,7 @@ final public class CString {
 		return output.toString();
 	}
 	/**
-	 * returns the {@code sum} of the {@code int} value of all {@code char} in {@code input}
+	 * returns the {@code sum} of the numerical values of all {@code char} in {@code input}
 	 * @param input {@code String}
 	 * @return {@code int}: sum of all {@code char} in {@code input}
 	 */

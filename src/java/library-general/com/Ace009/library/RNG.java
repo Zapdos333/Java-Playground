@@ -50,15 +50,15 @@ public class RNG extends Random{
 		return this.nextFloat()*((max)-min)+min;
 	}
 	/**
-	 * creates a random long by calling {@code nextDouble()},
+	 * creates a random long by calling {@link Random#nextDouble()},
 	 * and the doing the old {@code (random)*(max-min)+min},
-	 * unreliable due to this attempting
+	 * unknown reliablity due to this cheesing/attempting
 	 * @param min {@code long} minimum value (inclusive)
 	 * @param max {@code long} maximum value (exclusive)
 	 * @return 'random' long
 	 */
 	public long limitedLongRandom(long min, long max) {
-		//yes were cheesing this with a double 0-1, because Random.nextLong() is not limitable
+		//yes were cheesing this with a double {@code 0-1}, because Random.nextLong() is not limitable
 		double preRN=this.nextDouble();
 		long mult = (max-min)+min;
 		long rn = (long)(preRN*mult);

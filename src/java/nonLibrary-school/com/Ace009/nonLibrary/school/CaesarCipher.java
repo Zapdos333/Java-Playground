@@ -57,7 +57,7 @@ public class CaesarCipher {
 	}
 	/**
 	 * Character implementation of the default Constructor,
-	 * runs {@code CaesarCipher(byte)} with {@code code}s index if {@code ALPHABET},
+	 * runs {@link #CaesarCipher(byte)} with {@code code}s index of {@code ALPHABET},
 	 * {@code (byte)code} defaults to {@code 0}
 	 * @param code {@code char} the key Character
 	 * @see #CaesarCipher(byte)
@@ -83,11 +83,10 @@ public class CaesarCipher {
 		return output;
 	}
 	/**
-	 * default implementation of {@code .encode(char[])}
+	 * default implementation of {@link #encode(char[])}
 	 * with a {@code String} instead of {@code char[]}
 	 * @param input {@code String} input to encode
 	 * @return {@code String} encoded
-	 * @see #encode(char[])
 	 */
 	public String encode(String input) {
 		return new String(this.encode(input.toLowerCase().toCharArray()));
@@ -109,16 +108,12 @@ public class CaesarCipher {
 		return output;
 	}
 	/**
-	 * default implementation of {@code .decode(char[])}
+	 * default implementation of {@link #decode(char[])}
 	 * with a {@code String} instead of {@code char[]}
 	 * @param input {@code String} input to decode
 	 * @return {@code String} decoded
-	 * @see #decode(char[])
 	 */
 	public String decode(String input) {
 		return new String(this.decode(input.toLowerCase().toCharArray()));
 	}
-	/*public String getKey() {
-		return CArray.asList(CArray.asObjectArray(cipher)).toString();
-	}*/
 }

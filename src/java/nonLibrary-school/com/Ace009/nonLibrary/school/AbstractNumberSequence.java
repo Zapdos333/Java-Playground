@@ -1,4 +1,4 @@
-package com.Ace009.nonLibrary.school.math;
+package com.Ace009.nonLibrary.school;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ abstract public class AbstractNumberSequence extends ArrayList<Double> {
 		this.add(a1);
 	}
 	/**
-	 * calculates the next values of the sequence up to value number {@code to}
+	 * calculates the next values of the sequence until the size is {@code to}
 	 * @param to {@code int} limit of calculation
 	 * @param next {@code boolean} if true: use {@link AbstractNumberSequence#calculateNext(double)}, else use {@link AbstractNumberSequence#calculateAt(int)}
 	 */
@@ -49,7 +49,7 @@ abstract public class AbstractNumberSequence extends ArrayList<Double> {
 		return prev+1;
 	}
 	/**
-	 * method that calculates the value at the provided position of the sequence
+	 * method that calculates the value at the provided index of the sequence
 	 * @param pos {@code int} the position of the value to calculate
 	 * @return {@code double} the value calculated
 	 */
