@@ -141,6 +141,7 @@ if (hasProperty('buildScan')) {
 javadoc {
 	destinationDir=file("${project.getRootDir()}/build/docs")
 	source = project.getRootProject().sourceSets.main.java.srcDirs
+	options.memberLevel = JavadocMemberLevel.PRIVATE
 }
 task packageDocs(type: Zip) {
 	dependsOn javadoc

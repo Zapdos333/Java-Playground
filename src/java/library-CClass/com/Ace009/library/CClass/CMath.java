@@ -42,6 +42,7 @@ public class CMath {
 	 * returns an {@code int[]} containing all prime numbers up to {@code max}
 	 * @param max highest possible prime in {@code return}
 	 * @return an {@code int[]}
+	 * @see CMath#isPrime(int)
 	 */
 	public static int[] getPrimesUpTo(final int max) {
 		refreshNums();
@@ -51,9 +52,10 @@ public class CMath {
 	 * returns an {@code int[]} containing the first {@code length} prime numbers
 	 * @param length length of {@code return}
 	 * @return an {@code int[]}
+	 * @see CMath#isPrime(int)
 	 */
 	public static int[] getPrimes(final int length) {
 		refreshNums();
-		return numbers.parallel().filter(e->isPrime(e)).limit(length).toArray();
+		return numbers.parallel().filter(e->isPrime(e)).sequential().limit(length).toArray();
 	}
 }

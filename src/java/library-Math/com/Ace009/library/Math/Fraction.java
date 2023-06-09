@@ -25,6 +25,7 @@ public class Fraction {
 		 * turns a number into an {@code int[]} containing the prime factors of the number
 		 * @param number number to dissect
 		 * @return the array of prime factors
+		 * @see CMath#getPrimesUpTo(int)
 		 */
 		public static int[] seperateToPrimes(long number) {
 			int[] check = CMath.getPrimesUpTo((int)Math.ceil(number/2));

@@ -34,7 +34,7 @@ public class CaesarCipher {
 		}
 		return output;
 	}
-	/**this instances shifted {@link #alphabet} constant */
+	/**this instances shifted {@link #ALPHABET} constant */
 	private final char[] cipher = new char[ALPHABET.length];
 	/**
 	 * Standard Constructor,
