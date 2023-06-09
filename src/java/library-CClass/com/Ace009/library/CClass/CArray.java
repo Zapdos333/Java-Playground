@@ -1,6 +1,7 @@
 package com.Ace009.library.CClass;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.Ace009.library.Range;
 /**
@@ -30,14 +31,13 @@ public class CArray {
 		return -1;
 	}
 	/**
-	 * turns the array into an {@code ArrayList}
-	 * by adding all the elements one by one to a new {@code ArrayList}
+	 * turns the array into an {@code List}
+	 * by adding all the elements one by one to a new {@code List}
 	 * @param <T> the type of the elements
 	 * @param array the original array
-	 * @return {@code ArrayList} containing all the elements from the array
-	 * @see ArrayList
+	 * @return {@code List} containing all the elements from the array
 	 */
-	public static <T> ArrayList<T> asList(T[] array) {
+	public static <T> List<T> asList(T[] array) {
 		ArrayList<T> output = new ArrayList<>(array.length);
 		for (T element : array) {
 			output.add(element);
