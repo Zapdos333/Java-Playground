@@ -1,13 +1,13 @@
 package com.Ace009.library.CoordinateSystem;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
- * {@code final static class},
  * stores {@code x} and {@code y} values as {@code ints}
  * @author Ace009
- * @see Coordinate
+ * @see com.Ace009.library.CoordinateSystem.Coordinate
  */
 public class IntCoordinate {
 	/**
@@ -22,22 +22,22 @@ public class IntCoordinate {
 		return Math.hypot(deltax,deltay);
 	}
 	/**
-	 * rounds the input {@code ArrayList<Coordinate>} to an {@code ArrayList<IntCoordinate>}
+	 * rounds the input {@code Collection<Coordinate>} to an {@code Collection<IntCoordinate>}
 	 * @param list {@code ArrayList<Coordinate>} input list to round
 	 * @return {@code ArrayList<IntCoordinate>} rounded list from input
 	 */
-	public static ArrayList<IntCoordinate> roundCoordList(ArrayList<Coordinate> list) {
+	public static Collection<IntCoordinate> roundCoordList(Collection<Coordinate> list) {
 		ArrayList<IntCoordinate> output;
 		output=new ArrayList<>(list.stream().map(e->new IntCoordinate(e)).collect(Collectors.toList()));
 		return output;
 	}
 	/**
 	 * converts the {@code IntCoordinate} of {@code list} into {@code Coordinates}
-	 * and returns the new {@code ArrayList}
-	 * @param list {@code ArrayList} of {@code IntCoordinate}
-	 * @return new {@code ArrayList} of {@code Coordinate}
+	 * and returns the new {@code Collection}
+	 * @param list {@code Collection} of {@code IntCoordinate}
+	 * @return new {@code Collection} of {@code Coordinate}
 	 */
-	public static ArrayList<Coordinate> toCoordinates(ArrayList<IntCoordinate> list) {
+	public static Collection<Coordinate> toCoordinates(Collection<IntCoordinate> list) {
 		ArrayList<Coordinate> output;
 		output=new ArrayList<>(list.stream().map(e->new Coordinate(e.x,e.y)).collect(Collectors.toList()));
 		return output;
@@ -65,27 +65,27 @@ public class IntCoordinate {
 		x=f_x;y=f_y;
 	}
 	/**
-	 * creates a new {@code IntCoordinate} based by rounding a {@code Coordinate}
-	 * @param coord input {@code Coordinate}
+	 * creates a new {@code IntCoordinate} by
+	 * rounding the {@code x} and {@code y} of a {@code Coordinate}
+	 * @param coord {@code Coordinate} to round
 	 */
 	public IntCoordinate(Coordinate coord){
 		x=(int)Math.round(coord.x);
 		y=(int)Math.round(coord.y);
 	}
 	/**
-	 * Integer implementation of {@code Coordinate.distanceTo},
-	 * also simply calls the {@code .distance(this,target)}
+	 * Integer implementation of {@link Coordinate#distanceTo(Coordinate,Coordinate)},
+	 * also simply calls the {@link #distance(this,target)}
 	 * @param target {@code IntCoordinate} target point
 	 * @return {@code double}: distance to given points
 	 * @see Coordinate#distanceTo(Coordinate)
-	 * @see IntCoordinate#distance(IntCoordinate, IntCoordinate)
 	 */
 	public double distanceTo(IntCoordinate target) {
 		return IntCoordinate.distance(this, target);
 	}
 	/**
-	 * returns {@code IntCoordinate.toCoordinate} on {@code this}
-	 * @return new {@code Coordinate}
+	 * returns {@link #toCoordinate} on {@code this}
+	 * @return new {@link Coordinate}
 	 * @see IntCoordinate#toCoordinate(IntCoordinate)
 	 */
 	public Coordinate toCoordinate() {

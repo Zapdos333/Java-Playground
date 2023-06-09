@@ -1,52 +1,55 @@
 package com.Ace009.library;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
+
 
 /**
  * class to create Lists or Arrays that work like pythons for(i in range(x)),
- * extends {@link java.util.ArrayList} to create range using the constructor,
+ * uses {@link java.util.Collection} as {@link Iterable},
  * also has static methods to create {@code int[]} with the same contents
  * @author Ace009
  */
-public class Range extends ArrayList<Integer> {
+public class Range {
 	/**
-	 * create an {@code ArrayList<Integer>} with the first element being 0 adding 1
+	 * creates a {@code Collection<Integer>} with the first element being {@code 0} adding {@code 1}
 	 * and adding it to the list each iteration, until it reaches {@code stop}
+	 * <p>
+	 * uses {@link #ListRange(int, int, int)} with start defaulting to {@code 0}
+	 * and steps defaulting to {@code 1}
 	 * @param stop end integer
-	 * @see #Range(int,int,int)
+	 * @return a {@code List<Integer>}
+	 * @see #ListRange(int,int,int)
 	 */
-	public Range(int stop) {
-		this.ensureCapacity(stop+1);
-		for (int i = 0; i < stop; i++) {
-			this.add(i);
-		}
+	public static Collection<Integer> ListRange(int stop) {
+		return ListRange(0, stop, 1);
 	}
 	/**
-	 * create an {@code ArrayList<Integer>} with the first element being {@code start}
+	 * create a {@code Collection<Integer>} with the first element being {@code start}
 	 * adding 1 and adding it to the list each iteration, until it reaches {@code stop}
 	 * @param start starting integer
 	 * @param stop end integer
-	 * @see #Range(int,int,int)
+	 * @see #ListRange(int,int,int)
 	 */
-	public Range(int start, int stop) {
-		this.ensureCapacity(1+stop-start);
-		for (int i = start; i < stop; i++) {
-			this.add(i);
-		}
+	public static Collection<Integer> ListRange(int start, int stop) {
+		return ListRange(start, stop, 1);
 	}
 	/**
-	 * create an {@code ArrayList<Integer>} with the first element being {@code start}
+	 * create a {@code Collection<Integer>} with the first element being {@code start}
 	 * adding {@code steps} and adding it to the list each iteration,
 	 * before(exclusive) it reaches {@code stop}
 	 * @param start starting integer
 	 * @param stop end integer
 	 * @param steps integer step in each iteration
 	 */
-	public Range(int start, int stop, int steps) {
-		this.ensureCapacity(((stop-start)/steps)+1);
+	public static Collection<Integer> ListRange(int start, int stop, int steps) {
+		ArrayList<Integer> output = new ArrayList<>();
+		output.ensureCapacity(((stop-start)/steps)+1);
 		for (int i = start; i < stop; i+=steps) {
-			this.add(i);
+			output.add(i);
 		}
+		return output;
 	}
 	/**
 	 * default implementation of {@link #arrayRange(int, int, int)}

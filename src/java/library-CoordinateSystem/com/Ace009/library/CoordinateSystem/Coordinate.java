@@ -1,6 +1,8 @@
 package com.Ace009.library.CoordinateSystem;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -27,7 +29,7 @@ public class Coordinate {
 	 * @return {@code double}: distance
 	 * @see Circle
 	 */
-	public static double totalDistance(ArrayList<Coordinate> list,boolean polygon) {
+	public static double totalDistance(List<Coordinate> list,boolean polygon) {
 		double output=0;
 		for (int i=1; i<list.size();i++) {
 			output=+distance(list.get(i-1),list.get(i));
@@ -43,7 +45,7 @@ public class Coordinate {
 	 * @param interval {@code float} value for rounding interval
 	 * @return {@code ArrayList} of {@code Coordinates} rounded to {@code interval}
 	 */
-	public static ArrayList<Coordinate> roundCoordList(ArrayList<Coordinate> list, float interval) {
+	public static Collection<Coordinate> roundCoordList(Collection<Coordinate> list, float interval) {
 		ArrayList<Coordinate> output=new ArrayList<>();
 		int i=0;
 		while (output.size()<list.size()) {
@@ -84,6 +86,7 @@ public class Coordinate {
 	public String toString() {
 		return "[x:"+this.x+",y:"+this.y+"]";
 	}
+	//TODO: javadoc comment from super implementation ?
 	@Override
 	public boolean equals(Object o) {
 		if (o==this) {return true;}

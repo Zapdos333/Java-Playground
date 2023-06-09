@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * 'static' class,
  * one of the 'C(ustom)Class' libaries,
  * this one works with Objects
- * <p>(implements the java.lang.reflect.Field )
+ * <p>(uses/imports the java.lang.reflect.Field )
  * @author Ace009
  */
 public class CObject {
@@ -57,7 +57,7 @@ public class CObject {
 		return output;
 	}
 	/**
-	 * returns all properties values of the {@code Object obj}
+	 * returns all property values of the {@code Object obj}
 	 * @param obj Object to scan
 	 * @return {@code Object[]} containing the properties values
 	 * @throws IllegalAccessException because of {@link Field#get(Object)}
@@ -73,8 +73,9 @@ public class CObject {
 		return output;
 	}
 	/**
-	 * returns all properties consisting of {key,value} of the {@code Object obj},
-	 * for example {@code { {key1, value1}, {key2, value2}, ... } }}
+	 * returns all properties of the {@code Object obj}
+	 * ,<p> returns an {@code Object[][]} in the format of
+	 * {@code { {key1, value1}, {key2, value2}, ... } }}
 	 * @param obj Object to scan
 	 * @return {@code Object[][]} containing the properties
 	 * @throws IllegalAccessException because of {@link CObject#values(Object)}
@@ -93,13 +94,13 @@ public class CObject {
 		return output;
 	}
 	/**
-	 * compares the objects by {@code Class} and {@code entries},
-	 * if any entry is different between the objects,
+	 * compares the objects by {@code Class} and {@code entries} by properties
+	 * <p> if any property is different between the objects,
 	 * it returns {@code false}
 	 * @param a {@code Object} a
 	 * @param b {@code Object} b
 	 * @return {@code true} if all properties are equal
-	 * @throws IllegalAccessException because of {@link CObject#values(Object)}
+	 * @throws IllegalAccessException because of {@link CObject#entries(Object)}
 	 * @see CObject#entries(Object)
 	 */
 	public static boolean equals(Object a, Object b) throws IllegalAccessException {

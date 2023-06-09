@@ -8,6 +8,7 @@ import java.util.Arrays;
  * this one adds number formatting
  * @author Ace009
  */
+// TODO: understand properly and maybe clean up
 public class CNumber {
 	/**
 	 * don't

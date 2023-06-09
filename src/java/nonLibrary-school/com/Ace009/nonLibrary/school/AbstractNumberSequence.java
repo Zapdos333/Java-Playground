@@ -49,7 +49,7 @@ abstract public class AbstractNumberSequence extends ArrayList<Double> {
 		return prev+1;
 	}
 	/**
-	 * method that calculates the value at the provided position of the sequence
+	 * method that calculates the value at the provided index of the sequence
 	 * @param pos {@code int} the position of the value to calculate
 	 * @return {@code double} the value calculated
 	 */
