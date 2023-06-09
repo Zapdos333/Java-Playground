@@ -1,7 +1,7 @@
 // plugins
 apply plugin: 'java'
 //project properties
-project.setVersion('2.0.0')
+project.setVersion('2.1.0')
 // projects
 subprojects {
 	apply plugin: 'java'
