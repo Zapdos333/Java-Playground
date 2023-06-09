@@ -40,10 +40,10 @@ public class Coordinate {
 		return output;
 	}
 	/**
-	 * returns a new {@code ArrayList} of {@code Coordinates}, with the given {@code Coodinates} rounded to the given {@code interval}
-	 * @param list {@code ArrayList} of {@code Coordinates}
+	 * returns a {@code Collection} of {@code Coordinates}, with the given {@code Coodinates} rounded to the given {@code interval}
+	 * @param list {@code Collection} of {@code Coordinates}
 	 * @param interval {@code float} value for rounding interval
-	 * @return {@code ArrayList} of {@code Coordinates} rounded to {@code interval}
+	 * @return {@code Collection} of {@code Coordinates} rounded to {@code interval}
 	 */
 	public static Collection<Coordinate> roundCoordList(Collection<Coordinate> list, float interval) {
 		ArrayList<Coordinate> output=new ArrayList<>();

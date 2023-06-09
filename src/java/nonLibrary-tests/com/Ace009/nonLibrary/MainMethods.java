@@ -8,6 +8,7 @@ import com.Ace009.nonLibrary.school.*;
 import com.Ace009.library.Args.OutputType;
 
 import java.util.AbstractList;
+import java.util.ArrayList;
 
 /**
  * A class containing all {@code main}- or debug-methods
@@ -97,7 +98,9 @@ public class MainMethods {
 		double aY= Nargs[1];
 		double aR= Nargs[2];
 		Circle test = new Circle(new Coordinate(aX,aY),aR);
-		AbstractList<Coordinate> result = test.constructPoly(aC);
+		//AbstractList, because AbstractCollection implements the readable .toString()
+		// so we can use neither Collection nor List
+		AbstractList<Coordinate> result = new ArrayList<>(test.constructPoly(aC));
 		System.out.println("Circle: "+result.toString());
 		System.out.println("Circluarity: "+test.circumferance()+"/"
 		+Coordinate.totalDistance(result,true)+"="+Circle.getCircularity(result,aR));

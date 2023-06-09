@@ -23,8 +23,8 @@ public class IntCoordinate {
 	}
 	/**
 	 * rounds the input {@code Collection<Coordinate>} to an {@code Collection<IntCoordinate>}
-	 * @param list {@code ArrayList<Coordinate>} input list to round
-	 * @return {@code ArrayList<IntCoordinate>} rounded list from input
+	 * @param list {@code Collection<Coordinate>} input list to round
+	 * @return {@code Collection<IntCoordinate>} rounded list from input
 	 */
 	public static Collection<IntCoordinate> roundCoordList(Collection<Coordinate> list) {
 		ArrayList<IntCoordinate> output;

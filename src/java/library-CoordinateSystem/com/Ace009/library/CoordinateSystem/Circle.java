@@ -1,6 +1,5 @@
 package com.Ace009.library.CoordinateSystem;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,7 @@ public class Circle {
 	/**
 	 * returns the quotient of the totalDistance of the {@code polygon} over the {@code circumferance} of a {@code Circle} with the given {@code radius},
 	 * only works if {@code polygon} is created with {@link #construct(double)} or {@link #constructPoly(int)}
-	 * @param polygon the polygon {@code ArrayList<Coordinate>} of the circle
+	 * @param polygon the polygon {@code List<Coordinate>} of the circle
 	 * @param radius the circles radius
 	 * @return the quotient of the {@code totalDistance} of the {@code polygon} over the {@code circumference} of a {@code Circle} with the given {@code radius},
 	 */
@@ -60,12 +59,12 @@ public class Circle {
 		return new Coordinate(center.x+deltax,center.y+deltay);
 	}
 	/**
-	 * returns a {@code ArrayList} of {@code Coordinates} using {@code Circle.positionDegrees},
+	 * returns a {@code List} of {@code Coordinates} using {@code Circle.positionDegrees},
 	 * while every entry uses {@code 0+iterations*interval} as degrees
 	 * @param interval double
-	 * @return {@code ArrayList} of {@code Coordinates} with all {@code Coordinates} on {@code Circle}
+	 * @return {@code List} of {@code Coordinates} with all {@code Coordinates} on {@code Circle}
 	 */
-	public AbstractList<Coordinate> construct(double interval) {
+	public List<Coordinate> construct(double interval) {
 		ArrayList<Coordinate> output = new ArrayList<>();
 		System.out.println("Debug, interval: "+interval);
 		if (interval<0) {interval=Math.abs(interval);}
@@ -79,10 +78,10 @@ public class Circle {
 	/**
 	 * simply runs {@code Circle.construct(double interval)} with {@code 360/corners} as {@code interval}
 	 * @param corners int
-	 * @return {@code ArrayList} of {@code Coordinates}
+	 * @return {@code List} of {@code Coordinates}
 	 * @see #construct(double)
 	 */
-	public AbstractList<Coordinate> constructPoly(int corners) {
+	public List<Coordinate> constructPoly(int corners) {
 		final double circ=360.0;
 		return this.construct(circ/(double)corners);
 	}
