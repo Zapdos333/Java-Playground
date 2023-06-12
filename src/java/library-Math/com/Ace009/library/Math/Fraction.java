@@ -100,7 +100,7 @@ public class Fraction {
 	public Fraction(int numerator, int denominator) {
 		this.numerator = numerator;
 		this.denominator = denominator;
-		check();
+		reduceAndCheck();
 	}
 	/**
 	 * default implementation of the direct constructor
