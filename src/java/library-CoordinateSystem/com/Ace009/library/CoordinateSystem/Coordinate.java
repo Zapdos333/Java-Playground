@@ -84,7 +84,7 @@ public class Coordinate {
 	 */
 	@Override
 	public String toString() {
-		return "[x:"+this.x+",y:"+this.y+"]";
+		return String.format("[x:%f y:%f]", x, y);
 	}
 	//TODO: javadoc comment from super implementation ?
 	@Override

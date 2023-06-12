@@ -99,7 +99,7 @@ public class IntCoordinate {
 	 */
 	@Override
 	public String toString() {
-		return "[x:"+this.x+",y:"+this.y+"]";
+		return String.format("[x:%d, y:%d]", x, y);
 	}
 	@Override
 	public boolean equals(Object o) {
