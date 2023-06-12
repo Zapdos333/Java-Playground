@@ -39,6 +39,30 @@ public class Args {
 		Float;
 	}
 	/**
+	 * prints out the term+":" and
+	 * returns the user input up to the next enter
+	 * <p> uses a {@link Scanner} of {@link System#in} 
+	 * and returns {@link Scanner#nextLine()}
+	 * @param term the thing to ask
+	 * @return the user input
+	 */
+	@SuppressWarnings("resource") //never close System.in
+	public static String ask(String term){
+		Scanner scanner = new Scanner(System.in);
+		System.out.printf("%s:", term);
+		return scanner.nextLine();
+	}
+	/**
+	 * suspends the current thread with a message up to user input
+	 * @param term suspension message
+	 */
+	@SuppressWarnings("resource") //never close System.in
+	public static void suspend(String term){
+		Scanner scanner = new Scanner(System.in);
+		System.out.printf("%s suspending...", term);
+		scanner.nextLine();
+	}
+	/**
 	 * constructs an {@code Args} object, which contains the in {@code @see} mentioned properties,
 	 * which are filled by printing {@code args[i]} and storing the response in {@code output[i]}
 	 * and if the corresponding type is given, parse it into one of the {@code number[]}
@@ -52,23 +76,17 @@ public class Args {
 	 * @see #SArgs {@code SArgs} String[] (copy of {@code args})
 	 * @see #createdType {@code createdType} String (copy of {@code type})
 	 */
-	@SuppressWarnings("resource") //never close System.in
 	public Args(OutputType type, String...args) {
 		SArgs = args;
 		createdType = type;
 		output = new String[args.length];
-		Scanner scanner = new Scanner(System.in);
-		String input;
 		System.out.println("Args class input:");
 		System.out.println("type: " + type);
-		if (type==OutputType.Int||type==OutputType.Double||type==OutputType.Long||type==OutputType.Float) {
-			System.out.println("defaults to 0, if not overridden by implementation");
-		}
+		//if (type==OutputType.Int||type==OutputType.Double||type==OutputType.Long||type==OutputType.Float) {
+		//	System.out.println("defaults to 0, if not overridden by implementation");
+		//}
 		for (int i : Range.ListRange(args.length)) {
-			input = "";
-			System.out.print(args[i] + ":");
-			input = scanner.nextLine();
-			output[i] = input;
+			output[i] = ask(args[i]);
 		}
 		this.parseAsType(createdType);
 	}
