@@ -2,6 +2,8 @@ package com.Ace009.library.CClass;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * 'static' class,
@@ -90,6 +92,20 @@ public class CObject {
 		for (int i=0; i < keys.length; i++) {
 			output[i][0] = keys[i];
 			output[i][1] = values[i];
+		}
+		return output;
+	}
+	/**
+	 * returns the output of {@link #entries(Object)} as a {@code Map}
+	 * @param obj Object to scan
+	 * @return a {@code Map} containing the entries of the {@code Object}
+	 * @throws IllegalAccessException because of {@link CObject#entries(Object)}
+	 */
+	public static Map<String, Object> entriesMap(Object obj) throws IllegalAccessException {
+		Map<String, Object> output = new HashMap<>();
+		Object[][] entries = entries(obj);
+		for (Object[] entry : entries) {
+			output.put(entry[0].toString(), entry[1]);
 		}
 		return output;
 	}

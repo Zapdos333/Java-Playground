@@ -8,6 +8,8 @@ import com.Ace009.nonLibrary.school.*;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * A class containing all {@code main}- or debug-methods
@@ -134,15 +136,30 @@ public class MainMethods {
 			askKey[i] = i+". Entry";
 		}
 		Args test = new Args(Args.OutputType.String, askKey);
-		Object[][] result = new Object[amount][2];
+		Map<String, Object> result = new HashMap<>();
 		try {
-			result = CObject.entries(test);
+			result = CObject.entriesMap(test);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		for (int i : Range.arrayRange(result.length)) {
-            System.out.printf("Entry: %d, Key: %s, Value: %s\n",i,result[i][0],result[i][1]);
+		int keyLength=0; int valueLength=0;
+		for (String key : result.keySet()) {
+			if (key.length()>keyLength) keyLength = key.length();
 		}
+		for (Object value : result.values()) {
+			if (value == null) value = "null";
+			if (value.toString().length()>valueLength) valueLength=value.toString().length();
+		}
+		Map<String, String> output = new HashMap<>();
+		final int finalKeyLength = keyLength; final int finalValueLength = valueLength;
+		result.forEach((String key, Object value)->{
+			if (value == null) value= "null";
+			output.put(CString.formatToLength(key, finalKeyLength), CString.formatToLength(value.toString(), finalValueLength));
+		});
+		System.out.printf("|Keys:%s|Values:%s|\n",CString.formatToLength("", finalKeyLength-4), CString.formatToLength("", finalValueLength-7));
+		output.forEach((String key, String value)->{
+			System.out.printf("|%s:|%s|\n", key, value);
+		});
 	}
 	/**
 	 * {@code CaesarCipher}s main method:
