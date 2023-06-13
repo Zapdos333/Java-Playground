@@ -3,7 +3,6 @@ package com.Ace009.library.CClass;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.HashMap;
 
 /**
  * 'static' class,
@@ -102,12 +101,7 @@ public class CObject {
 	 * @throws IllegalAccessException because of {@link CObject#entries(Object)}
 	 */
 	public static Map<String, Object> entriesMap(Object obj) throws IllegalAccessException {
-		Map<String, Object> output = new HashMap<>();
-		Object[][] entries = entries(obj);
-		for (Object[] entry : entries) {
-			output.put(entry[0].toString(), entry[1]);
-		}
-		return output;
+		return CMap.fromArray(entries(obj));
 	}
 	/**
 	 * compares the objects by {@code Class} and {@code entries} by properties
