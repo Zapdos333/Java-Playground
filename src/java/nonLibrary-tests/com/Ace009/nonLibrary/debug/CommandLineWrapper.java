@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.Ace009.library.*;
 import com.Ace009.library.CClass.*;
+import com.Ace009.library.Math.*;
 //import com.Ace009.library.CoordinateSystem.*;
 
 /**
@@ -22,7 +23,7 @@ public class CommandLineWrapper {
 	public static void main(String[] args) {
 		boolean running = true;
 		String command;
-		System.out.println("\nRunning MainMethod CommandLineWrapper:");
+		System.out.println("\nRunning CommandLineWrapper:");
 		while (running) {
 			command = Args.ask("\nCommand").toLowerCase();
 			switch (command) {
@@ -59,17 +60,21 @@ public class CommandLineWrapper {
 				}
 				test = new Args(Args.OutputType.String, askKey);
 				break;
-			case "rng":
-			case "random":
-				test= new RNG();
-				System.out.printf("Seed: %d\n", ((RNG) test).rerollRandom(18));
+			case"fraction":
+				int[] nr = new int[2];
+				nr[0] = Integer.parseInt(Args.ask("numerator"));
+				nr[1] = Integer.parseInt(Args.ask("denominator"));
+				test = new Fraction(nr[0], nr[1]);
 				break;
 			default:
 				System.out.println("No implemented Object Type given,"); return;
 		}
 		Map<String, Object> output = new HashMap<>();
-		try{ output = CObject.entriesMap(test);}
-		catch (IllegalAccessException e) { e.printStackTrace(); }
-		CMap.print(output);
+		try { output = CObject.entriesMap(test); }
+		catch (Exception e) { e.printStackTrace(); }
+		System.out.printf("Debug: %s; %s\n", test, output);
+		for (String E : CMap.print(output)) {
+			System.out.print(E);
+		}
 	}
 }
