@@ -59,8 +59,8 @@ public class Args {
 	@SuppressWarnings("resource") //never close System.in
 	public static void suspend(String term){
 		Scanner scanner = new Scanner(System.in);
-		System.out.printf("%s suspending...", term);
-		scanner.nextLine();
+		System.out.printf("%s suspending, \nPress any key to continue...", term);
+		scanner.next();
 	}
 	/**
 	 * constructs an {@code Args} object, which contains the in {@code @see} mentioned properties,
