@@ -87,7 +87,7 @@ project(':nonLibrary'){ //secondary jar
 		implementation project(':nonLibrary-tests')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-	jar.manifest.attributes("Main-Class": "com.Ace009.nonLibrary.debug.MainMethods")
+	jar.manifest.attributes("Main-Class": "com.Ace009.nonLibrary.debug.CommandLineWrapper")
 }
 //root dependencies
 dependencies {
