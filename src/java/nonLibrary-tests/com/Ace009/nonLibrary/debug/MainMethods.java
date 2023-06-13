@@ -142,24 +142,7 @@ public class MainMethods {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		int keyLength=0; int valueLength=0;
-		for (String key : result.keySet()) {
-			if (key.length()>keyLength) keyLength = key.length();
-		}
-		for (Object value : result.values()) {
-			if (value == null) value = "null";
-			if (value.toString().length()>valueLength) valueLength=value.toString().length();
-		}
-		Map<String, String> output = new HashMap<>();
-		final int finalKeyLength = keyLength; final int finalValueLength = valueLength;
-		result.forEach((String key, Object value)->{
-			if (value == null) value= "null";
-			output.put(CString.formatToLength(key, finalKeyLength), CString.formatToLength(value.toString(), finalValueLength));
-		});
-		System.out.printf("|Keys:%s|Values:%s|\n",CString.formatToLength("", finalKeyLength-4), CString.formatToLength("", finalValueLength-7));
-		output.forEach((String key, String value)->{
-			System.out.printf("|%s:|%s|\n", key, value);
-		});
+		CMap.print(result);
 	}
 	/**
 	 * {@code CaesarCipher}s main method:
