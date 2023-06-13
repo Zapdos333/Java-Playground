@@ -1,4 +1,4 @@
-package com.Ace009.nonLibrary;
+package com.Ace009.nonLibrary.debug;
 
 import com.Ace009.library.*;
 import com.Ace009.library.CClass.*;
