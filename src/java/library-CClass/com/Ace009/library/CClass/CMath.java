@@ -36,7 +36,7 @@ public class CMath {
 	 */
 	private static boolean isPrime(int n) {
 		refreshNums();
-		return numbers.limit(Math.ceilDiv(n,2)).parallel().filter(i->n%i==0).toArray().length <= 2;
+		return numbers.limit((long)Math.ceil(n/2)).parallel().filter(i->n%i==0).toArray().length <= 2;
 	}
 	/**
 	 * returns an {@code int[]} containing all prime numbers up to {@code max}
