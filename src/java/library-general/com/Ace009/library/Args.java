@@ -80,11 +80,6 @@ public class Args {
 		SArgs = args;
 		createdType = type;
 		output = new String[args.length];
-		System.out.println("Args class input:");
-		System.out.println("type: " + type);
-		//if (type==OutputType.Int||type==OutputType.Double||type==OutputType.Long||type==OutputType.Float) {
-		//	System.out.println("defaults to 0, if not overridden by implementation");
-		//}
 		for (int i : Range.ListRange(args.length)) {
 			output[i] = ask(args[i]);
 		}
