@@ -20,6 +20,7 @@ public class CMap {
 	 * @param map the map to print
 	 * @param keys the keys heading
 	 * @param values the values heading
+	 * @return a {@code String[]} containing the printable output seperated in lines
 	 * @see CString#formatToLength(String, int)
 	 */
 	public static String[] print(Map<String, Object> map, String keys, String values) {
@@ -49,6 +50,7 @@ public class CMap {
 	/**
 	 * default implementation of {@link #print(Map, String, String)} method,
 	 * with "Keys" and "Values" as default headings
+	 * @return a {@code String[]} containing the printable output seperated in lines
 	 * @param map the map to print
 	 */
 	public static String[] print(Map<String, Object> map){ return print(map,"Keys","Values"); }
