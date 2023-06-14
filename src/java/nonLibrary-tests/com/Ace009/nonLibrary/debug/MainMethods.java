@@ -1,19 +1,19 @@
 package com.Ace009.nonLibrary.debug;
 
 import com.Ace009.library.*;
-//import com.Ace009.library.CClass.*;
+import com.Ace009.library.CClass.*;
 import com.Ace009.library.CoordinateSystem.*;
 import com.Ace009.library.Math.*;
 import com.Ace009.nonLibrary.school.*;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class containing all {@code main}- or debug-methods
  * <p>all methods get their necessary arguments using {@link Args}
  * @author Ace009
- * @see #main(String[])
  */
 public class MainMethods {
 	/** don't */
@@ -29,11 +29,14 @@ public class MainMethods {
 	 */
 	public static void rangeMain() {
 		Args arguments = new Args(Args.OutputType.Int, "Stop","Start","Steps");
+		arguments.parseWithDefaults(new int[]{100,0,1});
 		int stop = arguments.outputInt[0];
 		int start = arguments.outputInt[1];
 		int steps = arguments.outputInt[2];
-		for (int i : Range.arrayRange(start, stop, steps)) {
-			System.out.println(i);
+		int[] array = Range.arrayRange(start, stop, steps);
+		List<Integer> list = Range.ListRange(start, stop, steps);
+		for (int i : Range.arrayRange((int)Math.floor((stop-start)/steps) )) {
+			System.out.printf("%s|%s\n", CString.formatToLength(Integer.toString(array[i]),3), CString.formatToLength(list.get(i).toString(), 3));
 		}
 	}
 	/**

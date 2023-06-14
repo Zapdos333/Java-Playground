@@ -126,8 +126,8 @@ public class Args {
 		assert defaults.length >= output.length;
 		outputLong = new long[output.length];
 		for (int i : Range.ListRange(output.length)) {
-			if (output[i]=="") {outputLong[i] = defaults[i];}
-			outputLong[i] = Long.parseLong(output[i]);
+			if (output[i]=="") outputLong[i] = defaults[i];
+			else outputLong[i] = Long.parseLong(output[i]);
 		}
 	}
 	/**
@@ -141,8 +141,8 @@ public class Args {
 		assert defaults.length >= output.length;
 		outputInt = new int[output.length];
 		for (int i : Range.ListRange(output.length)) {
-			if (output[i]=="") {outputInt[i] = defaults[i];}
-			outputInt[i] = Integer.parseInt(output[i]);
+			if (output[i]=="") outputInt[i] = defaults[i];
+			else outputInt[i] = Integer.parseInt(output[i]);
 		}
 	}
 	/**
@@ -156,8 +156,8 @@ public class Args {
 		assert defaults.length >= output.length;
 		outputDouble = new double[output.length];
 		for (int i : Range.ListRange(output.length)) {
-			if (output[i]=="") {outputDouble[i] = defaults[i];}
-			outputDouble[i] = Double.parseDouble(output[i]);
+			if (output[i]=="") outputDouble[i] = defaults[i];
+			else outputDouble[i] = Double.parseDouble(output[i]);
 		}
 	}
 	/**
@@ -171,8 +171,8 @@ public class Args {
 		assert defaults.length >= output.length;
 		outputFloat = new float[output.length];
 		for (int i : Range.ListRange(output.length)) {
-			if (output[i]=="") {outputFloat[i] = defaults[i];}
-			outputFloat[i] = Float.parseFloat(output[i]);
+			if (output[i]=="") outputFloat[i] = defaults[i];
+			else outputFloat[i] = Float.parseFloat(output[i]);
 		}
 	}
 	/**
