@@ -1,15 +1,13 @@
 package com.Ace009.nonLibrary.debug;
 
 import com.Ace009.library.*;
-import com.Ace009.library.CClass.*;
+//import com.Ace009.library.CClass.*;
 import com.Ace009.library.CoordinateSystem.*;
 import com.Ace009.library.Math.*;
 import com.Ace009.nonLibrary.school.*;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
 
 /**
  * A class containing all {@code main}- or debug-methods
@@ -102,9 +100,8 @@ public class MainMethods {
 		//AbstractList, because AbstractCollection implements the readable .toString()
 		// so we can use neither Collection nor List
 		AbstractList<Coordinate> result = new ArrayList<>(test.constructPoly(aC));
-		System.out.println("Circle: "+result.toString());
-		System.out.println("Circluarity: "+test.circumferance()+"/"
-		+Coordinate.totalDistance(result,true)+"="+Circle.getCircularity(result,aR));
+		System.out.printf("Circle: %s",result.toString());
+		System.out.printf("Circularity: %f/%f=%f\n",test.circumferance(),Coordinate.totalDistance(result,true),+Circle.getCircularity(result,aR));
 	}
 	/* ** object parse test **
 	 * <code>
@@ -121,29 +118,6 @@ public class MainMethods {
 		String[] values = new Args("String", askVal).output;
 	 * </code>
 	 */
-	/**
-	 * {@code CObject}s main method:
-	 * <p>
-	 * creates a test {@code Args} with given parameters,
-	 * prints out its properties using {@link CObject#entries(Args)}
-	 * 
-	 * @see com.Ace009.library.CClass.CObject
-	 */
-	public static void CobjectTest() {
-		int amount = new Args(Args.OutputType.Int, "Amount of Entries").outputInt[0];
-		String[] askKey = new String[amount];
-		for (int i : Range.arrayRange(amount)) {
-			askKey[i] = i+". Entry";
-		}
-		Args test = new Args(Args.OutputType.String, askKey);
-		Map<String, Object> result = new HashMap<>();
-		try {
-			result = CObject.entriesMap(test);
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		CMap.print(result);
-	}
 	/**
 	 * {@code CaesarCipher}s main method:
 	 * <p>
@@ -172,12 +146,6 @@ public class MainMethods {
 				System.out.println(cipher.encode(input.output[2]));
 				break;
 		}
-	}
-	/**
-	 * debug method, empty on realease, jst for in-dev-deubugging
-	 */
-	public static void debug(){
-		//debugging, usually empty
 	}
 	/**
 	 * {@code Fraction}s main method:
@@ -212,46 +180,5 @@ public class MainMethods {
 			default: System.out.println("No implemented operation given. operation: "+operation);
 		}
 		System.out.printf("Fraction is: %s\n",test.toString());
-	}
-	/**
-	 * launches a specified main method.
-	 * <p> specification is possible through {@link Args} or {@code args}
-	 * @param args {@code String[]}, irrelevant, arguments gathered using {@link Args}
-	 * <p>if provided: [0] optional, main method name,
-	 * skips specification launch of {@link Args}
-	 * @see com.Ace009.library.Args
-	 * @see #rangeMain()
-	 * @see #RNGMain()
-	 * @see #CircleMain()
-	 * @see #CobjectTest()
-	 */
-	public static void main(String[] args) {
-		String type = "";
-		if (args.length==0) {
-			type = new Args(Args.OutputType.String, "method").output[0].toLowerCase();
-		} else { type = args[0].toLowerCase(); }
-		switch (type) {
-			case "circle":
-			case "circlemain":
-				CircleMain(); break;
-			case "rng":
-			case "rngmain":
-				RNGMain(); break;
-			case "range":
-			case "rangemain":
-				rangeMain(); break;
-			case "cobject":
-			case "cobjecttest":
-				CobjectTest(); break;
-			case "cipher":
-			case "ciphertest":
-				CipherTest(); break;
-			case "fraction":
-			case "fractiontest":
-				FractionTest(); break;
-			case "debug":
-				debug(); break;
-			default: System.out.println("No implemented type given. type: "+type);
-		}
 	}
 }

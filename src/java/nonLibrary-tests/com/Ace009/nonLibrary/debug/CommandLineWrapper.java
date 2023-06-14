@@ -16,36 +16,77 @@ import com.Ace009.library.Math.*;
 public class CommandLineWrapper {
 	/** don't */
 	private CommandLineWrapper() {}
+	/** {@code String[]} containing the help message */
+	private static final String[] help = new String[]{
+		"\nAvailable commands(all commands are internally connverted to lower case):",
+		"\"stop\"/\"break\": stops/ends the main method",
+		"\"help\": prints this message",
+		"\"circle\":runs a test main method for the CoordinateSystems Circle class",
+		"\"rng\":runs a test for the custom RNG class, arguments are taken via Args",
+		"\"range\":runs a test for the Range Class, printing all the steps",
+		"\"cipher\":runs a command-line interface for the CaesarCipher class, can encode/decode/crack",
+		"\"fraction\":uses Args to create and calculate with a user given fraction",
+		"\"debug\":a debug method only used for debugging, current contetn in source-code",
+		"\"cobject\":runs a test for the CObject class, takes a custom Object and analyses it"
+	};
 	/**
 	 * system default main method, uses {@link Args#ask(String)} to run specifed commands
-	 * @param args default system arguments, will de used when calling a main method
+	 * @param args default system arguments, will de used when calling a method that supports {@code String[] args}
 	 */
 	public static void main(String[] args) {
-		boolean running = true;
 		String command;
 		System.out.println("\nRunning CommandLineWrapper:");
-		while (running) {
+		while (true) {
 			command = Args.ask("\nCommand").toLowerCase();
 			switch (command) {
 				case"stop":
 				case"break":
-					running=false;
 					System.out.println("stopping...");
 					return;
-				case"run":
-				case"main":
-					System.out.println("running MainMethods...");
-					MainMethods.main(args); break;
-				case"object":
+				case"help":
+					for (String line : help) {
+						System.out.println(line);
+					}
+					break;
+				case "circle":
+					System.out.println("Running MainMethod Circle...");
+					MainMethods.CircleMain(); break;
+				case "rng":
+					System.out.println("Running MainMethod RNG...");
+					MainMethods.RNGMain(); break;
+				case "range":
+					System.out.println("Running MainMethod Range...");
+					MainMethods.rangeMain(); break;
+				case "cipher":
+					System.out.println("Running MainMethod Cipher...");
+					MainMethods.CipherTest(); break;
+				case "fraction":
+					System.out.println("Running MainMethod Fraction...");
+					MainMethods.FractionTest(); break;
+				case "debug":
+					System.out.println("Running Debug...");
+					debug(); break;
 				case"cobject":
-					System.out.println("running CObject Test...");
+					System.out.println("Running CObject Test...");
 					CobjectTest(); break;
+				default:
+					System.out.printf("No implemented command given, command: \"%s\"\n",command);
+					System.out.println("use the command \"help\" to see available commands");
 			}
 			System.out.println("\nreturning to Wrapper...");
 		}
 	}
+	/** */
+	public static void debug() {
+		//debugging, usually empty
+	}
 	/**
+	 * {@code CObject} Test method
+	 * <p>
+	 * creates a custom test {@code Object} with given parameters,
+	 * (current options are {@link Args} and {@link Fraction} )
 	 * 
+	 * @see com.Ace009.library.CClass.CObject
 	 */
 	public static void CobjectTest() {
 		String type = Args.ask("type").toLowerCase();
