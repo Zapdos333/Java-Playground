@@ -28,6 +28,7 @@ public class Fraction {
 		 * @see CMath#getPrimesUpTo(int)
 		 */
 		public static int[] seperateToPrimes(long number) {
+			if (number <= 2) return new int[]{(int)number};
 			int[] check = CMath.getPrimesUpTo((int)Math.ceil(number/2));
 			List<Integer> output = new ArrayList<>();
 			for (int i = 1; i < check.length; i++) {

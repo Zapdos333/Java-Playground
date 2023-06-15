@@ -27,7 +27,7 @@ public class CMath {
 	/** private {@code IntStream} containing {@code {1,2,3,...)}} */
 	private static IntStream numbers;
 	/** private method to reopen {@link #numbers} */
-	private static void refreshNums() { numbers = IntStream.iterate(1, i->i+1); }
+	private static void refreshNums() { numbers=null; numbers = IntStream.iterate(1, i->i+1); }
 	/**
 	 * private method to check if a number is prime,
 	 * <p> by checking if the part of {@link CMath#numbers} is at max {@code 2} long (1 and itself)

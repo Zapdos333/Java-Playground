@@ -1,6 +1,7 @@
 package com.Ace009.nonLibrary.debug;
 
 import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import com.Ace009.library.*;
@@ -78,7 +79,15 @@ public class CommandLineWrapper {
 	}
 	/** */
 	public static void debug() {
-		//debugging, usually empty
+		System.out.println("currently debugging fraction");
+		Args t_ = new Args(Args.OutputType.Int, "numerator", "denominator");
+		new Fraction(t_.outputInt[0],t_.outputInt[1]);
+		System.out.printf("numerator: %d, denominator: %d, gcd: %d\n",
+			t_.outputInt[0],t_.outputInt[1],Fraction.calculations.gcd(t_.outputInt[0],t_.outputInt[1]));
+		Args.suspend("");
+		System.out.printf("numerator primes: %s\n", Arrays.toString(Fraction.calculations.seperateToPrimes(t_.outputInt[0])));
+		System.out.printf("denominator primes: %s\n", Arrays.toString(Fraction.calculations.seperateToPrimes(t_.outputInt[1])));
+		//
 	}
 	/**
 	 * {@code CObject} Test method

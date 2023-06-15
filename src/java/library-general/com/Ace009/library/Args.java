@@ -53,14 +53,16 @@ public class Args {
 		return scanner.nextLine();
 	}
 	/**
-	 * suspends the current thread with a message up to user input
+	 * suspends the current thread with a message in {@link System#out}
+	 * until {@link System#in} gets a {@link Scanner#nextLine()}
 	 * @param term suspension message
 	 */
 	@SuppressWarnings("resource") //never close System.in
 	public static void suspend(String term){
 		Scanner scanner = new Scanner(System.in);
-		System.out.printf("%s. Suspending, \nPress any key to continue...", term);
-		scanner.next();
+		if (term != "") System.out.printf("%s .Suspending, \nPress any key to continue...", term);
+		else System.out.print("Suspending, \nPress any key to continue...");
+		scanner.nextLine();
 	}
 	/**
 	 * constructs an {@code Args} object, which contains the in {@code @see} mentioned properties,
