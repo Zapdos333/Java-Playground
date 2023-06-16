@@ -1,7 +1,6 @@
 package com.Ace009.library.CClass;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -130,40 +129,5 @@ public class CObject {
 			if (entriesA[i][1] != entriesB[i][1]) {return false;}
 		}
 		return true;
-	}
-	/**
-	 * returns an array containing the result of the with {@code key} specified field of method,
-	 * returns an array containing {@code null} if no such field or method exists
-	 * <p>
-	 * does run the specified method on all the objects, priortieses fields over methods
-	 * <p>
-	 * replacable with {@code Stream.of(entries).map(e->e.key(args)).toArray()}
-	 * @param entries the Objects to use
-	 * @param key the {@code string} name of the field of method 
-	 * @param args the arguments for a method-call, can be {@code null}
-	 * @return an {@code Object[]} containing the results
-	 * @throws InvocationTargetException because of {@link Method#invoke(Object, Object[])}
-	 */
-	public static Object[] results (Object[] entries, String key, Object[] args) throws InvocationTargetException {
-		Class<?> clas = entries.getClass().getComponentType();
-		assert clas != null;
-		Field[] fields = (Field[]) getAll(clas).get("fields");
-		Method[] methods = (Method[]) getAll(clas).get("methods");
-		fields = (Field[]) Stream.of(fields).filter(e->e.getName()==key).toArray();
-		methods = (Method[]) Stream.of(methods).filter(e->e.getName()==key).toArray();
-		Object[] output = new Object[entries.length];
-		if (fields.length != 0) {
-			fields[0].setAccessible(true);
-			for (int i=0; i<entries.length; i++) {
-				try { output[i] = fields[0].get(entries[i]); } catch (Exception e) { e.printStackTrace(); }
-			}
-		} else if (methods.length != 0) {
-			methods[0].setAccessible(true);
-			assert methods[0].getParameterCount() == 0;
-			for (int i = 0; i < entries.length; i++) {
-				try { output[i] = methods[i].invoke(entries[i], args); } catch (IllegalAccessException e) { e.printStackTrace(); }
-			}
-		}
-		return output;
 	}
 }
