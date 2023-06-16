@@ -1,6 +1,7 @@
 package com.Ace009.nonLibrary.debug;
 
 import java.util.Map;
+import java.util.stream.Stream;
 import java.util.HashMap;
 
 import com.Ace009.library.*;
@@ -27,7 +28,8 @@ public class CommandLineWrapper {
 		"\"cipher\":runs a command-line interface for the CaesarCipher class, can encode/decode/crack",
 		"\"fraction\":uses Args to create and calculate with a user given fraction",
 		"\"debug\":a debug method only used for debugging, current contetn in source-code",
-		"\"cobject\":runs a test for the CObject class, takes a custom Object and analyses it"
+		"\"cobject\":runs a test for the CObject class, takes a custom Object and analyses it",
+		"\"wrapper\":runs an internal instance of this in a try-catch block"
 	};
 	/**
 	 * system default main method, uses {@link Args#ask(String)} to run specifed commands
@@ -68,6 +70,16 @@ public class CommandLineWrapper {
 				case"cobject":
 					System.out.println("Running CObject Test...");
 					CobjectTest(); break;
+				case"wrapper":
+					System.out.println("Starting wrapper...");
+					try {
+						main(args);
+						System.out.println("\ninternal wrapper ended normally");
+					} catch (Throwable e) {
+						System.out.printf("\ninternal wrapper ended with exception:\n%s\n\n", e.toString());
+						Stream.of(e.getStackTrace()).map(line->line.toString()).forEach(System.out::println);
+					}
+					break;
 				default:
 					System.out.printf("No implemented command given, command: \"%s\"\n",command);
 					System.out.println("use the command \"help\" to see available commands");
