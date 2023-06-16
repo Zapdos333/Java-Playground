@@ -3,7 +3,6 @@ package com.Ace009.library.CClass;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.Ace009.library.Range;
 /**
  * 'static' class,
  * one of the 'C(ustom)Class' libaries,
@@ -25,7 +24,7 @@ public class CArray {
 	 * @return {@code int} the index where {@code element} was found, else -1
 	 */
 	public static <T> int indexOf(T[] array, T element) {
-		for (int i : Range.arrayRange(array.length)) {
+		for (int i = 0; i < array.length; i++) {
 			if (array[i] == element) {return i;}
 		}
 		return -1;
@@ -53,7 +52,7 @@ public class CArray {
 		 */
 		public static Character[] asObjectArray(char[] array) {
 			Character[] output = new Character[array.length];
-			for (int i : Range.arrayRange(array.length)) {
+			for (int i = 0; i < output.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -66,7 +65,7 @@ public class CArray {
 		 */
 		public static Integer[] asObjectArray(int[] array) {
 			Integer[] output = new Integer[array.length];
-			for (int i : Range.arrayRange(array.length)) {
+			for (int i = 0; i < output.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -79,7 +78,7 @@ public class CArray {
 		 */
 		public static Boolean[] asObjectArray(boolean[] array) {
 			Boolean[] output = new Boolean[array.length];
-			for (int i : Range.arrayRange(array.length)) {
+			for (int i = 0; i < output.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -92,7 +91,7 @@ public class CArray {
 		 */
 		public static Double[] asObjectArray(double[] array) {
 			Double[] output = new Double[array.length];
-			for (int i : Range.arrayRange(array.length)) {
+			for (int i = 0; i < output.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -105,7 +104,7 @@ public class CArray {
 		 */
 		public static Float[] asObjectArray(float[] array) {
 			Float[] output = new Float[array.length];
-			for (int i : Range.arrayRange(array.length)) {
+			for (int i = 0; i < output.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -118,7 +117,7 @@ public class CArray {
 		 */
 		public static Long[] asObjectArray(long[] array) {
 			Long[] output = new Long[array.length];
-			for (int i : Range.arrayRange(array.length)) {
+			for (int i = 0; i < output.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -131,7 +130,7 @@ public class CArray {
 		 */
 		public static Short[] asObjectArray(short[] array) {
 			Short[] output = new Short[array.length];
-			for (int i : Range.arrayRange(array.length)) {
+			for (int i = 0; i < output.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -144,7 +143,7 @@ public class CArray {
 		 */
 		public static Byte[] asObjectArray(byte[] array) {
 			Byte[] output = new Byte[array.length];
-			for (int i : Range.arrayRange(array.length)) {
+			for (int i = 0; i < output.length; i++) {
 				output[i] = array[i];
 			}
 			return output;

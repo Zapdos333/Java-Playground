@@ -26,14 +26,12 @@ project(':template'){
 */
 project(':library-general'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
-	dependencies {}
+	dependencies {} // no dependencies allowed
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 project(':library-CClass'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
-	dependencies {
-		implementation project(':library-general')
-	}
+	dependencies {} // no dependencies allowed
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 project(':library-CoordinateSystem'){
