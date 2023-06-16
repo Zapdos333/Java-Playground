@@ -77,7 +77,7 @@ public class CommandLineWrapper {
 			System.out.println("\nreturning to Wrapper...");
 		}
 	}
-	/** */
+	/** debug Method, generally empty in releases */
 	public static void debug() {
 		System.out.println("currently debugging fraction");
 		Args t_ = new Args(Args.OutputType.Int, "numerator", "denominator");
