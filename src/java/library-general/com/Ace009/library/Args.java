@@ -48,6 +48,7 @@ public class Args {
 	 */
 	@SuppressWarnings("resource") //never close System.in
 	public static String ask(String term){
+		term = term==null ? "" : term;
 		Scanner scanner = new Scanner(System.in);
 		System.out.printf("%s:", term);
 		return scanner.nextLine();
@@ -59,6 +60,7 @@ public class Args {
 	 */
 	@SuppressWarnings("resource") //never close System.in
 	public static void suspend(String term){
+		term = term==null ? "" : term;
 		Scanner scanner = new Scanner(System.in);
 		if (term != "") System.out.printf("%s .Suspending, \nPress any key to continue...", term);
 		else System.out.print("Suspending, \nPress any key to continue...");
