@@ -141,7 +141,7 @@ public class MainMethods {
 			case "crack":
 				String[] output = CaesarCipher.crack(input.output[2]);
 				for (int i : Range.arrayRange(1,output.length+1)) {
-					System.out.printf("%d: %s\n",i,output[i]);
+					System.out.printf("(%d/%c): %s\n",i,CaesarCipher.ALPHABET[i],output[i]);
 				}
 				break;
 			case "encode":

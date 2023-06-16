@@ -15,8 +15,8 @@ import com.Ace009.library.CClass.CArray;
  */
 public class CaesarCipher {
 	/**a {@code char[]} containing the latin alphabet */
-	static final char[] ALPHABET = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-	/**securing the alphabet */
+	public static final char[] ALPHABET = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+	/** securing the alphabet */
 	static {
 		if(ALPHABET.length!=26) {throw new SecurityException("altered constant field");}
 	}
@@ -34,8 +34,10 @@ public class CaesarCipher {
 		}
 		return output;
 	}
-	/**this instances shifted {@link #ALPHABET} constant */
-	private final char[] cipher = new char[ALPHABET.length];
+	/** this instances shifted {@link #ALPHABET} constant */
+	protected final char[] cipher = new char[ALPHABET.length];
+	/** this instances code number */
+	public final byte code;
 	/**
 	 * Standard Constructor,
 	 * {@code this.cipher} is {@code ALPHABET} shifted by {@code code} entries
@@ -43,7 +45,11 @@ public class CaesarCipher {
 	 * @see #ALPHABET
 	 * @see #cipher
 	 */
-	public CaesarCipher(final byte code) {
+	public CaesarCipher(byte code) {
+		if (code<0) code = (byte)(26+code);
+		if (code<-25) code = (byte)(code%26);
+		if (code>25) code = (byte)(code%26);
+		this.code = code;
 		byte i=0;
 		while (cipher[25]=='\u0000') {
 			cipher[i+code]=ALPHABET[i];
@@ -77,7 +83,7 @@ public class CaesarCipher {
 		input = new String(input).toLowerCase().toCharArray();
 		char[] output = new char[input.length];
 		for (int i : Range.arrayRange(output.length)) {
-			output[i]=cipher[Math.max( CArray.indexOf(CArray.asObjectArray(ALPHABET), input[i]),0)];
+			output[i]=CArray.indexOf(CArray.asObjectArray(ALPHABET), input[i])<0 ? input[i] : cipher[CArray.indexOf(CArray.asObjectArray(ALPHABET), input[i])];
 		}
 		assert output[output.length-1]!='\u0000';
 		return output;
@@ -102,7 +108,7 @@ public class CaesarCipher {
 		input = new String(input).toLowerCase().toCharArray();
 		char[] output = new char[input.length];
 		for (int i : Range.arrayRange(output.length)) {
-            output[i]=ALPHABET[Math.max( CArray.indexOf(CArray.asObjectArray(cipher), input[i]),0)];
+            output[i]=CArray.indexOf(CArray.asObjectArray(cipher), input[i])<0 ? input[i] : ALPHABET[CArray.indexOf(CArray.asObjectArray(cipher), input[i])];
         }
 		assert output[output.length-1]!='\u0000';
 		return output;
