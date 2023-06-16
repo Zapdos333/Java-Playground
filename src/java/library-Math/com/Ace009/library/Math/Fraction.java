@@ -2,7 +2,6 @@ package com.Ace009.library.Math;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import com.Ace009.library.CClass.CMath;
 import com.Ace009.library.CClass.CArray;
@@ -74,9 +73,9 @@ public class Fraction {
 		public static int lcm(long n1, long n2) {
 			List<Integer> p1 = CArray.asList(CArray.asObjectArray(seperateToPrimes(n1)));
 			List<Integer> p2 = CArray.asList(CArray.asObjectArray(seperateToPrimes(n2)));
-			List<Collection<Integer>> t_ = new ArrayList<Collection<Integer>>();
-			t_.add(p1);t_.add(p2);
-			List<Integer> output = CList.merge(t_);
+			List<Integer> t_ = new ArrayList<Integer>();
+			t_.addAll(p1);t_.addAll(p2);
+			List<Integer> output = CList.deduplicate(t_);
 			return output.stream().mapToInt(i->i).reduce(1,(a,b)->a*b);
 		}
 	}
