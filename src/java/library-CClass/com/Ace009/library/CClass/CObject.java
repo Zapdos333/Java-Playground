@@ -1,7 +1,11 @@
 package com.Ace009.library.CClass;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Member;
+import java.lang.reflect.Executable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,29 +22,35 @@ public class CObject {
 	 */
 	private CObject() {}
 	/**
-	 * returns all findable fields of the class {@code clas},
-	 * uses {@code Class.getDeclaredFields} and {@code Class.getFields}
+	 * returns all {@code Member}s of the {@code Class} {@code clas},
+	 * <p>
+	 * uses {@link Class#getDeclaredFields} and {@link Class#getFields} for {@link Map#get(Object) Map.get("fields")}, 
+	 * uses {@link Class#getDeclaredMethods} and {@link Class#getMethods} for {@link Map#get(Object) Map.get("methods")}, 
+	 * uses {@link Class#getDeclaredConstructors} and {@link Class#getConstructors} for {@link Map#get(Object) Map.get("constructors")}, 
 	 * @param clas the class to scan
-	 * @return {@code Field[]} containing all fields
+	 * @return {@code Map<String, Member[]>} containing all members with an associated {@code String} key
 	 */
-	private static Field[] getAllFields(Class<?> clas) {
-		Field[] declared = clas.getDeclaredFields();
-		Field[] set = clas.getFields();
-		ArrayList<Field> outputAr = new ArrayList<>();
-		outputAr.ensureCapacity(Math.max(set.length, declared.length));
-		for (Field field : set) {
-			if (!outputAr.contains(field)) {
-				outputAr.add(field);
-			}
-		}
-		for (Field field : declared) {
-			if (!outputAr.contains(field)) {
-				outputAr.add(field);
-			}
-		}
-		Field[] output = outputAr.toArray(new Field[outputAr.size()]);
+	public static Map<String, Member[]> getAll(Class<?> clas) {
+		List<Field> fieldsD = CArray.asList(clas.getDeclaredFields());
+		List<Field> filedsS = CArray.asList(clas.getFields());
+		List<Field> fields = new ArrayList<Field>();
+		fields.addAll(fieldsD); fields.addAll(filedsS);
+		fields = CList.deduplicate(fields);
+		List<Executable> methodsD = CArray.asList(clas.getDeclaredMethods());
+		List<Executable> methodsS = CArray.asList(clas.getMethods());
+		List<Executable> methods = new ArrayList<Executable>();
+		methods.addAll(methodsD); methods.addAll(methodsS);
+		methods = CList.deduplicate(methods);
+		List<Executable> constructorsD = CArray.asList(clas.getDeclaredConstructors());
+		List<Executable> constructorsS = CArray.asList(clas.getConstructors());
+		List<Executable> constructors = new ArrayList<Executable>();
+		constructors.addAll(constructorsD); constructors.addAll(constructorsS);
+		constructors = CList.deduplicate(constructors);
+		Map<String, Member[]> output = new HashMap<String, Member[]>();
+		output.put("fields",fields.toArray(new Member[0]));
+		output.put("methods",methods.toArray(new Member[0]));
+		output.put("constructors",constructors.toArray(new Member[0]));
 		return output;
-
 	}
 	/**
 	 * returns all property keys/names of the class of the {@code Object obj}
@@ -49,7 +59,7 @@ public class CObject {
 	 */
 	public static String[] keys(Object obj) {
 		Class<?> clas = obj.getClass();
-		Field[] fields = getAllFields(clas);
+		Field[] fields = (Field[]) getAll(clas).get("fields");
 		String[] output = new String[fields.length];
 		for (int i=0; i < fields.length; i++) {
 			fields[i].setAccessible(true);
@@ -65,7 +75,7 @@ public class CObject {
 	 */
 	public static Object[] values(Object obj) throws IllegalAccessException {
 		Class<?> clas = obj.getClass();
-		Field[] fields = getAllFields(clas);
+		Field[] fields = (Field[]) getAll(clas).get("fields");
 		Object[] output = new Object[fields.length];
 		for (int i=0; i < fields.length; i++) {
 			fields[i].setAccessible(true);
