@@ -120,7 +120,7 @@ public class CommandLineWrapper {
 				System.out.println("No implemented Object Type given,"); return;
 		}
 		Map<String, Object> output = new HashMap<>();
-		try { output = CObject.entriesMap(test); }
+		try { output = CObject.fieldEntriesMap(test); }
 		catch (Exception e) { e.printStackTrace(); }
 		System.out.printf("Debug: %s; %s\n", test, output);
 		for (String E : CMap.print(output)) {
