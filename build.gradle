@@ -139,6 +139,7 @@ javadoc {
 	options.memberLevel = JavadocMemberLevel.PRIVATE
 }
 task packageDocs(type: Zip) {
+	group = "documentation"
 	dependsOn javadoc
 	archiveFileName="${project.archivesBaseName}-JavaDocs-${project.getVersion()}.zip"
 	destinationDirectory=file("${project.getRootDir()}/build/libs")
