@@ -27,8 +27,8 @@ public class Fraction {
 		 * @see CMath#getPrimesUpTo(int)
 		 */
 		public static int[] seperateToPrimes(long number) {
-			if (number <= 2) return new int[]{(int)number};
-			int[] check = CMath.getPrimesUpTo((int)Math.ceil(number/2));
+			//if (number <= 2) return new int[]{(int)number};
+			int[] check = CMath.getPrimesUpTo((int)number);
 			List<Integer> output = new ArrayList<>();
 			for (int i = 1; i < check.length; i++) {
 				if (number % check[i] == 0) {
@@ -166,7 +166,6 @@ public class Fraction {
 	 */
 	public void reduceAndCheck() {
 		int Ldiv = calculations.gcd(numerator, denominator);
-		assert (numerator % Ldiv == 0) && (denominator % Ldiv == 0) : "wrong greatest common divisor";
 		numerator /= Ldiv; denominator /= Ldiv;
 		check();
 	}
