@@ -17,11 +17,13 @@ gradle is configured with many modules:
 |-----------|-------|------------|
 |full build|`com.Ace009.**`|all lower|
 |library|`com.Ace009.library.**`|all lower|
-|library-general|`com.Ace009.library.*`|none|
-|library-CClass|`com.Ace009.library.CClass.*`|library-general|
+|library-general|`com.Ace009.library.*`|**none**|
+|library-CClass|`com.Ace009.library.CClass.*`|**none**|
 |library-math|`com.Ace009.library.math.*`|library-CClass|
 |library-CoordinateSystem|`com.Ace009.library.CoordinateSystem.*`|library-CClass|
 |nonLibrary|`com.Ace009.nonLibrary.**`|all lower|
 |nonLibrary-tests|`com.Ace009.nonLibrary.debug.*`|library;nonLibrary-school|
 |nonLibrary-HelloWorld|`com.Ace009.nonLibrary.HelloWorld.*`|none|
 |nonLibrary-school|`com.Ace009.nonLibrary.school.*`|library-general;library-CClass|
+
+also the jar-file for the nonLibrary module has a manifest file which sets the `Main-Class` to `CommandLineWrapper`
