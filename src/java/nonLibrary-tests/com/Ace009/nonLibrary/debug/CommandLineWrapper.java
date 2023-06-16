@@ -1,7 +1,6 @@
 package com.Ace009.nonLibrary.debug;
 
 import java.util.Map;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import com.Ace009.library.*;
@@ -40,8 +39,7 @@ public class CommandLineWrapper {
 		while (true) {
 			command = Args.ask("\nCommand").toLowerCase();
 			switch (command) {
-				case"stop":
-				case"break":
+				case"stop":	case"break": case"end":
 					System.out.println("stopping...");
 					return;
 				case"help":
@@ -79,15 +77,7 @@ public class CommandLineWrapper {
 	}
 	/** debug Method, generally empty in releases */
 	public static void debug() {
-		System.out.println("currently debugging fraction");
-		Args t_ = new Args(Args.OutputType.Int, "numerator", "denominator");
-		new Fraction(t_.outputInt[0],t_.outputInt[1]);
-		System.out.printf("numerator: %d, denominator: %d, gcd: %d\n",
-			t_.outputInt[0],t_.outputInt[1],Fraction.calculations.gcd(t_.outputInt[0],t_.outputInt[1]));
-		Args.suspend("");
-		System.out.printf("numerator primes: %s\n", Arrays.toString(Fraction.calculations.seperateToPrimes(t_.outputInt[0])));
-		System.out.printf("denominator primes: %s\n", Arrays.toString(Fraction.calculations.seperateToPrimes(t_.outputInt[1])));
-		//
+		//empty
 	}
 	/**
 	 * {@code CObject} Test method
