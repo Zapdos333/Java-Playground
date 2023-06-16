@@ -17,9 +17,24 @@ import com.Ace009.library.Math.*;
 public class CommandLineWrapper {
 	/** don't */
 	private CommandLineWrapper() {}
-	/** {@code String[]} containing the help message */
+	/**
+	 * {@code String[]} containing the help message
+	 * <p>help-command<code>
+	 * Available commands(all commands are internally converted to lower case): <br>
+	 * "stop"/"break": stops/ends the main method <br>
+	 * "help": prints this message <br>
+	 * "circle":runs a test main method for the CoordinateSystems Circle class <br>
+	 * "rng":runs a test for the custom RNG class, arguments are taken via Args <br>
+	 * "range":runs a test for the Range Class, printing all the steps <br>
+	 * "cipher":runs a command-line interface for the CaesarCipher class, can encode/decode/crack <br>
+	 * "fraction":uses Args to create and calculate with a user given fraction <br>
+	 * "debug":a debug method only used for debugging, current contetn in source-code <br>
+	 * "cobject":runs a test for the CObject class, takes a custom Object and analyses it <br>
+	 * "wrapper":runs an internal instance of this in a try-catch block <br>
+	 * </code>
+	 */
 	private static final String[] help = new String[]{
-		"\nAvailable commands(all commands are internally connverted to lower case):",
+		"\nAvailable commands(all commands are internally converted to lower case):",
 		"\"stop\"/\"break\": stops/ends the main method",
 		"\"help\": prints this message",
 		"\"circle\":runs a test main method for the CoordinateSystems Circle class",
