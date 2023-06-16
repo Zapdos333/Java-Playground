@@ -19,7 +19,7 @@ gradle is configured with many modules:
 |library|`com.Ace009.library.**`|all lower|
 |library-general|`com.Ace009.library.*`|**none**|
 |library-CClass|`com.Ace009.library.CClass.*`|**none**|
-|library-math|`com.Ace009.library.math.*`|library-CClass|
+|library-Math|`com.Ace009.library.math.*`|library-CClass|
 |library-CoordinateSystem|`com.Ace009.library.CoordinateSystem.*`|library-CClass|
 |nonLibrary|`com.Ace009.nonLibrary.**`|all lower|
 |nonLibrary-tests|`com.Ace009.nonLibrary.debug.*`|library;nonLibrary-school|
