@@ -1,20 +1,19 @@
-package com.Ace009.nonLibrary;
+package com.Ace009.nonLibrary.debug;
 
 import com.Ace009.library.*;
 import com.Ace009.library.CClass.*;
 import com.Ace009.library.CoordinateSystem.*;
+import com.Ace009.library.Math.*;
 import com.Ace009.nonLibrary.school.*;
-
-import com.Ace009.library.Args.OutputType;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class containing all {@code main}- or debug-methods
  * <p>all methods get their necessary arguments using {@link Args}
  * @author Ace009
- * @see #main(String[])
  */
 public class MainMethods {
 	/** don't */
@@ -29,12 +28,15 @@ public class MainMethods {
 	 * @see com.Ace009.library.Range
 	 */
 	public static void rangeMain() {
-		Args arguments = new Args(OutputType.Int, "Stop","Start","Steps");
+		Args arguments = new Args(Args.OutputType.Int, "Stop","Start","Steps");
+		arguments.parseWithDefaults(new int[]{100,0,1});
 		int stop = arguments.outputInt[0];
 		int start = arguments.outputInt[1];
 		int steps = arguments.outputInt[2];
-		for (int i : Range.arrayRange(start, stop, steps)) {
-			System.out.println(i);
+		int[] array = Range.arrayRange(start, stop, steps);
+		List<Integer> list = Range.ListRange(start, stop, steps);
+		for (int i : Range.arrayRange((int)Math.floor((stop-start)/steps) )) {
+			System.out.printf("%s|%s\n", CString.formatToLength(Integer.toString(array[i]),3), CString.formatToLength(list.get(i).toString(), 3));
 		}
 	}
 	/**
@@ -48,7 +50,7 @@ public class MainMethods {
 		//create new RNG
 		RNG testRng= new RNG();
 		//ask for Args
-		Args input = new Args(OutputType.Int,"amount","min","max","Seed length");
+		Args input = new Args(Args.OutputType.Int,"amount","min","max","Seed length");
 		//insert defaults
 		input.parseWithDefaults(new int[]{10,0,10,15});
 		//set parameters
@@ -57,7 +59,7 @@ public class MainMethods {
 		int max = input.outputInt[2];
 		int seedLength = input.outputInt[3];
 		//ask for type of number
-		String type = new Args(OutputType.String, "type of numbers").output[0].toLowerCase();
+		String type = new Args(Args.OutputType.String, "type of numbers").output[0].toLowerCase();
 		//reroll for seed
 		System.out.println("new Seed is: "+testRng.rerollRandom(seedLength));
 		//output requested random numbers
@@ -89,7 +91,7 @@ public class MainMethods {
 	 * @see com.Ace009.library.CoordinateSystem.Circle
 	 */
 	public static void CircleMain() {
-		Args input = new Args(OutputType.Double, "X","Y","Radius","Corners");
+		Args input = new Args(Args.OutputType.Double, "X","Y","Radius","Corners");
 		input.parseWithDefaults(new double[] {5,5,5,10});
 		System.out.println("Test program: ");
 		double[] Nargs = input.outputDouble;
@@ -101,9 +103,8 @@ public class MainMethods {
 		//AbstractList, because AbstractCollection implements the readable .toString()
 		// so we can use neither Collection nor List
 		AbstractList<Coordinate> result = new ArrayList<>(test.constructPoly(aC));
-		System.out.println("Circle: "+result.toString());
-		System.out.println("Circluarity: "+test.circumferance()+"/"
-		+Coordinate.totalDistance(result,true)+"="+Circle.getCircularity(result,aR));
+		System.out.printf("Circle: %s",result.toString());
+		System.out.printf("Circularity: %f/%f=%f\n",test.circumferance(),Coordinate.totalDistance(result,true),+Circle.getCircularity(result,aR));
 	}
 	/* ** object parse test **
 	 * <code>
@@ -121,31 +122,6 @@ public class MainMethods {
 	 * </code>
 	 */
 	/**
-	 * {@code CObject}s main method:
-	 * <p>
-	 * creates a test {@code Args} with given parameters,
-	 * prints out its properties using {@link CObject#entries(Args)}
-	 * 
-	 * @see com.Ace009.library.CClass.CObject
-	 */
-	public static void CobjectTest() {
-		int amount = new Args(OutputType.Int, "Amount of Entries").outputInt[0];
-		String[] askKey = new String[amount];
-		for (int i : Range.arrayRange(amount)) {
-			askKey[i] = i+". Entry";
-		}
-		Args test = new Args(OutputType.String, askKey);
-		Object[][] result = new Object[amount][2];
-		try {
-			result = CObject.entries(test);
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		for (int i : Range.arrayRange(result.length)) {
-            System.out.printf("Entry: %d, Key: %s, Value: %s\n",i,result[i][0],result[i][1]);
-		}
-	}
-	/**
 	 * {@code CaesarCipher}s main method:
 	 * <p>
 	 * creates a test {@code CaesarCipher} with the given parameters,
@@ -155,7 +131,7 @@ public class MainMethods {
 	 * @see com.Ace009.nonLibrary.school.CaesarCipher
 	 */
 	public static void CipherTest() {
-		Args input = new Args(OutputType.String,"cipher Key","mode (encode/decode/crack)","String");
+		Args input = new Args(Args.OutputType.String,"cipher Key","mode (encode/decode/crack)","String");
 		input.parseWithDefaults(new String[]{"a","encode","Test"});
 		CaesarCipher cipher = new CaesarCipher(input.output[0].toCharArray()[0]);
 		switch (input.output[1].toLowerCase()) {
@@ -165,7 +141,7 @@ public class MainMethods {
 			case "crack":
 				String[] output = CaesarCipher.crack(input.output[2]);
 				for (int i : Range.arrayRange(1,output.length+1)) {
-					System.out.printf("%d: %s\n",i,output[i]);
+					System.out.printf("(%d/%c): %s\n",i,CaesarCipher.ALPHABET[i],output[i]);
 				}
 				break;
 			case "encode":
@@ -175,52 +151,37 @@ public class MainMethods {
 		}
 	}
 	/**
-	 * debug method, empty on realease, jst for in-dev-deubugging
+	 * {@code Fraction}s main method:
+	 * <p>
+	 * creates two test {@code Fraction} with the given parameters,
+	 * adds, subtracts, multiplies, or divides the two, depending on the parameters
+	 * and prints out the result
 	 */
-	public static void debug(){
-		//debugging, usually empty
-	}
-	/**
-	 * launches a specified main method.
-	 * <p> specification is possible through {@link Args} or {@code args}
-	 * @param args {@code String[]}, irrelevant, arguments gathered using {@link Args}
-	 * <p>if provided: [0] optional, main method name,
-	 * skips specification launch of {@link Args}
-	 * @see com.Ace009.library.Args
-	 * @see #rangeMain()
-	 * @see #RNGMain()
-	 * @see #CircleMain()
-	 * @see #CobjectTest()
-	 */
-	public static void main(String[] args) {
-		String type = "";
-		if (args.length==0) {
-			type = new Args(OutputType.String, "method").output[0].toLowerCase();
-		} else { type = args[0].toLowerCase(); }
-		switch (type) {
-			case "circle":
-			case "circlemain":
-				CircleMain();
+	public static void FractionTest(){
+		int[] input = new Args(Args.OutputType.Int, "numerator","demoninator").outputInt;
+		Fraction test = new Fraction(input[0],input[1]);
+		System.out.printf("Fraction is: %s\n",test.toString());
+		Args operations = new Args(Args.OutputType.String, "operation","numerator","denominator");
+		operations.parseWithDefaults(new String[]{"multiply","33","7"});
+		String operation = operations.output[0].toLowerCase();
+		Fraction T2 = new Fraction(Integer.parseInt(operations.output[1]),Integer.parseInt(operations.output[2]));
+		System.out.printf("Second fraction is: %s\n",T2.toString());
+		switch (operation) {
+			case "multiply":
+				test.multiplyBy(T2);
 				break;
-			case "rng":
-			case "rngmain":
-				RNGMain();
+			case "divide":
+				test.divideBy(T2);
 				break;
-			case "range":
-			case "rangemain":
-				rangeMain();
+			case "add":
+			case "addition":
+				test.add(T2);
 				break;
-			case "cobject":
-			case "cobjecttest":
-				CobjectTest();
+			case "subtract":
+				test.subtract(T2);
 				break;
-			case "cipher":
-			case "ciphertest":
-				CipherTest();
-				break;
-			case "debug":
-				debug();
-			default: System.out.println("No implemented type given. type: "+type);
+			default: System.out.println("No implemented operation given. operation: "+operation);
 		}
+		System.out.printf("Fraction is: %s\n",test.toString());
 	}
 }

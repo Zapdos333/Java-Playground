@@ -30,35 +30,13 @@ public class CList {
 		return list.get((int)(Math.random() * list.size()));
 	}
 	/**
-	 * returns an {@code ArrayList} with all entries
-	 * from the given {@code Collection},
-	 * contains no duplicates
-	 * @param <T> the type of the lists entries
-	 * @param allLists the array of all {@code Collection}
-	 * @return an {@code ArrayList} with all entries
-	 */
-	@SuppressWarnings("unchecked") //to allow {@code Collection<T>[]}
-	public static <T> List<T> merge(Collection<T> ... allLists) {
-		ArrayList<T> output = new ArrayList<>();
-		for (Collection<T> list : allLists) {
-			output.ensureCapacity(output.size()+list.size());
-			for (T entry : list) {
-				if (!output.contains(entry)) {
-					output.add(entry);
-				}
-			}
-			output.trimToSize();
-		}
-		return output;
-	}
-	/**
 	 * deduplicates the {@code list} by adding the entries
-	 * to a new {@code ArrayList} one by one and checking 
-	 * that the new entry isn't already in the new {@code ArrayList},
+	 * to a new {@code List} one by one and checking 
+	 * that the new entry isn't already in the new {@code List},
 	 * relies on {@code Object.equals}
 	 * @param <T> the type of the lists entries
 	 * @param list the list to deduplicate
-	 * @return a new {@code ArrayList} with only one of each entry
+	 * @return a new {@code List} with only one of each entry
 	 */
 	public static <T> List<T> deduplicate(Collection<T> list) {
 		List<T> output = new ArrayList<>(list.size());

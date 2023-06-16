@@ -39,6 +39,34 @@ public class Args {
 		Float;
 	}
 	/**
+	 * prints out the term+":" and
+	 * returns the user input up to the next enter
+	 * <p> uses a {@link Scanner} of {@link System#in} 
+	 * and returns {@link Scanner#nextLine()}
+	 * @param term the thing to ask
+	 * @return the user input
+	 */
+	@SuppressWarnings("resource") //never close System.in
+	public static String ask(String term){
+		term = term==null ? "" : term;
+		Scanner scanner = new Scanner(System.in);
+		System.out.printf("%s:", term);
+		return scanner.nextLine();
+	}
+	/**
+	 * suspends the current thread with a message in {@link System#out}
+	 * until {@link System#in} gets a {@link Scanner#nextLine()}
+	 * @param term suspension message
+	 */
+	@SuppressWarnings("resource") //never close System.in
+	public static void suspend(String term){
+		term = term==null ? "" : term;
+		Scanner scanner = new Scanner(System.in);
+		if (term != "") System.out.printf("%s .Suspending, \nPress any key to continue...", term);
+		else System.out.print("Suspending, \nPress any key to continue...");
+		scanner.nextLine();
+	}
+	/**
 	 * constructs an {@code Args} object, which contains the in {@code @see} mentioned properties,
 	 * which are filled by printing {@code args[i]} and storing the response in {@code output[i]}
 	 * and if the corresponding type is given, parse it into one of the {@code number[]}
@@ -52,23 +80,12 @@ public class Args {
 	 * @see #SArgs {@code SArgs} String[] (copy of {@code args})
 	 * @see #createdType {@code createdType} String (copy of {@code type})
 	 */
-	@SuppressWarnings("resource") //never close System.in
 	public Args(OutputType type, String...args) {
 		SArgs = args;
 		createdType = type;
 		output = new String[args.length];
-		Scanner scanner = new Scanner(System.in);
-		String input;
-		System.out.println("Args class input:");
-		System.out.println("type: " + type);
-		if (type==OutputType.Int||type==OutputType.Double||type==OutputType.Long||type==OutputType.Float) {
-			System.out.println("defaults to 0, if not overridden by implementation");
-		}
 		for (int i : Range.ListRange(args.length)) {
-			input = "";
-			System.out.print(args[i] + ":");
-			input = scanner.nextLine();
-			output[i] = input;
+			output[i] = ask(args[i]);
 		}
 		this.parseAsType(createdType);
 	}
@@ -113,8 +130,8 @@ public class Args {
 		assert defaults.length >= output.length;
 		outputLong = new long[output.length];
 		for (int i : Range.ListRange(output.length)) {
-			if (output[i]=="") {outputLong[i] = defaults[i];}
-			outputLong[i] = Long.parseLong(output[i]);
+			if (output[i]=="") outputLong[i] = defaults[i];
+			else outputLong[i] = Long.parseLong(output[i]);
 		}
 	}
 	/**
@@ -128,8 +145,8 @@ public class Args {
 		assert defaults.length >= output.length;
 		outputInt = new int[output.length];
 		for (int i : Range.ListRange(output.length)) {
-			if (output[i]=="") {outputInt[i] = defaults[i];}
-			outputInt[i] = Integer.parseInt(output[i]);
+			if (output[i]=="") outputInt[i] = defaults[i];
+			else outputInt[i] = Integer.parseInt(output[i]);
 		}
 	}
 	/**
@@ -143,8 +160,8 @@ public class Args {
 		assert defaults.length >= output.length;
 		outputDouble = new double[output.length];
 		for (int i : Range.ListRange(output.length)) {
-			if (output[i]=="") {outputDouble[i] = defaults[i];}
-			outputDouble[i] = Double.parseDouble(output[i]);
+			if (output[i]=="") outputDouble[i] = defaults[i];
+			else outputDouble[i] = Double.parseDouble(output[i]);
 		}
 	}
 	/**
@@ -158,8 +175,8 @@ public class Args {
 		assert defaults.length >= output.length;
 		outputFloat = new float[output.length];
 		for (int i : Range.ListRange(output.length)) {
-			if (output[i]=="") {outputFloat[i] = defaults[i];}
-			outputFloat[i] = Float.parseFloat(output[i]);
+			if (output[i]=="") outputFloat[i] = defaults[i];
+			else outputFloat[i] = Float.parseFloat(output[i]);
 		}
 	}
 	/**

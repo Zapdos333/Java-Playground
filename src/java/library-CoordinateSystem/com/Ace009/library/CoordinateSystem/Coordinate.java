@@ -84,9 +84,11 @@ public class Coordinate {
 	 */
 	@Override
 	public String toString() {
-		return "[x:"+this.x+",y:"+this.y+"]";
+		return String.format("[x:%f y:%f]", x, y);
 	}
-	//TODO: javadoc comment from super implementation ?
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (o==this) {return true;}
@@ -94,6 +96,9 @@ public class Coordinate {
 		Coordinate c = (Coordinate) o;
 		return Double.compare(this.x,c.x)==0 && Double.compare(this.y,c.y)==0;
 	}
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		StringBuilder output = new StringBuilder();

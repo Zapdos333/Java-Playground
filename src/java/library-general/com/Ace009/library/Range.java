@@ -1,7 +1,7 @@
 package com.Ace009.library;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 
 
@@ -26,36 +26,36 @@ public class Range {
 	 * @return a {@code Collection<Integer>}
 	 * @see Range#ListRange(int,int,int)
 	 */
-	public static Collection<Integer> ListRange(int stop) {
+	public static List<Integer> ListRange(int stop) {
 		return ListRange(0, stop, 1);
 	}
 	/**
-	 * create a {@code Collection<Integer>} with the first element being {@code start}
+	 * create a {@code List<Integer>} with the first element being {@code start}
 	 * adding 1 and adding it to the list each iteration, until it reaches {@code stop}
 	 * <p>
 	 * uses {@link #ListRange(int, int, int)} with steps defaulting to {@code 1}
 	 * @param start starting integer
 	 * @param stop end integer
-	 * @return a {@code Collection<Integer>}
+	 * @return a {@code List<Integer>}
 	 * @see Range#ListRange(int,int,int)
 	 */
-	public static Collection<Integer> ListRange(int start, int stop) {
+	public static List<Integer> ListRange(int start, int stop) {
 		return ListRange(start, stop, 1);
 	}
 	/**
-	 * create a {@code Collection<Integer>} with the first element being {@code start}
+	 * create a {@code List<Integer>} with the first element being {@code start}
 	 * adding {@code steps} and adding it to the list each iteration,
 	 * before(exclusive) it reaches {@code stop}
 	 * @param start starting integer
 	 * @param stop end integer
 	 * @param steps integer step in each iteration
-	 * @return a {@code Collection<Integer>}
+	 * @return a {@code List<Integer>}
 	 */
-	public static Collection<Integer> ListRange(int start, int stop, int steps) {
-		ArrayList<Integer> output = new ArrayList<>();
-		output.ensureCapacity(((stop-start)/steps)+1);
-		for (int i = start; i < stop; i+=steps) {
-			output.add(i);
+	public static List<Integer> ListRange(int start, int stop, int steps) {
+		int amount = (int)Math.floor(stop-start/steps);
+		List<Integer> output = new ArrayList<>(amount);
+		for (int i = 0; i < amount; i++) {
+			output.add(start+i*steps);
 		}
 		return output;
 	}
@@ -91,9 +91,10 @@ public class Range {
 	 * @return an {@code int array} containing the specified {@code int}
 	 */
 	public static int[] arrayRange(int start, int stop, int steps) {
-		int[] output = new int[((stop-start)/steps)];
-		for (int i = start; i < stop; i+=steps) {
-			output[(i-start)/steps] = i;
+		int amount = (int)Math.floor(stop-start/steps);
+		int[] output = new int[amount];
+		for (int i = 0; i < amount; i++) {
+			output[i] = start+i*steps;
 		}
 		return output;
 	}
