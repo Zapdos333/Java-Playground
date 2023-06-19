@@ -111,10 +111,19 @@ public class Fraction {
 		this(number,1);
 	}
 	/**
+	 * creates a copy of {@code this}, with the same numerator and denominator
+	 * @return a copy of {@code this}
+	 */
+	public Fraction get() {
+		Fraction t_ = new Fraction(1);
+		t_.multiplyBy(this);
+		return t_;
+	}
+	/**
 	 * multiplies the fraction by the given number, by multiplying the numerator by {@code number}
 	 * @param number number to multiply with
 	 */
-	public void multipyBy(int number) { numerator *= number; reduceAndCheck(); }
+	public void multiplyBy(int number) { numerator *= number; reduceAndCheck(); }
 	/**
 	 * divide the fraction by the given number, by multiplying the denominator by {@code number}
 	 * @param number number to divide with
