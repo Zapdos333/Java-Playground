@@ -136,6 +136,17 @@ javadoc {
 	destinationDir=file("${project.getRootDir()}/build/docs")
 	source = project.getRootProject().sourceSets.main.java.srcDirs
 	options.memberLevel = JavadocMemberLevel.PRIVATE
+	options.addStringOption('Xdoclint:all,-reference,-missing','-quiet')
+}
+task checkDocs(type: Javadoc) {
+	group = "documentation"
+	destinationDir=file("${project.getRootDir()}/build/checkDocs")
+	source = project.getRootProject().sourceSets.main.java.srcDirs
+	options.memberLevel = JavadocMemberLevel.PRIVATE
+	options.addStringOption('Xdoclint:all')
+	doLast {
+		delete "${project.getRootDir()}/build/checkDocs"
+	}
 }
 task packageDocs(type: Zip) {
 	group = "documentation"
@@ -151,4 +162,8 @@ task printCheck(){
 	doLast{
 		println()
 	}
+}
+// cleanUp
+clean {
+	delete ".history", "bin", "src/python/__pycache__"
 }
