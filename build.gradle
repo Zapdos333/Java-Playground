@@ -67,6 +67,7 @@ project(':nonLibrary-school'){
 	dependencies {
 		implementation project(':library-general')
 		implementation project(':library-CClass')
+		implementation project(':library-Math')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
