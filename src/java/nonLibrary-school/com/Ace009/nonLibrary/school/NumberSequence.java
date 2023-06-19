@@ -26,13 +26,26 @@ public class NumberSequence {
 	public final Type type;
 	/** base calculation step */
 	public final Fraction step;
+	/**
+	 * default constructor,
+	 * <p> {@code Fraction(1)} as step and first and {@link Type#ADDITION} as type
+	 * @see #NumberSequence(Fraction, Fraction, Type)
+	 */
 	public NumberSequence() {this(new Fraction(1),Type.ADDITION);}
+	/**
+	 * creates a new {@code NumberSequence} with first as {@code Fraction(1)} and the other values as specified
+	 * @param step the step size between every element in the sequence
+	 * @param type the type of the sequence {@link Type}
+	 * @see #NumberSequence(Fraction, Fraction, Type)
+	 */
 	public NumberSequence(Fraction step, Type type) { this(new Fraction(1), step, type); }
-	public NumberSequence(Fraction first, Fraction step, Type type) {
-		list.add(first);
-		this.type=type;
-		this.step=step;
-	}
+	/**
+	 * creates a new {@code NumberSequence} with the values as specified
+	 * @param first the first value
+	 * @param step the step size between every element in the sequence
+	 * @param type the type of the sequence {@link Type}
+	 */
+	public NumberSequence(Fraction first, Fraction step, Type type) { list.add(first); this.type=type; this.step=step; }
 	/**
 	 * calculates the next values of the sequence until the size is {@code to}
 	 * @param to {@code int} limit of calculation
