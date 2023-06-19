@@ -12,11 +12,11 @@ import com.Ace009.library.Math.Fraction;
  */
 public class NumberSequence {
 	/** the list containing the values */
-	protected ArrayList<Fraction> list=new ArrayList<>(1);
+	protected final ArrayList<Fraction> list=new ArrayList<>(1);
 	/** use the calculateNext when calculating */
 	protected boolean defNext = false;
 	/** Type defenition of calculation */
-	public enum Type {
+	public static enum Type {
 		/** adds the fraction in every step */
 		ADDITION,
 		/** multiplies with the fraction in every step */
@@ -36,7 +36,6 @@ public class NumberSequence {
 	/**
 	 * calculates the next values of the sequence until the size is {@code to}
 	 * @param to {@code int} limit of calculation
-	 * @param next {@code boolean} if true: use {@link NumberSequence#calculateNext(Fraction)}, else use {@link NumberSequence#calculateAt(int)}
 	 */
 	public void calculateNextTo(int to) {
 		list.ensureCapacity(to);
@@ -50,7 +49,6 @@ public class NumberSequence {
 	/**
 	 * calculates the next {@code amount} values of the sequence
 	 * @param amount {@code int} amount of values to calculate
-	 * @param next {@code boolean} if true: use {@link NumberSequence#calculateNext(Fraction)}, else use {@link NumberSequence#calculateAt(int)}
 	 * @see NumberSequence#calculateNextTo(int)
 	 */
 	public void calculateNextAmount(int amount) {
@@ -63,11 +61,11 @@ public class NumberSequence {
 	}
 	/**
 	 * method that calculates the next value of the sequence,
-	 * based on the provided value being the previous one
+	 * based on the provided Fraction being the previous one
 	 * @param prev {@code double} the previous value
 	 * @return {@code double} the next value
 	 */
-	protected Fraction calculateNext(Fraction prev) {
+	protected Fraction calculateNext(final Fraction prev) {
 		Fraction t_ = prev.get();
 		switch (type) {
 			case ADDITION: t_.add(step); break;
@@ -80,7 +78,7 @@ public class NumberSequence {
 	 * @param pos {@code int} the position of the value to calculate
 	 * @return {@code double} the value calculated
 	 */
-	protected Fraction calculateAt(int pos){
+	protected Fraction calculateAt(final int pos){
 		Fraction t_ = step.get();
 		switch (type) {
 			case ADDITION: t_.multiplyBy(pos); t_.add(list.get(0)); break;
