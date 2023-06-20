@@ -1,14 +1,21 @@
 package com.Ace009.nonLibrary.school;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
+
+import com.Ace009.library.Range;
 
 /**
  * A class for working with {@link AminoAcid amino acids} and their corresponing RNA {@link #CODES codons}
  * @author Ace009
  */
 public class RNATranslation {
+	/**
+	 * a Map linking 3 {@link Nucleobase} with the {@link AminoAcid}
+	 */
 	public static final Map<Nucleobase[], AminoAcid> CODES = new HashMap<>(){
 		{
 			put(new Nucleobase[]{Nucleobase.U,Nucleobase.U,Nucleobase.U},AminoAcid.F);
@@ -77,21 +84,31 @@ public class RNATranslation {
 			put(new Nucleobase[]{Nucleobase.G,Nucleobase.G,Nucleobase.G},AminoAcid.G);
 		}
 	};
+	/**
+	 * an enum type for the 4(5) Nucleobases
+	 */
 	public static enum Nucleobase {
 		/** Uracil/Thymine */
-		U('U','T'),
+		U("Uracil","Thymine"),
 		/** Cytosine */
-		C('C','C'),
+		C("Cytosine","Cytosine"),
 		/** Adenine */
-		A('A','A'),
+		A("Adenine","Adenine"),
 		/** Guanine */
-		G('G','G');
-		/** RNA-code */
+		G("Guanine","Guanine");
+		/** first letter of RNA-name */
 		private final char codeR;
-		/** DNA-code */
+		/** first Letter of DNA-name */
 		private final char codeD;
+		/** name in RNA */
+		private final String nameR;
+		/** name in DNA */
+		private final String nameD;
 		/** constructor defining the processing of the given constants */
-		private Nucleobase(char codeR, char codeD) { this.codeR = codeR; this.codeD = codeD; }
+		private Nucleobase(String nameR, String nameD) {
+			this.codeR = nameR.toCharArray()[0]; this.codeD = nameD.toCharArray()[0];
+			this.nameR = nameR; this.nameD=nameD;
+		}
 		/** a 2d-matrix defining the pairing of the nucleobases */
 		private static final Nucleobase[][] pairs = new Nucleobase[][]{
 			{Nucleobase.G,Nucleobase.C},{Nucleobase.C,Nucleobase.G},{Nucleobase.U,Nucleobase.A},{Nucleobase.A,Nucleobase.U}
@@ -99,19 +116,21 @@ public class RNATranslation {
 		/** returns the base corresponding to {@code this} according to {@link #pairs} */
 		public Nucleobase getPair() { return Stream.of(pairs).filter(e->e[0]==this).findFirst().get()[1]; }
 		/** outputs the RNA key */
-		public char RNAcode() { return this.codeR; }
+		public char RC() { return this.codeR; }
 		/** outputs the DNA key */
-		public char DNAcode() { return this.codeD; }
+		public char DC() { return this.codeD; }
+		/** outputs the RNA name */
+		public String RN() { return this.nameR; }
+		/** outputs the DNA name */
+		public String DN() { return this.nameD; }
 	}
 	/**
 	 * an enum type for all proteinogenic amino acids
-	 * <p> also contains a STOP and START for codon interpretation
+	 * <p> also contains a STOP for codon interpretation
 	 */
 	public static enum AminoAcid {
 		/** stop codon */
 		STOP(' ',"","stopping..."),
-		/** start codon */
-		START(' ',"","starting..."),
 		/** Phenylalanine, Phe, F */
 		F('F',"Phe","Phenylalanine"),
 		/** Leucine, Leu, L */
@@ -145,11 +164,11 @@ public class RNATranslation {
 		/** Glutamic Acid, Glu, E */
 		E('E',"Glu","Glutamic-Acid"),
 		/** Cysteine, Cys, C */
-        C('C',"Cys","Cysteine"),
+		C('C',"Cys","Cysteine"),
 		/** Tryptophan, Trp, W */
 		W('W',"Trp","Tryptophan"),
 		/** Arginine, Arg, R */
-        R('R',"Arg","Arginine"),
+		R('R',"Arg","Arginine"),
 		/** Glycine, Gly, G */
 		G('G',"Gly","Glycine");
 		/** constructor defining the processing of the given constants */
@@ -168,5 +187,50 @@ public class RNATranslation {
 		public String N(){ return name; }
 		/** outputs the 1-letter-code */
 		public char C(){ return code; }
+	}
+	/**
+	 * gives a {@code List} of {@code Nucleobase} triplets that match the given {@code AminoAcid},
+	 * according to {@link #CODES}
+	 * @param in the given {@code AminoAcid}
+	 * @return a {@code List} of all matching {@code Nucleobase} triplets
+	 */
+	@SuppressWarnings("unused") // temp until used
+	private static List<Nucleobase[]> getTriplets(AminoAcid in) {
+		return CODES.entrySet().stream().filter(e->e.getValue()==in).map(e->e.getKey()).toList();
+	}
+	/**
+	 * decodes the given {@code Nucleobase} triplet, according to {@link #CODES},
+	 * returns the corresponding {@code AminoAcid} and throws {@code IllegalArgumentException}
+	 * if the {@code Nucleobase} array is not a triplet ({@code in.length!=3})
+	 * @param in the given {@code Nucleobase} triplet to decode
+	 * @return the corresponding {@code AminoAcid}
+	 * @throws IllegalArgumentException thrown if {@code in.length!=3}
+	 */
+	private static AminoAcid decodeTriplet(Nucleobase[] in) throws IllegalArgumentException {
+		if (in.length==3) return CODES.get(in);
+		else {throw new IllegalArgumentException("no Triplet provided");}
+    }
+	/**
+	 * decodes an array of {@code Nucleobase} by seperating them into triplets,
+	 * and parsing them with {@link #decode(Nucleobase[][])}
+	 * @param in the array of {@code Nucleobase}
+	 * @return a List of {@code AminoAcid}
+	 */
+	public static List<AminoAcid> decode(Nucleobase[] in) {
+		assert in.length%3==0;
+		List<Nucleobase> i_ = Stream.of(in).toList();
+		Nucleobase[][] t_ = new Nucleobase[3][in.length/3];
+		for (int i : Range.arrayRange(t_.length)) {
+			t_[i]=i_.subList(i*3, (i+1)*3).toArray(Nucleobase[]::new);
+		}
+		return decode(t_);
+	}
+	public static List<AminoAcid> decode(Nucleobase[][] in) {
+		assert in[0].length==3;
+		List<AminoAcid> out = new ArrayList<>();
+		for (Nucleobase[] t : in) {
+			out.add(decodeTriplet(t));
+		}
+		return out;
 	}
 }
