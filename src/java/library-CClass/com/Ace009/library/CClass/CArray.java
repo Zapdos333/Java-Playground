@@ -1,7 +1,7 @@
 package com.Ace009.library.CClass;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * 'static' class,
@@ -31,17 +31,13 @@ public class CArray {
 	}
 	/**
 	 * turns the array into an {@code List}
-	 * by adding all the elements one by one to a new {@code List}
+	 * <p> uses {@link Stream} magic
 	 * @param <T> the type of the elements
 	 * @param array the original array
 	 * @return {@code List} containing all the elements from the array
 	 */
 	public static <T> List<T> asList(T[] array) {
-		ArrayList<T> output = new ArrayList<>(array.length);
-		for (T element : array) {
-			output.add(element);
-		}
-		return output;
+		return Stream.of(array).toList();
 	}
 	//region asObjectArray
 		/**
