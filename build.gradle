@@ -140,6 +140,7 @@ javadoc {
 }
 task checkDocs(type: Javadoc) {
 	group = "documentation"
+	outputs.upToDateWhen { false }
 	destinationDir=file("${project.getRootDir()}/build/checkDocs")
 	source = project.getRootProject().sourceSets.main.java.srcDirs
 	options.memberLevel = JavadocMemberLevel.PRIVATE
