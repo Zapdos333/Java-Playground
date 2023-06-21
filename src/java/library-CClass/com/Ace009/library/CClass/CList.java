@@ -31,13 +31,12 @@ public class CList {
 	/**
 	 * deduplicates the {@code list} by filtering out all entries that
 	 * are more than once in the {@code List},
-	 * <p> uses {@link Stream} magic
+	 * <p> uses {@link Stream#distinct()}
 	 * @param <T> the type of the lists entries
 	 * @param list the list to deduplicate
 	 * @return a new {@code List} with only one of each entry
 	 */
 	public static <T> List<T> deduplicate(List<T> list) {
-		list.removeIf(e->list.stream().filter(x->x==e).toArray().length<2);
-		return list;
+		return list.stream().distinct().toList();
 	}
 }

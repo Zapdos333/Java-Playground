@@ -1,7 +1,7 @@
 package com.Ace009.library.CClass;
 
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 /**
  * 'static' class,
@@ -60,11 +60,7 @@ public class CArray {
 		 * @return an {@code Integer[]} array
 		 */
 		public static Integer[] asObjectArray(int[] array) {
-			Integer[] output = new Integer[array.length];
-			for (int i = 0; i < output.length; i++) {
-				output[i] = array[i];
-			}
-			return output;
+			return IntStream.of(array).mapToObj(Integer::valueOf).toArray(Integer[]::new);
 		}
 		/**
 		 * turns the given array of primitives (here: {@code boolean})
@@ -86,11 +82,7 @@ public class CArray {
 		 * @return a {@code Double[]} array
 		 */
 		public static Double[] asObjectArray(double[] array) {
-			Double[] output = new Double[array.length];
-			for (int i = 0; i < output.length; i++) {
-				output[i] = array[i];
-			}
-			return output;
+			return DoubleStream.of(array).mapToObj(Double::valueOf).toArray(Double[]::new);
 		}
 		/**
 		 * turns the given array of primitives (here: {@code float})
@@ -112,11 +104,7 @@ public class CArray {
 		 * @return a {@code Long[]} array
 		 */
 		public static Long[] asObjectArray(long[] array) {
-			Long[] output = new Long[array.length];
-			for (int i = 0; i < output.length; i++) {
-				output[i] = array[i];
-			}
-			return output;
+			return LongStream.of(array).mapToObj(Long::valueOf).toArray(Long[]::new);
 		}
 		/**
 		 * turns the given array of primitives (here: {@code short})
