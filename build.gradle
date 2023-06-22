@@ -140,6 +140,7 @@ javadoc {
 }
 task checkDocs(type: Javadoc) {
 	group = "documentation"
+	description = "checks the Javadocs"
 	outputs.upToDateWhen { false }
 	destinationDir=file("${project.getRootDir()}/build/checkDocs")
 	source = project.getRootProject().sourceSets.main.java.srcDirs
@@ -151,6 +152,7 @@ task checkDocs(type: Javadoc) {
 }
 task packageDocs(type: Zip) {
 	group = "documentation"
+	description = "packs the javadocs into a zip file in the libs folder"
 	dependsOn javadoc
 	archiveFileName="${project.archivesBaseName}-JavaDocs-${project.getVersion()}.zip"
 	destinationDirectory=file("${project.getRootDir()}/build/libs")
@@ -160,11 +162,13 @@ task packageDocs(type: Zip) {
 build.dependsOn packageDocs
 //debug
 task printCheck(){
+	description = "debug print"
 	doLast{
 		println()
 	}
 }
 // cleanUp
 clean {
+	description = "deletes the build, bin, .history and __pycache__ directory"
 	delete ".history", "bin", "src/python/__pycache__"
 }
