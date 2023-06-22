@@ -37,25 +37,18 @@ public class Fraction {
 	public Fraction(int number) {
 		this(number,1);
 	}
-	/**
-	 * creates a copy of {@code this}, with the same numerator and denominator
-	 * @return a copy of {@code this}
-	 */
-	public Fraction get() {
-		Fraction t_ = new Fraction(1);
-		t_.multiplyBy(this);
-		return t_;
-	}
+	/** creates a Fraction with the value {@code 1} */
+	public Fraction() {this(1);}
 	/**
 	 * multiplies the fraction by the given number, by multiplying the numerator by {@code number}
 	 * @param number number to multiply with
 	 */
-	public void multiplyBy(int number) { numerator *= number; reduceAndCheck(); }
+	public Fraction multiplyBy(int number) { numerator *= number; return reduceAndCheck(); }
 	/**
 	 * divide the fraction by the given number, by multiplying the denominator by {@code number}
 	 * @param number number to divide with
 	 */
-	public void divideBy(int number) { denominator *= number; reduceAndCheck(); }
+	public Fraction divideBy(int number) { denominator *= number; return reduceAndCheck(); }
 	/**
 	 * calculates the fraction, by dividing the numerator by the denominator
 	 * @return the {@code double} value of the fraction
@@ -77,22 +70,36 @@ public class Fraction {
 	 * adds a number to the fraction, by {@code numerator += number*denominator}
 	 * @param number the number to add
 	 */
-	public void add(int number) { numerator += number*denominator; reduceAndCheck(); }
+	public Fraction add(int number) {
+		numerator += number*denominator;
+		return reduceAndCheck();
+	}
 	/**
 	 * subtracts a number from the fraction, by {@code numerator -= number*denominator}
 	 * @param number the number to subtract
 	 */
-	public void subtract(int number) { numerator -= number*denominator; reduceAndCheck(); }
+	public Fraction subtract(int number) {
+		numerator -= number*denominator;
+		return reduceAndCheck();
+	}
 	/**
 	 * multiplies the fraction by the number, by multiplying the numerator by it
 	 * @param number the number to multiply by
 	 */
-	public void multiplyBy(Fraction number) { numerator *= number.get(Type.numerator); denominator *= number.get(Type.denominator); reduceAndCheck(); }
+	public Fraction multiplyBy(Fraction number) {
+		numerator *= number.get(Type.numerator);
+		denominator *= number.get(Type.denominator);
+		return reduceAndCheck();
+	}
 	/**
 	 * divides the fraction by the number, by multiplying the denominator by it
 	 * @param number the number to divide by
 	 */
-	public void divideBy(Fraction number) { numerator *= number.get(Type.denominator); denominator *= number.get(Type.numerator); reduceAndCheck(); }
+	public Fraction divideBy(Fraction number) {
+		numerator *= number.get(Type.denominator);
+		denominator *= number.get(Type.numerator);
+		return reduceAndCheck();
+	}
 	/**
 	 * reduces the fraction and checks if its values are valid
 	 * <p> reduces the fraction by getting the greatest common divisor of the numerator and denominator
@@ -100,64 +107,61 @@ public class Fraction {
 	 * <p> this is run at the end of every method that modifies the fraction (except for extension methods)
 	 * @see Fraction.calculations#gcd(long, long)
 	 */
-	public void reduceAndCheck() {
+	public Fraction reduceAndCheck() {
 		int Ldiv = Calculations.gcd(numerator, denominator);
 		numerator /= Ldiv; denominator /= Ldiv;
-		check();
+		check(); return this;
 	}
 	/**
 	 * extends the fraction by the given multiplier
 	 * @param multiplier extension multiplier
 	 */
-	public void extendBy(int multiplier) {
-		Fraction mult = new Fraction(multiplier,multiplier);
-		mult.numerator=multiplier;mult.denominator=multiplier;
-		multiplyBy(mult);
-		check();
+	public Fraction extendBy(int multiplier) {
+		numerator *= multiplier; denominator *= multiplier;
+		check(); return this;
 	}
 	/**
 	 * extends the fraction to the given number in the given part
 	 * @param part part of the fraction to extend
 	 * @param number number to extend to
 	 */
-	public void extendTo(Type part, long number) {
+	public Fraction extendTo(Type part, long number) {
 		int Tmultiplier=1;
 		switch (part) {
 			case numerator: Tmultiplier = (int)Math.floor(number/numerator); break;
 			case denominator: Tmultiplier = (int)Math.floor(number/denominator); break;
 		}
-		extendBy(Tmultiplier);
-		check();
+		return extendBy(Tmultiplier);
 	}
 	/**
 	 * default implementation of {@link #extendTo(Type, long)},
 	 * with {@link Type} being {@code Type#denominator}
 	 * @param number number to extend to
 	 */
-	public void extendTo(long number) { extendTo(Type.denominator, number); check(); }
+	public Fraction extendTo(long number) { return extendTo(Type.denominator, number); }
 	/**
 	 * extends the fractions to their denominators {@link Calculations#lcm(long, long)}
 	 * and then adds their numerators
 	 * @param number Fraction to add
 	 */
-	public void add(Fraction number) {
+	public Fraction add(Fraction number) {
 		int t_ = Calculations.lcm(number.get(Type.denominator),this.get(Type.denominator));
 		this.extendTo(t_); number.extendTo(t_);
 		assert (this.get(Type.denominator) == number.get(Type.denominator)) : "noncommon dividers";
 		this.numerator += number.get(Type.numerator);
-		reduceAndCheck();
+		return reduceAndCheck();
 	}
 	/**
 	 * extends the fractions to their denominators {@link calculations#lcm(long, long)}
 	 * and then subtracts their numerators
 	 * @param number Fraction to subtract
 	 */
-	public void subtract(Fraction number) {
+	public Fraction subtract(Fraction number) {
 		int t_ = Calculations.lcm(number.get(Type.denominator),this.get(Type.denominator));
 		this.extendTo(t_); number.extendTo(t_);
 		assert (this.get(Type.denominator) == number.get(Type.denominator)) : "noncommon dividers";
 		this.numerator -= number.get(Type.numerator);
-		reduceAndCheck();
+		return reduceAndCheck();
 	}
 	/**
 	 * takes the fraction to the power of the given number,
@@ -165,11 +169,11 @@ public class Fraction {
 	 * @param number the exponent
 	 * @throws IllegalArgumentException if {@code number} is negative, because roots aren't displayable with fractions
 	 */
-	public void toPowerOf(int number) throws IllegalArgumentException {
+	public Fraction toPowerOf(int number) throws IllegalArgumentException {
 		if (number > 0) { throw new IllegalArgumentException("Roots are not implemented");}
 		numerator = (long)Math.pow(numerator, number);
 		denominator = (long)Math.pow(denominator, number);
-		reduceAndCheck();
+		return reduceAndCheck();
 	}
 	/**
 	 * checks the values of the fraction
