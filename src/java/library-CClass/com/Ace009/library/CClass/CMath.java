@@ -35,8 +35,8 @@ public class CMath {
 	 * @param n number to check
 	 * @return true if prime, false otherwise
 	 */
-	public static boolean isPrime(int n) {
-		return Numbers().limit((long)n).parallel().filter(i->n%i==0).toArray().length <= 2;
+	public static boolean isPrime(long n) {
+		return Numbers().limit(n).parallel().filter(i->n%i==0).toArray().length <= 2;
 	}
 	/**
 	 * returns an {@code int[]} containing all prime numbers up to {@code max}
@@ -44,7 +44,7 @@ public class CMath {
 	 * @return an {@code int[]}
 	 * @see CMath#isPrime(int)
 	 */
-	public static int[] getPrimesUpTo(final int max) {
+	public static int[] getPrimesUpTo(final long max) {
 		return Numbers().limit(max).parallel().filter(e->isPrime(e)).toArray();
 	}
 	/**
