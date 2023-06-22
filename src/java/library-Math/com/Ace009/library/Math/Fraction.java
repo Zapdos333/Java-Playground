@@ -1,84 +1,11 @@
 package com.Ace009.library.Math;
 
-import java.util.List;
-import java.util.ArrayList;
-
-import com.Ace009.library.CClass.CMath;
-import com.Ace009.library.CClass.CArray;
-import com.Ace009.library.CClass.CList;
-
 /**
  * a class defining a number consisting of a multiplier and a divider
  * <p> defines behaviour and interactions of these numbers with each other and other numbers
  * @author Ace009
  */
 public class Fraction {
-	/**
-	 * subclass of ComplexNumber, which provides various methods to perform more complex calculations,
-	 * necessary for dealing with fractions
-	 */
-	public static class calculations {
-		/** don't */
-		private calculations() {}
-		/**
-		 * turns a number into an {@code int[]} containing the prime factors of the number
-		 * @param number number to dissect
-		 * @return the array of prime factors
-		 * @see CMath#getPrimesUpTo(int)
-		 */
-		public static int[] seperateToPrimes(long number) {
-			//if (number <= 2) return new int[]{(int)number};
-			int[] check = CMath.getPrimesUpTo((int)number);
-			List<Integer> output = new ArrayList<>();
-			for (int i = 1; i < check.length; i++) {
-				if (number % check[i] == 0) {
-					output.add(check[i]);
-					number /= check[i];
-					i--;
-				}
-			}
-			return output.stream().mapToInt(i->i).toArray();
-		}
-		/**
-		 * returns the greatest common divisor of the two numbers
-		 * @param n1 number 1
-		 * @param n2 number 2
-		 * @return the greatest common divisor
-		 */
-		public static int gcd(long n1, long n2) {
-			int[] p1 = seperateToPrimes(n1);
-			int[] p2 = seperateToPrimes(n2);
-			List<Integer> output = new ArrayList<>();
-			if (p1.length >= p2.length) {
-				for (int i : p1) {
-					if ( CArray.indexOf(CArray.asObjectArray(p2), i)>=0 ) {
-						output.add(i);
-					}
-				}
-			} else  {
-				for (int i : p2) {
-					if ( CArray.indexOf(CArray.asObjectArray(p1), i)>=0 ) {
-						output.add(i);
-					}
-				}
-			}
-			return output.stream().mapToInt(i->i).reduce(1,(a,b)->a*b);
-		}
-		/**
-		 * returns the least common multiple of the two numbers
-		 * @param n1 number 1
-		 * @param n2 number 2
-		 * @return the least common multiple
-		 */
-		public static int lcm(long n1, long n2) {
-			List<Integer> p1 = CArray.asList(CArray.asObjectArray(seperateToPrimes(n1)));
-			List<Integer> p2 = CArray.asList(CArray.asObjectArray(seperateToPrimes(n2)));
-			List<Integer> t_ = new ArrayList<Integer>();
-			t_.addAll(p1);t_.addAll(p2);
-			List<Integer> output = CList.deduplicate(t_);
-			return output.stream().mapToInt(i->i).reduce(1,(a,b)->a*b);
-		}
-	}
 	/** numerator of the fraction */
 	private long numerator;
 	/** denominator of the fraction */
@@ -174,7 +101,7 @@ public class Fraction {
 	 * @see Fraction.calculations#gcd(long, long)
 	 */
 	public void reduceAndCheck() {
-		int Ldiv = calculations.gcd(numerator, denominator);
+		int Ldiv = Calculations.gcd(numerator, denominator);
 		numerator /= Ldiv; denominator /= Ldiv;
 		check();
 	}
@@ -209,12 +136,12 @@ public class Fraction {
 	 */
 	public void extendTo(long number) { extendTo(Type.denominator, number); check(); }
 	/**
-	 * extends the fractions to their denominators {@link calculations#lcm(long, long)}
+	 * extends the fractions to their denominators {@link Calculations#lcm(long, long)}
 	 * and then adds their numerators
 	 * @param number Fraction to add
 	 */
 	public void add(Fraction number) {
-		int t_ = calculations.lcm(number.get(Type.denominator),this.get(Type.denominator));
+		int t_ = Calculations.lcm(number.get(Type.denominator),this.get(Type.denominator));
 		this.extendTo(t_); number.extendTo(t_);
 		assert (this.get(Type.denominator) == number.get(Type.denominator)) : "noncommon dividers";
 		this.numerator += number.get(Type.numerator);
@@ -226,7 +153,7 @@ public class Fraction {
 	 * @param number Fraction to subtract
 	 */
 	public void subtract(Fraction number) {
-		int t_ = calculations.lcm(number.get(Type.denominator),this.get(Type.denominator));
+		int t_ = Calculations.lcm(number.get(Type.denominator),this.get(Type.denominator));
 		this.extendTo(t_); number.extendTo(t_);
 		assert (this.get(Type.denominator) == number.get(Type.denominator)) : "noncommon dividers";
 		this.numerator -= number.get(Type.numerator);
