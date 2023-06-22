@@ -10,7 +10,7 @@ import com.Ace009.library.Math.Fraction;
  * (extends {@link java.util.ArrayList ArrayList(Double)})
  * @author Ace009
  */
-public class NumberSequence {
+public class NumberSequence extends AbstractNumberSequence {
 	/** the list containing the values */
 	protected final ArrayList<Fraction> list=new ArrayList<>(1);
 	/** use the calculateNext when calculating */
@@ -45,7 +45,8 @@ public class NumberSequence {
 	 * @param step the step size between every element in the sequence
 	 * @param type the type of the sequence {@link Type}
 	 */
-	public NumberSequence(Fraction first, Fraction step, Type type) { list.add(first); this.type=type; this.step=step; }
+	public NumberSequence(Fraction first, Fraction step, Type type)
+	{ list.add(first); this.type=type; this.step=step; }
 	/**
 	 * calculates the next values of the sequence until the size is {@code to}
 	 * @param to {@code int} limit of calculation
