@@ -201,9 +201,23 @@ public class RNATranslation {
 	 * @param in the given {@code AminoAcid}
 	 * @return a {@code List} of all matching {@code Nucleobase} triplets
 	 */
-	@SuppressWarnings("unused") // temp until used
 	private static List<Nucleobase[]> getTriplets(AminoAcid in) {
 		return CODES.entrySet().stream().filter(e->e.getValue()==in).map(e->e.getKey()).toList();
+	}
+	/**
+	 * decodes an array of {@code AminoAcid} into a {@code List} of Nucleobase triplets,
+	 * <p> uses {@link #getTriplets(AminoAcid)}
+	 * @param in array of {@code AminoAcid} which is decoded
+	 * @param all should the method return only the first possible triplet or all
+	 * @return the {@code List} of {@code Nucleobase[]}(triplets)
+	 */
+	public static List<Nucleobase[]> getTriplets(AminoAcid[] in, boolean all) {
+		List<List<Nucleobase[]>> t1_ = Stream.of(in).map(e->getTriplets(e)).toList();
+		List<Nucleobase[]> output = new ArrayList<>(t1_.size());
+		for (List<Nucleobase[]> t_ : t1_) {
+            if (all) output.addAll(t_);
+            else output.add(t_.get(0));
+        } return output;
 	}
 	/**
 	 * decodes the given {@code Nucleobase} triplet, according to {@link #CODES},
