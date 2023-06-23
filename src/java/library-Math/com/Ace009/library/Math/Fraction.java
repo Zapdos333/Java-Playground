@@ -7,9 +7,9 @@ package com.Ace009.library.Math;
  */
 public class Fraction {
 	/** numerator of the fraction */
-	private long numerator;
+	private int numerator;
 	/** denominator of the fraction */
-	private long denominator;
+	private int denominator;
 	/** Type enum for Fractions */
 	public static enum Type {
 		/** is type numerator */
@@ -39,6 +39,8 @@ public class Fraction {
 	}
 	/** creates a Fraction with the value {@code 1} */
 	public Fraction() {this(1);}
+	/** @return a copy of this Fraction */
+	public Fraction get() {return new Fraction().multiplyBy(this);}
 	/**
 	 * multiplies the fraction by the given number, by multiplying the numerator by {@code number}
 	 * @param number number to multiply with
@@ -59,7 +61,7 @@ public class Fraction {
 	 * @param part {@code Type} part of the fraction
 	 * @return {@code long} value of the requested part
 	 */
-	public long get(Type part) {
+	public int get(Type part) {
 		switch (part) {
 			case numerator: return numerator;
 			case denominator: return denominator;
@@ -107,10 +109,10 @@ public class Fraction {
 	 * <p> this is run at the end of every method that modifies the fraction (except for extension methods)
 	 * @see Fraction.calculations#gcd(long, long)
 	 */
-	public Fraction reduceAndCheck() {
+	protected Fraction reduceAndCheck() {
 		int Ldiv = Calculations.gcd(numerator, denominator);
 		numerator /= Ldiv; denominator /= Ldiv;
-		check(); return this;
+		return check();
 	}
 	/**
 	 * extends the fraction by the given multiplier
@@ -171,8 +173,8 @@ public class Fraction {
 	 */
 	public Fraction toPowerOf(int number) throws IllegalArgumentException {
 		if (number > 0) { throw new IllegalArgumentException("Roots are not implemented");}
-		numerator = (long)Math.pow(numerator, number);
-		denominator = (long)Math.pow(denominator, number);
+		numerator = (int)Math.pow(numerator, number);
+		denominator =(int) Math.pow(denominator, number);
 		return reduceAndCheck();
 	}
 	/**
@@ -182,12 +184,13 @@ public class Fraction {
 	 * <p> this is run at the end of every method that extends the fraction
 	 * @throws ArithmeticException if the fraction is invalid
 	 */
-	private void check() throws ArithmeticException {
+	protected Fraction check() throws ArithmeticException {
 		if (numerator > Long.MAX_VALUE) throw new ArithmeticException("numerator out of Long range");
 		if (denominator > Long.MAX_VALUE) throw new ArithmeticException("denominator out Long range");
 		if (denominator < Long.MIN_VALUE) throw new ArithmeticException("denominator out Long range");
 		if (numerator < Long.MIN_VALUE) throw new ArithmeticException("numerator out Long range");
 		if (denominator == 0) throw new ArithmeticException("attempt to divide by zero");
+		return this;
 	}
 	@Override
 	public String toString() {

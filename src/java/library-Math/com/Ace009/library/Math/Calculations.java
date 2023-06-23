@@ -22,7 +22,7 @@ public class Calculations {
 	 * @return the array of prime factors
 	 * @see CMath#getPrimesUpTo(int)
 	 */
-	public static int[] seperateToPrimes(long number) {
+	public static int[] seperateToPrimes(int number) {
 		int[] check = CMath.getPrimesUpTo(number);
 		List<Integer> output = new ArrayList<>();
 		for (int i = 1; i < check.length; i++) {
@@ -40,7 +40,7 @@ public class Calculations {
 	 * @param n2 number 2
 	 * @return the greatest common divisor
 	 */
-	public static int gcd(long n1, long n2) {
+	public static int gcd(int n1, int n2) {
 		int[] p1 = seperateToPrimes(n1);
 		int[] p2 = seperateToPrimes(n2);
 		return IntStream.of(p1).filter(i->CArray.indexOf(CArray.asObjectArray(p2), i)>=0)
@@ -52,7 +52,7 @@ public class Calculations {
 	 * @param n2 number 2
 	 * @return the least common multiple
 	 */
-	public static int lcm(long n1, long n2) {
+	public static int lcm(int n1, int n2) {
 		List<Integer> p1 = IntStream.of(seperateToPrimes(n1)).mapToObj(Integer::valueOf).toList();
 		List<Integer> p2 = IntStream.of(seperateToPrimes(n2)).mapToObj(Integer::valueOf).toList();
 		return Stream.concat(p1.stream(), p2.stream()).distinct()
