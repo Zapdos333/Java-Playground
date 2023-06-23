@@ -9,7 +9,7 @@ import com.Ace009.library.Math.Fraction;
  * 
  * @author Ace009
  */
-public class NumberSequence extends AbstractNumberSequence<Fraction> {
+public class FractionSequence extends AbstractNumberSequence<Fraction> {
 	/** Type defenition of calculation */
 	public static enum Type {
 		/** adds the fraction in every step */
