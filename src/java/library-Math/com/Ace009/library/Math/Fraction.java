@@ -11,9 +11,9 @@ import com.Ace009.library.CClass.CMath;
  */
 public class Fraction {
 	/** numerator of the fraction */
-	private int numerator;
+	protected int numerator;
 	/** denominator of the fraction */
-	private int denominator;
+	protected int denominator;
 	/** Type enum for Fractions */
 	public static enum Type {
 		/** is type numerator */
@@ -163,7 +163,7 @@ public class Fraction {
 		return this;
 	}
 	/**
-	 * default implementation of {@link #extendTo(Type, long)},
+	 * default implementation of {@link #extendTo(Type, int)},
 	 * with {@link Type} being {@code Type#denominator}
 	 * @param number number to extend to
 	 * @return {@code this}
@@ -198,29 +198,41 @@ public class Fraction {
 	/**
 	 * takes the fraction to the power of the given number,
 	 * by taking the numerator and denominator to the power of the number
-	 * @param number the exponent
-	 * @throws IllegalArgumentException if {@code number} is negative, because roots aren't displayable with fractions
+	 * @param number the exponent (can be a non-whole number for roots)
+	 * @throws ArithmeticException if the result isn't a whole number, only possible with non-whole exponents
 	 * @return {@code this}
 	 */
-	public Fraction toPowerOf(int number) throws IllegalArgumentException {
-		if (number > 0) { throw new IllegalArgumentException("Roots are not implemented");}
-		numerator = (int)Math.pow(numerator, number);
-		denominator =(int) Math.pow(denominator, number);
+	public Fraction toPowerOf(double number) throws ArithmeticException {
+		if (number != Math.round(number)) {
+			double tN_ = Math.pow(numerator,number);
+			double tD_ = Math.pow(denominator,number);
+			if (tN_ != Math.round(tN_)||tD_ != Math.round(tD_))
+				throw new ArithmeticException("non-whole root result");
+			else if (number < 0) { numerator=(int)Math.round(tD_);denominator=(int)Math.round(tN_); }
+			else { numerator=(int)Math.round(tN_);denominator=(int)Math.round(tD_); }
+		}
+		if (number < 0) {
+			denominator = (int)Math.pow(numerator,number);
+			numerator =(int)Math.pow(denominator,number);
+		} else {
+			numerator = (int)Math.pow(numerator,number);
+			denominator =(int)Math.pow(denominator,number);
+		}
 		return reduceAndCheck();
 	}
 	/**
 	 * checks the values of the fraction
-	 * <p> checks if the values of the fraction are outside the range of a {@code long},
+	 * <p> checks if the values of the fraction are outside the range of an {@code integer},
 	 * and if the denominator is {@code 0} (division by zero)
-	 * <p> this is run at the end of every method that extends the fraction
+	 * <p> this is run at the end of every method that modifies the fraction
 	 * @throws ArithmeticException if the fraction is invalid
 	 * @return {@code this}
 	 */
 	protected Fraction check() throws ArithmeticException {
-		if (numerator > Integer.MAX_VALUE) throw new ArithmeticException("numerator out of Long range");
-		if (denominator > Integer.MAX_VALUE) throw new ArithmeticException("denominator out Long range");
-		if (denominator < Integer.MIN_VALUE) throw new ArithmeticException("denominator out Long range");
-		if (numerator < Integer.MIN_VALUE) throw new ArithmeticException("numerator out Long range");
+		if (numerator > Integer.MAX_VALUE) throw new ArithmeticException("numerator out of Integer range");
+		if (denominator > Integer.MAX_VALUE) throw new ArithmeticException("denominator out Integer range");
+		if (denominator < Integer.MIN_VALUE) throw new ArithmeticException("denominator out Integer range");
+		if (numerator < Integer.MIN_VALUE) throw new ArithmeticException("numerator out Integer range");
 		if (denominator == 0) throw new ArithmeticException("attempt to divide by zero");
 		return this;
 	}
