@@ -96,15 +96,18 @@ public class RNATranslation {
 		A("Adenine","Adenine"),
 		/** Guanine */
 		G("Guanine","Guanine");
-		/** first letter of RNA-name */
+		/** first letter of {@link #nameR RNA-name} */
 		private final char codeR;
-		/** first Letter of DNA-name */
+		/** first Letter of {@link #nameD DNA-name} */
 		private final char codeD;
 		/** name in RNA */
 		private final String nameR;
 		/** name in DNA */
 		private final String nameD;
-		/** constructor defining the processing of the given constants */
+		/** constructor defining the processing of the given constants
+		 * @param nameR name in RNA
+		 * @param nameD name in DNA
+		 */
 		private Nucleobase(String nameR, String nameD) {
 			this.codeR = nameR.toCharArray()[0]; this.codeD = nameD.toCharArray()[0];
 			this.nameR = nameR; this.nameD=nameD;
@@ -113,15 +116,15 @@ public class RNATranslation {
 		private static final Nucleobase[][] pairs = new Nucleobase[][]{
 			{Nucleobase.G,Nucleobase.C},{Nucleobase.C,Nucleobase.G},{Nucleobase.U,Nucleobase.A},{Nucleobase.A,Nucleobase.U}
 		};
-		/** returns the base corresponding to {@code this} according to {@link #pairs} */
+		/** @return the base corresponding to {@code this} according to {@link #pairs} */
 		public Nucleobase getPair() { return Stream.of(pairs).filter(e->e[0]==this).findFirst().get()[1]; }
-		/** outputs the RNA key */
+		/** @return the RNA key */
 		public char RC() { return this.codeR; }
-		/** outputs the DNA key */
+		/** @return the DNA key */
 		public char DC() { return this.codeD; }
-		/** outputs the RNA name */
+		/** @return the RNA name */
 		public String RN() { return this.nameR; }
-		/** outputs the DNA name */
+		/** @return the DNA name */
 		public String DN() { return this.nameD; }
 	}
 	/**
@@ -171,7 +174,11 @@ public class RNATranslation {
 		R('R',"Arg","Arginine"),
 		/** Glycine, Gly, G */
 		G('G',"Gly","Glycine");
-		/** constructor defining the processing of the given constants */
+		/** constructor defining the processing of the given constants
+		 * @param code one-letter-code of the AminoAcid
+		 * @param shortCode 3-letter-code of the AminoAcid
+		 * @param name full name of the AminoAcid
+		 */
 		private AminoAcid(char code, String shortCode, String name){
 			this.shortCode = shortCode; this.name = name; this.code = code;
 		}
@@ -181,11 +188,11 @@ public class RNATranslation {
 		private final String name;
 		/** Amino acids internal storage for their 1-letter-code */
 		private final char code;
-		/** outputs the 3-letter-code */
+		/** @return the 3-letter-code */
 		public String SC(){ return shortCode; }
-		/** outputs the name */
+		/** @return the name */
 		public String N(){ return name; }
-		/** outputs the 1-letter-code */
+		/** @return the 1-letter-code */
 		public char C(){ return code; }
 	}
 	/**
@@ -207,9 +214,13 @@ public class RNATranslation {
 	 * @throws IllegalArgumentException thrown if {@code in.length!=3}
 	 */
 	private static AminoAcid decodeTriplet(Nucleobase[] in) throws IllegalArgumentException {
-		if (in.length==3) return CODES.get(in);
+		if (in.length==3) {
+			AminoAcid t_ = CODES.get(in);
+			if (t_==null) throw new NullPointerException("no corresponding AminoAcid found");
+			return t_;
+		}
 		else {throw new IllegalArgumentException("no Triplet provided");}
-    }
+	}
 	/**
 	 * decodes an array of {@code Nucleobase} by seperating them into triplets,
 	 * and parsing them with {@link #decode(Nucleobase[][])}
@@ -225,8 +236,14 @@ public class RNATranslation {
 		}
 		return decode(t_);
 	}
+	/**
+	 * decodes an array of {@code Nucleobase} triplets by taking them,
+	 * and parsing them with {@link #decodeTriplet(Nucleobase[])}
+	 * @param in the array of {@code Nucleobase}
+	 * @return a List of {@code AminoAcid}
+	 */
 	public static List<AminoAcid> decode(Nucleobase[][] in) {
-		assert in[0].length==3;
+		assert Stream.of(in).allMatch(e->e.length==3);
 		List<AminoAcid> out = new ArrayList<>();
 		for (Nucleobase[] t : in) {
 			out.add(decodeTriplet(t));

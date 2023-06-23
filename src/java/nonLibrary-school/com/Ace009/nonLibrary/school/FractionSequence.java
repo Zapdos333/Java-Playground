@@ -24,23 +24,23 @@ public class FractionSequence extends AbstractNumberSequence<Fraction> {
 	/**
 	 * default constructor,
 	 * <p> {@code Fraction(1)} as step and first and {@link Type#ADDITION} as type
-	 * @see #NumberSequence(Fraction, Fraction, Type)
+	 * @see #FractionSequence(Fraction, Fraction, Type)
 	 */
-	public NumberSequence() {this(new Fraction(1),Type.ADDITION);}
+	public FractionSequence() {this(new Fraction(1),Type.ADDITION);}
 	/**
-	 * creates a new {@code NumberSequence} with first as {@code Fraction(1)} and the other values as specified
+	 * creates a new {@code FractionSequence} with first as {@code Fraction(1)} and the other values as specified
 	 * @param step the step size between every element in the sequence
 	 * @param type the type of the sequence {@link Type}
-	 * @see #NumberSequence(Fraction, Fraction, Type)
+	 * @see #FractionSequence(Fraction, Fraction, Type)
 	 */
-	public NumberSequence(Fraction step, Type type) { this(new Fraction(1), step, type); }
+	public FractionSequence(Fraction step, Type type) { this(new Fraction(1), step, type); }
 	/**
-	 * creates a new {@code NumberSequence} with the values as specified
+	 * creates a new {@code FractionSequence} with the values as specified
 	 * @param first the first value
 	 * @param step the step size between every element in the sequence
 	 * @param type the type of the sequence {@link Type}
 	 */
-	public NumberSequence(Fraction first, Fraction step, Type type)
+	public FractionSequence(Fraction first, Fraction step, Type type)
 	{ list.add(first); this.type=type; this.step=step; }
 	/**
 	 * method that calculates the next value of the sequence,
