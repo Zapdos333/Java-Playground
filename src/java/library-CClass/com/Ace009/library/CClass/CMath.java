@@ -3,6 +3,7 @@ package com.Ace009.library.CClass;
 import java.util.stream.IntStream;
 import java.util.Map;
 import java.util.HashMap;
+import java.math.BigDecimal;
 
 /**
  * 'static' class,
@@ -59,13 +60,11 @@ public class CMath {
 		return Numbers().parallel().filter(e->isPrime(e)).sequential().limit(length).toArray();
 	}
 	public static Map<String,Integer> seperate(final double number) {
-		final Map<String,Integer> output = new HashMap<>();
-		Integer Onumber = Integer.valueOf(Integer.parseInt(Double.toString(number).replace('.','\u0000')));
-		output.put("number",Onumber);
-		double Lnumber=number;
-		Integer exponent = 0;
-		for (;Lnumber!=Math.round(Lnumber); exponent++) Lnumber *= 10;
-		output.put("exponent",exponent);
-		return output;
+		return new HashMap<>(){
+			{
+				put("number",new BigDecimal(number).unscaledValue().intValueExact());
+				put("exponent",new BigDecimal(number).scale());
+			}
+		};
 	}
 }
