@@ -34,17 +34,18 @@ project(':library-CClass'){
 	dependencies {} // no dependencies allowed
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
-project(':library-CoordinateSystem'){
+project(':library-Math'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-CClass')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
-project(':library-Math'){
+project(':library-CoordinateSystem'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-CClass')
+		implementation project(':library-Math')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }

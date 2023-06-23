@@ -1,5 +1,9 @@
 package com.Ace009.library.Math;
 
+import java.util.Map;
+
+import com.Ace009.library.CClass.CMath;
+
 /**
  * a class defining a number consisting of a multiplier and a divider
  * <p> defines behaviour and interactions of these numbers with each other and other numbers
@@ -39,6 +43,13 @@ public class Fraction {
 	}
 	/** creates a Fraction with the value {@code 1} */
 	public Fraction() {this(1);}
+	/** */
+	public Fraction(double number) {
+		Map<String,Integer> t_ = CMath.seperate(number);
+		this.numerator = t_.get("number");
+		this.denominator = t_.get("exponent");
+		reduceAndCheck();
+	}
 	/** @return a copy of this Fraction */
 	public Fraction get() {return new Fraction().multiplyBy(this);}
 	/**
