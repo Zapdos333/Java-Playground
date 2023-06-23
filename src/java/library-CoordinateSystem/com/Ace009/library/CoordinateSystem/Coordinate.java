@@ -3,7 +3,6 @@ package com.Ace009.library.CoordinateSystem;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * {@code final class},
@@ -31,12 +30,8 @@ public class Coordinate {
 	 */
 	public static double totalDistance(List<Coordinate> list,boolean polygon) {
 		double output=0;
-		for (int i=1; i<list.size();i++) {
-			output=+distance(list.get(i-1),list.get(i));
-		}
-		if (polygon) {
-			output=+distance(list.get(list.size()-1),list.get(0));
-		}
+		for (int i=1; i<list.size();i++) output=+distance(list.get(i-1),list.get(i));
+		if (polygon) output=+distance(list.get(list.size()-1),list.get(0));
 		return output;
 	}
 	/**
@@ -46,12 +41,14 @@ public class Coordinate {
 	 * @return {@code Collection} of {@code Coordinates} rounded to {@code interval}
 	 */
 	public static Collection<Coordinate> roundCoordList(Collection<Coordinate> list, float interval) {
-		ArrayList<Coordinate> output=new ArrayList<>();
-		int i=0;
-		while (output.size()<list.size()) {
+		ArrayList<Coordinate> output=new ArrayList<>(list.size());
+		for (int i=0; output.size()<list.size();i++) {
 			final double iteration=interval*i;
-			output.addAll(list.stream().filter(e->e.x<iteration).map(e->new Coordinate(Math.round(e.x/interval)*interval,Math.round(e.y/interval)*interval)).collect(Collectors.toList()));
-			i++;
+			output.addAll(list.stream()
+				.filter(e->e.x<iteration)
+				.map(e->new Coordinate(Math.round(e.x/interval)*interval,Math.round(e.y/interval)*interval))
+				.toList()
+			);
 		}
 		return output;
 	}
@@ -61,38 +58,32 @@ public class Coordinate {
 	public double y;
 	/**
 	 * Simply stores {@code x} and {@code y} in the classes {@code doubles}
-	 * @param f_x {@code double} x input
-	 * @param f_y {@code double} y input
+	 * @param x {@code double} x input
+	 * @param y {@code double} y input
 	 * @see Coordinate
 	 */
-	public Coordinate(double f_x, double f_y) {
-		x=f_x;y=f_y;
-	}
+	public Coordinate(double x, double y) { this.x=x;this.y=y; }
 	/**
 	 * returns the distance to the target {@code Coordinate}
 	 * @param target {@code Coordinate}
 	 * @return {@code double}: distance
 	 * @see #distance(Coordinate, Coordinate)
 	 */
-	public double distanceTo(Coordinate target) {
-		return distance(this,target);
-	}
+	public double distanceTo(Coordinate target) { return distance(this,target); }
 	/**
 	 * returns a {@code String} representing the {@code Coordinate},
 	 * for example: "[x:1,y:2]"
 	 * @return {@code String}: string representation of the {@code Coordinate}
 	 */
 	@Override
-	public String toString() {
-		return String.format("[x:%f y:%f]", x, y);
-	}
+	public String toString() { return String.format("[x:%f y:%f]", x, y); }
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if (o==this) {return true;}
-		if (!(o instanceof Coordinate)) {return false;}
+		if (o==this) return true;
+		if (!(o instanceof Coordinate)) return false;
 		Coordinate c = (Coordinate) o;
 		return Double.compare(this.x,c.x)==0 && Double.compare(this.y,c.y)==0;
 	}
@@ -102,8 +93,7 @@ public class Coordinate {
 	@Override
 	public int hashCode() {
 		StringBuilder output = new StringBuilder();
-		output.append(this.x);
-		output.append(this.y);
+		output.append(this.x); output.append(this.y);
 		return Integer.parseInt(output.toString());
 	}
 }

@@ -1,5 +1,7 @@
 package com.Ace009.library.CClass;
 
+import java.util.stream.Stream;
+
 /**
  * 'static' class,
  * one of the 'C(ustom)Class' libaries,
@@ -28,15 +30,11 @@ public class CString {
 		return output.toString();
 	}
 	/**
-	 * returns the {@code sum} of the numerical values of all {@code char} in {@code input}
-	 * @param input {@code String}
+	 * returns the {@code sum} of the {@code int} values of all {@code char} in {@code input}
+	 * @param input {@code String}, converted {@code .toCharArray}
 	 * @return {@code int}: sum of all {@code char} in {@code input}
 	 */
 	public static int numericalSum(String input) {
-		int output = 0;
-		for (char c : input.toCharArray()) {
-			output += (int)c;
-		}
-		return output;
+		return Stream.of(CArray.asObjectArray(input.toCharArray())).mapToInt(e->(int)e.charValue()).sum();
 	}
 }

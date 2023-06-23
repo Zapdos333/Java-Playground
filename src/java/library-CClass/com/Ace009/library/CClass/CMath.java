@@ -1,6 +1,9 @@
 package com.Ace009.library.CClass;
 
 import java.util.stream.IntStream;
+import java.util.Map;
+import java.util.HashMap;
+import java.math.BigDecimal;
 
 /**
  * 'static' class,
@@ -36,7 +39,7 @@ public class CMath {
 	 * @return true if prime, false otherwise
 	 */
 	public static boolean isPrime(int n) {
-		return Numbers().limit((long)n).parallel().filter(i->n%i==0).toArray().length <= 2;
+		return Numbers().limit(n).parallel().filter(i->n%i==0).toArray().length <= 2;
 	}
 	/**
 	 * returns an {@code int[]} containing all prime numbers up to {@code max}
@@ -45,7 +48,7 @@ public class CMath {
 	 * @see CMath#isPrime(int)
 	 */
 	public static int[] getPrimesUpTo(final int max) {
-		return Numbers().limit(max).parallel().filter(e->isPrime(e)).toArray();
+		return Numbers().limit(max).parallel().filter(e->isPrime(e)).sequential().toArray();
 	}
 	/**
 	 * returns an {@code int[]} containing the first {@code length} prime numbers
@@ -55,5 +58,13 @@ public class CMath {
 	 */
 	public static int[] getPrimes(final int length) {
 		return Numbers().parallel().filter(e->isPrime(e)).sequential().limit(length).toArray();
+	}
+	public static Map<String,Integer> seperate(final double number) {
+		return new HashMap<>(){
+			{
+				put("number",new BigDecimal(number).unscaledValue().intValueExact());
+				put("exponent",new BigDecimal(number).scale());
+			}
+		};
 	}
 }

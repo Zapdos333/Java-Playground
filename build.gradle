@@ -1,7 +1,7 @@
 // plugins
 apply plugin: 'java'
 //project properties
-project.setVersion('3.0.0')
+project.setVersion('4.0.0')
 // projects
 subprojects {
 	apply plugin: 'java'
@@ -34,17 +34,18 @@ project(':library-CClass'){
 	dependencies {} // no dependencies allowed
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
-project(':library-CoordinateSystem'){
+project(':library-Math'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-CClass')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
-project(':library-Math'){
+project(':library-CoordinateSystem'){
 	sourceSets.main.java.srcDirs=["${project.getRootDir()}/src/java/${project.getName()}"]
 	dependencies {
 		implementation project(':library-CClass')
+		implementation project(':library-Math')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
@@ -67,6 +68,7 @@ project(':nonLibrary-school'){
 	dependencies {
 		implementation project(':library-general')
 		implementation project(':library-CClass')
+		implementation project(':library-Math')
 	}
 	jar.from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
@@ -119,8 +121,6 @@ sourceSets {
 	}
 }
 //configure root
-compileJava.onlyIf { false }
-processResources.onlyIf { false }
 buildDir="./build/"
 //configure build scan (--scan)
 if (hasProperty('buildScan')) {
@@ -135,9 +135,23 @@ javadoc {
 	destinationDir=file("${project.getRootDir()}/build/docs")
 	source = project.getRootProject().sourceSets.main.java.srcDirs
 	options.memberLevel = JavadocMemberLevel.PRIVATE
+	options.addStringOption('Xdoclint:all,-reference,-missing','-quiet')
+}
+task checkDocs(type: Javadoc) {
+	group = "documentation"
+	description = "checks the Javadocs"
+	outputs.upToDateWhen { false }
+	destinationDir=file("${project.getRootDir()}/build/checkDocs")
+	source = project.getRootProject().sourceSets.main.java.srcDirs
+	options.memberLevel = JavadocMemberLevel.PRIVATE
+	options.addStringOption('Xdoclint:all')
+	doLast {
+		delete "${project.getRootDir()}/build/checkDocs"
+	}
 }
 task packageDocs(type: Zip) {
 	group = "documentation"
+	description = "packs the javadocs into a zip file in the libs folder"
 	dependsOn javadoc
 	archiveFileName="${project.archivesBaseName}-JavaDocs-${project.getVersion()}.zip"
 	destinationDirectory=file("${project.getRootDir()}/build/libs")
@@ -147,7 +161,17 @@ task packageDocs(type: Zip) {
 build.dependsOn packageDocs
 //debug
 task printCheck(){
+	group = "verification"
+	description = "debug print"
 	doLast{
 		println()
 	}
+}
+//commented out(line1) until I get (line2) to work
+	//check.dependsOn checkDocs
+	//build.dependsOn -= check
+// cleanUp
+clean {
+	description = "deletes the build, bin, .history and __pycache__ directory"
+	delete ".history", "bin", "src/python/__pycache__"
 }

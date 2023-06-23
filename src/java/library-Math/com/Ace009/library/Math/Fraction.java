@@ -1,11 +1,8 @@
 package com.Ace009.library.Math;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
 
 import com.Ace009.library.CClass.CMath;
-import com.Ace009.library.CClass.CArray;
-import com.Ace009.library.CClass.CList;
 
 /**
  * a class defining a number consisting of a multiplier and a divider
@@ -13,76 +10,10 @@ import com.Ace009.library.CClass.CList;
  * @author Ace009
  */
 public class Fraction {
-	/**
-	 * subclass of ComplexNumber, which provides various methods to perform more complex calculations,
-	 * necessary for dealing with fractions
-	 */
-	public static class calculations {
-		/** don't */
-		private calculations() {}
-		/**
-		 * turns a number into an {@code int[]} containing the prime factors of the number
-		 * @param number number to dissect
-		 * @return the array of prime factors
-		 * @see CMath#getPrimesUpTo(int)
-		 */
-		public static int[] seperateToPrimes(long number) {
-			//if (number <= 2) return new int[]{(int)number};
-			int[] check = CMath.getPrimesUpTo((int)number);
-			List<Integer> output = new ArrayList<>();
-			for (int i = 1; i < check.length; i++) {
-				if (number % check[i] == 0) {
-					output.add(check[i]);
-					number /= check[i];
-					i--;
-				}
-			}
-			return output.stream().mapToInt(i->i).toArray();
-		}
-		/**
-		 * returns the greatest common divisor of the two numbers
-		 * @param n1 number 1
-		 * @param n2 number 2
-		 * @return the greatest common divisor
-		 */
-		public static int gcd(long n1, long n2) {
-			int[] p1 = seperateToPrimes(n1);
-			int[] p2 = seperateToPrimes(n2);
-			List<Integer> output = new ArrayList<>();
-			if (p1.length >= p2.length) {
-				for (int i : p1) {
-					if ( CArray.indexOf(CArray.asObjectArray(p2), i)>=0 ) {
-						output.add(i);
-					}
-				}
-			} else  {
-				for (int i : p2) {
-					if ( CArray.indexOf(CArray.asObjectArray(p1), i)>=0 ) {
-						output.add(i);
-					}
-				}
-			}
-			return output.stream().mapToInt(i->i).reduce(1,(a,b)->a*b);
-		}
-		/**
-		 * returns the least common multiple of the two numbers
-		 * @param n1 number 1
-		 * @param n2 number 2
-		 * @return the least common multiple
-		 */
-		public static int lcm(long n1, long n2) {
-			List<Integer> p1 = CArray.asList(CArray.asObjectArray(seperateToPrimes(n1)));
-			List<Integer> p2 = CArray.asList(CArray.asObjectArray(seperateToPrimes(n2)));
-			List<Integer> t_ = new ArrayList<Integer>();
-			t_.addAll(p1);t_.addAll(p2);
-			List<Integer> output = CList.deduplicate(t_);
-			return output.stream().mapToInt(i->i).reduce(1,(a,b)->a*b);
-		}
-	}
 	/** numerator of the fraction */
-	private long numerator;
+	protected int numerator;
 	/** denominator of the fraction */
-	private long denominator;
+	protected int denominator;
 	/** Type enum for Fractions */
 	public static enum Type {
 		/** is type numerator */
@@ -110,16 +41,29 @@ public class Fraction {
 	public Fraction(int number) {
 		this(number,1);
 	}
+	/** creates a Fraction with the value {@code 1} */
+	public Fraction() {this(1);}
+	/** */
+	public Fraction(double number) {
+		Map<String,Integer> t_ = CMath.seperate(number);
+		this.numerator = t_.get("number");
+		this.denominator = t_.get("exponent");
+		reduceAndCheck();
+	}
+	/** @return a copy of this Fraction */
+	public Fraction get() {return new Fraction().multiplyBy(this);}
 	/**
 	 * multiplies the fraction by the given number, by multiplying the numerator by {@code number}
 	 * @param number number to multiply with
+	 * @return {@code this}
 	 */
-	public void multipyBy(int number) { numerator *= number; reduceAndCheck(); }
+	public Fraction multiplyBy(int number) { numerator *= number; return reduceAndCheck(); }
 	/**
 	 * divide the fraction by the given number, by multiplying the denominator by {@code number}
 	 * @param number number to divide with
+	 * @return {@code this}
 	 */
-	public void divideBy(int number) { denominator *= number; reduceAndCheck(); }
+	public Fraction divideBy(int number) { denominator *= number; return reduceAndCheck(); }
 	/**
 	 * calculates the fraction, by dividing the numerator by the denominator
 	 * @return the {@code double} value of the fraction
@@ -130,128 +74,183 @@ public class Fraction {
 	 * @param part {@code Type} part of the fraction
 	 * @return {@code long} value of the requested part
 	 */
-	public long get(Type part) {
+	public int get(Type part) {
 		switch (part) {
 			case numerator: return numerator;
 			case denominator: return denominator;
-			default: return 0;
+			default: assert false; return 0;
 		}
 	}
 	/**
 	 * adds a number to the fraction, by {@code numerator += number*denominator}
 	 * @param number the number to add
+	 * @return {@code this}
 	 */
-	public void add(int number) { numerator += number*denominator; reduceAndCheck(); }
+	public Fraction add(int number) {
+		numerator += number*denominator;
+		return reduceAndCheck();
+	}
 	/**
 	 * subtracts a number from the fraction, by {@code numerator -= number*denominator}
 	 * @param number the number to subtract
+	 * @return {@code this}
 	 */
-	public void subtract(int number) { numerator -= number*denominator; reduceAndCheck(); }
+	public Fraction subtract(int number) {
+		numerator -= number*denominator;
+		return reduceAndCheck();
+	}
 	/**
 	 * multiplies the fraction by the number, by multiplying the numerator by it
 	 * @param number the number to multiply by
+	 * @return {@code this}
 	 */
-	public void multiplyBy(Fraction number) { numerator *= number.get(Type.numerator); denominator *= number.get(Type.denominator); reduceAndCheck(); }
+	public Fraction multiplyBy(Fraction number) {
+		numerator *= number.get(Type.numerator);
+		denominator *= number.get(Type.denominator);
+		return reduceAndCheck();
+	}
 	/**
 	 * divides the fraction by the number, by multiplying the denominator by it
 	 * @param number the number to divide by
+	 * @return {@code this}
 	 */
-	public void divideBy(Fraction number) { numerator *= number.get(Type.denominator); denominator *= number.get(Type.numerator); reduceAndCheck(); }
+	public Fraction divideBy(Fraction number) {
+		numerator *= number.get(Type.denominator);
+		denominator *= number.get(Type.numerator);
+		return reduceAndCheck();
+	}
 	/**
 	 * reduces the fraction and checks if its values are valid
 	 * <p> reduces the fraction by getting the greatest common divisor of the numerator and denominator
 	 * and then dividing them both by it
 	 * <p> this is run at the end of every method that modifies the fraction (except for extension methods)
-	 * @see Fraction.calculations#gcd(long, long)
+	 * @see Calculations#gcd(int, int)
+	 * @return {@code this}
 	 */
-	public void reduceAndCheck() {
-		int Ldiv = calculations.gcd(numerator, denominator);
+	protected Fraction reduceAndCheck() {
+		int Ldiv = Calculations.gcd(numerator, denominator);
 		numerator /= Ldiv; denominator /= Ldiv;
-		check();
+		if (numerator<0 && denominator<0) { numerator*=-1; denominator*=-1; }
+		return check();
 	}
 	/**
 	 * extends the fraction by the given multiplier
 	 * @param multiplier extension multiplier
+	 * @return {@code this}
 	 */
-	public void extendBy(int multiplier) {
-		Fraction mult = new Fraction(multiplier,multiplier);
-		mult.numerator=multiplier;mult.denominator=multiplier;
-		multiplyBy(mult);
-		check();
+	protected Fraction extendBy(int multiplier) {
+		numerator *= multiplier; denominator *= multiplier;
+		return check();
 	}
 	/**
 	 * extends the fraction to the given number in the given part
 	 * @param part part of the fraction to extend
 	 * @param number number to extend to
+	 * @return {@code this}
 	 */
-	public void extendTo(Type part, long number) {
-		int Tmultiplier=1;
+	protected Fraction extendTo(Type part, int number) {
+		int multiplier=1;
 		switch (part) {
-			case numerator: Tmultiplier = (int)Math.floor(number/numerator); break;
-			case denominator: Tmultiplier = (int)Math.floor(number/denominator); break;
+			case numerator: multiplier = Calculations.lcm(number,numerator); break;
+			case denominator: multiplier = Calculations.lcm(number,denominator); break;
 		}
-		extendBy(Tmultiplier);
-		check();
+		extendBy(multiplier);
+		switch (part) {
+			case numerator: assert numerator%number==0; break;
+			case denominator: assert denominator%number==0; break;
+			default: assert false;
+		}
+		return this;
 	}
 	/**
-	 * default implementation of {@link #extendTo(Type, long)},
+	 * default implementation of {@link #extendTo(Type, int)},
 	 * with {@link Type} being {@code Type#denominator}
 	 * @param number number to extend to
+	 * @return {@code this}
 	 */
-	public void extendTo(long number) { extendTo(Type.denominator, number); check(); }
+	protected Fraction extendTo(int number) { return extendTo(Type.denominator, number); }
 	/**
-	 * extends the fractions to their denominators {@link calculations#lcm(long, long)}
+	 * extends the fractions to their denominators {@link Calculations#lcm(int, int) least common multiple}
 	 * and then adds their numerators
 	 * @param number Fraction to add
+	 * @return {@code this}
 	 */
-	public void add(Fraction number) {
-		int t_ = calculations.lcm(number.get(Type.denominator),this.get(Type.denominator));
+	public Fraction add(Fraction number) {
+		int t_ = Calculations.lcm(number.get(Type.denominator),this.get(Type.denominator));
 		this.extendTo(t_); number.extendTo(t_);
 		assert (this.get(Type.denominator) == number.get(Type.denominator)) : "noncommon dividers";
 		this.numerator += number.get(Type.numerator);
-		reduceAndCheck();
+		return reduceAndCheck();
 	}
 	/**
-	 * extends the fractions to their denominators {@link calculations#lcm(long, long)}
+	 * extends the fractions to their denominators {@link Calculations#lcm(int, int) least common multiple}
 	 * and then subtracts their numerators
 	 * @param number Fraction to subtract
+	 * @return {@code this}
 	 */
-	public void subtract(Fraction number) {
-		int t_ = calculations.lcm(number.get(Type.denominator),this.get(Type.denominator));
+	public Fraction subtract(Fraction number) {
+		int t_ = Calculations.lcm(number.get(Type.denominator),this.get(Type.denominator));
 		this.extendTo(t_); number.extendTo(t_);
 		assert (this.get(Type.denominator) == number.get(Type.denominator)) : "noncommon dividers";
 		this.numerator -= number.get(Type.numerator);
-		reduceAndCheck();
+		return reduceAndCheck();
 	}
 	/**
 	 * takes the fraction to the power of the given number,
 	 * by taking the numerator and denominator to the power of the number
-	 * @param number the exponent
-	 * @throws IllegalArgumentException if {@code number} is negative, because roots aren't displayable with fractions
+	 * @param number the exponent (can be a non-whole number for roots)
+	 * @throws ArithmeticException if the result isn't a whole number, only possible with non-whole exponents
+	 * @return {@code this}
 	 */
-	public void toPowerOf(int number) throws IllegalArgumentException {
-		if (number > 0) { throw new IllegalArgumentException("Roots are not implemented");}
-		numerator = (long)Math.pow(numerator, number);
-		denominator = (long)Math.pow(denominator, number);
-		reduceAndCheck();
+	public Fraction toPowerOf(double number) throws ArithmeticException {
+		if (number != Math.round(number)) {
+			double tN_ = Math.pow(numerator,number);
+			double tD_ = Math.pow(denominator,number);
+			if (tN_ != Math.round(tN_)||tD_ != Math.round(tD_))
+				throw new ArithmeticException("non-whole root result");
+			else if (number < 0) { numerator=(int)Math.round(tD_);denominator=(int)Math.round(tN_); }
+			else { numerator=(int)Math.round(tN_);denominator=(int)Math.round(tD_); }
+		}
+		if (number < 0) {
+			denominator = (int)Math.pow(numerator,number);
+			numerator =(int)Math.pow(denominator,number);
+		} else {
+			numerator = (int)Math.pow(numerator,number);
+			denominator =(int)Math.pow(denominator,number);
+		}
+		return reduceAndCheck();
 	}
 	/**
 	 * checks the values of the fraction
-	 * <p> checks if the values of the fraction are outside the range of a {@code long},
+	 * <p> checks if the values of the fraction are outside the range of an {@code integer},
 	 * and if the denominator is {@code 0} (division by zero)
-	 * <p> this is run at the end of every method that extends the fraction
+	 * <p> this is run at the end of every method that modifies the fraction
 	 * @throws ArithmeticException if the fraction is invalid
+	 * @return {@code this}
 	 */
-	private void check() throws ArithmeticException {
-		if (numerator > Long.MAX_VALUE) throw new ArithmeticException("numerator out of Long range");
-		if (denominator > Long.MAX_VALUE) throw new ArithmeticException("denominator out Long range");
-		if (denominator < Long.MIN_VALUE) throw new ArithmeticException("denominator out Long range");
-		if (numerator < Long.MIN_VALUE) throw new ArithmeticException("numerator out Long range");
+	protected Fraction check() throws ArithmeticException {
+		if (numerator > Integer.MAX_VALUE) throw new ArithmeticException("numerator out of Integer range");
+		if (denominator > Integer.MAX_VALUE) throw new ArithmeticException("denominator out Integer range");
+		if (denominator < Integer.MIN_VALUE) throw new ArithmeticException("denominator out Integer range");
+		if (numerator < Integer.MIN_VALUE) throw new ArithmeticException("numerator out Integer range");
 		if (denominator == 0) throw new ArithmeticException("attempt to divide by zero");
+		return this;
+	}
+	/**
+	 * Temporary method to properly calculate the squareroot of a fraction
+	 * @deprecated should not be used in production, subject to removal/change
+	 * @return {@code this} 
+	 */
+	public Fraction tempSquareRoot() {
+		try { return this.toPowerOf(0.5); } //if the root is a whole number, is more accurate
+		catch (IllegalArgumentException e) {}
+		Fraction out = new Fraction(Math.sqrt(this.calculate())); //otherwise resort to Math.sqrt(double)
+		this.numerator = out.numerator; this.denominator = out.denominator; //override this
+		return reduceAndCheck();
 	}
 	@Override
 	public String toString() {
-		return String.format("%d/%d=%f",numerator,denominator,calculate());
+		return String.format("%d/%d",numerator,denominator);
 	}
 	@Override
 	public boolean equals(Object o) {

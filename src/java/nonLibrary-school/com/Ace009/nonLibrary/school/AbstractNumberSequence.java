@@ -3,41 +3,36 @@ package com.Ace009.nonLibrary.school;
 import java.util.ArrayList;
 
 /**
- * abstract skeleton for creating a number sequence
- * <p>
- * (extends {@link java.util.ArrayList ArrayList(Double)})
- * @author Ace009
+ * a mathamatical number sequence
+ * <p> allows creation of {@link ArrayList} based number sequences,
+ * with values of type {@code T}
+ * @see FractionSequence implementation with {@link com.Ace009.library.Math.Fraction Fraction}
  */
-abstract public class AbstractNumberSequence extends ArrayList<Double> {
-	/** first value of the sequence */
-	static protected double a1=0;
-	/** constructor, creates the ArrayList and adds the first element */
-	protected AbstractNumberSequence() {
-		super();
-		this.add(a1);
-	}
+abstract public class AbstractNumberSequence<T> {
+	/** the list containing the values */
+	protected final ArrayList<T> list=new ArrayList<>(1);
+	/** use the calculateNext when calculating */
+	public final boolean defNext = false;
 	/**
 	 * calculates the next values of the sequence until the size is {@code to}
 	 * @param to {@code int} limit of calculation
-	 * @param next {@code boolean} if true: use {@link AbstractNumberSequence#calculateNext(double)}, else use {@link AbstractNumberSequence#calculateAt(int)}
 	 */
-	protected void calculateNextTo(int to, boolean next) {
-		this.ensureCapacity(to);
-		int i=this.size();
-		while (this.size()<to) {
-			if (next) {this.add(calculateNext(this.get(i)));}
-			else {this.add(calculateAt(i+1));}
+	protected void calculateNextTo(int to) {
+		list.ensureCapacity(to);
+		int i=list.size();
+		while (list.size()<to) {
+			if (defNext) {list.add(calculateNext(list.get(i)));}
+			else {list.add(calculateAt(i+1));}
 			i++;
 		}
 	}
 	/**
 	 * calculates the next {@code amount} values of the sequence
 	 * @param amount {@code int} amount of values to calculate
-	 * @param next {@code boolean} if true: use {@link AbstractNumberSequence#calculateNext(double)}, else use {@link AbstractNumberSequence#calculateAt(int)}
-	 * @see AbstractNumberSequence#calculateNextTo(int, boolean)
+	 * @see AbstractNumberSequence#calculateNextTo(int)
 	 */
-	protected void calculateNextAmount(int amount, boolean next) {
-		this.calculateNextTo(this.size()+amount,next);
+	protected void calculateNextAmount(int amount) {
+		this.calculateNextTo(list.size()+amount);
 	}
 	/**
 	 * method that calculates the next value of the sequence,
@@ -45,15 +40,22 @@ abstract public class AbstractNumberSequence extends ArrayList<Double> {
 	 * @param prev {@code double} the previous value
 	 * @return {@code double} the next value
 	 */
-	protected double calculateNext(double prev) {
-		return prev+1;
-	}
+	abstract T calculateNext(T prev);
 	/**
 	 * method that calculates the value at the provided index of the sequence
 	 * @param pos {@code int} the position of the value to calculate
 	 * @return {@code double} the value calculated
 	 */
-	protected double calculateAt(int pos){
-		return pos;
+	abstract T calculateAt(int pos);
+	/**
+	 * returns the Value of the {@code pos} element
+	 * <p> checks first if the element exists in the {@link #list}
+	 * @param pos index of the returned element
+	 * @return element returned
+	 */
+	public T getAt(int pos) {
+		if (list.size()>=pos) return list.get(pos-1);
+		else if (defNext) { calculateNextTo(pos); return getAt(pos); }
+		else return calculateAt(pos);
 	}
 }
