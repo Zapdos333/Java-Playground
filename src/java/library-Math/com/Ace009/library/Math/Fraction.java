@@ -236,6 +236,18 @@ public class Fraction {
 		if (denominator == 0) throw new ArithmeticException("attempt to divide by zero");
 		return this;
 	}
+	/**
+	 * Temporary method to properly calculate the squareroot of a fraction
+	 * @temp should not be used in production, subject to removal/change
+	 * @return {@code this} 
+	 */
+	public Fraction tempSquareRoot() {
+		try { return this.toPowerOf(0.5); } //if the root is a whole number, is more accurate
+		catch (IllegalArgumentException e) {}
+		Fraction out = new Fraction(Math.sqrt(this.calculate())); //otherwise resort to Math.sqrt(double)
+		this.numerator = out.numerator; this.denominator = out.denominator; //override this
+		return reduceAndCheck();
+	}
 	@Override
 	public String toString() {
 		return String.format("%d/%d",numerator,denominator);
