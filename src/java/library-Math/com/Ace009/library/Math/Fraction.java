@@ -78,7 +78,7 @@ public class Fraction {
 		switch (part) {
 			case numerator: return numerator;
 			case denominator: return denominator;
-			default: return 0;
+			default: assert false; return 0;
 		}
 	}
 	/**
@@ -130,6 +130,7 @@ public class Fraction {
 	protected Fraction reduceAndCheck() {
 		int Ldiv = Calculations.gcd(numerator, denominator);
 		numerator /= Ldiv; denominator /= Ldiv;
+		if (numerator<0 && denominator<0) { numerator*=-1; denominator*=-1; }
 		return check();
 	}
 	/**
@@ -137,9 +138,9 @@ public class Fraction {
 	 * @param multiplier extension multiplier
 	 * @return {@code this}
 	 */
-	public Fraction extendBy(int multiplier) {
+	protected Fraction extendBy(int multiplier) {
 		numerator *= multiplier; denominator *= multiplier;
-		check(); return this;
+		return check();
 	}
 	/**
 	 * extends the fraction to the given number in the given part
@@ -147,13 +148,19 @@ public class Fraction {
 	 * @param number number to extend to
 	 * @return {@code this}
 	 */
-	public Fraction extendTo(Type part, long number) {
-		int Tmultiplier=1;
+	protected Fraction extendTo(Type part, int number) {
+		int multiplier=1;
 		switch (part) {
-			case numerator: Tmultiplier = (int)Math.floor(number/numerator); break;
-			case denominator: Tmultiplier = (int)Math.floor(number/denominator); break;
+			case numerator: multiplier = Calculations.lcm(number,numerator); break;
+			case denominator: multiplier = Calculations.lcm(number,denominator); break;
 		}
-		return extendBy(Tmultiplier);
+		extendBy(multiplier);
+		switch (part) {
+			case numerator: assert numerator%number==0; break;
+			case denominator: assert denominator%number==0; break;
+			default: assert false;
+		}
+		return this;
 	}
 	/**
 	 * default implementation of {@link #extendTo(Type, long)},
@@ -161,9 +168,9 @@ public class Fraction {
 	 * @param number number to extend to
 	 * @return {@code this}
 	 */
-	public Fraction extendTo(long number) { return extendTo(Type.denominator, number); }
+	protected Fraction extendTo(int number) { return extendTo(Type.denominator, number); }
 	/**
-	 * extends the fractions to their denominators {@link Calculations#lcm(int, int)}
+	 * extends the fractions to their denominators {@link Calculations#lcm(int, int) least common multiple}
 	 * and then adds their numerators
 	 * @param number Fraction to add
 	 * @return {@code this}
@@ -176,7 +183,7 @@ public class Fraction {
 		return reduceAndCheck();
 	}
 	/**
-	 * extends the fractions to their denominators {@link Calculations#lcm(int, int)}
+	 * extends the fractions to their denominators {@link Calculations#lcm(int, int) least common multiple}
 	 * and then subtracts their numerators
 	 * @param number Fraction to subtract
 	 * @return {@code this}
@@ -210,16 +217,16 @@ public class Fraction {
 	 * @return {@code this}
 	 */
 	protected Fraction check() throws ArithmeticException {
-		if (numerator > Long.MAX_VALUE) throw new ArithmeticException("numerator out of Long range");
-		if (denominator > Long.MAX_VALUE) throw new ArithmeticException("denominator out Long range");
-		if (denominator < Long.MIN_VALUE) throw new ArithmeticException("denominator out Long range");
-		if (numerator < Long.MIN_VALUE) throw new ArithmeticException("numerator out Long range");
+		if (numerator > Integer.MAX_VALUE) throw new ArithmeticException("numerator out of Long range");
+		if (denominator > Integer.MAX_VALUE) throw new ArithmeticException("denominator out Long range");
+		if (denominator < Integer.MIN_VALUE) throw new ArithmeticException("denominator out Long range");
+		if (numerator < Integer.MIN_VALUE) throw new ArithmeticException("numerator out Long range");
 		if (denominator == 0) throw new ArithmeticException("attempt to divide by zero");
 		return this;
 	}
 	@Override
 	public String toString() {
-		return String.format("%d/%d=%f",numerator,denominator,calculate());
+		return String.format("%d/%d",numerator,denominator);
 	}
 	@Override
 	public boolean equals(Object o) {
