@@ -2,19 +2,17 @@ package com.Ace009.nonLibrary.school;
 
 import java.util.ArrayList;
 
-import com.Ace009.library.Math.Fraction;
-
 /**
- * abstract skeleton for creating a number sequence
- * <p>
- * (extends {@link java.util.ArrayList ArrayList(Double)})
- * @author Ace009
+ * a mathamatical number sequence
+ * <p> allows creation of {@link ArrayList} based number sequences,
+ * with values of type {@code T}
+ * @see NumberSequence implementation with {@link com.Ace009.library.Math.Fraction Fraction}
  */
-abstract public class AbstractNumberSequence {
+abstract public class AbstractNumberSequence<T> {
 	/** the list containing the values */
-	protected final ArrayList<Fraction> list=new ArrayList<>(1);
+	protected final ArrayList<T> list=new ArrayList<>(1);
 	/** use the calculateNext when calculating */
-	protected final boolean defNext = false;
+	public final boolean defNext = false;
 	/**
 	 * calculates the next values of the sequence until the size is {@code to}
 	 * @param to {@code int} limit of calculation
@@ -42,11 +40,22 @@ abstract public class AbstractNumberSequence {
 	 * @param prev {@code double} the previous value
 	 * @return {@code double} the next value
 	 */
-	abstract Fraction calculateNext(Fraction prev);
+	abstract T calculateNext(T prev);
 	/**
 	 * method that calculates the value at the provided index of the sequence
 	 * @param pos {@code int} the position of the value to calculate
 	 * @return {@code double} the value calculated
 	 */
-	abstract Fraction calculateAt(int pos);
+	abstract T calculateAt(int pos);
+	/**
+	 * returns the Value of the {@code pos} element
+	 * <p> checks first if the element exists in the {@link #list}
+	 * @param pos index of the returned element
+	 * @return element returned
+	 */
+	public T getAt(int pos) {
+		if (list.size()>=pos) return list.get(pos-1);
+		else if (defNext) { calculateNextTo(pos); return getAt(pos); }
+		else return calculateAt(pos);
+	}
 }
