@@ -121,8 +121,6 @@ sourceSets {
 	}
 }
 //configure root
-compileJava.onlyIf { false }
-processResources.onlyIf { false }
 buildDir="./build/"
 //configure build scan (--scan)
 if (hasProperty('buildScan')) {
@@ -163,11 +161,13 @@ task packageDocs(type: Zip) {
 build.dependsOn packageDocs
 //debug
 task printCheck(){
+	group = "verification"
 	description = "debug print"
 	doLast{
 		println()
 	}
 }
+check.dependsOn checkDocs
 // cleanUp
 clean {
 	description = "deletes the build, bin, .history and __pycache__ directory"
