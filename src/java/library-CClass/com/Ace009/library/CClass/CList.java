@@ -1,15 +1,12 @@
 package com.Ace009.library.CClass;
 
 import java.util.List;
-//import java.util.ArrayList;
 import java.util.stream.Stream;
 
 /**
  * 'static' class,
  * one of the 'C(ustom)Class' libaries,
- * this one works with {@link ArrayList}
- * <p> tries it's best to work Interfaces as I/O
- * to work for different {@link List}
+ * this one works with {@link List}
  * @author Ace009
  * @see java.util.List
  */
