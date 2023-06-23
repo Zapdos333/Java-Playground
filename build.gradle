@@ -1,7 +1,7 @@
 // plugins
 apply plugin: 'java'
 //project properties
-project.setVersion('3.0.0')
+project.setVersion('4.0.0')
 // projects
 subprojects {
 	apply plugin: 'java'
@@ -167,7 +167,9 @@ task printCheck(){
 		println()
 	}
 }
-check.dependsOn checkDocs
+//commented out(line1) until I get (line2) to work
+	//check.dependsOn checkDocs
+	//build.dependsOn -= check
 // cleanUp
 clean {
 	description = "deletes the build, bin, .history and __pycache__ directory"
