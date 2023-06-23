@@ -58,8 +58,8 @@ public class Coordinate {
 	public double y;
 	/**
 	 * Simply stores {@code x} and {@code y} in the classes {@code doubles}
-	 * @param f_x {@code double} x input
-	 * @param f_y {@code double} y input
+	 * @param x {@code double} x input
+	 * @param y {@code double} y input
 	 * @see Coordinate
 	 */
 	public Coordinate(double x, double y) { this.x=x;this.y=y; }

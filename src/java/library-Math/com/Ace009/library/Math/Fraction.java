@@ -238,7 +238,7 @@ public class Fraction {
 	}
 	/**
 	 * Temporary method to properly calculate the squareroot of a fraction
-	 * @temp should not be used in production, subject to removal/change
+	 * @deprecated should not be used in production, subject to removal/change
 	 * @return {@code this} 
 	 */
 	public Fraction tempSquareRoot() {

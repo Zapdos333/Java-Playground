@@ -39,6 +39,7 @@ public class Triangle {
 		calculate();
 	}
 	/** calculates all (possible) remaining values */
+	@SuppressWarnings("deprecation")
 	protected void calculate() {
 		//count null references
 		byte Pnull=0, Anull=0, Snull=0;
