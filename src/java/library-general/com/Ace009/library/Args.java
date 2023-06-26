@@ -69,8 +69,8 @@ public class Args {
 	}
 	/**
 	 * creates a String Map based on the input of {@link #input}
-	 * <p> if print is used as key, the Map will be printed to {@link System#out}
-	 * <p> if end is used as key, the Map will be returned
+	 * <p> if {@code print} is used as key, the Map will be printed to {@link System#out}
+	 * <p> if {@code end} is used as key, the Map will be returned
 	 * @return the Map with the given inputs
 	 */
 	public static Map<String, String> createMap() {

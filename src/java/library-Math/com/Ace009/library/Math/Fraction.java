@@ -43,12 +43,30 @@ public class Fraction {
 	}
 	/** creates a Fraction with the value {@code 1} */
 	public Fraction() {this(1);}
-	/** */
+	/**
+	 * creates a new Fraction with the value number with
+	 * @param double the number from which the Fraction is derived
+	 */
 	public Fraction(double number) {
 		Map<String,Integer> t_ = CMath.seperate(number);
 		this.numerator = t_.get("number");
-		this.denominator = t_.get("exponent");
+		double exp = Math.pow(10,t_.get("exponent"));
+		this.denominator = exp<1 ? 1 : (int)Math.round(exp);
+		if (exp<1) this.numerator *= Math.pow(10,0-t_.get("exponent"));
 		reduceAndCheck();
+	}
+	/**
+	 * tries to parse {@code in} first by parsing it to a {@code double},
+	 * if that does not work it assumes {@code in} is in the format of {@link #toString()}
+	 * @param in the String to parse
+	 * @return a {@code Fraction} with the value of {@code in}
+	 */
+	public static Fraction parse(String in) {
+		try { return new Fraction(Double.parseDouble(in)); }
+		catch (NumberFormatException e) {}
+		String NS = in.split("/")[0];
+		String DS = in.split("/")[1];
+		return new Fraction(Integer.parseInt(NS),Integer.parseInt(DS));
 	}
 	/** @return a copy of this Fraction */
 	public Fraction get() {return new Fraction().multiplyBy(this);}
