@@ -1,6 +1,8 @@
 package com.Ace009.library.CClass;
 
 import java.util.stream.Stream;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * 'static' class,
@@ -36,5 +38,11 @@ public class CString {
 	 */
 	public static int numericalSum(String input) {
 		return Stream.of(CArray.asObjectArray(input.toCharArray())).mapToInt(e->(int)e.charValue()).sum();
+	}
+
+	public static String match(String input, String regex) {
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(input);
+		return matcher.find() ? matcher.group() : "";
 	}
 }
