@@ -15,7 +15,7 @@ public class FractionCoordinate {
 	/**
 	 * Fraction implementation of {@link Coordinate#distance(Coordinate,Coordinate)}
 	 * <p> potentially slightly inaccurate, because of the non-gurantee of a square root,
-	 * (if {@link Fraction#toPowerOf(double)} throws, it defaults to {@code new Fraction(Math.sqrt(Fraction.calculate()))})
+	 * (uses {@link Fraction#inAccPow(double)} with 0.5 for square root)
 	 * @param pA {@code FractionCoordinate} point A
 	 * @param pB {@code FractionCoordinate} point B
 	 * @return {@code Fraction}: distance between given points
@@ -24,9 +24,7 @@ public class FractionCoordinate {
 		Fraction squarex = pA.x.subtract(pB.x).toPowerOf(2);
 		Fraction squarey = pA.y.subtract(pB.y).toPowerOf(2);
 		Fraction sum = squarex.add(squarey);
-		try { return sum.toPowerOf(0.5); } //if the root is a whole number, is more accurate
-		catch (IllegalArgumentException e) {}
-		return new Fraction(Math.sqrt(sum.calculate())); //otherwise resort to Math.sqrt(double)
+		return sum.inAccPow(0.5);
 	}
 	/**
 	 * Returns the distance between all the coordinates in the list in the order they are in.
