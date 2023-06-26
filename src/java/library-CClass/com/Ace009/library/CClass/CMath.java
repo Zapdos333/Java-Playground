@@ -3,7 +3,6 @@ package com.Ace009.library.CClass;
 import java.util.stream.IntStream;
 import java.util.Map;
 import java.util.HashMap;
-import java.math.BigDecimal;
 
 /**
  * 'static' class,
@@ -62,8 +61,8 @@ public class CMath {
 	public static Map<String,Integer> seperate(final double number) {
 		return new HashMap<>(){
 			{
-				put("number",new BigDecimal(number).unscaledValue().intValueExact());
-				put("exponent",new BigDecimal(number).scale());
+				put("exponent",Math.getExponent(number));
+				put("number",(int)(number*Math.pow(10,this.get("exponent"))) );
 			}
 		};
 	}
