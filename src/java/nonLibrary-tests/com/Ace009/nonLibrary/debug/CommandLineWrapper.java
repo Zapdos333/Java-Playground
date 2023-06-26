@@ -79,6 +79,10 @@ public class CommandLineWrapper {
 				case "fraction":
 					System.out.println("Running MainMethod Fraction...");
 					MainMethods.FractionTest(); break;
+				case "triangle":
+                    System.out.println("Running MainMethod Triangle...");
+					MainMethods.TriangleTest();
+					break;
 				case "debug":
 					System.out.println("Running Debug...");
 					debug(); break;

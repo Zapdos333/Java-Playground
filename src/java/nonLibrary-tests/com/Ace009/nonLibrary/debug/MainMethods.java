@@ -8,7 +8,9 @@ import com.Ace009.nonLibrary.school.*;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A class containing all {@code main}- or debug-methods
@@ -24,7 +26,6 @@ public class MainMethods {
 	 * prints the iterator created by 
 	 * {@link Range#arrayRange(int,int,int)}
 	 * in new lines
-	 * 
 	 * @see com.Ace009.library.Range
 	 */
 	public static void rangeMain() {
@@ -87,7 +88,6 @@ public class MainMethods {
 	 * <p>
 	 * creates a test circle with the given parameters,
 	 * prints out the list of coordinates, and the 'Circularity'
-	 * 
 	 * @see com.Ace009.library.CoordinateSystem.Circle
 	 */
 	public static void CircleMain() {
@@ -183,5 +183,30 @@ public class MainMethods {
 			default: System.out.println("No implemented operation given. operation: "+operation);
 		}
 		System.out.printf("Fraction is: %s\n",test.toString());
+	}
+	/**
+     * {@link com.Ace009.library.CoordinateSystem.Triangle}s main method:
+     * <p>
+     * creates a test {@code Triangle} with the given parameters,
+     * prints out the result
+	 */
+	public static void TriangleTest() {
+		Map<String,String> t1_ = Args.createMap();
+		Map<Triangle.ArgsType,Object> t2_ = new HashMap<>(9);
+		for (Map.Entry<String,String> entry : t1_.entrySet()) {
+			switch (entry.getKey()) {
+				case "PointA": t2_.put(Triangle.ArgsType.PointA, FractionCoordinate.parse(entry.getValue()));
+				case "PointB": t2_.put(Triangle.ArgsType.PointB, FractionCoordinate.parse(entry.getValue()));
+				case "PointC": t2_.put(Triangle.ArgsType.PointC, FractionCoordinate.parse(entry.getValue()));
+				case "SideA": t2_.put(Triangle.ArgsType.SideA, Fraction.parse(entry.getValue()));
+				case "SideB": t2_.put(Triangle.ArgsType.SideB, Fraction.parse(entry.getValue()));
+				case "SideC": t2_.put(Triangle.ArgsType.SideC, Fraction.parse(entry.getValue()));
+				case "Alpha": t2_.put(Triangle.ArgsType.Alpha, Double.valueOf(entry.getValue()));
+				case "Beta": t2_.put(Triangle.ArgsType.Beta, Double.valueOf(entry.getValue()));
+				case "Gamma": t2_.put(Triangle.ArgsType.Gamma, Double.valueOf(entry.getValue()));
+			}
+		}
+		Triangle test = new Triangle(t2_);
+		System.out.println(test.toString());
 	}
 }
