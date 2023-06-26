@@ -273,8 +273,8 @@ public class Fraction {
 	protected Fraction extendTo(Type part, int number) {
 		int multiplier=1;
 		switch (part) {
-			case numerator: multiplier = Calculations.lcm(number,numerator); break;
-			case denominator: multiplier = Calculations.lcm(number,denominator); break;
+			case numerator: multiplier = number/numerator; break;
+			case denominator: multiplier = number/denominator; break;
 		}
 		extendBy(multiplier);
 		switch (part) {
