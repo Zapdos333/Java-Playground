@@ -1,13 +1,20 @@
 package com.Ace009.library;
 
 import java.util.Scanner;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
- * class to asks console input for arguments
+ * class to asks {@link #input console input} for arguments
  * @author Ace009
- * @see com.Ace009.library.Args#Args(Args.OutputType, String...)  constructor(String type, String...args)
+ * @see #ask(String) returns input string from console
+ * @see #Args(Args.OutputType, String...)  constructor(String type, String...args)
  */
 public class Args {
+	/** Scanner from {@link System#in}
+	 * <p> as a static field it doesnt require {@code @SuppressWarnings("ressource")}
+	 */
+	public static final Scanner input = new Scanner(System.in);
 	/** copy of constructors {@code type} */
 	public final OutputType createdType;
 	/** copy of constructors {@code args} */
@@ -39,32 +46,53 @@ public class Args {
 		Float;
 	}
 	/**
-	 * prints out the term+":" and
-	 * returns the user input up to the next enter
-	 * <p> uses a {@link Scanner} of {@link System#in} 
-	 * and returns {@link Scanner#nextLine()}
+	 * prints out the term+":" and returns the user input up to the next enter
+	 * <p> uses {@link #input} and returns {@link Scanner#nextLine()}
 	 * @param term the thing to ask
 	 * @return the user input
 	 */
-	@SuppressWarnings("resource") //never close System.in
 	public static String ask(String term){
 		term = term==null ? "" : term;
-		Scanner scanner = new Scanner(System.in);
 		System.out.printf("%s:", term);
-		return scanner.nextLine();
+		return input.nextLine();
 	}
 	/**
 	 * suspends the current thread with a message in {@link System#out}
-	 * until {@link System#in} gets a {@link Scanner#nextLine()}
+	 * until {@link #input} gets a {@link Scanner#nextLine()}
 	 * @param term suspension message
 	 */
-	@SuppressWarnings("resource") //never close System.in
 	public static void suspend(String term){
 		term = term==null ? "" : term;
-		Scanner scanner = new Scanner(System.in);
-		if (term != "") System.out.printf("%s .Suspending, \nPress any key to continue...", term);
-		else System.out.print("Suspending, \nPress any key to continue...");
-		scanner.nextLine();
+		if (term != "") System.out.printf("%s. Suspending,\nPress any key to continue...", term);
+		else System.out.print("Suspending,\nPress any key to continue...");
+		input.nextLine();
+	}
+	/**
+	 * creates a String Map based on the input of {@link #input}
+	 * <p> if print is used as key, the Map will be printed to {@link System#out}
+	 * <p> if end is used as key, the Map will be returned
+	 * @return the Map with the given inputs
+	 */
+	public static Map<String, String> createMap() {
+		Map<String,String> output = new HashMap<>();
+		String key; String value; boolean end = false;
+		while (true) {
+			key = Args.ask("Key");
+			switch (key) {
+				case "print":
+					for (Map.Entry<String, String> entry : output.entrySet()) {
+						System.out.printf("Key:%s; Value:%s\n", entry.getKey(), entry.getValue());
+					}
+					break;
+				case "end": end=true; break;
+				default:
+					value = Args.ask("Value");
+					output.put(key, value);
+					break;
+			}
+			if (end) break;
+		}
+		return output;
 	}
 	/**
 	 * constructs an {@code Args} object, which contains the in {@code @see} mentioned properties,
