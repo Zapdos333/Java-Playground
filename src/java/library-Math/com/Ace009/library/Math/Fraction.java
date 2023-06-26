@@ -10,10 +10,6 @@ import com.Ace009.library.CClass.CMath;
  * @author Ace009
  */
 public class Fraction {
-	/** numerator of the fraction */
-	protected int numerator;
-	/** denominator of the fraction */
-	protected int denominator;
 	/** Type enum for Fractions */
 	public static enum Type {
 		/** is type numerator */
@@ -21,6 +17,23 @@ public class Fraction {
 		/** is type denominator */
 		denominator
 	}
+	/**
+	 * tries to parse {@code in} first by parsing it to a {@code double},
+	 * if that does not work it assumes {@code in} is in the format of {@link #toString()}
+	 * @param in the String to parse
+	 * @return a {@code Fraction} with the value of {@code in}
+	 */
+	public static Fraction parse(String in) {
+		try { return new Fraction(Double.parseDouble(in)); }
+		catch (NumberFormatException e) {}
+		String NS = in.split("/")[0];
+		String DS = in.split("/")[1];
+		return new Fraction(Integer.parseInt(NS),Integer.parseInt(DS));
+	}
+	/** numerator of the fraction */
+	protected int numerator;
+	/** denominator of the fraction */
+	protected int denominator;
 	/**
 	 * direct constructor,
 	 * <p> simply puts the values into their respective fields
@@ -54,19 +67,6 @@ public class Fraction {
 		this.denominator = exp<1 ? 1 : (int)Math.round(exp);
 		if (exp<1) this.numerator *= Math.pow(10,0-t_.get("exponent"));
 		reduceAndCheck();
-	}
-	/**
-	 * tries to parse {@code in} first by parsing it to a {@code double},
-	 * if that does not work it assumes {@code in} is in the format of {@link #toString()}
-	 * @param in the String to parse
-	 * @return a {@code Fraction} with the value of {@code in}
-	 */
-	public static Fraction parse(String in) {
-		try { return new Fraction(Double.parseDouble(in)); }
-		catch (NumberFormatException e) {}
-		String NS = in.split("/")[0];
-		String DS = in.split("/")[1];
-		return new Fraction(Integer.parseInt(NS),Integer.parseInt(DS));
 	}
 	/** @return a copy of this Fraction */
 	public Fraction get() {return new Fraction().multiplyBy(this);}
@@ -160,55 +160,6 @@ public class Fraction {
 		return reduceAndCheck();
 	}
 	/**
-	 * reduces the fraction and checks if its values are valid
-	 * <p> reduces the fraction by getting the {@link Calculations#gcd(int, int) greatest common divisor} of the numerator and denominator
-	 * and then dividing them both by it
-	 * <p> this is run at the end of every method that modifies the fraction (except for extension methods)
-	 * @return {@code this}
-	 */
-	protected Fraction reduceAndCheck() {
-		int Ldiv = Calculations.gcd(numerator, denominator);
-		numerator /= Ldiv; denominator /= Ldiv;
-		if (numerator<0 && denominator<0) { numerator*=-1; denominator*=-1; }
-		return check();
-	}
-	/**
-	 * extends the fraction by the given multiplier
-	 * @param multiplier extension multiplier
-	 * @return {@code this}
-	 */
-	protected Fraction extendBy(int multiplier) {
-		numerator *= multiplier; denominator *= multiplier;
-		return check();
-	}
-	/**
-	 * extends the fraction to the given number in the given part
-	 * @param part part of the fraction to extend
-	 * @param number number to extend to
-	 * @return {@code this}
-	 */
-	protected Fraction extendTo(Type part, int number) {
-		int multiplier=1;
-		switch (part) {
-			case numerator: multiplier = Calculations.lcm(number,numerator); break;
-			case denominator: multiplier = Calculations.lcm(number,denominator); break;
-		}
-		extendBy(multiplier);
-		switch (part) {
-			case numerator: assert numerator%number==0; break;
-			case denominator: assert denominator%number==0; break;
-			default: assert false;
-		}
-		return this;
-	}
-	/**
-	 * default implementation of {@link #extendTo(Type, int)},
-	 * with {@link Type} being {@code Type#denominator}
-	 * @param number number to extend to
-	 * @return {@code this}
-	 */
-	protected Fraction extendTo(int number) { return extendTo(Type.denominator, number); }
-	/**
 	 * extends the fractions to their denominators {@link Calculations#lcm(int, int) least common multiple}
 	 * and then adds their numerators
 	 * @param number Fraction to add
@@ -259,22 +210,6 @@ public class Fraction {
 		return reduceAndCheck();
 	}
 	/**
-	 * checks the values of the fraction
-	 * <p> checks if the values of the fraction are outside the range of an {@code integer},
-	 * and if the denominator is {@code 0} (division by zero)
-	 * <p> this is run at the end of every method that modifies the fraction
-	 * @throws ArithmeticException if the fraction is invalid
-	 * @return {@code this}
-	 */
-	protected Fraction check() throws ArithmeticException {
-		if (numerator > Integer.MAX_VALUE) throw new ArithmeticException("numerator out of Integer range");
-		if (denominator > Integer.MAX_VALUE) throw new ArithmeticException("denominator out Integer range");
-		if (denominator < Integer.MIN_VALUE) throw new ArithmeticException("denominator out Integer range");
-		if (numerator < Integer.MIN_VALUE) throw new ArithmeticException("numerator out Integer range");
-		if (denominator == 0) throw new ArithmeticException("attempt to divide by zero");
-		return this;
-	}
-	/**
 	 * method to always calculate the power of a Fraction
 	 * <p> is less accurate, because if {@link #toPowerOf(double)} throws an {@link ArithmeticException},
 	 * it resorts to {@link #Fraction(double)} of {@link Math#pow(double, double)} using {@link #calculate()}
@@ -301,5 +236,70 @@ public class Fraction {
 	@Override
 	public int hashCode() {
 		return (int)Math.ceil(calculate());
+	}
+	/**
+	 * reduces the fraction and checks if its values are valid
+	 * <p> reduces the fraction by getting the {@link Calculations#gcd(int, int) greatest common divisor} of the numerator and denominator
+	 * and then dividing them both by it
+	 * <p> this is run at the end of every method that modifies the fraction (except for extension methods)
+	 * @return {@code this}
+	 */
+	protected Fraction reduceAndCheck() {
+		int Ldiv = Calculations.gcd(numerator, denominator);
+		numerator /= Ldiv; denominator /= Ldiv;
+		if (numerator<0 && denominator<0) { numerator*=-1; denominator*=-1; }
+		return check();
+	}
+	/**
+	 * extends the fraction by the given multiplier
+	 * @param multiplier extension multiplier
+	 * @return {@code this}
+	 */
+	protected Fraction extendBy(int multiplier) {
+		numerator *= multiplier; denominator *= multiplier;
+		return check();
+	}
+	/**
+	 * extends the fraction to the given number in the given part
+	 * @param part part of the fraction to extend
+	 * @param number number to extend to
+	 * @return {@code this}
+	 */
+	protected Fraction extendTo(Type part, int number) {
+		int multiplier=1;
+		switch (part) {
+			case numerator: multiplier = Calculations.lcm(number,numerator); break;
+			case denominator: multiplier = Calculations.lcm(number,denominator); break;
+		}
+		extendBy(multiplier);
+		switch (part) {
+			case numerator: assert numerator%number==0; break;
+			case denominator: assert denominator%number==0; break;
+			default: assert false;
+		}
+		return this;
+	}
+	/**
+	 * default implementation of {@link #extendTo(Type, int)},
+	 * with {@link Type} being {@code Type#denominator}
+	 * @param number number to extend to
+	 * @return {@code this}
+	 */
+	protected Fraction extendTo(int number) { return extendTo(Type.denominator, number); }
+	/**
+	 * checks the values of the fraction
+	 * <p> checks if the values of the fraction are outside the range of an {@code integer},
+	 * and if the denominator is {@code 0} (division by zero)
+	 * <p> this is run at the end of every method that modifies the fraction
+	 * @throws ArithmeticException if the fraction is invalid
+	 * @return {@code this}
+	 */
+	protected Fraction check() throws ArithmeticException {
+		if (numerator > Integer.MAX_VALUE) throw new ArithmeticException("numerator out of Integer range");
+		if (denominator > Integer.MAX_VALUE) throw new ArithmeticException("denominator out Integer range");
+		if (denominator < Integer.MIN_VALUE) throw new ArithmeticException("denominator out Integer range");
+		if (numerator < Integer.MIN_VALUE) throw new ArithmeticException("numerator out Integer range");
+		if (denominator == 0) throw new ArithmeticException("attempt to divide by zero");
+		return this;
 	}
 }
