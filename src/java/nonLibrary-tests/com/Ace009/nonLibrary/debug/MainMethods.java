@@ -140,7 +140,7 @@ public class MainMethods {
 				break;
 			case "crack":
 				String[] output = CaesarCipher.crack(input.output[2]);
-				for (int i : Range.arrayRange(1,output.length+1)) {
+				for (int i : Range.arrayRange(1,output.length)) {
 					System.out.printf("(%d/%c): %s\n",i,CaesarCipher.ALPHABET[i],output[i]);
 				}
 				break;
