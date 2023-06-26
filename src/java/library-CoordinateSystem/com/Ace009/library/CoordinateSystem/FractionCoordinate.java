@@ -13,6 +13,18 @@ import com.Ace009.library.Math.Fraction;
  */
 public class FractionCoordinate {
 	/**
+	 * parses a {@link #toString() String representation} of a {@code Coordinate} as a {@link Double} of {@link Fraction}
+	 * @param in the String representation of a {@code Coordinate}
+	 * @return the parsed {@code FractionCoordinate}
+	 */
+	public static FractionCoordinate parse(String in) {
+		String x = CString.match(in, "^\\[x: .*;");
+		String y = CString.match(in, ";y:.*]$");
+		x.replaceAll("\\[|x:|;", "");
+		y.replaceAll(";|y:|]", "");
+		return new FractionCoordinate(Fraction.parse(x),Fraction.parse(y));
+	}
+	/**
 	 * Fraction implementation of {@link Coordinate#distance(Coordinate,Coordinate)}
 	 * <p> potentially slightly inaccurate, because of the non-gurantee of a square root,
 	 * (uses {@link Fraction#inAccPow(double)} with 0.5 for square root)
@@ -47,6 +59,22 @@ public class FractionCoordinate {
 	 */
 	public static Collection<FractionCoordinate> convertCoordList(Collection<Coordinate> list)
 		{ return list.stream().map(e->new FractionCoordinate(new Fraction(e.x),new Fraction(e.y))).toList(); }
+	/**
+	 * converts the FractionCoordinate into a {@code Coordinate},
+	 * by running {@link Fraction#calculate()} on both {@code x} and {@code y}
+	 * @param c the {@code FractionCoordinate} to convert
+	 * @return the {@code (Double)Coordinate}
+	 */
+	public static Coordinate toCoordinate(FractionCoordinate c)
+		{ return new Coordinate(c.x.calculate(),c.y.calculate()); }
+	/**
+	 * converts the list of {@code FractionCoordinate} to a list of {@code Coordinate}
+	 * using {@link #toCoordinate()}
+	 * @param list the list of {@code FractionCoordinate} to convert
+	 * @return the converted list of {@code Coordinate}
+	 */
+	public static Collection<Coordinate> toCoordinates(Collection<FractionCoordinate> list)
+		{ return list.stream().map(e->e.toCoordinate()).toList(); }
 	/** x coordinate */
 	public Fraction x;
 	/** y coordinate */
@@ -67,26 +95,10 @@ public class FractionCoordinate {
 	public Fraction distanceTo(FractionCoordinate target) { return distance(this,target); }
 	/**
 	 * converts the FractionCoordinate into a {@code Coordinate},
-	 * by running {@link Fraction#calculate()} on both {@code x} and {@code y}
-	 * @param c the {@code FractionCoordinate} to convert
-	 * @return the {@code (Double)Coordinate}
-	 */
-	public static Coordinate toCoordinate(FractionCoordinate c)
-		{ return new Coordinate(c.x.calculate(),c.y.calculate()); }
-	/**
-	 * converts the FractionCoordinate into a {@code Coordinate},
 	 * uses {@link #toCoordinate(FractionCoordinate)} with {@code this}
 	 * @return the {@code (Double)Coordinate}
 	 */
 	public Coordinate toCoordinate() { return toCoordinate(this); }
-	/**
-	 * converts the list of {@code FractionCoordinate} to a list of {@code Coordinate}
-	 * using {@link #toCoordinate()}
-	 * @param list the list of {@code FractionCoordinate} to convert
-	 * @return the converted list of {@code Coordinate}
-	 */
-	public static Collection<Coordinate> toCoordinates(Collection<FractionCoordinate> list)
-		{ return list.stream().map(e->e.toCoordinate()).toList(); }
 	/**
 	 * returns a {@code String} representing the {@code FractionCoordinate},
 	 * for example: "[x:4/5,y:3/8]"
