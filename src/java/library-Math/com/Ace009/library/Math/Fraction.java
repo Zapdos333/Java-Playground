@@ -59,11 +59,25 @@ public class Fraction {
 	 */
 	public Fraction multiplyBy(int number) { numerator *= number; return reduceAndCheck(); }
 	/**
+	 * multiplies the fraction by the given number,
+	 * by multiplying with a new {@link #Fraction} based on {@code number}
+	 * @param number number to multiply with
+	 * @return {@code this}
+	 */
+	public Fraction multiplyBy(double number) { return this.multiplyBy(new Fraction(number)); }
+	/**
 	 * divide the fraction by the given number, by multiplying the denominator by {@code number}
 	 * @param number number to divide with
 	 * @return {@code this}
 	 */
 	public Fraction divideBy(int number) { denominator *= number; return reduceAndCheck(); }
+	/**
+	 * divide the fraction by the given number,
+	 * by dividing by a new {@link #Fraction} based on {@code number}
+	 * @param number number to divide with
+	 * @return {@code this}
+	 */
+	public Fraction divideBy(double number) { return this.divideBy(new Fraction(number)); }
 	/**
 	 * calculates the fraction, by dividing the numerator by the denominator
 	 * @return the {@code double} value of the fraction
@@ -86,19 +100,27 @@ public class Fraction {
 	 * @param number the number to add
 	 * @return {@code this}
 	 */
-	public Fraction add(int number) {
-		numerator += number*denominator;
-		return reduceAndCheck();
-	}
+	public Fraction add(int number)
+	{ numerator += number*denominator; return reduceAndCheck(); }
+	/**
+	 * adds a number to the fraction, by adding a new {@link #Fraction} based on {@code number}
+	 * @param number the number to add
+	 * @return {@code this}
+	 */
+	public Fraction add(double number) { return this.add(new Fraction(number)); }
 	/**
 	 * subtracts a number from the fraction, by {@code numerator -= number*denominator}
 	 * @param number the number to subtract
 	 * @return {@code this}
 	 */
-	public Fraction subtract(int number) {
-		numerator -= number*denominator;
-		return reduceAndCheck();
-	}
+	public Fraction subtract(int number)
+	{ numerator -= number*denominator; return reduceAndCheck(); }
+	/**
+	 * subtracts a number from the fraction, by adding a new {@link #Fraction} based on {@code number}
+	 * @param number the number to subtract
+	 * @return {@code this}
+	 */
+	public Fraction subtract(double number) { return this.subtract(new Fraction(number)); }
 	/**
 	 * multiplies the fraction by the number, by multiplying the numerator by it
 	 * @param number the number to multiply by
@@ -121,10 +143,9 @@ public class Fraction {
 	}
 	/**
 	 * reduces the fraction and checks if its values are valid
-	 * <p> reduces the fraction by getting the greatest common divisor of the numerator and denominator
+	 * <p> reduces the fraction by getting the {@link Calculations#gcd(int, int) greatest common divisor} of the numerator and denominator
 	 * and then dividing them both by it
 	 * <p> this is run at the end of every method that modifies the fraction (except for extension methods)
-	 * @see Calculations#gcd(int, int)
 	 * @return {@code this}
 	 */
 	protected Fraction reduceAndCheck() {
@@ -208,7 +229,6 @@ public class Fraction {
 			double tD_ = Math.pow(denominator,number);
 			if (tN_ != Math.round(tN_)||tD_ != Math.round(tD_))
 				throw new ArithmeticException("non-whole root result");
-			else if (number < 0) { numerator=(int)Math.round(tD_);denominator=(int)Math.round(tN_); }
 			else { numerator=(int)Math.round(tN_);denominator=(int)Math.round(tD_); }
 		}
 		if (number < 0) {
@@ -237,14 +257,15 @@ public class Fraction {
 		return this;
 	}
 	/**
-	 * Temporary method to properly calculate the squareroot of a fraction
-	 * @deprecated should not be used in production, subject to removal/change
+	 * method to always calculate the power of a Fraction
+	 * <p> is less accurate, because if {@link #toPowerOf(double)} throws an {@link ArithmeticException},
+	 * it resorts to {@link #Fraction(double)} of {@link Math#pow(double, double)} using {@link #calculate()}
 	 * @return {@code this} 
 	 */
-	public Fraction tempSquareRoot() {
-		try { return this.toPowerOf(0.5); } //if the root is a whole number, is more accurate
+	public Fraction inAccPow(double power) {
+		try { return this.toPowerOf(power); } //if the root is a whole number, is more accurate
 		catch (IllegalArgumentException e) {}
-		Fraction out = new Fraction(Math.sqrt(this.calculate())); //otherwise resort to Math.sqrt(double)
+		Fraction out = new Fraction(Math.pow(this.calculate(),power)); //otherwise resort to Math.sqrt(double)
 		this.numerator = out.numerator; this.denominator = out.denominator; //override this
 		return reduceAndCheck();
 	}
@@ -261,6 +282,6 @@ public class Fraction {
 	}
 	@Override
 	public int hashCode() {
-		return (int)Math.ceil(numerator/denominator);
+		return (int)Math.ceil(calculate());
 	}
 }
