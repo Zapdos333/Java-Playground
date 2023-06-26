@@ -23,6 +23,7 @@ public class Calculations {
 	 * @see CMath#getPrimesUpTo(int)
 	 */
 	public static int[] seperateToPrimes(int number) {
+		number=Math.abs(number);
 		int[] check = CMath.getPrimesUpTo(number);
 		List<Integer> output = new ArrayList<>();
 		for (int i = 1; i < check.length; i++) {
@@ -42,8 +43,9 @@ public class Calculations {
 	 */
 	public static int gcd(int n1, int n2) {
 		int[] p1 = seperateToPrimes(n1);
-		int[] p2 = seperateToPrimes(n2);
-		return IntStream.of(p1).filter(i->CArray.indexOf(CArray.asObjectArray(p2), i)>=0)
+		Integer[] p2 = CArray.asObjectArray(seperateToPrimes(n2));
+		return IntStream.of(p1)
+			.filter(i->CArray.indexOf(p2, i)>-1)
 			.reduce(1,(a,b)->a*b);
 	}
 	/**
@@ -55,7 +57,9 @@ public class Calculations {
 	public static int lcm(int n1, int n2) {
 		List<Integer> p1 = IntStream.of(seperateToPrimes(n1)).mapToObj(Integer::valueOf).toList();
 		List<Integer> p2 = IntStream.of(seperateToPrimes(n2)).mapToObj(Integer::valueOf).toList();
-		return Stream.concat(p1.stream(), p2.stream()).distinct()
-			.mapToInt(i->i).reduce(1,(a,b)->a*b);
+		return Stream.concat(p1.stream(), p2.stream())
+			.distinct()
+			.mapToInt(i->i)
+			.reduce(1,(a,b)->a*b);
 	}
 }

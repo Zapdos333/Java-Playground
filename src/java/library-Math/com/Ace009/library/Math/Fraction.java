@@ -193,20 +193,21 @@ public class Fraction {
 	 * @return {@code this}
 	 */
 	public Fraction toPowerOf(double number) throws ArithmeticException {
+		boolean negativ = number<0; if (negativ) number=number/1;
 		if (number != Math.round(number)) {
 			double tN_ = Math.pow(numerator,number);
 			double tD_ = Math.pow(denominator,number);
 			if (tN_ != Math.round(tN_)||tD_ != Math.round(tD_))
 				throw new ArithmeticException("non-whole root result");
-			else { numerator=(int)Math.round(tN_);denominator=(int)Math.round(tD_); }
-		}
-		if (number < 0) {
-			denominator = (int)Math.pow(numerator,number);
-			numerator =(int)Math.pow(denominator,number);
+			else {
+				numerator = (int)Math.round(tN_);
+				denominator = (int)Math.round(tD_);
+			}
 		} else {
 			numerator = (int)Math.pow(numerator,number);
 			denominator =(int)Math.pow(denominator,number);
 		}
+		if (negativ) this.flip();
 		return reduceAndCheck();
 	}
 	/**
@@ -222,10 +223,12 @@ public class Fraction {
 		this.numerator = out.numerator; this.denominator = out.denominator; //override this
 		return reduceAndCheck();
 	}
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return String.format("%d/%d",numerator,denominator);
 	}
+	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -233,6 +236,7 @@ public class Fraction {
         Fraction fraction = (Fraction) o;
         return (numerator == fraction.numerator) && (denominator == fraction.denominator);
 	}
+	/** {@inheritDoc} */
 	@Override
 	public int hashCode() {
 		return (int)Math.ceil(calculate());
@@ -248,6 +252,7 @@ public class Fraction {
 		int Ldiv = Calculations.gcd(numerator, denominator);
 		numerator /= Ldiv; denominator /= Ldiv;
 		if (numerator<0 && denominator<0) { numerator*=-1; denominator*=-1; }
+		if (numerator==0) denominator=1;
 		return check();
 	}
 	/**
@@ -301,5 +306,14 @@ public class Fraction {
 		if (numerator < Integer.MIN_VALUE) throw new ArithmeticException("numerator out Integer range");
 		if (denominator == 0) throw new ArithmeticException("attempt to divide by zero");
 		return this;
+	}
+	/**
+	 * flips this Fraction upside-down
+	 * @return {@code this}
+	 */
+	protected Fraction flip() {
+		Fraction out = new Fraction(denominator,numerator);
+        numerator = out.numerator; denominator = out.denominator;
+        return reduceAndCheck();
 	}
 }
