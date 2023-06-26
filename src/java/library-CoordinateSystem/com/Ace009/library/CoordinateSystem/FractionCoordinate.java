@@ -13,7 +13,8 @@ import com.Ace009.library.Math.Fraction;
  */
 public class FractionCoordinate {
 	/**
-	 * parses a {@link #toString() String representation} of a {@code Coordinate} as a {@link Double} of {@link Fraction}
+	 * parses a {@link #toString() String representation}
+	 * of a {@code Coordinate} using {@link Fraction#parse(String)}
 	 * @param in the String representation of a {@code Coordinate}
 	 * @return the parsed {@code FractionCoordinate}
 	 */
