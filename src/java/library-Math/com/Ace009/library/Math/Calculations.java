@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import java.util.Map;
+import java.util.HashMap;
 
 import com.Ace009.library.CClass.CMath;
 import com.Ace009.library.CClass.CArray;
@@ -55,11 +57,22 @@ public class Calculations {
 	 * @return the least common multiple
 	 */
 	public static int lcm(int n1, int n2) {
-		List<Integer> p1 = IntStream.of(seperateToPrimes(n1)).mapToObj(Integer::valueOf).toList();
-		List<Integer> p2 = IntStream.of(seperateToPrimes(n2)).mapToObj(Integer::valueOf).toList();
-		return Stream.concat(p1.stream(), p2.stream())
-			.distinct()
-			.mapToInt(i->i)
+		int[] p1 = seperateToPrimes(n1);
+		int[] p2 = seperateToPrimes(n2);
+		Map<Integer, Integer> frequencyMap = new HashMap<>(
+			Stream.concat(
+				IntStream.of(p1).mapToObj(Integer::valueOf),
+				IntStream.of(p2).mapToObj(Integer::valueOf)
+			).distinct().toArray().length
+		); //frequency Map as recommended by ChatGPT
+		for (int e : p1) {
+			frequencyMap.put(e,Math.max(frequencyMap.getOrDefault(e,0), 1));
+		}
+		for (int e : p2) {
+			frequencyMap.put(e,Math.max(frequencyMap.getOrDefault(e,0), 1));
+		}
+		return frequencyMap.entrySet().stream()
+			.mapToInt(e->(int)Math.pow(e.getKey(),e.getValue()))
 			.reduce(1,(a,b)->a*b);
 	}
 }
