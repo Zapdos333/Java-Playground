@@ -59,17 +59,25 @@ public class Calculations {
 	public static int lcm(int n1, int n2) {
 		int[] p1 = seperateToPrimes(n1);
 		int[] p2 = seperateToPrimes(n2);
-		Map<Integer, Integer> frequencyMap = new HashMap<>(
-			Stream.concat(
-				IntStream.of(p1).mapToObj(Integer::valueOf),
-				IntStream.of(p2).mapToObj(Integer::valueOf)
-			).distinct().toArray().length
-		); //frequency Map as recommended by ChatGPT
+		Map<Integer, Integer> fMap1 = new HashMap<>(IntStream.of(p1).distinct().toArray().length);
+		Map<Integer, Integer> fMap2 = new HashMap<>(IntStream.of(p2).distinct().toArray().length);
 		for (int e : p1) {
-			frequencyMap.put(e,Math.max(frequencyMap.getOrDefault(e,0), 1));
+			fMap1.put(e,fMap1.getOrDefault(e,0)+ 1);
 		}
 		for (int e : p2) {
-			frequencyMap.put(e,Math.max(frequencyMap.getOrDefault(e,0), 1));
+			fMap2.put(e,fMap2.getOrDefault(e,0)+ 1);
+		}
+		Map<Integer, Integer> frequencyMap = new HashMap<>(
+			Stream.concat(
+				fMap1.entrySet().stream().map(Map.Entry::getKey),
+				fMap2.entrySet().stream().map(Map.Entry::getKey)
+			).distinct().toArray().length
+		);
+		for (Map.Entry<Integer,Integer> e : fMap1.entrySet()) {
+			frequencyMap.put(e.getKey(),Math.max(e.getValue(),fMap2.getOrDefault(e.getKey(),0)));
+		}
+		for (Map.Entry<Integer,Integer> e : fMap2.entrySet()) {
+			frequencyMap.put(e.getKey(),Math.max(e.getValue(),fMap1.getOrDefault(e.getKey(),0)));
 		}
 		return frequencyMap.entrySet().stream()
 			.mapToInt(e->(int)Math.pow(e.getKey(),e.getValue()))
