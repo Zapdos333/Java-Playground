@@ -2,12 +2,14 @@
 apply plugin: 'java'
 //project properties
 project.setVersion('4.0.0')
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 // projects
 subprojects {
 	apply plugin: 'java'
 	project.setVersion(project.getRootProject().getVersion())
 	sourceSets.main.java.destinationDirectory = file("${project.getRootDir()}/bin/${project.getName()}")
 	buildDir = file("${project.getRootDir()}/build/${project.getName()}")
+	java.toolchain.languageVersion = project.getRootProject().java.toolchain.languageVersion
 	compileJava() {}
 	jar {
 		archiveFileName = "${project.getRootProject().getName()}-${project.getName()}-${project.getVersion()}.jar"
@@ -128,6 +130,8 @@ if (hasProperty('buildScan')) {
 		tag "Java-Playground"
 		tag "v"+project.getVersion()
 		link "github dev-branch", "https://github.com/Zapdos333/Java-Playground/tree/dev"
+		termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
 	}
 }
 //configure javadocs
