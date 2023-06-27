@@ -58,7 +58,7 @@ public class Fraction {
 	public Fraction() {this(1);}
 	/**
 	 * creates a new Fraction with the value number with
-	 * @param double the number from which the Fraction is derived
+	 * @param number the number from which the Fraction is derived
 	 */
 	public Fraction(double number) {
 		Map<String,Integer> t_ = CMath.seperate(number);
