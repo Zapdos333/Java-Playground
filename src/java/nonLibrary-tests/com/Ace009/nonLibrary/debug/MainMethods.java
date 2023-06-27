@@ -191,8 +191,8 @@ public class MainMethods {
      * prints out the result
 	 */
 	public static void TriangleTest() {
-		Map<String,String> t1_ = Args.createMap();
-		Map<Triangle.ArgsType,Object> t2_ = new HashMap<>(9);
+		Map<String,String> t1_ = Args.createMap(9);
+		Map<Triangle.ArgsType,Object> t2_ = new HashMap<>(Math.min(9,t1_.size()));
 		for (Map.Entry<String,String> entry : t1_.entrySet()) {
 			switch (entry.getKey()) {
 				case "PointA": t2_.put(Triangle.ArgsType.PointA, FractionCoordinate.parse(entry.getValue()));
