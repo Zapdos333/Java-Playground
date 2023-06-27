@@ -13,16 +13,14 @@ import com.Ace009.library.Math.Fraction;
  */
 public class FractionCoordinate {
 	/**
-	 * parses a {@link #toString() String representation}
-	 * of a {@code Coordinate} using {@link Fraction#parse(String)}
-	 * @param in the String representation of a {@code Coordinate}
+	 * parses a Coordinate with Fraction values,
+	 * by seperating it at a {@code "|"} and {@link Fraction#parse(String)}
+	 * @param in the String representing a {@code Coordinate}
 	 * @return the parsed {@code FractionCoordinate}
 	 */
 	public static FractionCoordinate parse(String in) {
-		String x = CString.match(in, "^\\[x: .*;");
-		String y = CString.match(in, ";y:.*]$");
-		x.replaceAll("\\[|x:|;", "");
-		y.replaceAll(";|y:|]", "");
+		String x,y;
+		x= in.split("|")[0]; y= in.split("|")[1];
 		return new FractionCoordinate(Fraction.parse(x),Fraction.parse(y));
 	}
 	/**
