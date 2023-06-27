@@ -20,12 +20,12 @@ public class FractionCoordinate {
 	 */
 	public static FractionCoordinate parse(String in) {
 		String x,y;
-		x= in.split("|")[0]; y= in.split("|")[1];
+		x= in.split("\\|")[0]; y= in.split("\\|")[1];
 		return new FractionCoordinate(Fraction.parse(x),Fraction.parse(y));
 	}
 	/**
 	 * Fraction implementation of {@link Coordinate#distance(Coordinate,Coordinate)}
-	 * <p> potentially slightly inaccurate, because of the non-gurantee of a square root,
+	 * <p> potentially slightly inaccurate, because of the non-gurantee of an accurate square root,
 	 * (uses {@link Fraction#inAccPow(double)} with 0.5 for square root)
 	 * @param pA {@code FractionCoordinate} point A
 	 * @param pB {@code FractionCoordinate} point B
