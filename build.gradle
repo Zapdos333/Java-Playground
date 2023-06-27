@@ -2,7 +2,7 @@
 apply plugin: 'java'
 //project properties
 project.setVersion('4.0.0')
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(20)
 // projects
 subprojects {
 	apply plugin: 'java'
