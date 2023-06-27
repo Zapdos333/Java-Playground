@@ -31,9 +31,9 @@ public class Fraction {
 		return new Fraction(Integer.parseInt(NS),Integer.parseInt(DS));
 	}
 	/** numerator of the fraction */
-	protected int numerator;
+	protected int numerator=1;
 	/** denominator of the fraction */
-	protected int denominator;
+	protected int denominator=1;
 	/**
 	 * direct constructor,
 	 * <p> simply puts the values into their respective fields
@@ -63,9 +63,9 @@ public class Fraction {
 	public Fraction(double number) {
 		Map<String,Integer> t_ = CMath.seperate(number);
 		this.numerator = t_.get("number");
-		double exp = Math.pow(10,t_.get("exponent"));
-		this.denominator = exp<1 ? 1 : (int)Math.round(exp);
-		if (exp<1) this.numerator *= Math.pow(10,0-t_.get("exponent"));
+		int exp = (int)Math.pow(10,t_.get("exponent"));
+		this.denominator = exp<=0 ? 1 : exp;
+		if (exp<0) this.numerator *= Math.pow(10,0-t_.get("exponent"));
 		reduceAndCheck();
 	}
 	/** @return a copy of this Fraction */
@@ -312,8 +312,6 @@ public class Fraction {
 	 * @return {@code this}
 	 */
 	protected Fraction flip() {
-		Fraction out = new Fraction(denominator,numerator);
-        numerator = out.numerator; denominator = out.denominator;
-        return reduceAndCheck();
+		return new Fraction().divideBy(this);
 	}
 }
