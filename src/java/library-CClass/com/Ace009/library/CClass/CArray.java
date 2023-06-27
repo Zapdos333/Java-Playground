@@ -1,6 +1,8 @@
 package com.Ace009.library.CClass;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.*;
 
 /**
@@ -133,4 +135,17 @@ public class CArray {
 			return output;
 		}
 	//endregion
+	/**
+	 * creates a frequency map from a given array
+	 * @param <T> the type of the elements
+	 * @param array the array to map
+	 * @return the frequency map
+	 */
+	public static <T> Map<T,Integer> frequencyMap(T[] array) {
+		Map<T, Integer> output = new HashMap<>(Stream.of(array).distinct().toArray().length);
+		for (T e : array) {
+			output.put(e,output.getOrDefault(e,0)+ 1);
+		}
+		return output;
+	}
 }
