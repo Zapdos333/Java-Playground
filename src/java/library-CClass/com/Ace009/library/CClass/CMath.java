@@ -59,7 +59,7 @@ public class CMath {
 		return Numbers().parallel().filter(e->isPrime(e)).sequential().limit(length).toArray();
 	}
 	public static Map<String,Integer> seperate(final double number) {
-		return new HashMap<>(){
+		return new HashMap<>(2){
 			{
 				put("exponent",Math.getExponent(number));
 				put("number",(int)(number*Math.pow(10,this.get("exponent"))) );

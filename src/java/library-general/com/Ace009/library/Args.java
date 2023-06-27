@@ -73,8 +73,8 @@ public class Args {
 	 * <p> if {@code end} is used as key, the Map will be returned
 	 * @return the Map with the given inputs
 	 */
-	public static Map<String, String> createMap() {
-		Map<String,String> output = new HashMap<>();
+	public static Map<String, String> createMap(int expectedCapacity) {
+		Map<String,String> output = new HashMap<>(expectedCapacity);
 		String key; String value; boolean end = false;
 		while (true) {
 			key = Args.ask("Key");
