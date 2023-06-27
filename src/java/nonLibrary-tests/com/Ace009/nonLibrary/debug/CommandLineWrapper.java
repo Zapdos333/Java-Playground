@@ -35,7 +35,7 @@ public class CommandLineWrapper {
 	 */
 	private static final String[] help = new String[]{
 		"\nAvailable commands(all commands are internally converted to lower case):",
-		"\"stop\"/\"break\": stops/ends the main method",
+		"\"stop\"/\"break\"/\"end\"/\"exit\": stops/ends the main method",
 		"\"help\": prints this message",
 		"\"circle\":runs a test main method for the CoordinateSystems Circle class",
 		"\"rng\":runs a test for the custom RNG class, arguments are taken via Args",
@@ -43,6 +43,7 @@ public class CommandLineWrapper {
 		"\"cipher\":runs a command-line interface for the CaesarCipher class, can encode/decode/crack",
 		"\"fraction\":uses Args to create and calculate with a user given fraction",
 		"\"debug\":a debug method only used for debugging, current contetn in source-code",
+		"\"triangle\":runs the test method for the triangle class",
 		"\"cobject\":runs a test for the CObject class, takes a custom Object and analyses it",
 		"\"wrapper\":runs an internal instance of this in a try-catch block"
 	};
@@ -56,7 +57,7 @@ public class CommandLineWrapper {
 		while (true) {
 			command = Args.ask("\nCommand").toLowerCase();
 			switch (command) {
-				case"stop":	case"break": case"end":
+				case"stop":	case"break": case"end": case "exit":
 					System.out.println("stopping...");
 					return;
 				case"help":
