@@ -218,7 +218,7 @@ public class Fraction {
 	 */
 	public Fraction inAccPow(double power) {
 		try { return this.toPowerOf(power); } //if the root is a whole number, is more accurate
-		catch (IllegalArgumentException e) {}
+		catch (ArithmeticException e) {}
 		Fraction out = new Fraction(Math.pow(this.calculate(),power)); //otherwise resort to Math.sqrt(double)
 		this.numerator = out.numerator; this.denominator = out.denominator; //override this
 		return reduceAndCheck();
