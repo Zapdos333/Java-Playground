@@ -3,6 +3,8 @@ package com.Ace009.library.CClass;
 import java.util.stream.IntStream;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * 'static' class,
@@ -42,27 +44,42 @@ public class CMath {
 	}
 	/**
 	 * returns an {@code int[]} containing all prime numbers up to {@code max}
+	 * <p> (uses {@code Sieve of Eratosthenes})
 	 * @param max highest possible prime in {@code return}
 	 * @return an {@code int[]}
-	 * @see CMath#isPrime(int)
 	 */
 	public static int[] getPrimesUpTo(final int max) {
-		return Numbers().limit(max).parallel().filter(e->isPrime(e)).sequential().toArray();
+		boolean[] isComposite = new boolean[max + 1];
+		List<Integer> primes = new ArrayList<>();
+		for (int i = 2; i <= max; i++) {
+			if (!isComposite[i]) {
+				primes.add(i);
+				for (int j = i * 2; j <= max; j += i) {
+					isComposite[j] = true;
+				}
+			}
+		}
+		return primes.stream().mapToInt(Integer::intValue).toArray();
 	}
 	/**
-	 * returns an {@code int[]} containing the first {@code length} prime numbers
-	 * @param length length of {@code return}
-	 * @return an {@code int[]}
-	 * @see CMath#isPrime(int)
+	 * seperates a double into a map containing its value and exponent
+	 * @param number the double to analyze
+	 * @return the map with the keys {@code "number"} and {@code "exponent"}
+	 * @implNote this method will remove any last digits until the number-value can fit into an integer ({@link Integer#MAX_VALUE})
 	 */
-	public static int[] getPrimes(final int length) {
-		return Numbers().parallel().filter(e->isPrime(e)).sequential().limit(length).toArray();
-	}
 	public static Map<String,Integer> seperate(final double number) {
+		String nr = Double.valueOf(number).toString();
+		while (Double.parseDouble(nr.replace(".",""))>Integer.MAX_VALUE) {
+			char[] t_ = new char[nr.length()-1];
+			for (int i=0; i<t_.length; i++) {t_[i] = nr.charAt(i);}
+			nr=String.valueOf(t_);
+		}
+		int sub = nr.indexOf("."); nr=nr.replace(".","");
+		final String Fnr = nr;
 		return new HashMap<>(2){
 			{
-				put("exponent",Math.getExponent(number));
-				put("number",(int)(number*Math.pow(10,this.get("exponent"))) );
+				put("number", Integer.parseInt(Fnr) );
+				put("exponent",Fnr.replace("-","").length()-sub);
 			}
 		};
 	}
