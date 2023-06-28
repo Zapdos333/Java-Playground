@@ -68,32 +68,37 @@ public class Fraction {
 		if (exp<0) this.numerator *= Math.pow(10,0-t_.get("exponent"));
 		reduceAndCheck();
 	}
+	/**
+	 * internal constructor to create copies
+	 * @param original the original Fraction
+	 */
+	protected Fraction(Fraction original) { this.numerator = original.numerator; this.denominator = original.denominator; }
 	/** @return a copy of this Fraction */
-	public Fraction get() {return new Fraction().multiplyBy(this);}
+	public Fraction get() {return new Fraction(this);}
 	/**
 	 * multiplies the fraction by the given number, by multiplying the numerator by {@code number}
 	 * @param number number to multiply with
-	 * @return {@code this}
+	 * @return altered copy
 	 */
-	public Fraction multiplyBy(int number) { numerator *= number; return reduceAndCheck(); }
+	public Fraction multiplyBy(int number) { Fraction output=get(); output.numerator *= number; return output.reduceAndCheck(); }
 	/**
 	 * multiplies the fraction by the given number,
 	 * by multiplying with a new {@link #Fraction} based on {@code number}
 	 * @param number number to multiply with
-	 * @return {@code this}
+	 * @return altered copy
 	 */
 	public Fraction multiplyBy(double number) { return this.multiplyBy(new Fraction(number)); }
 	/**
 	 * divide the fraction by the given number, by multiplying the denominator by {@code number}
 	 * @param number number to divide with
-	 * @return {@code this}
+	 * @return altered copy
 	 */
-	public Fraction divideBy(int number) { denominator *= number; return reduceAndCheck(); }
+	public Fraction divideBy(int number) { Fraction output=get(); output.denominator *= number; return output.reduceAndCheck(); }
 	/**
 	 * divide the fraction by the given number,
 	 * by dividing by a new {@link #Fraction} based on {@code number}
 	 * @param number number to divide with
-	 * @return {@code this}
+	 * @return altered copy
 	 */
 	public Fraction divideBy(double number) { return this.divideBy(new Fraction(number)); }
 	/**
@@ -116,74 +121,78 @@ public class Fraction {
 	/**
 	 * adds a number to the fraction, by {@code numerator += number*denominator}
 	 * @param number the number to add
-	 * @return {@code this}
+	 * @return altered copy
 	 */
 	public Fraction add(int number)
-	{ numerator += number*denominator; return reduceAndCheck(); }
+	{ Fraction output=get(); output.numerator += number*output.denominator; return output.reduceAndCheck(); }
 	/**
 	 * adds a number to the fraction, by adding a new {@link #Fraction} based on {@code number}
 	 * @param number the number to add
-	 * @return {@code this}
+	 * @return altered copy
 	 */
 	public Fraction add(double number) { return this.add(new Fraction(number)); }
 	/**
 	 * subtracts a number from the fraction, by {@code numerator -= number*denominator}
 	 * @param number the number to subtract
-	 * @return {@code this}
+	 * @return altered copy
 	 */
 	public Fraction subtract(int number)
-	{ numerator -= number*denominator; return reduceAndCheck(); }
+	{ Fraction output=get(); output.numerator -= number*output.denominator; return output.reduceAndCheck(); }
 	/**
 	 * subtracts a number from the fraction, by adding a new {@link #Fraction} based on {@code number}
 	 * @param number the number to subtract
-	 * @return {@code this}
+	 * @return altered copy
 	 */
 	public Fraction subtract(double number) { return this.subtract(new Fraction(number)); }
 	/**
 	 * multiplies the fraction by the number, by multiplying the numerator by it
 	 * @param number the number to multiply by
-	 * @return {@code this}
+	 * @return altered copy
 	 */
 	public Fraction multiplyBy(Fraction number) {
-		numerator *= number.get(Type.numerator);
-		denominator *= number.get(Type.denominator);
-		return reduceAndCheck();
+		Fraction output = get();
+		output.numerator *= number.get(Type.numerator);
+		output.denominator *= number.get(Type.denominator);
+		return output.reduceAndCheck();
 	}
 	/**
 	 * divides the fraction by the number, by multiplying the denominator by it
 	 * @param number the number to divide by
-	 * @return {@code this}
+	 * @return altered copy
 	 */
 	public Fraction divideBy(Fraction number) {
-		numerator *= number.get(Type.denominator);
-		denominator *= number.get(Type.numerator);
-		return reduceAndCheck();
+		Fraction output = get();
+		output.numerator *= number.get(Type.denominator);
+		output.denominator *= number.get(Type.numerator);
+		return output.reduceAndCheck();
 	}
 	/**
 	 * extends the fractions to their denominators {@link Calculations#lcm(int, int) least common multiple}
 	 * and then adds their numerators
 	 * @param number Fraction to add
-	 * @return {@code this}
+	 * @return altered copy
 	 */
 	public Fraction add(Fraction number) {
 		int t_ = Calculations.lcm(number.get(Type.denominator),this.get(Type.denominator));
-		this.extendTo(t_); number.extendTo(t_);
-		assert (this.get(Type.denominator) == number.get(Type.denominator)) : "noncommon dividers";
-		this.numerator += number.get(Type.numerator);
-		return reduceAndCheck();
+		Fraction output = get(); Fraction input = number.get();
+		output.extendTo(t_); input.extendTo(t_);
+		assert (output.get(Type.denominator) == input.get(Type.denominator)) : "noncommon dividers";
+		output.numerator += input.get(Type.numerator);
+		return output.reduceAndCheck();
 	}
 	/**
 	 * extends the fractions to their denominators {@link Calculations#lcm(int, int) least common multiple}
 	 * and then subtracts their numerators
 	 * @param number Fraction to subtract
-	 * @return {@code this}
+	 * @return altered copy
 	 */
 	public Fraction subtract(Fraction number) {
 		int t_ = Calculations.lcm(number.get(Type.denominator),this.get(Type.denominator));
-		this.extendTo(t_); number.extendTo(t_);
-		assert (this.get(Type.denominator) == number.get(Type.denominator)) : "noncommon dividers";
-		this.numerator -= number.get(Type.numerator);
-		return reduceAndCheck();
+		Fraction output = get(); Fraction input = number.get();
+		output.extendTo(t_); input.extendTo(t_);
+		assert (output.get(Type.denominator) == input.get(Type.denominator)) : "noncommon dividers";
+		output.numerator -= input.get(Type.numerator);
+		return output.reduceAndCheck();
 	}
 	/**
 	 * takes the fraction to the power of the given number,
@@ -193,22 +202,23 @@ public class Fraction {
 	 * @return {@code this}
 	 */
 	public Fraction toPowerOf(double number) throws ArithmeticException {
-		boolean negativ = number<0; if (negativ) number=number/1;
+		boolean negativ = number<0; if (negativ) number=number/-1;
+		Fraction output = get();
 		if (number != Math.round(number)) {
 			double tN_ = Math.pow(numerator,number);
 			double tD_ = Math.pow(denominator,number);
 			if (tN_ != Math.round(tN_)||tD_ != Math.round(tD_))
 				throw new ArithmeticException("non-whole root result");
 			else {
-				numerator = (int)Math.round(tN_);
-				denominator = (int)Math.round(tD_);
+				output.numerator = (int)Math.round(tN_);
+				output.denominator = (int)Math.round(tD_);
 			}
 		} else {
-			numerator = (int)Math.pow(numerator,number);
-			denominator =(int)Math.pow(denominator,number);
+			output.numerator = (int)Math.pow(numerator,number);
+			output.denominator =(int)Math.pow(denominator,number);
 		}
-		if (negativ) this.flip();
-		return reduceAndCheck();
+		if (negativ) output.flip();
+		return output.reduceAndCheck();
 	}
 	/**
 	 * method to always calculate the power of a Fraction
@@ -219,9 +229,8 @@ public class Fraction {
 	public Fraction inAccPow(double power) {
 		try { return this.toPowerOf(power); } //if the root is a whole number, is more accurate
 		catch (ArithmeticException e) {}
-		Fraction out = new Fraction(Math.pow(this.calculate(),power)); //otherwise resort to Math.sqrt(double)
-		this.numerator = out.numerator; this.denominator = out.denominator; //override this
-		return reduceAndCheck();
+		Fraction output = new Fraction(Math.pow(this.calculate(),power)); //otherwise resort to Math.sqrt(double)
+		return output; //reduceAndCheck already in new Fraction
 	}
 	/** {@inheritDoc} */
 	@Override
