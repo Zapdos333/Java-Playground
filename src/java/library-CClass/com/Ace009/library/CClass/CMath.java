@@ -63,9 +63,9 @@ public class CMath {
 	}
 	/**
 	 * seperates a double into a map containing its value and exponent
+	 * <p> implementationNotice: this method will remove any last digits until the number-value can fit into an integer ({@link Integer#MAX_VALUE})
 	 * @param number the double to analyze
 	 * @return the map with the keys {@code "number"} and {@code "exponent"}
-	 * @implNote this method will remove any last digits until the number-value can fit into an integer ({@link Integer#MAX_VALUE})
 	 */
 	public static Map<String,Integer> seperate(final double number) {
 		String nr = Double.valueOf(number).toString();
