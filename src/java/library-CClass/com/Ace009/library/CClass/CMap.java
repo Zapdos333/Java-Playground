@@ -1,7 +1,6 @@
 package com.Ace009.library.CClass;
 
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.HashMap;
 
 /**
@@ -26,23 +25,19 @@ public class CMap {
 	public static String[] print(Map<String, Object> map, String keys, String values) {
 		String[] output = new String[map.size()+1];
 		int keyLength=0; int valueLength=0;
-		for (String key : map.keySet()) {
-			if (key.length()>keyLength) keyLength = key.length();
+		for (Map.Entry<String,Object> e : map.entrySet()) {
+			keyLength = Math.max(keyLength,e.getKey().length());
+			valueLength = Math.max(valueLength,e.getValue().toString().length());
 		}
-		for (Object value : map.values()) {
-			if (value == null) value = "null";
-			if (value.toString().length()>valueLength) valueLength=value.toString().length();
-		}
-		Map<String, String> outputMap = new HashMap<>();
-		final int finalKeyLength = keyLength; final int finalValueLength = valueLength;
-		map.forEach((String key, Object value)->{
-			if (value == null) value= "null";
-			outputMap.put(CString.formatToLength(key, finalKeyLength), CString.formatToLength(value.toString(), finalValueLength));
-		});
-		output[0] = String.format("|%s:%s|%s:%s|",keys,CString.formatToLength("", finalKeyLength-keys.length()),values,CString.formatToLength("", finalValueLength-values.length()));
+		output[0] = String.format("|%s:%s|%s:%s|",
+			keys,CString.formatToLength("", keyLength-keys.length()),
+			values,CString.formatToLength("", valueLength-values.length()));
 		int i = 1;
-		for (Entry<String, String> entry : outputMap.entrySet()) {
-			output[i] = String.format("|%s:|%s|", entry.getKey(), entry.getValue());
+		for (Map.Entry<String, Object> entry : map.entrySet()) {
+			output[i] = String.format("|%s:|%s|",
+				CString.formatToLength(entry.getKey(),keyLength),
+				CString.formatToLength(entry.getValue().toString(),valueLength)
+			);
 			i++;
 		};
 		return output;
