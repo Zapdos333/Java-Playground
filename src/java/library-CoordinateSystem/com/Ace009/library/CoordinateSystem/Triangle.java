@@ -53,63 +53,63 @@ public class Triangle {
 			if (sides[i] == null) Snull++;
 			if (angles[i] == null) Anull++;
 		}
-		if (Pnull == 3 && Anull == 3 && Snull == 3) throw new NullPointerException("No data given");
+		if ((Pnull==3) && (Anull==3) && (Snull==3)) throw new NullPointerException("No data given");
 		//start calculations
 		// check angles
-		if (Stream.of(angles).filter(e->e==90).toArray().length>1) throw new IllegalArgumentException("no more than one right angle allowed");
-		if (Anull==0&&Math.abs(Stream.of(angles).mapToDouble(e->e).sum()-180)<1) throw new IllegalArgumentException("angle sum outside (of tolerance of 1°) from 180°");
+		if (Stream.of(angles).filter(e->(e==null?0:e)==90).toArray().length>1) throw new IllegalArgumentException("no more than one right angle allowed");
+		if ((Anull==0)&&(Math.abs(Stream.of(angles).mapToDouble(Double::valueOf).sum()-180)<1)) throw new IllegalArgumentException("angle sum outside (of tolerance of 1°) from 180°");
 		// find right angle
-		if (angles[0]==90) rightAngle = 0;
-		else if (angles[1]==90) rightAngle = 1;
-		else if (angles[2]==90) rightAngle = 2;
+		if (angles[0]==null?false:angles[0]==90) rightAngle = 0;
+		else if (angles[1]==null?false:angles[1]==90) rightAngle = 1;
+		else if (angles[2]==null?false:angles[2]==90) rightAngle = 2;
 		// calculations in rectangular triangle
 		if (rightAngle > -1) {
-			if (sides[rightAngle]==null&&sides[(rightAngle+1)%3]!=null&&sides[(rightAngle+2)%3]!=null)
+			if ((sides[rightAngle]==null)&&(sides[(rightAngle+1)%3]!=null)&&(sides[(rightAngle+2)%3]!=null))
 				sides[rightAngle]=sides[(rightAngle+1)%3]
 					.toPowerOf(2)
 					.add(sides[(rightAngle+2)%3].toPowerOf(2))
 					.inAccPow(0.5);
-			if (sides[rightAngle]!=null&&sides[(rightAngle+1)%3]==null&&sides[(rightAngle+2)%3]!=null)
+			if ((sides[rightAngle]!=null)&&(sides[(rightAngle+1)%3]==null)&&(sides[(rightAngle+2)%3]!=null))
 				sides[(rightAngle+1)%3]=sides[rightAngle]
 					.toPowerOf(2)
 					.subtract(sides[(rightAngle+2)%3].toPowerOf(2))
 					.inAccPow(0.5);
-			if (sides[rightAngle]!=null&&sides[(rightAngle+1)%3]!=null&&sides[(rightAngle+2)%3]==null)
+			if ((sides[rightAngle]!=null)&&(sides[(rightAngle+1)%3]!=null)&&(sides[(rightAngle+2)%3]==null))
 				sides[(rightAngle+2)%3]=sides[rightAngle]
 					.toPowerOf(2)
 					.subtract(sides[(rightAngle+2)%3].toPowerOf(2))
 					.inAccPow(0.5);
 			if (angles[(rightAngle+1)%3]==null) {
-				if (sides[rightAngle]==null&&sides[(rightAngle+1)%3]!=null&&sides[(rightAngle+2)%3]!=null)
+				if ((sides[rightAngle]==null)&&(sides[(rightAngle+1)%3]!=null)&&(sides[(rightAngle+2)%3]!=null))
 					angles[(rightAngle+1)%3]= Math.tan(sides[(rightAngle+1)%3]
 						.divideBy(sides[(rightAngle+2)%3])
 						.calculate() );
-				if (sides[rightAngle]!=null&&sides[(rightAngle+1)%3]==null&&sides[(rightAngle+2)%3]!=null)
+				if ((sides[rightAngle]!=null)&&(sides[(rightAngle+1)%3]==null)&&(sides[(rightAngle+2)%3]!=null))
 					angles[(rightAngle+1)%3]= Math.cos(sides[(rightAngle+2)%3]
 						.divideBy(sides[rightAngle])
 						.calculate() );
-				if (sides[rightAngle]!=null&&sides[(rightAngle+1)%3]!=null&&sides[(rightAngle+2)%3]==null)
+				if ((sides[rightAngle]!=null)&&(sides[(rightAngle+1)%3]!=null)&&(sides[(rightAngle+2)%3]==null))
 					angles[(rightAngle+1)%3]= Math.sin(sides[(rightAngle+1)%3]
 						.divideBy(sides[(rightAngle+0)%3])
 						.calculate() );
 			}
 			if (angles[(rightAngle+2)%3]==null) {
-				if (sides[rightAngle]==null&&sides[(rightAngle+1)%3]!=null&&sides[(rightAngle+2)%3]!=null)
+				if ((sides[rightAngle]==null)&&(sides[(rightAngle+1)%3]!=null)&&(sides[(rightAngle+2)%3]!=null))
 					angles[(rightAngle+2)%3]= Math.tan(sides[(rightAngle+2)%3]
 						.divideBy(sides[(rightAngle+1)%3])
 						.calculate() );
-				if (sides[rightAngle]!=null&&sides[(rightAngle+1)%3]==null&&sides[(rightAngle+2)%3]!=null)
+				if ((sides[rightAngle]!=null)&&(sides[(rightAngle+1)%3]==null)&&(sides[(rightAngle+2)%3]!=null))
 					angles[(rightAngle+2)%3]= Math.cos(sides[(rightAngle+1)%3]
 						.divideBy(sides[rightAngle])
 						.calculate() );
-				if (sides[rightAngle]!=null&&sides[(rightAngle+1)%3]!=null&&sides[(rightAngle+2)%3]==null)
+				if ((sides[rightAngle]!=null)&&(sides[(rightAngle+1)%3]!=null)&&(sides[(rightAngle+2)%3]==null))
 					angles[(rightAngle+2)%3]= Math.sin(sides[(rightAngle+2)%3]
 						.divideBy(sides[rightAngle])
 						.calculate() );
 			}
 		}
 		// calculate side from sides+angles
-		if (Anull <= 1 && Snull <= 2) {
+		if ((Anull<=1) && (Snull<=2)) {
 			if (sides[0]==null) sides[0] = sides[1]
 				.toPowerOf(2)
 				.add(sides[2].toPowerOf(2))
@@ -136,70 +136,71 @@ public class Triangle {
 				).inAccPow(0.5);
 		}
 		// calculate angles from sides and angles and vice-versa (as relations)
-		if (Snull+Anull<=3 && Snull!=3 && Anull!=3) {
+		if ((Snull+Anull<=3) && ((Snull!=3) || (Anull!=3)) ) {
 			//angles from sides and angles
 			if (angles[0]==null && sides[0]!=null) {
-				if (sides[1]!=null&&angles[1]!=null) angles[0] = Math.asin(sides[0]
+				if ((sides[1]!=null)&&(angles[1]!=null)) angles[0] = Math.asin(sides[0]
 					.divideBy(sides[1])
 					.multiplyBy(Math.sin(angles[1]))
 					.calculate() );
-				else if (sides[2]!=null&&angles[2]!=null) angles[0] = Math.asin(sides[0]
+				else if ((sides[2]!=null)&&(angles[2]!=null)) angles[0] = Math.asin(sides[0]
 					.divideBy(sides[2])
 					.multiplyBy(Math.sin(angles[2]))
 					.calculate() );
 			}
-			if (angles[1]==null && sides[1]!=null) {
-				if (sides[0]!=null&&angles[0]!=null) angles[1] = Math.asin(sides[1]
+			if ((angles[1]==null)&&(sides[1]!=null)) {
+				if ((sides[0]!=null)&&(angles[0]!=null)) angles[1] = Math.asin(sides[1]
 					.divideBy(sides[0])
 					.multiplyBy(Math.sin(angles[0]))
 					.calculate() );
-				else if (sides[2]!=null&&angles[2]!=null) angles[1] = Math.asin(sides[1]
+				else if ((sides[2]!=null)&&(angles[2]!=null)) angles[1] = Math.asin(sides[1]
 					.divideBy(sides[2])
 					.multiplyBy(Math.sin(angles[2]))
 					.calculate() );
 			}
-			if (angles[2]==null && sides[2]!=null) {
-				if (sides[0]!=null&&angles[0]!=null) angles[2] = Math.asin(sides[2]
+			if ((angles[2]==null) && (sides[2]!=null)) {
+				if ((sides[0]!=null)&&(angles[0]!=null)) angles[2] = Math.asin(sides[2]
 					.divideBy(sides[0])
 					.multiplyBy(Math.sin(angles[0]))
 					.calculate() );
-				else if (sides[1]!=null&&angles[1]!=null) angles[2] = Math.asin(sides[2]
+				else if ((sides[1]!=null)&&(angles[1]!=null)) angles[2] = Math.asin(sides[2]
 					.divideBy(sides[1])
 					.multiplyBy(Math.sin(angles[1]))
 					.calculate() );
 			}
 			//sides from sides and angles
-			if (sides[0]==null && angles[0]!=null) {
-				if (sides[1]!=null&&angles[1]!=null) sides[0] = sides[1]
+			if ((sides[0]==null) && (angles[0]!=null)) {
+				if ((sides[1]!=null)&&(angles[1]!=null)) sides[0] = sides[1]
 					.multiplyBy(Math.sin(angles[0]))
 					.divideBy(Math.sin(angles[1]));
-				else if (sides[2]!=null&&angles[2]!=null) sides[0] = sides[2]
+				else if ((sides[2]!=null)&&(angles[2]!=null)) sides[0] = sides[2]
 					.multiplyBy(Math.sin(angles[0]))
 					.divideBy(Math.sin(angles[2]));
 			}
-			if (sides[1]==null && angles[1]!=null) {
-				if (sides[0]!=null&&angles[0]!=null) sides[1] = sides[0]
+			if ((sides[1]==null) && (angles[1]!=null)) {
+				if ((sides[0]!=null)&&(angles[0]!=null)) sides[1] = sides[0]
 					.multiplyBy(Math.sin(angles[1]))
 					.divideBy(Math.sin(angles[0]));
-				else if (sides[2]!=null&&angles[2]!=null) sides[1] = sides[2]
+				else if ((sides[2]!=null)&&(angles[2]!=null)) sides[1] = sides[2]
 					.multiplyBy(Math.sin(angles[1]))
 					.divideBy(Math.sin(angles[2]));
 			}
-			if (sides[2]==null && angles[2]!=null) {
-				if (sides[0]!=null&&angles[0]!=null) sides[2] = sides[0]
+			if ((sides[2]==null) && (angles[2]!=null)) {
+				if ((sides[0]!=null)&&(angles[0]!=null)) sides[2] = sides[0]
 					.multiplyBy(Math.sin(angles[2]))
 					.divideBy(Math.sin(angles[0]));
-				else if (sides[1]!=null&&angles[1]!=null) sides[2] = sides[1]
+				else if ((sides[1]!=null)&&(angles[1]!=null)) sides[2] = sides[1]
 					.multiplyBy(Math.sin(angles[2]))
 					.divideBy(Math.sin(angles[1]));
 			}
 		}
 		// calculate sides from points
 		if (Pnull == 0) {
-			if (sides[0]==null) sides[0] = FractionCoordinate.distance(points[1], points[2]);
-			if (sides[1]==null) sides[1] = FractionCoordinate.distance(points[0], points[2]);
-			if (sides[2]==null) sides[2] = FractionCoordinate.distance(points[0], points[1]);
+			if (sides[0]==null) {sides[0] = FractionCoordinate.distance(points[1], points[2]); Snull--;}
+			if (sides[1]==null) {sides[1] = FractionCoordinate.distance(points[0], points[2]); Snull--;}
+			if (sides[2]==null) {sides[2] = FractionCoordinate.distance(points[0], points[1]); Snull--;}
 		}
+		//final check
 		Pnull=0; Anull=0; Snull=0;
 		for (int i = 0; i < 3; i++) {
 			if (points[i] == null) Pnull++;
@@ -222,6 +223,6 @@ public class Triangle {
 			.reduce(new String(),(a,b)->fromAB(a,b,"S"));
 		String angles=Stream.of(this.angles).map(e->e.toString())
 			.reduce(new String(),(a,b)->fromAB(a,b,"A"));
-		return String.format("Triangle\n%s\n%s\n%s\n",points,sides,angles);
+		return String.format("Triangle:\n%s\n%s\n%s\n",points,sides,angles);
 	}
 }
