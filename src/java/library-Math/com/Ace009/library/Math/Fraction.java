@@ -312,6 +312,6 @@ public class Fraction {
 	 * @return {@code this}
 	 */
 	protected Fraction flip() {
-		return new Fraction().divideBy(this);
+		return this.divideBy(new Fraction());
 	}
 }
