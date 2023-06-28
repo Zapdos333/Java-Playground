@@ -194,16 +194,16 @@ public class MainMethods {
 		Map<String,String> t1_ = Args.createMap(9);
 		Map<Triangle.ArgsType,Object> t2_ = new HashMap<>(Math.min(9,t1_.size()));
 		for (Map.Entry<String,String> entry : t1_.entrySet()) {
-			switch (entry.getKey()) {
-				case "PointA": t2_.put(Triangle.ArgsType.PointA, FractionCoordinate.parse(entry.getValue()));
-				case "PointB": t2_.put(Triangle.ArgsType.PointB, FractionCoordinate.parse(entry.getValue()));
-				case "PointC": t2_.put(Triangle.ArgsType.PointC, FractionCoordinate.parse(entry.getValue()));
-				case "SideA": t2_.put(Triangle.ArgsType.SideA, Fraction.parse(entry.getValue()));
-				case "SideB": t2_.put(Triangle.ArgsType.SideB, Fraction.parse(entry.getValue()));
-				case "SideC": t2_.put(Triangle.ArgsType.SideC, Fraction.parse(entry.getValue()));
-				case "Alpha": t2_.put(Triangle.ArgsType.Alpha, Double.valueOf(entry.getValue()));
-				case "Beta": t2_.put(Triangle.ArgsType.Beta, Double.valueOf(entry.getValue()));
-				case "Gamma": t2_.put(Triangle.ArgsType.Gamma, Double.valueOf(entry.getValue()));
+			switch (entry.getKey().toLowerCase()) {
+				case "pointa": t2_.put(Triangle.ArgsType.PointA, FractionCoordinate.parse(entry.getValue())); break;
+				case "pointb": t2_.put(Triangle.ArgsType.PointB, FractionCoordinate.parse(entry.getValue())); break;
+				case "pointc": t2_.put(Triangle.ArgsType.PointC, FractionCoordinate.parse(entry.getValue())); break;
+				case "sidea": t2_.put(Triangle.ArgsType.SideA, Fraction.parse(entry.getValue())); break;
+				case "sideb": t2_.put(Triangle.ArgsType.SideB, Fraction.parse(entry.getValue())); break;
+				case "sidec": t2_.put(Triangle.ArgsType.SideC, Fraction.parse(entry.getValue())); break;
+				case "alpha": t2_.put(Triangle.ArgsType.Alpha, Double.valueOf(entry.getValue())); break;
+				case "beta": t2_.put(Triangle.ArgsType.Beta, Double.valueOf(entry.getValue())); break;
+				case "gamma": t2_.put(Triangle.ArgsType.Gamma, Double.valueOf(entry.getValue())); break;
 			}
 		}
 		Triangle test = new Triangle(t2_);
