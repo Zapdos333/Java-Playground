@@ -84,7 +84,7 @@ public class Args {
 						System.out.printf("Key:%s; Value:%s\n", entry.getKey(), entry.getValue());
 					}
 					break;
-				case "end": end=true; break;
+				case"": end=true; break;
 				default:
 					value = Args.ask("Value");
 					output.put(key, value);
