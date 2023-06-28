@@ -217,11 +217,11 @@ public class Triangle {
 	/** {@inheritDoc} */
 	@Override
 	public String toString() {
-		String points=Stream.of(this.points).map(e->e.toString())
+		String points=Stream.of(this.points).map(e->e==null?"unknown":e.toString())
 			.reduce(new String(),(a,b)->fromAB(a,b,"P"));
-		String sides=Stream.of(this.sides).map(e->e.toString())
+		String sides=Stream.of(this.sides).map(e->e==null?"unknown":e.toString())
 			.reduce(new String(),(a,b)->fromAB(a,b,"S"));
-		String angles=Stream.of(this.angles).map(e->e.toString())
+		String angles=Stream.of(this.angles).map(e->e==null?"unknown":e.toString())
 			.reduce(new String(),(a,b)->fromAB(a,b,"A"));
 		return String.format("Triangle:\n%s\n%s\n%s\n",points,sides,angles);
 	}
