@@ -2,8 +2,9 @@ package com.Ace009.library.CClass;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ArrayList;
 import java.util.List;
+
+import java.util.Arrays;
 
 /**
  * 'static' class,
@@ -32,17 +33,13 @@ public class CArray {
 		return -1;
 	}
 	/**
-	 * turns the array into an {@code List}
+	 * wrapper for {@link Arrays#asList(Object...)}
 	 * @param <T> the type of the elements
 	 * @param array the original array
 	 * @return {@code List} containing all the elements from the array
 	 */
 	public static <T> List<T> asList(T[] array) {
-		List<T> output = new ArrayList<T>(array.length);
-		for (int i = 0; i < array.length; i++) {
-			output.add(array[i]);
-		}
-		return output;
+		return Arrays.asList(array);
 	}
 	//region asObjectArray
 		/**
