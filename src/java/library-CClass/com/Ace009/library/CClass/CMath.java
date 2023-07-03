@@ -29,8 +29,8 @@ public class CMath {
 		return random.intValue();
 	}
 	/**
-	 * private method to check if a number is prime,
-	 * <p> by checking if the part of {@link CMath#Numbers()} is at max {@code 2} long (1 and itself)
+	 * method to check if a number is prime,
+	 * <p> checks division by all integers from {@code 2} to {@code Math.ceil(n/(double)2)}
 	 * @param n number to check
 	 * @return true if prime, false otherwise
 	 */
