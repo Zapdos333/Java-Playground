@@ -1,6 +1,7 @@
 package com.Ace009.library.CClass;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -129,5 +130,28 @@ public class CObject {
 			if (entriesA[i][1] != entriesB[i][1]) {return false;}
 		}
 		return true;
+	}
+	/**
+	 * depending on {@code isField} will return the result of the method or field with the provided {@code name}
+	 * <p> args is only relevant for methods and object is practically irrelevant for static methods/fields
+	 * @param object the object to run the method on / get the field from
+	 * is ignored if the method/field is static
+	 * @param name the {@code String} name of the field/method
+	 * @param isField should name be applied to a field, if not a method
+	 * @param args an Object array for the method, only relevant for {@code isField=false}
+	 * @throws InvocationTargetException wrapped exception from {@link Method#invoke(Object, Object...)}
+	 * @return the values of the field or the result of the method
+	 */
+	public static Object apply(Object object, String name, boolean isField, Object...args) throws InvocationTargetException {
+		Map<String, Member[]> entries = getAll(object.getClass());
+		if (isField == false) {
+			Method[] methods = (Method[]) entries.get("methods");
+			Method method = CStreamOf.findFirst(methods, e->{ return e.getName()==name && e.getParameterCount() == (args==null?0:args.length);} );
+			try { return method.invoke(object, args); } catch (IllegalAccessException e) { e.printStackTrace(); return null; }
+		} else {
+			Field[] fields = (Field[]) entries.get("fields");
+			Field field = CStreamOf.findFirst(fields, e->e.getName()==name);
+			try { return field.get(object); } catch (IllegalAccessException e) { e.printStackTrace(); return null; }
+		}
 	}
 }
