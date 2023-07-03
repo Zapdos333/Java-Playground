@@ -2,6 +2,7 @@ package com.Ace009.library.CClass;
 
 import java.util.List;
 import java.util.concurrent.CompletionException;
+import java.lang.reflect.Array;
 
 /**
  * 'static' class,
@@ -21,7 +22,7 @@ public class CStreamOf {
 	 */
 		@SuppressWarnings("unchecked")
 	public static <T,R> R[] map(T[] array, java.util.function.Function<? super T,? extends R> mapper) {
-		R[] output = (R[]) new Object[array.length];
+		R[] output = (R[]) Array.newInstance(mapper.apply(array[0]).getClass(), array.length);
 		for (int i = 0; i < array.length; i++) { output[i] = mapper.apply(array[i]); }
 		return output;
 	}
@@ -67,6 +68,17 @@ public class CStreamOf {
 		@SuppressWarnings("unchecked")
 	public static <T> T[] deduplicate(T[] array) {
 		List<T> t_ = CList.deduplicate(CArray.asList(array));
-		return (T[])t_.toArray();
+		return t_.toArray((T[])Array.newInstance(array.getClass().componentType(),array.length));
+	}
+	/**
+	 * checks whether all elements in {@code array} match the given predicate
+	 * @param <T> the type of the elements
+	 * @param array the array to check
+	 * @param predicate the given predicate
+	 * @return true if all elements match the predicate, false otherwise
+	 */
+	public static <T> boolean matchAll(T[] array, java.util.function.Predicate<T> predicate) {
+		Boolean[] matches = map(array, e->predicate.test(e));
+		return CArray.indexOf(matches, Boolean.valueOf(false)) < 0;
 	}
 }
