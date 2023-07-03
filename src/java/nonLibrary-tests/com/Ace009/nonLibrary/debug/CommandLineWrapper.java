@@ -123,7 +123,7 @@ public class CommandLineWrapper {
 	/** debug Method, generally empty in releases */
 	public static void debug() {
 		int[] t_;
-		int i = Integer.parseInt(Args.ask("Test integer")); /*
+		int i = Integer.parseInt(Args.ask("Test integer"));
 		Log.out(LogInfo,"Starting time(Eratosthenes): %s\n", new Date());
 		t_=CMath.getPrimesUpTo(i);
 		Log.out(LogDebug,"\nResult List:%s\n", Arrays.toString(t_));
@@ -133,7 +133,7 @@ public class CommandLineWrapper {
 		t_=CMath.getPrimesUpTo_(i);
 		Log.out(LogDebug,"\nResult List:%s\n", Arrays.toString(t_));
 		Log.out(LogInfo,"Finished time(Sundaram): %s\n\n", new Date());
-		Args.suspend(""); */
+		Args.suspend("");
 		Log.out(LogInfo,"Starting time(Atkin): %s\n", new Date());
 		t_=CMath.getPrimesUpTo__(i);
 		Log.out(LogDebug,"\nResult List:%s\n", Arrays.toString(t_));
