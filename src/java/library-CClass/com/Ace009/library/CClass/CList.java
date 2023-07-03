@@ -37,4 +37,19 @@ public class CList {
 		output.trimToSize();
 		return output;
 	}
+	/**
+	 * fills the {@code list} with {@code null} values,
+	 * up to {@code size}
+	 * @param <T> the type of the elements
+	 * @param in the list to fill
+	 * @param size the size of the returned list
+	 * @return the filled list
+	 */
+	static <T> List<T> fillToLength(List<T> in, int size) {
+		List<T> output = new ArrayList<T>(in);
+		for (int i = output.size(); i < size; i++) {
+			output.add(null);
+		} assert(in.size() == size);
+		return output;
+	}
 }
