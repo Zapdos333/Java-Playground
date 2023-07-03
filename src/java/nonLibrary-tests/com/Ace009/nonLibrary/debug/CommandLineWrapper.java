@@ -1,7 +1,6 @@
 package com.Ace009.nonLibrary.debug;
 
 import java.util.Map;
-import java.util.stream.Stream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Arrays;
@@ -111,7 +110,7 @@ public class CommandLineWrapper {
 						Log.out(LogInfo,"\ninternal wrapper ended normally");
 					} catch (Throwable e) {
 						Log.out(LogError,"\ninternal wrapper ended with exception:\n%s\n\n", e.toString());
-						Stream.of(e.getStackTrace()).map(line->line.toString()).forEach(line->Log.out(LogError,line));
+						for (StackTraceElement line : e.getStackTrace()) Log.out(LogError,line.toString());
 					}
 					break;
 				default:

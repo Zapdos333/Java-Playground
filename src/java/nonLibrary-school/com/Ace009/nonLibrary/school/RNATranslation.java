@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import com.Ace009.library.Range;
+import com.Ace009.library.CClass.CArray;
 
 /**
  * A class for working with {@link AminoAcid amino acids} and their corresponing RNA {@link #CODES codons}
@@ -212,7 +213,8 @@ public class RNATranslation {
 	 * @return the {@code List} of {@code Nucleobase[]}(triplets)
 	 */
 	public static List<Nucleobase[]> getTriplets(AminoAcid[] in, boolean all) {
-		List<List<Nucleobase[]>> t1_ = Stream.of(in).map(e->getTriplets(e)).toList();
+		List<List<Nucleobase[]>> t1_ = new ArrayList<>();
+		for (AminoAcid a : in) t1_.add(getTriplets(a));
 		List<Nucleobase[]> output = new ArrayList<>(t1_.size());
 		for (List<Nucleobase[]> t_ : t1_) {
             if (all) output.addAll(t_);
@@ -243,7 +245,7 @@ public class RNATranslation {
 	 */
 	public static List<AminoAcid> decode(Nucleobase[] in) {
 		assert in.length%3==0;
-		List<Nucleobase> i_ = Stream.of(in).toList();
+		List<Nucleobase> i_ = CArray.asList(in);
 		Nucleobase[][] t_ = new Nucleobase[3][in.length/3];
 		for (int i : Range.arrayRange(t_.length)) {
 			t_[i]=i_.subList(i*3, (i+1)*3).toArray(Nucleobase[]::new);

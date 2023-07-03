@@ -1,5 +1,6 @@
 package com.Ace009.library.CClass;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,5 +24,17 @@ public class CList {
 	 */
 	public static <T> T getRandom(List<T> list) {
 		return list.get((int)(Math.random() * list.size()));
+	}
+	/**
+	 * deduplicates the {@code list} by adding all entries to a new {@code List}
+	 * @param <T> the type of the entries
+	 * @param list the list to deduplicate
+	 * @return the deduplicated list
+	 */
+	public static <T> List<T> deduplicate(List<T> list) {
+		ArrayList<T> output = new ArrayList<>(list.size());
+		for (T e : list) { if (!output.contains(e)) output.add(e); }
+		output.trimToSize();
+		return output;
 	}
 }

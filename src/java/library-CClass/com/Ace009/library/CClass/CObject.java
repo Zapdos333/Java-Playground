@@ -63,7 +63,8 @@ public class CObject {
 	public static String[] fieldKeys(Object obj) {
 		Class<?> clas = obj.getClass();
 		Field[] fields = (Field[]) getAll(clas).get("fields");
-		String[] output = Stream.of(fields).map(e->e.getName()).toArray(String[]::new);
+		String[] output = new String[fields.length];
+		for (int i = 0; i < fields.length; i++) output[i]=fields[i].getName();
 		return output;
 	}
 	/**
@@ -75,7 +76,7 @@ public class CObject {
 	public static Object[] fieldValues(Object obj)  {
 		Class<?> clas = obj.getClass();
 		Field[] fields = (Field[]) getAll(clas).get("fields");
-		Stream.of(fields).forEach(e->e.setAccessible(true));
+		for (Field field : fields) field.setAccessible(true);
 		Object[] output = Stream.of(fields).map(e->{
 			try { return e.get(obj); }
 			catch (IllegalAccessException E) { E.printStackTrace(); }

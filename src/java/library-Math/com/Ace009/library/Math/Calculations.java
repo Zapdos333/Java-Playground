@@ -3,12 +3,12 @@ package com.Ace009.library.Math;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 import java.util.Map;
 import java.util.HashMap;
 
 import com.Ace009.library.CClass.CMath;
 import com.Ace009.library.CClass.CArray;
+import com.Ace009.library.CClass.CList;
 
 /**
  * a library for more complex calculations,
@@ -53,11 +53,10 @@ public class Calculations {
 		int[] p2 = seperateToPrimes(n2);
 		Map<Integer, Integer> fMap1 = CArray.frequencyMap(CArray.asObjectArray(p1));
 		Map<Integer, Integer> fMap2 = CArray.frequencyMap(CArray.asObjectArray(p2));
+			List<Integer> Length = new ArrayList<>();
+			Length.addAll(fMap1.keySet()); Length.addAll(fMap2.keySet());
 		Map<Integer, Integer> frequencyMap = new HashMap<>(
-			Stream.concat(
-				fMap1.entrySet().stream().map(Map.Entry::getKey),
-				fMap2.entrySet().stream().map(Map.Entry::getKey)
-			).distinct().toArray().length
+			CList.deduplicate(Length).size()
 		);
 		for (Map.Entry<Integer,Integer> e : fMap1.entrySet()) {
 			frequencyMap.put(e.getKey(),Math.min(e.getValue(),fMap2.getOrDefault(e.getKey(),0)));
@@ -80,11 +79,10 @@ public class Calculations {
 		int[] p2 = seperateToPrimes(n2);
 		Map<Integer, Integer> fMap1 = CArray.frequencyMap(CArray.asObjectArray(p1));
 		Map<Integer, Integer> fMap2 = CArray.frequencyMap(CArray.asObjectArray(p2));
+			List<Integer> Length = new ArrayList<>();
+			Length.addAll(fMap1.keySet()); Length.addAll(fMap2.keySet());
 		Map<Integer, Integer> frequencyMap = new HashMap<>(
-			Stream.concat(
-				fMap1.entrySet().stream().map(Map.Entry::getKey),
-				fMap2.entrySet().stream().map(Map.Entry::getKey)
-			).distinct().toArray().length
+			CList.deduplicate(Length).size()
 		);
 		for (Map.Entry<Integer,Integer> e : fMap1.entrySet()) {
 			frequencyMap.put(e.getKey(),Math.max(e.getValue(),fMap2.getOrDefault(e.getKey(),0)));

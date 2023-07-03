@@ -1,9 +1,9 @@
 package com.Ace009.library.CClass;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 'static' class,
@@ -33,13 +33,16 @@ public class CArray {
 	}
 	/**
 	 * turns the array into an {@code List}
-	 * <p> uses {@link Stream} magic
 	 * @param <T> the type of the elements
 	 * @param array the original array
 	 * @return {@code List} containing all the elements from the array
 	 */
 	public static <T> List<T> asList(T[] array) {
-		return Stream.of(array).toList();
+		List<T> output = new ArrayList<T>(array.length);
+		for (int i = 0; i < array.length; i++) {
+			output.add(array[i]);
+		}
+		return output;
 	}
 	//region asObjectArray
 		/**
@@ -50,7 +53,7 @@ public class CArray {
 		 */
 		public static Character[] asObjectArray(char[] array) {
 			Character[] output = new Character[array.length];
-			for (int i = 0; i < output.length; i++) {
+			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -62,7 +65,11 @@ public class CArray {
 		 * @return an {@code Integer[]} array
 		 */
 		public static Integer[] asObjectArray(int[] array) {
-			return IntStream.of(array).mapToObj(Integer::valueOf).toArray(Integer[]::new);
+			Integer[] output = new Integer[array.length];
+			for (int i = 0; i < array.length; i++) {
+				output[i] = array[i];
+			}
+			return output;
 		}
 		/**
 		 * turns the given array of primitives (here: {@code boolean})
@@ -72,7 +79,7 @@ public class CArray {
 		 */
 		public static Boolean[] asObjectArray(boolean[] array) {
 			Boolean[] output = new Boolean[array.length];
-			for (int i = 0; i < output.length; i++) {
+			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -84,7 +91,11 @@ public class CArray {
 		 * @return a {@code Double[]} array
 		 */
 		public static Double[] asObjectArray(double[] array) {
-			return DoubleStream.of(array).mapToObj(Double::valueOf).toArray(Double[]::new);
+			Double[] output = new Double[array.length];
+			for (int i = 0; i < array.length; i++) {
+				output[i] = array[i];
+			}
+			return output;
 		}
 		/**
 		 * turns the given array of primitives (here: {@code float})
@@ -94,7 +105,7 @@ public class CArray {
 		 */
 		public static Float[] asObjectArray(float[] array) {
 			Float[] output = new Float[array.length];
-			for (int i = 0; i < output.length; i++) {
+			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -106,7 +117,11 @@ public class CArray {
 		 * @return a {@code Long[]} array
 		 */
 		public static Long[] asObjectArray(long[] array) {
-			return LongStream.of(array).mapToObj(Long::valueOf).toArray(Long[]::new);
+			Long[] output = new Long[array.length];
+			for (int i = 0; i < array.length; i++) {
+				output[i] = array[i];
+			}
+			return output;
 		}
 		/**
 		 * turns the given array of primitives (here: {@code short})
@@ -116,7 +131,7 @@ public class CArray {
 		 */
 		public static Short[] asObjectArray(short[] array) {
 			Short[] output = new Short[array.length];
-			for (int i = 0; i < output.length; i++) {
+			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -129,7 +144,7 @@ public class CArray {
 		 */
 		public static Byte[] asObjectArray(byte[] array) {
 			Byte[] output = new Byte[array.length];
-			for (int i = 0; i < output.length; i++) {
+			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -142,7 +157,7 @@ public class CArray {
 	 * @return the frequency map
 	 */
 	public static <T> Map<T,Integer> frequencyMap(T[] array) {
-		Map<T, Integer> output = new HashMap<>(Stream.of(array).distinct().toArray().length);
+		Map<T, Integer> output = new HashMap<>(CList.deduplicate(asList(array)).size());
 		for (T e : array) {
 			output.put(e,output.getOrDefault(e,0)+ 1);
 		}
