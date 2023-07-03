@@ -1,6 +1,6 @@
 package com.Ace009.library.CClass;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletionException;
 
 /**
@@ -19,9 +19,9 @@ public class CStreamOf {
 	 * @return the new mapped array
 	 * @see java.util.stream.Stream#map(java.util.function.Function)
 	 */
-	public static <T,R> R[] map(T[] array, java.util.function.Function<? super T,? extends R> mapper) {
 		@SuppressWarnings("unchecked")
-		R[] output = (R[]) CList.fillToLength(new ArrayList<R>(array.length), array.length).toArray();
+	public static <T,R> R[] map(T[] array, java.util.function.Function<? super T,? extends R> mapper) {
+		R[] output = (R[]) new Object[array.length];
 		for (int i = 0; i < array.length; i++) { output[i] = mapper.apply(array[i]); }
 		return output;
 	}
@@ -56,5 +56,17 @@ public class CStreamOf {
 				throw new CompletionException(e1);
 			}
 		});
+	}
+	/**
+	 * deduplicates the given array using {@link CList#deduplicate(List)}
+	 * and {@link CArray#asList(Object[])}
+	 * @param <T> the type of the elements in the array
+	 * @param array the array to deduplicate
+	 * @return the deduplicated array
+	 */
+		@SuppressWarnings("unchecked")
+	public static <T> T[] deduplicate(T[] array) {
+		List<T> t_ = CList.deduplicate(CArray.asList(array));
+		return (T[])t_.toArray();
 	}
 }
