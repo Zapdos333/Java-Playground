@@ -21,7 +21,6 @@ public class MainMethods {
 	/** don't */
 	private MainMethods() {};
 	private static Log.Level LogInfo = Log.Level.INFO;
-	@SuppressWarnings("unused") //until used
 	private static Log.Level LogDebug = Log.Level.DEBUG;
 	private static Log.Level LogWarning = Log.Level.WARNING;
 	@SuppressWarnings("unused") //until used
@@ -214,6 +213,9 @@ public class MainMethods {
 				case "beta": t2_.put(Triangle.ArgsType.Beta, Double.valueOf(entry.getValue())); break;
 				case "gamma": t2_.put(Triangle.ArgsType.Gamma, Double.valueOf(entry.getValue())); break;
 			}
+		}
+		for (String E : CMap.print(t1_)) {
+			Log.out(LogDebug,E);
 		}
 		Triangle test = new Triangle(t2_);
 		Log.out(LogInfo,test.toString());

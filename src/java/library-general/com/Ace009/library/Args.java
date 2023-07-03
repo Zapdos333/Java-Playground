@@ -63,8 +63,8 @@ public class Args {
 	 */
 	public static void suspend(String term){
 		term = term==null ? "" : term;
-		if (term != "") System.out.printf("%s. Suspending,\nPress any key to continue...", term);
-		else System.out.print("Suspending,\nPress any key to continue...");
+		if (term != "") System.out.printf("%s. Suspending,\nPress enter to continue...", term);
+		else System.out.print("Suspending,\nPress enter to continue...");
 		input.nextLine();
 	}
 	/**

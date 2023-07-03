@@ -199,7 +199,7 @@ public class Fraction {
 	 * by taking the numerator and denominator to the power of the number
 	 * @param number the exponent (can be a non-whole number for roots)
 	 * @throws ArithmeticException if the result isn't a whole number, only possible with non-whole exponents
-	 * @return {@code this}
+	 * @return altered copy
 	 */
 	public Fraction toPowerOf(double number) throws ArithmeticException {
 		boolean negativ = number<0; if (negativ) number=number/-1;
@@ -224,7 +224,7 @@ public class Fraction {
 	 * method to always calculate the power of a Fraction
 	 * <p> is less accurate, because if {@link #toPowerOf(double)} throws an {@link ArithmeticException},
 	 * it resorts to {@link #Fraction(double)} of {@link Math#pow(double, double)} using {@link #calculate()}
-	 * @return {@code this} 
+	 * @return altered copy
 	 */
 	public Fraction inAccPow(double power) {
 		try { return this.toPowerOf(power); } //if the root is a whole number, is more accurate

@@ -2,7 +2,7 @@ package com.Ace009.library.Math;
 
 import java.util.List;
 import java.util.ArrayList;
-//import java.util.stream.IntStream;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.Map;
 import java.util.HashMap;
@@ -25,10 +25,15 @@ public class Calculations {
 	 * @see CMath#getPrimesUpTo(int)
 	 */
 	public static int[] seperateToPrimes(int number) {
-		number=Math.abs(number);
+		number=Math.absExact(number);
+		if (number==0) return new int[]{0};
 		int[] check = CMath.getPrimesUpTo(number);
+		final int Fnum = number;
+		int[] isPrime = IntStream.of(check).filter(e->e==Fnum).toArray();
+		assert isPrime.length <= 1;
+		if (isPrime.length==1) { assert isPrime[0]==number; return new int[]{number}; }
 		List<Integer> output = new ArrayList<>();
-		for (int i = 1; i < check.length; i++) {
+		for (int i = 0; (i<check.length)&&(number>1); i++) {
 			if (number % check[i] == 0) {
 				output.add(check[i]);
 				number /= check[i];
