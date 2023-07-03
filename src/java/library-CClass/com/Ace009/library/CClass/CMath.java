@@ -1,6 +1,5 @@
 package com.Ace009.library.CClass;
 
-import java.util.stream.IntStream;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
@@ -30,18 +29,16 @@ public class CMath {
 		return random.intValue();
 	}
 	/**
-	 * method to create an {@code IntStream} containing {@code {1,2,3,...)}}
-	 * @return {@code {1,2,3,...)}}
-	 */
-	public static IntStream Numbers() { return IntStream.iterate(1, i->i+1); }
-	/**
 	 * private method to check if a number is prime,
 	 * <p> by checking if the part of {@link CMath#Numbers()} is at max {@code 2} long (1 and itself)
 	 * @param n number to check
 	 * @return true if prime, false otherwise
 	 */
 	public static boolean isPrime(int n) {
-		return Numbers().limit(n).parallel().filter(i->n%i==0).toArray().length <= 2;
+		for (int i = 2; i < Math.ceil(n/(double)2); i++) {
+			if (n % i == 0) return false;
+		}
+		return true;
 	}
 	/**
 	 * returns an {@code int[]} containing all prime numbers up to {@code max}
@@ -116,7 +113,8 @@ public class CMath {
 				}
 			}
 		}
-		final int[] w = IntStream.rangeClosed(0, (max/60)).toArray();
+		final int[] w = new int[(int)Math.ceil(max/(double)60)];
+		for (int i = 0; i < w.length; i++) { w[i] = i; }
 		List<Integer> M = new ArrayList<>();
 		for (int i : sieve) for (int j : w) M.add(60*j+i);
 		M.remove(Integer.valueOf(1));

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import com.Ace009.library.Range;
 import com.Ace009.library.CClass.CArray;
@@ -118,7 +117,7 @@ public class RNATranslation {
 			{Nucleobase.G,Nucleobase.C},{Nucleobase.C,Nucleobase.G},{Nucleobase.U,Nucleobase.A},{Nucleobase.A,Nucleobase.U}
 		};
 		/** @return the base corresponding to {@code this} according to {@link #pairs} */
-		public Nucleobase getPair() { return Stream.of(pairs).filter(e->e[0]==this).findFirst().get()[1]; }
+		public Nucleobase getPair() { for (Nucleobase[] pair : pairs) { if (pair[0]==this) return pair[1]; } return null; }
 		/** @return the RNA key */
 		public char RC() { return this.codeR; }
 		/** @return the DNA key */
@@ -259,7 +258,9 @@ public class RNATranslation {
 	 * @return a List of {@code AminoAcid}
 	 */
 	public static List<AminoAcid> decode(Nucleobase[][] in) {
-		assert Stream.of(in).allMatch(e->e.length==3);
+		boolean isValid = true;
+		for (Nucleobase[] triplet : in) { if (triplet.length!=3) { isValid = false; } }
+		assert isValid;
 		List<AminoAcid> out = new ArrayList<>();
 		for (Nucleobase[] t : in) {
 			out.add(decodeTriplet(t));

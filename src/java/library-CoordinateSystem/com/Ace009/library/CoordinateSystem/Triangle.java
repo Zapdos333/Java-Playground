@@ -1,7 +1,6 @@
 package com.Ace009.library.CoordinateSystem;
 
 import java.util.Map;
-import java.util.stream.Stream;
 
 import com.Ace009.library.Math.Fraction;
 
@@ -56,12 +55,17 @@ public class Triangle {
 		if ((Pnull==3) && (Anull==3) && (Snull==3)) throw new NullPointerException("No data given");
 		//start calculations
 		// check angles
-		if (Stream.of(angles).filter(e->(e==null?0:e)==90).toArray().length>1) throw new IllegalArgumentException("no more than one right angle allowed");
-		if ((Anull==0)&&(Math.abs(Stream.of(angles).mapToDouble(Double::valueOf).sum()-180)<1)) throw new IllegalArgumentException("angle sum outside (of tolerance of 1°) from 180°");
+		if (Anull==0) {
+			float anglesum = 0;
+			for (double a : angles) anglesum += Math.abs(a);
+			if (Math.abs(anglesum-180) > 1)  throw new IllegalArgumentException("angle sum outside (of tolerance of 1°) from 180°");
+		}
 		// find right angle
 		if (angles[0]==null?false:angles[0]==90) rightAngle = 0;
-		else if (angles[1]==null?false:angles[1]==90) rightAngle = 1;
-		else if (angles[2]==null?false:angles[2]==90) rightAngle = 2;
+		if (angles[1]==null?false:angles[1]==90) { if(rightAngle>-1) throw new IllegalArgumentException("no more than one right angle allowed");
+			else rightAngle = 1;}
+		else if (angles[2]==null?false:angles[2]==90) { if(rightAngle>-1) throw new IllegalArgumentException("no more than one right angle allowed");
+			else rightAngle = 2;}
 		// calculations in rectangular triangle
 		if (rightAngle > -1) {
 			if ((sides[rightAngle]==null)&&(sides[(rightAngle+1)%3]!=null)&&(sides[(rightAngle+2)%3]!=null))
@@ -210,19 +214,20 @@ public class Triangle {
 		if (Pnull!=0||Anull!=0||Snull!=0) System.out.println("Warning: No full calculation possible");
 	}
 	/** smol method for custom {@link #toString()} */
-	private String fromAB(String a, String b, String key) {
-		if (a=="") return b;
-		return String.format("%s; %s:%s",a,key,b);
+	private String fromArray(Object[] array, String key) {
+		StringBuilder output = new StringBuilder(key+": ");
+		for (Object o : array) {
+			output.append(o==null?"unknown":o.toString());
+			output.append("; ");
+		}
+		return output.toString();
 	}
 	/** {@inheritDoc} */
 	@Override
 	public String toString() {
-		String points=Stream.of(this.points).map(e->e==null?"unknown":e.toString())
-			.reduce(new String(),(a,b)->fromAB(a,b,"P"));
-		String sides=Stream.of(this.sides).map(e->e==null?"unknown":e.toString())
-			.reduce(new String(),(a,b)->fromAB(a,b,"S"));
-		String angles=Stream.of(this.angles).map(e->e==null?"unknown":e.toString())
-			.reduce(new String(),(a,b)->fromAB(a,b,"A"));
+		String points=fromArray(this.points, "P");
+		String sides=fromArray(this.sides, "S");
+		String angles=fromArray(this.angles, "A");
 		return String.format("Triangle:\n%s\n%s\n%s\n",points,sides,angles);
 	}
 }

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 /**
  * 'static' class,
@@ -77,11 +76,11 @@ public class CObject {
 		Class<?> clas = obj.getClass();
 		Field[] fields = (Field[]) getAll(clas).get("fields");
 		for (Field field : fields) field.setAccessible(true);
-		Object[] output = Stream.of(fields).map(e->{
-			try { return e.get(obj); }
-			catch (IllegalAccessException E) { E.printStackTrace(); }
-			return null;
-		}).toArray();
+		Object[] output = new Object[fields.length];
+		for (int i = 0; i < output.length; i++) {
+			try { output[i] = fields[i].get(obj); }
+			catch (IllegalAccessException e) { e.printStackTrace(); }
+		}
 		return output;
 	}
 	/**
