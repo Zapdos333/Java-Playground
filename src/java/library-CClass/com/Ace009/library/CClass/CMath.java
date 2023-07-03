@@ -1,10 +1,10 @@
 package com.Ace009.library.CClass;
 
 import java.util.Map;
+import java.util.stream.IntStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * 'static' class,
@@ -77,7 +77,8 @@ public class CMath {
 			}
 		}
 		for (int i=0; i<isComposite.length; i++) if (!isComposite[i]) primes.add(i);
-		return primes.stream().mapToInt(e->(e*2)+1).toArray();
+		primes.remove(Integer.valueOf(0)); primes.remove(primes.size()-1);
+		return IntStream.concat(IntStream.of(2),primes.stream().mapToInt(e->(e*2)+1)).toArray();
 	}
 	/**
 	 * returns an {@code int[]} containing all prime numbers up to {@code max}
@@ -93,8 +94,10 @@ public class CMath {
 			List<Integer> m = new ArrayList<>();
 			for (int j=0; j<Math.sqrt(max); j+=2) {
 				m.add(4*(int)Math.pow(i,2)+(int)Math.pow(j,2));
-				int[] t_ = m.stream().mapToInt(e->e%60).distinct().toArray();
-				if (Arrays.equals(t_,new int[]{1,13,17,29,37,41,49,53}) && m.size()<=max) {
+				Integer[] t_ = CStreamOf.deduplicate(CStreamOf.map(m.toArray(Integer[]::new), e->Integer.valueOf(e%60) ));
+				if (CStreamOf.matchAll(t_, e->
+					CArray.indexOf(new Integer[]{1,13,17,29,37,41,49,53},e) > -1
+				) && m.size()<=max) {
 					for (int ix : m) {
 						prime[ix] = !prime[ix];
 					}
@@ -105,8 +108,10 @@ public class CMath {
 			List<Integer> m = new ArrayList<>();
 			for (int j=1; j<Math.sqrt(max); j+=2) {
 				m.add(3*(int)Math.pow(i,2)+(int)Math.pow(j,2));
-				int[] t_ = m.stream().mapToInt(e->e%60).distinct().toArray();
-				if (Arrays.equals(t_,new int[]{7,19,31,43}) && m.size()<=max) {
+				Integer[] t_ = CStreamOf.deduplicate(CStreamOf.map(m.toArray(Integer[]::new), e->e%60));
+				if (CStreamOf.matchAll(t_, e->
+					CArray.indexOf(new Integer[]{7,19,31,43},e) > -1
+				) && m.size()<=max) {
 					for (int ix : m) {
 						prime[ix] = !prime[ix];
 					}
