@@ -47,8 +47,8 @@ public class Calculations {
 	public static int gcd(int n1, int n2) {
 		int[] p1 = seperateToPrimes(n1);
 		int[] p2 = seperateToPrimes(n2);
-		Map<Integer, Integer> fMap1 = CArray.frequencyMap(CArray.asObjectArray(p1));
-		Map<Integer, Integer> fMap2 = CArray.frequencyMap(CArray.asObjectArray(p2));
+		Map<Integer, Integer> fMap1 = CArray.frequencyMap(CArray.asObjAr(p1));
+		Map<Integer, Integer> fMap2 = CArray.frequencyMap(CArray.asObjAr(p2));
 			List<Integer> Length = new ArrayList<>();
 			Length.addAll(fMap1.keySet()); Length.addAll(fMap2.keySet());
 		Map<Integer, Integer> frequencyMap = new HashMap<>(
@@ -73,8 +73,8 @@ public class Calculations {
 	public static int lcm(int n1, int n2) {
 		int[] p1 = seperateToPrimes(n1);
 		int[] p2 = seperateToPrimes(n2);
-		Map<Integer, Integer> fMap1 = CArray.frequencyMap(CArray.asObjectArray(p1));
-		Map<Integer, Integer> fMap2 = CArray.frequencyMap(CArray.asObjectArray(p2));
+		Map<Integer, Integer> fMap1 = CArray.frequencyMap(CArray.asObjAr(p1));
+		Map<Integer, Integer> fMap2 = CArray.frequencyMap(CArray.asObjAr(p2));
 			List<Integer> Length = new ArrayList<>();
 			Length.addAll(fMap1.keySet()); Length.addAll(fMap2.keySet());
 		Map<Integer, Integer> frequencyMap = new HashMap<>(
