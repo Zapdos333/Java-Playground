@@ -51,7 +51,7 @@ public class CArray {
 		 * @param array the original array
 		 * @return a {@code Character[]} array
 		 */
-		public static Character[] asObjectArray(char[] array) {
+		public static Character[] asObjAr(char[] array) {
 			Character[] output = new Character[array.length];
 			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
@@ -64,7 +64,7 @@ public class CArray {
 		 * @param array the original array
 		 * @return an {@code Integer[]} array
 		 */
-		public static Integer[] asObjectArray(int[] array) {
+		public static Integer[] asObjAr(int[] array) {
 			Integer[] output = new Integer[array.length];
 			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
@@ -77,7 +77,7 @@ public class CArray {
 		 * @param array the original array
 		 * @return a {@code Boolean[]} array
 		 */
-		public static Boolean[] asObjectArray(boolean[] array) {
+		public static Boolean[] asObjAr(boolean[] array) {
 			Boolean[] output = new Boolean[array.length];
 			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
@@ -90,7 +90,7 @@ public class CArray {
 		 * @param array the original array
 		 * @return a {@code Double[]} array
 		 */
-		public static Double[] asObjectArray(double[] array) {
+		public static Double[] asObjAr(double[] array) {
 			Double[] output = new Double[array.length];
 			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
@@ -103,7 +103,7 @@ public class CArray {
 		 * @param array the original array
 		 * @return a {@code Float[]} array
 		 */
-		public static Float[] asObjectArray(float[] array) {
+		public static Float[] asObjAr(float[] array) {
 			Float[] output = new Float[array.length];
 			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
@@ -116,7 +116,7 @@ public class CArray {
 		 * @param array the original array
 		 * @return a {@code Long[]} array
 		 */
-		public static Long[] asObjectArray(long[] array) {
+		public static Long[] asObjAr(long[] array) {
 			Long[] output = new Long[array.length];
 			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
@@ -129,7 +129,7 @@ public class CArray {
 		 * @param array the original array
 		 * @return a {@code Short[]} array
 		 */
-		public static Short[] asObjectArray(short[] array) {
+		public static Short[] asObjAr(short[] array) {
 			Short[] output = new Short[array.length];
 			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
@@ -142,7 +142,7 @@ public class CArray {
 		 * @param array the original array
 		 * @return a {@code Byte[]} array
 		 */
-		public static Byte[] asObjectArray(byte[] array) {
+		public static Byte[] asObjAr(byte[] array) {
 			Byte[] output = new Byte[array.length];
 			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
