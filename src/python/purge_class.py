@@ -1,3 +1,5 @@
+#!/usr/bin python3
+
 ## general:
 # removes all found .class files
 
