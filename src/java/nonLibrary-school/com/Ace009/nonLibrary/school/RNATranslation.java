@@ -54,7 +54,7 @@ public class RNATranslation {
 			put(new Nucleobase[]{Nucleobase.A,Nucleobase.U,Nucleobase.U},AminoAcid.I);
 			put(new Nucleobase[]{Nucleobase.A,Nucleobase.U,Nucleobase.C},AminoAcid.I);
 			put(new Nucleobase[]{Nucleobase.A,Nucleobase.U,Nucleobase.A},AminoAcid.I);
-			put(new Nucleobase[]{Nucleobase.A,Nucleobase.U,Nucleobase.G},AminoAcid.M); //start
+			put(new Nucleobase[]{Nucleobase.A,Nucleobase.U,Nucleobase.G},AminoAcid.M);
 			put(new Nucleobase[]{Nucleobase.A,Nucleobase.C,Nucleobase.U},AminoAcid.T);
 			put(new Nucleobase[]{Nucleobase.A,Nucleobase.C,Nucleobase.C},AminoAcid.T);
 			put(new Nucleobase[]{Nucleobase.A,Nucleobase.C,Nucleobase.A},AminoAcid.T);
@@ -141,7 +141,7 @@ public class RNATranslation {
 		L('L',"Leu","Leucine"),
 		/** Isoleucin, Ile, I */
 		I('I',"Ile","Isoleucin"),
-		/** Methionine, Met, M */
+		/** start codon, Methionine, Met, M */
 		M('M',"Met","Methionine"),
 		/** Valine, Val, V */
 		V('V',"Val","Valine"),
@@ -205,7 +205,8 @@ public class RNATranslation {
 	private static List<Nucleobase[]> getTriplets(AminoAcid in) {
 		return CArray.asList(
 			CStreamOf.map(
-				CStreamOf.filter(CODES.entrySet().toArray(Map.Entry[]::new), e->(AminoAcid)e.getValue()==in),
+				CStreamOf.filter(CODES.entrySet().toArray(Map.Entry[]::new),
+				e->(AminoAcid)e.getValue()==in),
 			e->(Nucleobase[])e.getValue())
 		);
 	}
@@ -239,7 +240,7 @@ public class RNATranslation {
 			if (t_==null) throw new NullPointerException("no corresponding AminoAcid found");
 			return t_;
 		}
-		else {throw new IllegalArgumentException("no Triplet provided");}
+		else {throw new IllegalArgumentException("no valid Triplet provided");}
 	}
 	/**
 	 * decodes an array of {@code Nucleobase} by seperating them into triplets,
@@ -263,9 +264,7 @@ public class RNATranslation {
 	 * @return a List of {@code AminoAcid}
 	 */
 	public static List<AminoAcid> decode(Nucleobase[][] in) {
-		boolean isValid = true;
-		for (Nucleobase[] triplet : in) { if (triplet.length!=3) { isValid = false; } }
-		assert isValid;
+		assert CStreamOf.matchAll(in, e->e.length==3);
 		List<AminoAcid> out = new ArrayList<>();
 		for (Nucleobase[] t : in) {
 			out.add(decodeTriplet(t));
