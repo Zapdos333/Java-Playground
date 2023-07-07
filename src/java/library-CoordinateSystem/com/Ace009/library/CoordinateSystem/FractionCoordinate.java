@@ -24,7 +24,7 @@ public class FractionCoordinate extends Coordinate<Fraction> {
 		return new FractionCoordinate(Fraction.parse(x),Fraction.parse(y));
 	}
 	/**
-	 * Fraction implementation of {@link Coordinate#distance(Coordinate,Coordinate)}
+	 * Fraction implementation of {@link NumberCoordinate#distance(NumberCoordinate,NumberCoordinate)}
 	 * <p> potentially slightly inaccurate, because of the non-gurantee of an accurate square root,
 	 * (uses {@link Fraction#inAccPow(double)} with 0.5 for square root)
 	 * @param pA {@code FractionCoordinate} point A
@@ -51,8 +51,8 @@ public class FractionCoordinate extends Coordinate<Fraction> {
 		return output;
 	}
 	/**
-	 * converts a list of {@code Coordinate} into a list of {@code FractionCoordinate},
-	 * using {@link Fraction#Fraction()}
+	 * converts a list of {@code NumberCoordinate} into a list of {@code FractionCoordinate},
+	 * using {@link com.Ace009.library.Math.Fraction#Fraction(double)}
 	 * @param list the list of {@code Coordinate}
 	 * @return the list of {@code FractionCoordinate}
 	 */

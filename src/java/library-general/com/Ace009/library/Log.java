@@ -47,7 +47,7 @@ public class Log {
 	 * prints the message into {@link #OUT} or {@link #ERROR},
 	 * if {@code level} is larger or equal to {@link #outputLevel},
 	 * <p> relays the format and args into {@link String#format(String, Object[]) String.format(String, Object...)},
-	 * and then into {@link #out(String)}
+	 * and then into {@link #out(Level,String)}
 	 * @param level the output level of the message
 	 * @param format the message according to {@code String.format(String, Object[])}
 	 * @param args for the formatting
