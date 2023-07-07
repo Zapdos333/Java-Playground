@@ -9,7 +9,7 @@ import java.util.List;
  * @author Ace009
  */
 public class NumberCoordinate<T extends Number> extends Coordinate<T> {
-	NumberCoordinate(T x, T y) { this.x = x; this.y = y; }
+	public NumberCoordinate(T x, T y) { this.x = x; this.y = y; }
 	public double distanceTo(NumberCoordinate<?> p2) {
 		double deltaX = Math.abs(p2.x.doubleValue() - x.doubleValue());
 		double deltaY = Math.abs(p2.y.doubleValue() - y.doubleValue());

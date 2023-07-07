@@ -1,9 +1,7 @@
 package com.Ace009.nonLibrary.debug;
 
 import java.util.Map;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Arrays;
 
 import com.Ace009.library.*;
 import com.Ace009.library.CClass.*;
@@ -122,23 +120,7 @@ public class CommandLineWrapper {
 	}
 	/** debug Method, generally empty in releases */
 	public static void debug() {
-		int[] t_;
-		int i = Integer.parseInt(Args.ask("Test integer"));
-		Log.out(LogInfo,"Starting time(Eratosthenes): %s\n", new Date());
-		t_=CMath.getPrimesUpTo(i);
-		Log.out(LogDebug,"\nResult List:%s\n", Arrays.toString(t_));
-		Log.out(LogInfo,"Finished time(Eratosthenes): %s\n\n", new Date());
-		Args.suspend("");
-		Log.out(LogInfo,"Starting time(Sundaram): %s\n", new Date());
-		t_=CMath.getPrimesUpTo_(i);
-		Log.out(LogDebug,"\nResult List:%s\n", Arrays.toString(t_));
-		Log.out(LogInfo,"Finished time(Sundaram): %s\n\n", new Date());
-		Args.suspend("");
-		Log.out(LogInfo,"Starting time(Atkin): %s\n", new Date());
-		t_=CMath.getPrimesUpTo__(i);
-		Log.out(LogDebug,"\nResult List:%s\n", Arrays.toString(t_));
-		Log.out(LogInfo,"Finished time(Atkin): %s\n\n", new Date());
-		Args.suspend("");
+		// empty in release
 	}
 	/**
 	 * {@code CObject} Test method

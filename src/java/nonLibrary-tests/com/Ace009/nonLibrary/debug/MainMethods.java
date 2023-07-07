@@ -107,12 +107,12 @@ public class MainMethods {
 		double aX= Nargs[0];
 		double aY= Nargs[1];
 		double aR= Nargs[2];
-		Circle test = new Circle(new Coordinate(aX,aY),aR);
+		Circle test = new Circle(new NumberCoordinate<Double>(aX,aY),aR);
 		//AbstractList, because AbstractCollection implements the readable .toString()
 		// so we can use neither Collection nor List
-		AbstractList<Coordinate> result = new ArrayList<>(test.constructPoly(aC));
+		AbstractList<NumberCoordinate<Double>> result = new ArrayList<>(test.constructPoly(aC));
 		Log.out(LogInfo,"Circle: %s",result.toString());
-		Log.out(LogInfo,"Circularity: %f/%f=%f\n",test.circumferance(),Coordinate.totalDistance(result,true),+Circle.getCircularity(result,aR));
+		Log.out(LogInfo,"Circularity: %f/%f=%f\n",test.circumferance(),NumberCoordinate.totalDistance(result,true),+Circle.getCircularity(result,aR));
 	}
 	/* ** object parse test **
 	 * <code>
