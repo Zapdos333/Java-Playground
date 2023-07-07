@@ -3,8 +3,8 @@ package com.Ace009.library.CClass;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
-
 import java.util.Arrays;
+import java.lang.reflect.Array;
 
 /**
  * 'static' class,
@@ -160,4 +160,13 @@ public class CArray {
 		}
 		return output;
 	}
+	/**
+	 * returns a new instance of the given array with the given size
+	 * @param <T> the type of the elements
+	 * @param original the array to take the type from
+	 * @param size the size of the new array
+	 * @return a new array with the given size and type from original
+	 */
+	@SuppressWarnings("unchecked")
+	static <T> T[] newArrayOf(T[] original, int size) { return (T[]) Array.newInstance(original.getClass().componentType(), size); }
 }

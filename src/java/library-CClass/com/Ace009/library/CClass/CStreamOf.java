@@ -65,10 +65,9 @@ public class CStreamOf {
 	 * @param array the array to deduplicate
 	 * @return the deduplicated array
 	 */
-		@SuppressWarnings("unchecked")
 	public static <T> T[] deduplicate(T[] array) {
 		List<T> t_ = CList.deduplicate(CArray.asList(array));
-		return t_.toArray((T[])Array.newInstance(array.getClass().componentType(),array.length));
+		return t_.toArray(CArray.newArrayOf(array, 0));
 	}
 	/**
 	 * checks whether all elements in {@code array} match the given predicate
