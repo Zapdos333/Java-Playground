@@ -8,6 +8,7 @@ import java.util.HashMap;
 import com.Ace009.library.CClass.CMath;
 import com.Ace009.library.CClass.CArray;
 import com.Ace009.library.CClass.CList;
+import com.Ace009.library.CClass.CStreamOf;
 
 /**
  * a library for more complex calculations,
@@ -60,9 +61,13 @@ public class Calculations {
 		for (Map.Entry<Integer,Integer> e : fMap2.entrySet()) {
 			frequencyMap.put(e.getKey(),Math.min(e.getValue(),fMap1.getOrDefault(e.getKey(),0)));
 		}
-		return frequencyMap.entrySet().stream()
-			.mapToInt(e->(int)Math.pow(e.getKey(),e.getValue()))
-			.reduce(1,(a,b)->a*b);
+		Integer[] t_1 = CStreamOf.map(
+			frequencyMap.entrySet().toArray(Map.Entry[]::new),
+			e-> Integer.valueOf((int)Math.pow((Integer)e.getKey(),(Integer)e.getValue()))
+		);
+		int t_2 = 1;
+		for (Integer e : t_1) t_2*=e;
+		return t_2;
 	}
 	/**
 	 * returns the least common multiple of the two numbers
@@ -86,8 +91,12 @@ public class Calculations {
 		for (Map.Entry<Integer,Integer> e : fMap2.entrySet()) {
 			frequencyMap.put(e.getKey(),Math.max(e.getValue(),fMap1.getOrDefault(e.getKey(),0)));
 		}
-		return frequencyMap.entrySet().stream()
-			.mapToInt(e->(int)Math.pow(e.getKey(),e.getValue()))
-			.reduce(1,(a,b)->a*b);
+		Integer[] t_1 = CStreamOf.map(
+			frequencyMap.entrySet().toArray(Map.Entry[]::new),
+			e-> Integer.valueOf((int)Math.pow((Integer)e.getKey(),(Integer)e.getValue()))
+		);
+		int t_2 = 1;
+		for (Integer e : t_1) t_2*=e;
+		return t_2;
 	}
 }
