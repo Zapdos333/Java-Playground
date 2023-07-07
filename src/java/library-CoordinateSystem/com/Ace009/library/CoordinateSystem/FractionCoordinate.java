@@ -3,6 +3,8 @@ package com.Ace009.library.CoordinateSystem;
 import java.util.Collection;
 import java.util.List;
 
+import com.Ace009.library.CClass.CArray;
+import com.Ace009.library.CClass.CStreamOf;
 import com.Ace009.library.CClass.CString;
 import com.Ace009.library.Math.Fraction;
 
@@ -56,8 +58,16 @@ public class FractionCoordinate extends Coordinate<Fraction> {
 	 * @param list the list of {@code Coordinate}
 	 * @return the list of {@code FractionCoordinate}
 	 */
-	public static Collection<FractionCoordinate> convertCoordList(Collection<NumberCoordinate<?>> list)
-		{ return list.stream().map(e->new FractionCoordinate(new Fraction(e.x.doubleValue()),new Fraction(e.y.doubleValue()))).toList(); }
+		@SuppressWarnings("unchecked")
+	public static Collection<FractionCoordinate> convertCoordList(Collection<NumberCoordinate<?>> list) {
+		return CArray.asList(
+			CStreamOf.map(list.toArray(NumberCoordinate[]::new),e->{
+				NumberCoordinate<Number> t=(NumberCoordinate<Number>)e;
+				return new FractionCoordinate(
+				new Fraction(t.x.doubleValue()), new Fraction(t.y.doubleValue())); }
+			)
+		);
+	}
 	/**
 	 * converts the FractionCoordinate into a {@code Coordinate},
 	 * by running {@link Fraction#calculate()} on both {@code x} and {@code y}
@@ -73,7 +83,7 @@ public class FractionCoordinate extends Coordinate<Fraction> {
 	 * @return the converted list of {@code Coordinate}
 	 */
 	public static Collection<NumberCoordinate<Double>> toCoordinates(Collection<FractionCoordinate> list)
-		{ return list.stream().map(e->e.toCoordinate()).toList(); }
+		{ return CArray.asList(CStreamOf.map(list.toArray(FractionCoordinate[]::new),e->e.toCoordinate())); }
 	/** x coordinate */
 	public Fraction x;
 	/** y coordinate */

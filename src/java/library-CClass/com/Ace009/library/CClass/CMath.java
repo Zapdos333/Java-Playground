@@ -1,7 +1,6 @@
 package com.Ace009.library.CClass;
 
 import java.util.Map;
-import java.util.stream.IntStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -57,8 +56,10 @@ public class CMath {
 			}
 		}
 		for (int i=0; i<isComposite.length; i++) if (!isComposite[i]) primes.add(i);
-		primes.remove(Integer.valueOf(0)); primes.remove(primes.size()-1);
-		return IntStream.concat(IntStream.of(2),primes.stream().mapToInt(e->(e*2)+1)).toArray();
+		primes.remove(Integer.valueOf(0)); primes.remove(primes.size()-1); primes.add(0,2);
+		int[] t_ = new int[primes.size()];
+		for (int i=0; i<t_.length; i++) t_[i] = (primes.get(i).intValue()*2)+1;
+		return t_;
 	}
 	/**
 	 * seperates a double into a map containing its value and exponent

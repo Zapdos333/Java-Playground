@@ -1,5 +1,6 @@
 package com.Ace009.library.CClass;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletionException;
 import java.lang.reflect.Array;
@@ -79,5 +80,18 @@ public class CStreamOf {
 	public static <T> boolean matchAll(T[] array, java.util.function.Predicate<T> predicate) {
 		Boolean[] matches = map(array, e->predicate.test(e));
 		return CArray.indexOf(matches, Boolean.valueOf(false)) < 0;
+	}
+	/**
+	 * returns an array containing all elements in {@code array} that match the given predicate
+	 * @param <T> the type of the elements
+	 * @param array the array to check
+	 * @param filter the given predicate to check against
+	 * @return the matching array
+	 */
+	public static <T> T[] filter (T[] array, java.util.function.Predicate<T> filter) {
+		ArrayList<T> result = new ArrayList<>(array.length);
+		for (T element : array) if (filter.test(element)) result.add(element);
+		result.trimToSize();
+		return result.toArray(CArray.newArrayOf(array,0));
 	}
 }

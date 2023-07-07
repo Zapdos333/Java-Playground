@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.Ace009.library.Range;
 import com.Ace009.library.CClass.CArray;
+import com.Ace009.library.CClass.CStreamOf;
 
 /**
  * A class for working with {@link AminoAcid amino acids} and their corresponing RNA {@link #CODES codons}
@@ -202,7 +203,11 @@ public class RNATranslation {
 	 * @return a {@code List} of all matching {@code Nucleobase} triplets
 	 */
 	private static List<Nucleobase[]> getTriplets(AminoAcid in) {
-		return CODES.entrySet().stream().filter(e->e.getValue()==in).map(e->e.getKey()).toList();
+		return CArray.asList(
+			CStreamOf.map(
+				CStreamOf.filter(CODES.entrySet().toArray(Map.Entry[]::new), e->(AminoAcid)e.getValue()==in),
+			e->(Nucleobase[])e.getValue())
+		);
 	}
 	/**
 	 * decodes an array of {@code AminoAcid} into a {@code List} of Nucleobase triplets,

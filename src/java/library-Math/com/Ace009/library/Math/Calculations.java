@@ -37,7 +37,9 @@ public class Calculations {
 				i--;
 			}
 		}
-		return output.stream().mapToInt(i->i).toArray();
+		int[] t_ = new int[output.size()];
+		for (int i = 0; i<t_.length; i++) t_[i] = output.get(i);
+		return t_;
 	}
 	/**
 	 * returns the greatest common divisor of the two numbers
