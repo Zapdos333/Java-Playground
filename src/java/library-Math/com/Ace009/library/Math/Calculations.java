@@ -2,11 +2,13 @@ package com.Ace009.library.Math;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.Map;
+import java.util.HashMap;
 
 import com.Ace009.library.CClass.CMath;
 import com.Ace009.library.CClass.CArray;
+import com.Ace009.library.CClass.CList;
+import com.Ace009.library.CClass.CStreamOf;
 
 /**
  * a library for more complex calculations,
@@ -23,16 +25,21 @@ public class Calculations {
 	 * @see CMath#getPrimesUpTo(int)
 	 */
 	public static int[] seperateToPrimes(int number) {
+		number=Math.absExact(number);
+		if (number==0) return new int[]{0};
 		int[] check = CMath.getPrimesUpTo(number);
+		for (int i : check) { if (i==number) return new int[]{number}; }
 		List<Integer> output = new ArrayList<>();
-		for (int i = 1; i < check.length; i++) {
+		for (int i = 0; (i<check.length)&&(number>1); i++) {
 			if (number % check[i] == 0) {
 				output.add(check[i]);
 				number /= check[i];
 				i--;
 			}
 		}
-		return output.stream().mapToInt(i->i).toArray();
+		int[] t_ = new int[output.size()];
+		for (int i = 0; i<t_.length; i++) t_[i] = output.get(i);
+		return t_;
 	}
 	/**
 	 * returns the greatest common divisor of the two numbers
@@ -43,8 +50,26 @@ public class Calculations {
 	public static int gcd(int n1, int n2) {
 		int[] p1 = seperateToPrimes(n1);
 		int[] p2 = seperateToPrimes(n2);
-		return IntStream.of(p1).filter(i->CArray.indexOf(CArray.asObjectArray(p2), i)>=0)
-			.reduce(1,(a,b)->a*b);
+		Map<Integer, Integer> fMap1 = CArray.frequencyMap(CArray.asObjAr(p1));
+		Map<Integer, Integer> fMap2 = CArray.frequencyMap(CArray.asObjAr(p2));
+			List<Integer> Length = new ArrayList<>();
+			Length.addAll(fMap1.keySet()); Length.addAll(fMap2.keySet());
+		Map<Integer, Integer> frequencyMap = new HashMap<>(
+			CList.deduplicate(Length).size()
+		);
+		for (Map.Entry<Integer,Integer> e : fMap1.entrySet()) {
+			frequencyMap.put(e.getKey(),Math.min(e.getValue(),fMap2.getOrDefault(e.getKey(),0)));
+		}
+		for (Map.Entry<Integer,Integer> e : fMap2.entrySet()) {
+			frequencyMap.put(e.getKey(),Math.min(e.getValue(),fMap1.getOrDefault(e.getKey(),0)));
+		}
+		Integer[] t_1 = CStreamOf.map(
+			frequencyMap.entrySet().toArray(Map.Entry[]::new),
+			e-> Integer.valueOf((int)Math.pow((Integer)e.getKey(),(Integer)e.getValue()))
+		);
+		int t_2 = 1;
+		for (Integer e : t_1) t_2*=e;
+		return t_2;
 	}
 	/**
 	 * returns the least common multiple of the two numbers
@@ -53,9 +78,27 @@ public class Calculations {
 	 * @return the least common multiple
 	 */
 	public static int lcm(int n1, int n2) {
-		List<Integer> p1 = IntStream.of(seperateToPrimes(n1)).mapToObj(Integer::valueOf).toList();
-		List<Integer> p2 = IntStream.of(seperateToPrimes(n2)).mapToObj(Integer::valueOf).toList();
-		return Stream.concat(p1.stream(), p2.stream()).distinct()
-			.mapToInt(i->i).reduce(1,(a,b)->a*b);
+		int[] p1 = seperateToPrimes(n1);
+		int[] p2 = seperateToPrimes(n2);
+		Map<Integer, Integer> fMap1 = CArray.frequencyMap(CArray.asObjAr(p1));
+		Map<Integer, Integer> fMap2 = CArray.frequencyMap(CArray.asObjAr(p2));
+			List<Integer> Length = new ArrayList<>();
+			Length.addAll(fMap1.keySet()); Length.addAll(fMap2.keySet());
+		Map<Integer, Integer> frequencyMap = new HashMap<>(
+			CList.deduplicate(Length).size()
+		);
+		for (Map.Entry<Integer,Integer> e : fMap1.entrySet()) {
+			frequencyMap.put(e.getKey(),Math.max(e.getValue(),fMap2.getOrDefault(e.getKey(),0)));
+		}
+		for (Map.Entry<Integer,Integer> e : fMap2.entrySet()) {
+			frequencyMap.put(e.getKey(),Math.max(e.getValue(),fMap1.getOrDefault(e.getKey(),0)));
+		}
+		Integer[] t_1 = CStreamOf.map(
+			frequencyMap.entrySet().toArray(Map.Entry[]::new),
+			e-> Integer.valueOf((int)Math.pow((Integer)e.getKey(),(Integer)e.getValue()))
+		);
+		int t_2 = 1;
+		for (Integer e : t_1) t_2*=e;
+		return t_2;
 	}
 }

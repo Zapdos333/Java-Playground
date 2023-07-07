@@ -8,7 +8,9 @@ import com.Ace009.nonLibrary.school.*;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A class containing all {@code main}- or debug-methods
@@ -17,14 +19,18 @@ import java.util.List;
  */
 public class MainMethods {
 	/** don't */
-	private MainMethods() {}
+	private MainMethods() {};
+	private static Log.Level LogInfo = Log.Level.INFO;
+	private static Log.Level LogDebug = Log.Level.DEBUG;
+	private static Log.Level LogWarning = Log.Level.WARNING;
+	@SuppressWarnings("unused") //until used
+	private static Log.Level LogError = Log.Level.ERROR;
 	/**
 	 * {@code Range}s main method:
 	 * <p>
 	 * prints the iterator created by 
 	 * {@link Range#arrayRange(int,int,int)}
 	 * in new lines
-	 * 
 	 * @see com.Ace009.library.Range
 	 */
 	public static void rangeMain() {
@@ -33,10 +39,14 @@ public class MainMethods {
 		int stop = arguments.outputInt[0];
 		int start = arguments.outputInt[1];
 		int steps = arguments.outputInt[2];
+		int columnWidth = arguments.output[0].length();
 		int[] array = Range.arrayRange(start, stop, steps);
 		List<Integer> list = Range.ListRange(start, stop, steps);
-		for (int i : Range.arrayRange((int)Math.floor((stop-start)/steps) )) {
-			System.out.printf("%s|%s\n", CString.formatToLength(Integer.toString(array[i]),3), CString.formatToLength(list.get(i).toString(), 3));
+		for (int i : Range.arrayRange((stop-start)/steps)) {
+			Log.out(LogInfo,"%s|%s\n",
+				CString.formatToLength(Integer.toString(array[i]),columnWidth),
+				CString.formatToLength(list.get(i).toString(),columnWidth)
+			);
 		}
 	}
 	/**
@@ -61,23 +71,23 @@ public class MainMethods {
 		//ask for type of number
 		String type = new Args(Args.OutputType.String, "type of numbers").output[0].toLowerCase();
 		//reroll for seed
-		System.out.println("new Seed is: "+testRng.rerollRandom(seedLength));
+		Log.out(LogInfo,"new Seed is: "+testRng.rerollRandom(seedLength));
 		//output requested random numbers
 		for (int i : Range.arrayRange(1,limit)) {
 			switch (type) {
 				case "long":
-					System.out.printf("Iteration: %d; RNG: %d\n",i,testRng.limitedLongRandom(min,max));
+					Log.out(LogInfo,"Iteration: %d; RNG: %d\n",i,testRng.limitedLongRandom(min,max));
 					break;
 				case "double":
-					System.out.printf("Iteration: %d; RNG: %f\n",i,testRng.limitedDoubleRandom(min,max));
+					Log.out(LogInfo,"Iteration: %d; RNG: %f\n",i,testRng.limitedDoubleRandom(min,max));
 					break;
 				case "float":
-					System.out.printf("Iteration: %d; RNG: %f\n",i,testRng.limitedFloatRandom(min,max));
+					Log.out(LogInfo,"Iteration: %d; RNG: %f\n",i,testRng.limitedFloatRandom(min,max));
 					break;
 				case "int":
 				case "integer":
 				default:
-					System.out.printf("Iteration: %d; RNG: %d\n",i,testRng.limitedIntRandom(min,max));
+					Log.out(LogInfo,"Iteration: %d; RNG: %d\n",i,testRng.limitedIntRandom(min,max));
 					break;
 			}
 		}
@@ -87,24 +97,23 @@ public class MainMethods {
 	 * <p>
 	 * creates a test circle with the given parameters,
 	 * prints out the list of coordinates, and the 'Circularity'
-	 * 
 	 * @see com.Ace009.library.CoordinateSystem.Circle
 	 */
 	public static void CircleMain() {
 		Args input = new Args(Args.OutputType.Double, "X","Y","Radius","Corners");
 		input.parseWithDefaults(new double[] {5,5,5,10});
-		System.out.println("Test program: ");
+		Log.out(LogInfo,"Test program: ");
 		double[] Nargs = input.outputDouble;
 		int aC = (int)Math.floor(Nargs[3]);
 		double aX= Nargs[0];
 		double aY= Nargs[1];
 		double aR= Nargs[2];
-		Circle test = new Circle(new Coordinate(aX,aY),aR);
+		Circle test = new Circle(new NumberCoordinate<Double>(aX,aY),aR);
 		//AbstractList, because AbstractCollection implements the readable .toString()
 		// so we can use neither Collection nor List
-		AbstractList<Coordinate> result = new ArrayList<>(test.constructPoly(aC));
-		System.out.printf("Circle: %s",result.toString());
-		System.out.printf("Circularity: %f/%f=%f\n",test.circumferance(),Coordinate.totalDistance(result,true),+Circle.getCircularity(result,aR));
+		AbstractList<NumberCoordinate<Double>> result = new ArrayList<>(test.constructPoly(aC));
+		Log.out(LogInfo,"Circle: %s",result.toString());
+		Log.out(LogInfo,"Circularity: %f/%f=%f\n",test.circumferance(),NumberCoordinate.totalDistance(result,true),+Circle.getCircularity(result,aR));
 	}
 	/* ** object parse test **
 	 * <code>
@@ -136,17 +145,17 @@ public class MainMethods {
 		CaesarCipher cipher = new CaesarCipher(input.output[0].toCharArray()[0]);
 		switch (input.output[1].toLowerCase()) {
 			case "decode":
-				System.out.println(cipher.decode(input.output[2]));
+				Log.out(LogInfo,cipher.decode(input.output[2]));
 				break;
 			case "crack":
 				String[] output = CaesarCipher.crack(input.output[2]);
-				for (int i : Range.arrayRange(1,output.length+1)) {
-					System.out.printf("(%d/%c): %s\n",i,CaesarCipher.ALPHABET[i],output[i]);
+				for (int i : Range.arrayRange(1,output.length)) {
+					Log.out(LogInfo,"(%d/%c): %s\n",i,CaesarCipher.ALPHABET[i],output[i]);
 				}
 				break;
 			case "encode":
 			default:
-				System.out.println(cipher.encode(input.output[2]));
+				Log.out(LogInfo,cipher.encode(input.output[2]));
 				break;
 		}
 	}
@@ -160,12 +169,12 @@ public class MainMethods {
 	public static void FractionTest(){
 		int[] input = new Args(Args.OutputType.Int, "numerator","demoninator").outputInt;
 		Fraction test = new Fraction(input[0],input[1]);
-		System.out.printf("Fraction is: %s\n",test.toString());
+		Log.out(LogInfo,"Fraction is: %s\n",test.toString());
 		Args operations = new Args(Args.OutputType.String, "operation","numerator","denominator");
 		operations.parseWithDefaults(new String[]{"multiply","33","7"});
 		String operation = operations.output[0].toLowerCase();
 		Fraction T2 = new Fraction(Integer.parseInt(operations.output[1]),Integer.parseInt(operations.output[2]));
-		System.out.printf("Second fraction is: %s\n",T2.toString());
+		Log.out(LogInfo,"Second fraction is: %s\n",T2.toString());
 		switch (operation) {
 			case "multiply":
 				test.multiplyBy(T2);
@@ -180,8 +189,36 @@ public class MainMethods {
 			case "subtract":
 				test.subtract(T2);
 				break;
-			default: System.out.println("No implemented operation given. operation: "+operation);
+			default: Log.out(LogWarning,"No implemented operation given. operation: "+operation);
 		}
-		System.out.printf("Fraction is: %s\n",test.toString());
+		Log.out(LogInfo,"Fraction is: %s\n",test.toString());
+	}
+	/**
+     * {@link com.Ace009.library.CoordinateSystem.Triangle}s main method:
+     * <p>
+     * creates a test {@code Triangle} with the given parameters,
+     * prints out the result
+	 */
+	public static void TriangleTest() {
+		Map<String,String> t1_ = Args.createMap(9);
+		Map<Triangle.ArgsType,Object> t2_ = new HashMap<>(Math.min(9,t1_.size()));
+		for (Map.Entry<String,String> entry : t1_.entrySet()) {
+			switch (entry.getKey().toLowerCase()) {
+				case "pointa": t2_.put(Triangle.ArgsType.PointA, FractionCoordinate.parse(entry.getValue())); break;
+				case "pointb": t2_.put(Triangle.ArgsType.PointB, FractionCoordinate.parse(entry.getValue())); break;
+				case "pointc": t2_.put(Triangle.ArgsType.PointC, FractionCoordinate.parse(entry.getValue())); break;
+				case "sidea": t2_.put(Triangle.ArgsType.SideA, Fraction.parse(entry.getValue())); break;
+				case "sideb": t2_.put(Triangle.ArgsType.SideB, Fraction.parse(entry.getValue())); break;
+				case "sidec": t2_.put(Triangle.ArgsType.SideC, Fraction.parse(entry.getValue())); break;
+				case "alpha": t2_.put(Triangle.ArgsType.Alpha, Double.valueOf(entry.getValue())); break;
+				case "beta": t2_.put(Triangle.ArgsType.Beta, Double.valueOf(entry.getValue())); break;
+				case "gamma": t2_.put(Triangle.ArgsType.Gamma, Double.valueOf(entry.getValue())); break;
+			}
+		}
+		for (String E : CMap.print(t1_)) {
+			Log.out(LogDebug,E);
+		}
+		Triangle test = new Triangle(t2_);
+		Log.out(LogInfo,test.toString());
 	}
 }

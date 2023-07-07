@@ -1,3 +1,5 @@
+#!/usr/bin python3
+
 ## general:
 # scans .git/refs and runs the algorithm to get the tag information from it over any file it finds
 # TODO: figure out how to stop the "fatal:" from popping up in the output

@@ -1,7 +1,6 @@
 package com.Ace009.nonLibrary.debug;
 
 import java.util.Map;
-import java.util.stream.Stream;
 import java.util.HashMap;
 
 import com.Ace009.library.*;
@@ -29,13 +28,14 @@ public class CommandLineWrapper {
 	 * "cipher":runs a command-line interface for the CaesarCipher class, can encode/decode/crack <br>
 	 * "fraction":uses Args to create and calculate with a user given fraction <br>
 	 * "debug":a debug method only used for debugging, current contetn in source-code <br>
+	 * "triangle":runs the test method for the triangle class <br>
 	 * "cobject":runs a test for the CObject class, takes a custom Object and analyses it <br>
 	 * "wrapper":runs an internal instance of this in a try-catch block <br>
 	 * </code>
 	 */
 	private static final String[] help = new String[]{
 		"\nAvailable commands(all commands are internally converted to lower case):",
-		"\"stop\"/\"break\": stops/ends the main method",
+		"\"stop\"/\"break\"/\"end\"/\"exit\": stops/ends the main method",
 		"\"help\": prints this message",
 		"\"circle\":runs a test main method for the CoordinateSystems Circle class",
 		"\"rng\":runs a test for the custom RNG class, arguments are taken via Args",
@@ -43,68 +43,84 @@ public class CommandLineWrapper {
 		"\"cipher\":runs a command-line interface for the CaesarCipher class, can encode/decode/crack",
 		"\"fraction\":uses Args to create and calculate with a user given fraction",
 		"\"debug\":a debug method only used for debugging, current contetn in source-code",
+		"\"triangle\":runs the test method for the triangle class",
 		"\"cobject\":runs a test for the CObject class, takes a custom Object and analyses it",
 		"\"wrapper\":runs an internal instance of this in a try-catch block"
 	};
+	private static Log.Level LogInfo = Log.Level.INFO;
+	private static Log.Level LogDebug = Log.Level.DEBUG;
+	private static Log.Level LogWarning = Log.Level.WARNING;
+	private static Log.Level LogError = Log.Level.ERROR;
 	/**
 	 * system default main method, uses {@link Args#ask(String)} to run specifed commands
 	 * @param args default system arguments, will de used when calling a method that supports {@code String[] args}
 	 */
 	public static void main(String[] args) {
+		if (args.length>0) switch (args[0].toLowerCase()) {
+			case "debug": Log.setOutputLevel(LogDebug); break;
+			case "info": Log.setOutputLevel(LogInfo); break;
+			case "warning": Log.setOutputLevel(LogWarning); break;
+			case "error": Log.setOutputLevel(Log.Level.ERROR); break;
+		}
+		Log.out(LogDebug,String.format("Log level set to: %s",Log.getOutputLevel()));
 		String command;
-		System.out.println("\nRunning CommandLineWrapper:");
+		Log.out(Log.Level.INFO,"\nRunning CommandLineWrapper:");
 		while (true) {
 			command = Args.ask("\nCommand").toLowerCase();
 			switch (command) {
-				case"stop":	case"break": case"end":
-					System.out.println("stopping...");
+				case"stop":	case"break": case"end": case "exit":
+					Log.out(LogInfo,"stopping...");
 					return;
 				case"help":
 					for (String line : help) {
-						System.out.println(line);
+						Log.out(LogInfo,line);
 					}
 					break;
 				case "circle":
-					System.out.println("Running MainMethod Circle...");
+					Log.out(LogInfo,"Running MainMethod Circle...");
 					MainMethods.CircleMain(); break;
 				case "rng":
-					System.out.println("Running MainMethod RNG...");
+					Log.out(LogInfo,"Running MainMethod RNG...");
 					MainMethods.RNGMain(); break;
 				case "range":
-					System.out.println("Running MainMethod Range...");
+					Log.out(LogInfo,"Running MainMethod Range...");
 					MainMethods.rangeMain(); break;
 				case "cipher":
-					System.out.println("Running MainMethod Cipher...");
+					Log.out(LogInfo,"Running MainMethod Cipher...");
 					MainMethods.CipherTest(); break;
 				case "fraction":
-					System.out.println("Running MainMethod Fraction...");
+					Log.out(LogInfo,"Running MainMethod Fraction...");
 					MainMethods.FractionTest(); break;
+				case "triangle":
+                    Log.out(LogInfo,"Running MainMethod Triangle...");
+					MainMethods.TriangleTest();
+					break;
 				case "debug":
-					System.out.println("Running Debug...");
+					Log.out(LogInfo,"Running Debug...");
 					debug(); break;
 				case"cobject":
-					System.out.println("Running CObject Test...");
+					Log.out(LogInfo,"Running CObject Test...");
 					CobjectTest(); break;
 				case"wrapper":
-					System.out.println("Starting wrapper...");
+					Log.out(LogInfo,"Starting wrapper...");
 					try {
 						main(args);
-						System.out.println("\ninternal wrapper ended normally");
+						Log.out(LogInfo,"\ninternal wrapper ended normally");
 					} catch (Throwable e) {
-						System.out.printf("\ninternal wrapper ended with exception:\n%s\n\n", e.toString());
-						Stream.of(e.getStackTrace()).map(line->line.toString()).forEach(System.out::println);
+						Log.out(LogError,"\ninternal wrapper ended with exception:\n%s\n\n", e.toString());
+						for (StackTraceElement line : e.getStackTrace()) Log.out(LogError,line.toString());
 					}
 					break;
 				default:
-					System.out.printf("No implemented command given, command: \"%s\"\n",command);
-					System.out.println("use the command \"help\" to see available commands");
+					Log.out(LogInfo,"No implemented command given, command: \"%s\"\n",command);
+					Log.out(LogInfo,"use the command \"help\" to see available commands");
 			}
-			System.out.println("\nreturning to Wrapper...");
+			Log.out(LogInfo,"\nreturning to Wrapper...");
 		}
 	}
 	/** debug Method, generally empty in releases */
 	public static void debug() {
-		//empty
+		// empty in release
 	}
 	/**
 	 * {@code CObject} Test method
@@ -117,7 +133,7 @@ public class CommandLineWrapper {
 	public static void CobjectTest() {
 		String type = Args.ask("type").toLowerCase();
 		Object test;
-		System.out.println("Getting test object...");
+		Log.out(LogInfo,"Getting test object...");
 		switch (type) {
 			case "args":
 				int number = Integer.parseInt(Args.ask("Number of Args(numerical)"));
@@ -134,14 +150,13 @@ public class CommandLineWrapper {
 				test = new Fraction(nr[0], nr[1]);
 				break;
 			default:
-				System.out.println("No implemented Object Type given,"); return;
+				Log.out(LogWarning,"No implemented Object Type given,"); return;
 		}
 		Map<String, Object> output = new HashMap<>();
-		try { output = CObject.fieldEntriesMap(test); }
-		catch (Exception e) { e.printStackTrace(); }
-		System.out.printf("Debug: %s; %s\n", test, output);
+		output = CObject.fieldEntriesMap(test);
+		Log.out(LogInfo,"Debug: %s; %s\n", test, output);
 		for (String E : CMap.print(output)) {
-			System.out.print(E);
+			Log.out(LogInfo,E);
 		}
 	}
 }

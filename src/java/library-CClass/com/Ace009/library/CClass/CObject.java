@@ -1,6 +1,7 @@
 package com.Ace009.library.CClass;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -8,7 +9,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 /**
  * 'static' class,
@@ -37,17 +37,17 @@ public class CObject {
 		List<Field> filedsS = CArray.asList(clas.getFields());
 		List<Field> fields = new ArrayList<>();
 		fields.addAll(fieldsD); fields.addAll(filedsS);
-		fields = fields.stream().distinct().toList();
+		fields = CList.deduplicate(fields);
 		List<Method> methodsD = CArray.asList(clas.getDeclaredMethods());
 		List<Method> methodsS = CArray.asList(clas.getMethods());
 		List<Method> methods = new ArrayList<>();
 		methods.addAll(methodsD); methods.addAll(methodsS);
-		methods = methods.stream().distinct().toList();
+		methods = CList.deduplicate(methods);
 		List<Constructor<?>> constructorsD = CArray.asList(clas.getDeclaredConstructors());
 		List<Constructor<?>> constructorsS = CArray.asList(clas.getConstructors());
 		List<Constructor<?>> constructors = new ArrayList<>();
 		constructors.addAll(constructorsD); constructors.addAll(constructorsS);
-		constructors = constructors.stream().distinct().toList();
+		constructors = CList.deduplicate(constructors);
 		Map<String, Member[]> output = new HashMap<String, Member[]>();
 		output.put("fields",fields.toArray(new Member[0]));
 		output.put("methods",methods.toArray(new Member[0]));
@@ -63,7 +63,8 @@ public class CObject {
 	public static String[] fieldKeys(Object obj) {
 		Class<?> clas = obj.getClass();
 		Field[] fields = (Field[]) getAll(clas).get("fields");
-		String[] output = Stream.of(fields).map(e->e.getName()).toArray(String[]::new);
+		String[] output = new String[fields.length];
+		for (int i = 0; i < fields.length; i++) output[i]=fields[i].getName();
 		return output;
 	}
 	/**
@@ -75,12 +76,12 @@ public class CObject {
 	public static Object[] fieldValues(Object obj)  {
 		Class<?> clas = obj.getClass();
 		Field[] fields = (Field[]) getAll(clas).get("fields");
-		Stream.of(fields).forEach(e->e.setAccessible(true));
-		Object[] output = Stream.of(fields).map(e->{
-			try { return e.get(obj); }
-			catch (IllegalAccessException E) { E.printStackTrace(); }
-			return null;
-		}).toArray();
+		for (Field field : fields) field.setAccessible(true);
+		Object[] output = new Object[fields.length];
+		for (int i = 0; i < output.length; i++) {
+			try { output[i] = fields[i].get(obj); }
+			catch (IllegalAccessException e) { e.printStackTrace(); }
+		}
 		return output;
 	}
 	/**
@@ -129,5 +130,28 @@ public class CObject {
 			if (entriesA[i][1] != entriesB[i][1]) {return false;}
 		}
 		return true;
+	}
+	/**
+	 * depending on {@code isField} will return the result of the method or field with the provided {@code name}
+	 * <p> args is only relevant for methods and object is practically irrelevant for static methods/fields
+	 * @param object the object to run the method on / get the field from
+	 * is ignored if the method/field is static
+	 * @param name the {@code String} name of the field/method
+	 * @param isField should name be applied to a field, if not a method
+	 * @param args an Object array for the method, only relevant for {@code isField=false}
+	 * @throws InvocationTargetException wrapped exception from {@link Method#invoke(Object, Object...)}
+	 * @return the values of the field or the result of the method
+	 */
+	public static Object apply(Object object, String name, boolean isField, Object...args) throws InvocationTargetException {
+		Map<String, Member[]> entries = getAll(object.getClass());
+		if (isField == false) {
+			Method[] methods = (Method[]) entries.get("methods");
+			Method method = CStreamOf.findFirst(methods, e->{ return e.getName()==name && e.getParameterCount() == (args==null?0:args.length);} );
+			try { return method.invoke(object, args); } catch (IllegalAccessException e) { e.printStackTrace(); return null; }
+		} else {
+			Field[] fields = (Field[]) entries.get("fields");
+			Field field = CStreamOf.findFirst(fields, e->e.getName()==name);
+			try { return field.get(object); } catch (IllegalAccessException e) { e.printStackTrace(); return null; }
+		}
 	}
 }

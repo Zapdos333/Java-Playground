@@ -1,3 +1,5 @@
+#!/usr/bin python3
+
 ## general:
 # ScanRun scans the entire tree provided as origin and executes task on any file that fulfill test while ignoring the directories specified in exclude
 # the task can be run on directories instead if scandir is True (default is False)

@@ -1,3 +1,5 @@
+#!/usr/bin python3
+
 ## general:
 # scans all java source files and compiles them in place
 

@@ -1,7 +1,10 @@
 package com.Ace009.library.CClass;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
-import java.util.stream.*;
+import java.util.Arrays;
+import java.lang.reflect.Array;
 
 /**
  * 'static' class,
@@ -30,14 +33,13 @@ public class CArray {
 		return -1;
 	}
 	/**
-	 * turns the array into an {@code List}
-	 * <p> uses {@link Stream} magic
+	 * wrapper for {@link Arrays#asList(Object...)}
 	 * @param <T> the type of the elements
 	 * @param array the original array
 	 * @return {@code List} containing all the elements from the array
 	 */
 	public static <T> List<T> asList(T[] array) {
-		return Stream.of(array).toList();
+		return Arrays.asList(array);
 	}
 	//region asObjectArray
 		/**
@@ -46,9 +48,9 @@ public class CArray {
 		 * @param array the original array
 		 * @return a {@code Character[]} array
 		 */
-		public static Character[] asObjectArray(char[] array) {
+		public static Character[] asObjAr(char[] array) {
 			Character[] output = new Character[array.length];
-			for (int i = 0; i < output.length; i++) {
+			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -59,8 +61,12 @@ public class CArray {
 		 * @param array the original array
 		 * @return an {@code Integer[]} array
 		 */
-		public static Integer[] asObjectArray(int[] array) {
-			return IntStream.of(array).mapToObj(Integer::valueOf).toArray(Integer[]::new);
+		public static Integer[] asObjAr(int[] array) {
+			Integer[] output = new Integer[array.length];
+			for (int i = 0; i < array.length; i++) {
+				output[i] = array[i];
+			}
+			return output;
 		}
 		/**
 		 * turns the given array of primitives (here: {@code boolean})
@@ -68,9 +74,9 @@ public class CArray {
 		 * @param array the original array
 		 * @return a {@code Boolean[]} array
 		 */
-		public static Boolean[] asObjectArray(boolean[] array) {
+		public static Boolean[] asObjAr(boolean[] array) {
 			Boolean[] output = new Boolean[array.length];
-			for (int i = 0; i < output.length; i++) {
+			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -81,8 +87,12 @@ public class CArray {
 		 * @param array the original array
 		 * @return a {@code Double[]} array
 		 */
-		public static Double[] asObjectArray(double[] array) {
-			return DoubleStream.of(array).mapToObj(Double::valueOf).toArray(Double[]::new);
+		public static Double[] asObjAr(double[] array) {
+			Double[] output = new Double[array.length];
+			for (int i = 0; i < array.length; i++) {
+				output[i] = array[i];
+			}
+			return output;
 		}
 		/**
 		 * turns the given array of primitives (here: {@code float})
@@ -90,9 +100,9 @@ public class CArray {
 		 * @param array the original array
 		 * @return a {@code Float[]} array
 		 */
-		public static Float[] asObjectArray(float[] array) {
+		public static Float[] asObjAr(float[] array) {
 			Float[] output = new Float[array.length];
-			for (int i = 0; i < output.length; i++) {
+			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -103,8 +113,12 @@ public class CArray {
 		 * @param array the original array
 		 * @return a {@code Long[]} array
 		 */
-		public static Long[] asObjectArray(long[] array) {
-			return LongStream.of(array).mapToObj(Long::valueOf).toArray(Long[]::new);
+		public static Long[] asObjAr(long[] array) {
+			Long[] output = new Long[array.length];
+			for (int i = 0; i < array.length; i++) {
+				output[i] = array[i];
+			}
+			return output;
 		}
 		/**
 		 * turns the given array of primitives (here: {@code short})
@@ -112,9 +126,9 @@ public class CArray {
 		 * @param array the original array
 		 * @return a {@code Short[]} array
 		 */
-		public static Short[] asObjectArray(short[] array) {
+		public static Short[] asObjAr(short[] array) {
 			Short[] output = new Short[array.length];
-			for (int i = 0; i < output.length; i++) {
+			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
@@ -125,12 +139,34 @@ public class CArray {
 		 * @param array the original array
 		 * @return a {@code Byte[]} array
 		 */
-		public static Byte[] asObjectArray(byte[] array) {
+		public static Byte[] asObjAr(byte[] array) {
 			Byte[] output = new Byte[array.length];
-			for (int i = 0; i < output.length; i++) {
+			for (int i = 0; i < array.length; i++) {
 				output[i] = array[i];
 			}
 			return output;
 		}
 	//endregion
+	/**
+	 * creates a frequency map from a given array
+	 * @param <T> the type of the elements
+	 * @param array the array to map
+	 * @return the frequency map
+	 */
+	public static <T> Map<T,Integer> frequencyMap(T[] array) {
+		Map<T, Integer> output = new HashMap<>(CList.deduplicate(asList(array)).size());
+		for (T e : array) {
+			output.put(e,output.getOrDefault(e,0)+ 1);
+		}
+		return output;
+	}
+	/**
+	 * returns a new instance of the given array with the given size
+	 * @param <T> the type of the elements
+	 * @param original the array to take the type from
+	 * @param size the size of the new array
+	 * @return a new array with the given size and type from original
+	 */
+	@SuppressWarnings("unchecked")
+	static <T> T[] newArrayOf(T[] original, int size) { return (T[]) Array.newInstance(original.getClass().componentType(), size); }
 }

@@ -1,3 +1,5 @@
+#!/usr/bin python3
+
 ## general:
 # removes all in removeEntry.default and removeEntry.hard defined directories from the set subdirectories
 # there to clear up any cache created by build-, compile- or IDE- processes

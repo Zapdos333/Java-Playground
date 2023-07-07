@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import com.Ace009.library.Range;
+import com.Ace009.library.CClass.CArray;
+import com.Ace009.library.CClass.CStreamOf;
 
 /**
  * A class for working with {@link AminoAcid amino acids} and their corresponing RNA {@link #CODES codons}
@@ -53,7 +54,7 @@ public class RNATranslation {
 			put(new Nucleobase[]{Nucleobase.A,Nucleobase.U,Nucleobase.U},AminoAcid.I);
 			put(new Nucleobase[]{Nucleobase.A,Nucleobase.U,Nucleobase.C},AminoAcid.I);
 			put(new Nucleobase[]{Nucleobase.A,Nucleobase.U,Nucleobase.A},AminoAcid.I);
-			put(new Nucleobase[]{Nucleobase.A,Nucleobase.U,Nucleobase.G},AminoAcid.M); //start
+			put(new Nucleobase[]{Nucleobase.A,Nucleobase.U,Nucleobase.G},AminoAcid.M);
 			put(new Nucleobase[]{Nucleobase.A,Nucleobase.C,Nucleobase.U},AminoAcid.T);
 			put(new Nucleobase[]{Nucleobase.A,Nucleobase.C,Nucleobase.C},AminoAcid.T);
 			put(new Nucleobase[]{Nucleobase.A,Nucleobase.C,Nucleobase.A},AminoAcid.T);
@@ -117,7 +118,7 @@ public class RNATranslation {
 			{Nucleobase.G,Nucleobase.C},{Nucleobase.C,Nucleobase.G},{Nucleobase.U,Nucleobase.A},{Nucleobase.A,Nucleobase.U}
 		};
 		/** @return the base corresponding to {@code this} according to {@link #pairs} */
-		public Nucleobase getPair() { return Stream.of(pairs).filter(e->e[0]==this).findFirst().get()[1]; }
+		public Nucleobase getPair() { for (Nucleobase[] pair : pairs) { if (pair[0]==this) return pair[1]; } return null; }
 		/** @return the RNA key */
 		public char RC() { return this.codeR; }
 		/** @return the DNA key */
@@ -140,7 +141,7 @@ public class RNATranslation {
 		L('L',"Leu","Leucine"),
 		/** Isoleucin, Ile, I */
 		I('I',"Ile","Isoleucin"),
-		/** Methionine, Met, M */
+		/** start codon, Methionine, Met, M */
 		M('M',"Met","Methionine"),
 		/** Valine, Val, V */
 		V('V',"Val","Valine"),
@@ -202,7 +203,12 @@ public class RNATranslation {
 	 * @return a {@code List} of all matching {@code Nucleobase} triplets
 	 */
 	private static List<Nucleobase[]> getTriplets(AminoAcid in) {
-		return CODES.entrySet().stream().filter(e->e.getValue()==in).map(e->e.getKey()).toList();
+		return CArray.asList(
+			CStreamOf.map(
+				CStreamOf.filter(CODES.entrySet().toArray(Map.Entry[]::new),
+				e->(AminoAcid)e.getValue()==in),
+			e->(Nucleobase[])e.getValue())
+		);
 	}
 	/**
 	 * decodes an array of {@code AminoAcid} into a {@code List} of Nucleobase triplets,
@@ -212,7 +218,8 @@ public class RNATranslation {
 	 * @return the {@code List} of {@code Nucleobase[]}(triplets)
 	 */
 	public static List<Nucleobase[]> getTriplets(AminoAcid[] in, boolean all) {
-		List<List<Nucleobase[]>> t1_ = Stream.of(in).map(e->getTriplets(e)).toList();
+		List<List<Nucleobase[]>> t1_ = new ArrayList<>();
+		for (AminoAcid a : in) t1_.add(getTriplets(a));
 		List<Nucleobase[]> output = new ArrayList<>(t1_.size());
 		for (List<Nucleobase[]> t_ : t1_) {
             if (all) output.addAll(t_);
@@ -233,7 +240,7 @@ public class RNATranslation {
 			if (t_==null) throw new NullPointerException("no corresponding AminoAcid found");
 			return t_;
 		}
-		else {throw new IllegalArgumentException("no Triplet provided");}
+		else {throw new IllegalArgumentException("no valid Triplet provided");}
 	}
 	/**
 	 * decodes an array of {@code Nucleobase} by seperating them into triplets,
@@ -243,7 +250,7 @@ public class RNATranslation {
 	 */
 	public static List<AminoAcid> decode(Nucleobase[] in) {
 		assert in.length%3==0;
-		List<Nucleobase> i_ = Stream.of(in).toList();
+		List<Nucleobase> i_ = CArray.asList(in);
 		Nucleobase[][] t_ = new Nucleobase[3][in.length/3];
 		for (int i : Range.arrayRange(t_.length)) {
 			t_[i]=i_.subList(i*3, (i+1)*3).toArray(Nucleobase[]::new);
@@ -257,7 +264,7 @@ public class RNATranslation {
 	 * @return a List of {@code AminoAcid}
 	 */
 	public static List<AminoAcid> decode(Nucleobase[][] in) {
-		assert Stream.of(in).allMatch(e->e.length==3);
+		assert CStreamOf.matchAll(in, e->e.length==3);
 		List<AminoAcid> out = new ArrayList<>();
 		for (Nucleobase[] t : in) {
 			out.add(decodeTriplet(t));

@@ -70,7 +70,7 @@ public class CaesarCipher {
 	 * @see #ALPHABET
 	 */
 	public CaesarCipher (char code) {
-		this((byte)Math.max( CArray.indexOf(CArray.asObjectArray(ALPHABET), Character.toLowerCase(code)),0));
+		this((byte)Math.max( CArray.indexOf(CArray.asObjAr(ALPHABET), Character.toLowerCase(code)),0));
 	}
 	/**
 	 * encodes {@code input} using the {@code char} from {@code cipher}
@@ -83,7 +83,7 @@ public class CaesarCipher {
 		input = new String(input).toLowerCase().toCharArray();
 		char[] output = new char[input.length];
 		for (int i : Range.arrayRange(output.length)) {
-			output[i]=CArray.indexOf(CArray.asObjectArray(ALPHABET), input[i])<0 ? input[i] : cipher[CArray.indexOf(CArray.asObjectArray(ALPHABET), input[i])];
+			output[i]=CArray.indexOf(CArray.asObjAr(ALPHABET), input[i])<0 ? input[i] : cipher[CArray.indexOf(CArray.asObjAr(ALPHABET), input[i])];
 		}
 		assert output[output.length-1]!='\u0000';
 		return output;
@@ -108,7 +108,7 @@ public class CaesarCipher {
 		input = new String(input).toLowerCase().toCharArray();
 		char[] output = new char[input.length];
 		for (int i : Range.arrayRange(output.length)) {
-            output[i]=CArray.indexOf(CArray.asObjectArray(cipher), input[i])<0 ? input[i] : ALPHABET[CArray.indexOf(CArray.asObjectArray(cipher), input[i])];
+            output[i]=CArray.indexOf(CArray.asObjAr(cipher), input[i])<0 ? input[i] : ALPHABET[CArray.indexOf(CArray.asObjAr(cipher), input[i])];
         }
 		assert output[output.length-1]!='\u0000';
 		return output;

@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * a mathamatical number sequence
  * <p> allows creation of {@link ArrayList} based number sequences,
  * with values of type {@code T}
- * @see FractionSequence implementation with {@link com.Ace009.library.Math.Fraction Fraction}
+ * @see FractionSequence implementation with {@code Type: Fraction}
  */
 abstract public class AbstractNumberSequence<T> {
 	/** the list containing the values */
