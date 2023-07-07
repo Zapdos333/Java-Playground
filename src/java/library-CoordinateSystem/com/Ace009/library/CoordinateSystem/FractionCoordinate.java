@@ -11,7 +11,7 @@ import com.Ace009.library.Math.Fraction;
  * @author Ace009
  * @see com.Ace009.library.CoordinateSystem.Coordinate
  */
-public class FractionCoordinate {
+public class FractionCoordinate extends Coordinate<Fraction> {
 	/**
 	 * parses a Coordinate with Fraction values,
 	 * by seperating it at a {@code "|"} and {@link Fraction#parse(String)}
@@ -56,23 +56,23 @@ public class FractionCoordinate {
 	 * @param list the list of {@code Coordinate}
 	 * @return the list of {@code FractionCoordinate}
 	 */
-	public static Collection<FractionCoordinate> convertCoordList(Collection<Coordinate> list)
-		{ return list.stream().map(e->new FractionCoordinate(new Fraction(e.x),new Fraction(e.y))).toList(); }
+	public static Collection<FractionCoordinate> convertCoordList(Collection<NumberCoordinate<?>> list)
+		{ return list.stream().map(e->new FractionCoordinate(new Fraction(e.x.doubleValue()),new Fraction(e.y.doubleValue()))).toList(); }
 	/**
 	 * converts the FractionCoordinate into a {@code Coordinate},
 	 * by running {@link Fraction#calculate()} on both {@code x} and {@code y}
 	 * @param c the {@code FractionCoordinate} to convert
 	 * @return the {@code (Double)Coordinate}
 	 */
-	public static Coordinate toCoordinate(FractionCoordinate c)
-		{ return new Coordinate(c.x.calculate(),c.y.calculate()); }
+	public static NumberCoordinate<Double> toCoordinate(FractionCoordinate c)
+		{ return new NumberCoordinate<Double>(c.x.calculate(),c.y.calculate()); }
 	/**
 	 * converts the list of {@code FractionCoordinate} to a list of {@code Coordinate}
 	 * using {@link #toCoordinate()}
 	 * @param list the list of {@code FractionCoordinate} to convert
 	 * @return the converted list of {@code Coordinate}
 	 */
-	public static Collection<Coordinate> toCoordinates(Collection<FractionCoordinate> list)
+	public static Collection<NumberCoordinate<Double>> toCoordinates(Collection<FractionCoordinate> list)
 		{ return list.stream().map(e->e.toCoordinate()).toList(); }
 	/** x coordinate */
 	public Fraction x;
@@ -97,14 +97,7 @@ public class FractionCoordinate {
 	 * uses {@link #toCoordinate(FractionCoordinate)} with {@code this}
 	 * @return the {@code (Double)Coordinate}
 	 */
-	public Coordinate toCoordinate() { return toCoordinate(this); }
-	/**
-	 * returns a {@code String} representing the {@code FractionCoordinate},
-	 * for example: "[x:4/5,y:3/8]"
-	 * @return {@code String}: string representation of the {@code Coordinate}
-	 */
-	@Override
-	public String toString() { return String.format("[x:%s,y:%s]", x, y); }
+	public NumberCoordinate<Double> toCoordinate() { return toCoordinate(this); }
 	/**
 	 * {@inheritDoc}
 	 */
