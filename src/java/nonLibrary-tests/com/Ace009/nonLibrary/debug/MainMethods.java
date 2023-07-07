@@ -39,12 +39,13 @@ public class MainMethods {
 		int stop = arguments.outputInt[0];
 		int start = arguments.outputInt[1];
 		int steps = arguments.outputInt[2];
+		int columnWidth = arguments.output[0].length();
 		int[] array = Range.arrayRange(start, stop, steps);
 		List<Integer> list = Range.ListRange(start, stop, steps);
 		for (int i : Range.arrayRange((stop-start)/steps)) {
 			Log.out(LogInfo,"%s|%s\n",
-				CString.formatToLength(Integer.toString(array[i]),3),
-				CString.formatToLength(list.get(i).toString(),3)
+				CString.formatToLength(Integer.toString(array[i]),columnWidth),
+				CString.formatToLength(list.get(i).toString(),columnWidth)
 			);
 		}
 	}
