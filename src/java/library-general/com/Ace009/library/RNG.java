@@ -5,11 +5,16 @@ import java.util.Random;
 
 /**
  * a random number generator,
- * that contains subclasses of {@code Random} (or itself),
+ * that wraps a subclass of {@code Random} (or Random itself),
  * provides additional instance methods for generating random numbers
  * @author Ace009
  */
 public class RNG<T extends Random> {
+	/**
+	 * creates a new instance of {@code RNG} from a {@link Random#Random() new Random()}
+	 * @return the new instance of {@code RNG}
+	 */
+	public static RNG<Random> newInstance() { return new RNG<Random>(new Random()); }
 	/**
 	 * creates a new instance of {@code RNG} from a {@link Random#Random(long) new Random(long)}
 	 * @param seed the seed to start the instance of {@code Random} with
@@ -17,24 +22,53 @@ public class RNG<T extends Random> {
 	 */
 	public static RNG<Random> newInstance(long seed) { return new RNG<Random>(new Random(seed)); }
 	/**
-	 * creates a new instance of {@code RNG} from a {@link Random#Random() new Random()}
+	 * creates a new instance of {@code RNG} from {@link RNG#newInstance(long)},
+	 * with the seed being {@link RNG#rollLong(int) newInstance().rollLong(seedLength)}
+	 * @param seedLength the length of the generated seed
 	 * @return the new instance of {@code RNG}
 	 */
-	public static RNG<Random> newInstance() { return new RNG<Random>(new Random()); }
+	public static RNG<Random> newInstance(int seedLength) {
+		long seed = newInstance().rollLong(seedLength);
+		return newInstance(seed);
+	}
 	/**
 	 * creates a new instance of {@code RNG} from a {@link SecureRandom#SecureRandom() new SecureRandom()}
 	 * @return the new instance of {@code RNG}
 	 */
 	public static RNG<SecureRandom> newSecureInstance() { return new RNG<SecureRandom>(new SecureRandom()); }
+	/**
+	 * creates a new instance of {@code RNG} from a {@link SecureRandom#SecureRandom(byte[]) new SecureRandom(byte[])},
+	 * gets the {@code byte[]} from {@link Random#nextBytes(byte[])}
+	 * @param seedLength the length of {@code byte[]}
+	 * @return the new instance of {@code RNG}
+	 */
+	public static RNG<SecureRandom> newSecureInstance(int seedLength) {
+		byte[] seed = new byte[seedLength];
+		new Random().nextBytes(seed);
+		return new RNG<SecureRandom>(new SecureRandom(seed));
+	}
+	/**
+	 * public reference to protected constructor
+	 * @param <T> the type of the {@code Random} subclass
+	 * @param random the {@code ? extends Random} to wrap
+	 * @return a new instance of {@code RNG} with {@code random} as {@link #gen}
+	 */
+	public static <T extends Random> RNG<T> wrap(T random) { return new RNG<T>(random); }
 	/** the random numbergenerator contained in this instance */
-	public final T gen;
+	protected final T gen;
 	/**
 	 * creates a new instance of {@code RNG}
 	 * wrapping this random number generator
+	 * @param random the random number generator to wrap
 	 */
-	public RNG(T random) {
+	protected RNG(T random) {
 		gen=random;
 	}
+	/**
+	 * returns the {@link #gen} of this {@code RNG}
+	 * @return {@code this.gen}
+	 */
+	public T getRandom() { return gen; }
 	/**
 	 * returns a random integer, based on {@code Random}
 	 * @param min {@code int} minimum value (inclusive)
@@ -66,31 +100,31 @@ public class RNG<T extends Random> {
 		return gen.nextFloat()*((max)-min)+min;
 	}
 	/**
-	 * creates a random long by calling {@link Random#nextDouble()},
-	 * and the doing the old {@code (random)*(max-min)+min},
+	 * creates a 'random' long<p>by calling {@link Random#nextDouble()},
+	 * and the doing a {@code (random)*(max-min)+min},
 	 * unknown reliablity due to this cheesing/attempting
 	 * @param min {@code long} minimum value (inclusive)
 	 * @param max {@code long} maximum value (exclusive)
-	 * @return 'random' long
+	 * @return 'random' {@code long}
 	 */
 	public long limitedLongRandom(long min, long max) {
-		//yes were cheesing this with a double {@code 0-1}, because Random.nextLong() is not limitable
+		//were cheesing this with a double {@code 0-1}, because Random.nextLong() is not limitable
 		double preRN=gen.nextDouble();
 		long mult = (max-min)+min;
 		long rn = (long)(preRN*mult);
 		return rn;
 	}
 	/**
-	 * creates a random long by appending random integers to a {@code StringBuilder},
-	 * setting the sign with a {@code Random.nextBoolean()},
-	 * and then parsing it as {@code long}
+	 * creates a 'random' long by appending random digits to a {@link StringBuilder},
+	 * setting the sign with a {@link Random#nextBoolean()},
+	 * and then parsing it as a {@code long}
 	 * @param length integer length
 	 * @return 'random' {@code long}
 	 */
-	public long rollLong (int length) { //Long max=9.223.372.036.854.775.808
+	public long rollLong (int length) { //Long max=9.223.372.036.854.775.808 ^= 19 digits
 		StringBuilder outputS=new StringBuilder();
-		Long output;
-		if (length>18) {length=18;}
+		long output;
+		length=length>18?18:length; // limit lenght to a save length of digits for longs
 		for (int i = 0; i<length; i++) {
 			outputS.append(limitedIntRandom(0,9));
 		}
@@ -103,10 +137,9 @@ public class RNG<T extends Random> {
 		return output;
 	}
 	/**
-	 * sets {@code Randoms} seed to the result of {@code rollLong(length)}
-	 * @param length integer length
+	 * sets {@link #gen} seed to the result of {@link RNG#rollLong(int)}
+	 * @param length integer length of the new seed
 	 * @return the new seed
-	 * @see #rollLong(int)
 	 */
 	public long rerollRandom(int length) {
 		long seed=this.rollLong(length);
