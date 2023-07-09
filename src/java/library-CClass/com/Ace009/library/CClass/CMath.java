@@ -47,18 +47,18 @@ public class CMath {
 	 */
 	public static int[] getPrimesUpTo(int max) {
 		max=Math.absExact(max);
-		max = Math.floorDiv(max, 2);
+		max=Math.floorDiv(max, 2);
 		boolean[] isComposite = new boolean[max + 1];
-		List<Integer> primes = new ArrayList<>();
 		for (int i=1; i<Math.sqrt(max); i++) {
 			for (int j=i; i+j+(2*i*j)<=max; j++) {
 				isComposite[i+j+(2*i*j)]=true;
 			}
 		}
+		List<Integer> primes = new ArrayList<>();
 		for (int i=0; i<isComposite.length; i++) if (!isComposite[i]) primes.add(i);
-		primes.remove(Integer.valueOf(0)); primes.remove(primes.size()-1); primes.add(0,2);
-		int[] t_ = new int[primes.size()];
-		for (int i=0; i<t_.length; i++) t_[i] = (primes.get(i).intValue()*2)+1;
+		primes.remove(Integer.valueOf(0));
+		int[] t_ = new int[primes.size()+1]; t_[0]=2;
+		for (int i=1; i<t_.length; i++) t_[i] = (primes.get(i-1).intValue()*2)+1;
 		return t_;
 	}
 	/**

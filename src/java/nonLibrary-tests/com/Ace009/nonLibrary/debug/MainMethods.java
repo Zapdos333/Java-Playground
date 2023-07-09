@@ -72,7 +72,7 @@ public class MainMethods {
 		//reroll for seed
 		Log.out(LogInfo,"new Seed is: "+testRng.rerollRandom(seedLength));
 		//output requested random numbers
-		for (int i : Range.arrayRange(1,limit)) {
+		for (int i : Range.arrayRange(1,limit+1)) {
 			switch (type) {
 				case "long":
 					Log.out(LogInfo,"Iteration: %d; RNG: %d\n",i,testRng.limitedLongRandom(min,max));
@@ -176,17 +176,17 @@ public class MainMethods {
 		Log.out(LogInfo,"Second fraction is: %s\n",T2.toString());
 		switch (operation) {
 			case "multiply":
-				test.multiplyBy(T2);
+				test=test.multiplyBy(T2);
 				break;
 			case "divide":
-				test.divideBy(T2);
+				test=test.divideBy(T2);
 				break;
 			case "add":
 			case "addition":
-				test.add(T2);
+				test=test.add(T2);
 				break;
 			case "subtract":
-				test.subtract(T2);
+				test=test.subtract(T2);
 				break;
 			default: Log.out(LogWarning,"No implemented operation given. operation: "+operation);
 		}
