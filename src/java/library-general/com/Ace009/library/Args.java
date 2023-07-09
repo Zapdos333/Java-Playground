@@ -53,7 +53,7 @@ public class Args {
 	 */
 	public static String ask(String term){
 		term = term==null ? "" : term;
-		System.out.printf("%s:", term);
+		Log.out(Log.Level.INFO,"%s:", term);
 		return input.nextLine();
 	}
 	/**
@@ -63,8 +63,8 @@ public class Args {
 	 */
 	public static void suspend(String term){
 		term = term==null ? "" : term;
-		if (term != "") System.out.printf("%s. Suspending,\nPress enter to continue...", term);
-		else System.out.print("Suspending,\nPress enter to continue...");
+		if (term != "") Log.out(Log.Level.INFO,"%s. Suspending,\nPress enter to continue...", term);
+		else Log.out(Log.Level.INFO,"Suspending,\nPress enter to continue...");
 		input.nextLine();
 	}
 	/**
