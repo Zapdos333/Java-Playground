@@ -1,4 +1,8 @@
 #!/usr/bin/bash
 #jshell debugger for Java-Playground version
-read -p "enter current version: " version
+if [ $# -gt 0 ]; then
+	version=$1 # if a version has been provided as argument, use it
+else 
+	read -p "enter current version: " version # otherwise ask for a version
+fi
 jshell --class-path ../build/libs/Java-Playground-$version.jar --startup ./startUp.java
