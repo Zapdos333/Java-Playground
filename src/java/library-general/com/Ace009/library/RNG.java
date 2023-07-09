@@ -1,23 +1,39 @@
 package com.Ace009.library;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 /**
  * a random number generator,
- * that {@code extends Random},
- * has some additional instance methods
- * @see Random
+ * that contains subclasses of {@code Random} (or itself),
+ * provides additional instance methods for generating random numbers
  * @author Ace009
  */
-public class RNG extends Random{
+public class RNG<T extends Random> {
+	/**
+	 * creates a new instance of {@code RNG} from a {@link Random#Random(long) new Random(long)}
+	 * @param seed the seed to start the instance of {@code Random} with
+	 * @return the new instance of {@code RNG}
+	 */
+	public static RNG<Random> newInstance(long seed) { return new RNG<Random>(new Random(seed)); }
+	/**
+	 * creates a new instance of {@code RNG} from a {@link Random#Random() new Random()}
+	 * @return the new instance of {@code RNG}
+	 */
+	public static RNG<Random> newInstance() { return new RNG<Random>(new Random()); }
+	/**
+	 * creates a new instance of {@code RNG} from a {@link SecureRandom#SecureRandom() new SecureRandom()}
+	 * @return the new instance of {@code RNG}
+	 */
+	public static RNG<SecureRandom> newSecureInstance() { return new RNG<SecureRandom>(new SecureRandom()); }
+	/** the random numbergenerator contained in this instance */
+	public final T gen;
 	/**
 	 * creates a new instance of {@code RNG}
-	 * based on {@code Random}
-	 * but with the additional instance methods
-	 * @see Random
+	 * wrapping this random number generator
 	 */
-	public RNG() {
-		super();
+	public RNG(T random) {
+		gen=random;
 	}
 	/**
 	 * returns a random integer, based on {@code Random}
@@ -27,7 +43,7 @@ public class RNG extends Random{
 	 * @see Random#nextInt(int)
 	 */
 	public int limitedIntRandom(int min, int max) {
-		return this.nextInt(max - min + 1) + min;
+		return gen.nextInt(max - min + 1) + min;
 	}
 	/**
 	 * returns a random double, based on {@code Random}
@@ -37,7 +53,7 @@ public class RNG extends Random{
 	 * @see Random#nextDouble()
 	 */
 	public double limitedDoubleRandom(double min, double max) {
-		return this.nextDouble()*((max)-min)+min;
+		return gen.nextDouble()*((max)-min)+min;
 	}
 	/**
 	 * returns a random float, based on {@code Random}
@@ -47,7 +63,7 @@ public class RNG extends Random{
 	 * @see Random#nextFloat()
 	 */
 	public float limitedFloatRandom(float min, float max) {
-		return this.nextFloat()*((max)-min)+min;
+		return gen.nextFloat()*((max)-min)+min;
 	}
 	/**
 	 * creates a random long by calling {@link Random#nextDouble()},
@@ -59,7 +75,7 @@ public class RNG extends Random{
 	 */
 	public long limitedLongRandom(long min, long max) {
 		//yes were cheesing this with a double {@code 0-1}, because Random.nextLong() is not limitable
-		double preRN=this.nextDouble();
+		double preRN=gen.nextDouble();
 		long mult = (max-min)+min;
 		long rn = (long)(preRN*mult);
 		return rn;
@@ -78,7 +94,7 @@ public class RNG extends Random{
 		for (int i = 0; i<length; i++) {
 			outputS.append(limitedIntRandom(0,9));
 		}
-		if (this.nextBoolean()) {
+		if (gen.nextBoolean()) {
 			outputS.insert(0,"+");
 		} else {
 			outputS.insert(0,"-");
@@ -94,7 +110,7 @@ public class RNG extends Random{
 	 */
 	public long rerollRandom(int length) {
 		long seed=this.rollLong(length);
-		this.setSeed(seed);
+		gen.setSeed(seed);
 		return seed;
 	}
 }

@@ -58,7 +58,7 @@ public class MainMethods {
 	 */
 	public static void RNGMain() {
 		//create new RNG
-		RNG testRng= new RNG();
+		RNG<java.util.Random> testRng= RNG.newInstance();
 		//ask for Args
 		Args input = new Args(Args.OutputType.Int,"amount","min","max","Seed length");
 		//insert defaults
