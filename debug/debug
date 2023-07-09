@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+#jshell debugger for Java-Playground version
+read -p "enter current version: " version
+jshell --class-path ../build/libs/Java-Playground-$version.jar --startup ./startUp.java
