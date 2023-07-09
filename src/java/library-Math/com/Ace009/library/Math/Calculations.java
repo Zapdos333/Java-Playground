@@ -26,7 +26,7 @@ public class Calculations {
 	 */
 	public static int[] seperateToPrimes(int number) {
 		number=Math.absExact(number);
-		if (number==0) return new int[]{0};
+		if (number==0||number==1) return new int[]{number};
 		int[] check = CMath.getPrimesUpTo(number);
 		for (int i : check) { if (i==number) return new int[]{number}; }
 		List<Integer> output = new ArrayList<>();

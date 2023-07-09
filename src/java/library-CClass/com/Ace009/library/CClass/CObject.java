@@ -2,12 +2,10 @@ package com.Ace009.library.CClass;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Member;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,45 +22,56 @@ public class CObject {
 	 */
 	private CObject() {}
 	/**
-	 * returns all {@code Member}s of the {@code Class} {@code clas},
-	 * <p>
-	 * uses {@link Class#getDeclaredFields} and {@link Class#getFields} for {@link Map#get(Object) Map.get("fields")}, 
-	 * uses {@link Class#getDeclaredMethods} and {@link Class#getMethods} for {@link Map#get(Object) Map.get("methods")}, 
-	 * uses {@link Class#getDeclaredConstructors} and {@link Class#getConstructors} for {@link Map#get(Object) Map.get("constructors")}, 
+	 * gets all constructors of the given class
+	 * <p>uses {@link Class#getDeclaredConstructors} and {@link Class#getConstructors}
 	 * @param clas the class to scan
-	 * @return {@code Map<String, Member[]>} containing all members with an associated {@code String} key
+	 * @return an array of all {@code Constructor} of the given class
 	 */
-	public static Map<String, Member[]> getAll(Class<?> clas) {
-		List<Field> fieldsD = CArray.asList(clas.getDeclaredFields());
-		List<Field> filedsS = CArray.asList(clas.getFields());
-		List<Field> fields = new ArrayList<>();
-		fields.addAll(fieldsD); fields.addAll(filedsS);
-		fields = CList.deduplicate(fields);
-		List<Method> methodsD = CArray.asList(clas.getDeclaredMethods());
-		List<Method> methodsS = CArray.asList(clas.getMethods());
-		List<Method> methods = new ArrayList<>();
-		methods.addAll(methodsD); methods.addAll(methodsS);
-		methods = CList.deduplicate(methods);
+	public static Constructor<?>[] getConstructors(Class<?> clas) {
 		List<Constructor<?>> constructorsD = CArray.asList(clas.getDeclaredConstructors());
 		List<Constructor<?>> constructorsS = CArray.asList(clas.getConstructors());
 		List<Constructor<?>> constructors = new ArrayList<>();
 		constructors.addAll(constructorsD); constructors.addAll(constructorsS);
 		constructors = CList.deduplicate(constructors);
-		Map<String, Member[]> output = new HashMap<String, Member[]>();
-		output.put("fields",fields.toArray(new Member[0]));
-		output.put("methods",methods.toArray(new Member[0]));
-		output.put("constructors",constructors.toArray(new Member[0]));
-		return output;
+		return constructors.toArray(Constructor<?>[]::new);
+	}
+	/**
+	 * gets all methods of the given class
+	 * <p>uses {@link Class#getDeclaredMethods} and {@link Class#getMethods}
+	 * @param clas the class to scan
+	 * @return an array of all {@code Method} of the given class
+	 */
+	public static Method[] getMethods(Class<?> clas) {
+		List<Method> methodsD = CArray.asList(clas.getDeclaredMethods());
+		List<Method> methodsS = CArray.asList(clas.getMethods());
+		List<Method> methods = new ArrayList<>();
+		methods.addAll(methodsD); methods.addAll(methodsS);
+		methods = CList.deduplicate(methods);
+		return methods.toArray(Method[]::new);
+	}
+	/**
+	 * gets all fields of the given class
+	 * <p>uses {@link Class#getDeclaredFields} and {@link Class#getFields}
+	 * @param clas the class to scan
+	 * @return an array of {@code Field} of the given class
+	 */
+	public static Field[] getFields(Class<?> clas) {
+		List<Field> fieldsD = CArray.asList(clas.getDeclaredFields());
+		List<Field> filedsS = CArray.asList(clas.getFields());
+		List<Field> fields = new ArrayList<>();
+		fields.addAll(fieldsD); fields.addAll(filedsS);
+		fields = CList.deduplicate(fields);
+		return fields.toArray(Field[]::new);
 	}
 	/**
 	 * returns all fields keys/names of the class of the {@code Object obj}
 	 * @param obj Object to scan
 	 * @return {@code String[]} containing the fields names
-	 * @see #getAll(Class)
+	 * @see #getFields(Class)
 	 */
 	public static String[] fieldKeys(Object obj) {
 		Class<?> clas = obj.getClass();
-		Field[] fields = (Field[]) getAll(clas).get("fields");
+		Field[] fields = getFields(clas);
 		String[] output = new String[fields.length];
 		for (int i = 0; i < fields.length; i++) output[i]=fields[i].getName();
 		return output;
@@ -71,11 +80,11 @@ public class CObject {
 	 * returns all fields values of the {@code Object obj}
 	 * @param obj Object to scan
 	 * @return {@code Object[]} containing the fields values
-	 * @see #getAll(Class)
+	 * @see #getFields(Class)
 	 */
 	public static Object[] fieldValues(Object obj)  {
 		Class<?> clas = obj.getClass();
-		Field[] fields = (Field[]) getAll(clas).get("fields");
+		Field[] fields = getFields(clas);
 		for (Field field : fields) field.setAccessible(true);
 		Object[] output = new Object[fields.length];
 		for (int i = 0; i < output.length; i++) {
@@ -143,13 +152,13 @@ public class CObject {
 	 * @return the values of the field or the result of the method
 	 */
 	public static Object apply(Object object, String name, boolean isField, Object...args) throws InvocationTargetException {
-		Map<String, Member[]> entries = getAll(object.getClass());
+		Class<?> clas = object.getClass();
 		if (isField == false) {
-			Method[] methods = (Method[]) entries.get("methods");
+			Method[] methods = getMethods(clas);
 			Method method = CStreamOf.findFirst(methods, e->{ return e.getName()==name && e.getParameterCount() == (args==null?0:args.length);} );
 			try { return method.invoke(object, args); } catch (IllegalAccessException e) { e.printStackTrace(); return null; }
 		} else {
-			Field[] fields = (Field[]) entries.get("fields");
+			Field[] fields = getFields(clas);
 			Field field = CStreamOf.findFirst(fields, e->e.getName()==name);
 			try { return field.get(object); } catch (IllegalAccessException e) { e.printStackTrace(); return null; }
 		}

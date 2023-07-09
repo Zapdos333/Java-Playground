@@ -1,7 +1,9 @@
 package com.Ace009.nonLibrary.debug;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Parameter;
 import java.util.Map;
-import java.util.HashMap;
 
 import com.Ace009.library.*;
 import com.Ace009.library.CClass.*;
@@ -34,7 +36,7 @@ public class CommandLineWrapper {
 	 * </code>
 	 */
 	private static final String[] help = new String[]{
-		"\nAvailable commands(all commands are internally converted to lower case):",
+		"Available commands(all commands are internally converted to lower case):",
 		"\"stop\"/\"break\"/\"end\"/\"exit\": stops/ends the main method",
 		"\"help\": prints this message",
 		"\"circle\":runs a test main method for the CoordinateSystems Circle class",
@@ -64,9 +66,9 @@ public class CommandLineWrapper {
 		}
 		Log.out(LogDebug,String.format("Log level set to: %s",Log.getOutputLevel()));
 		String command;
-		Log.out(Log.Level.INFO,"\nRunning CommandLineWrapper:");
+		Log.out(Log.Level.INFO,"Running CommandLineWrapper:");
 		while (true) {
-			command = Args.ask("\nCommand").toLowerCase();
+			command = Args.ask("Command").toLowerCase();
 			switch (command) {
 				case"stop":	case"break": case"end": case "exit":
 					Log.out(LogInfo,"stopping...");
@@ -105,9 +107,9 @@ public class CommandLineWrapper {
 					Log.out(LogInfo,"Starting wrapper...");
 					try {
 						main(args);
-						Log.out(LogInfo,"\ninternal wrapper ended normally");
+						Log.out(LogInfo,"internal wrapper ended normally");
 					} catch (Throwable e) {
-						Log.out(LogError,"\ninternal wrapper ended with exception:\n%s\n\n", e.toString());
+						Log.out(LogError,"internal wrapper ended with exception:\n%s\n\n", e.toString());
 						for (StackTraceElement line : e.getStackTrace()) Log.out(LogError,line.toString());
 					}
 					break;
@@ -115,7 +117,7 @@ public class CommandLineWrapper {
 					Log.out(LogInfo,"No implemented command given, command: \"%s\"\n",command);
 					Log.out(LogInfo,"use the command \"help\" to see available commands");
 			}
-			Log.out(LogInfo,"\nreturning to Wrapper...");
+			Log.out(LogInfo,"returning to Wrapper...");
 		}
 	}
 	/** debug Method, generally empty in releases */
@@ -131,32 +133,33 @@ public class CommandLineWrapper {
 	 * @see com.Ace009.library.CClass.CObject
 	 */
 	public static void CobjectTest() {
-		String type = Args.ask("type").toLowerCase();
+		String type = Args.ask("Class");
 		Object test;
 		Log.out(LogInfo,"Getting test object...");
-		switch (type) {
-			case "args":
-				int number = Integer.parseInt(Args.ask("Number of Args(numerical)"));
-				String[] askKey = new String[number];
-				for (int i = 0; i < number; i++) {
-					askKey[i] = i+". Entry";
-				}
-				test = new Args(Args.OutputType.String, askKey);
-				break;
-			case"fraction":
-				int[] nr = new int[2];
-				nr[0] = Integer.parseInt(Args.ask("numerator"));
-				nr[1] = Integer.parseInt(Args.ask("denominator"));
-				test = new Fraction(nr[0], nr[1]);
-				break;
-			default:
-				Log.out(LogWarning,"No implemented Object Type given,"); return;
-		}
-		Map<String, Object> output = new HashMap<>();
-		output = CObject.fieldEntriesMap(test);
-		Log.out(LogInfo,"Debug: %s; %s\n", test, output);
-		for (String E : CMap.print(output)) {
-			Log.out(LogInfo,E);
-		}
+		Class<?> clas;
+		try { clas = Class.forName(type); }
+		catch (ClassNotFoundException e) { Log.out(LogError,"No class with name:%s found",type); return; }
+		Constructor<?>[] inits = CObject.getConstructors(clas);
+		Parameter[][] params = CStreamOf.map(inits, e->e.getParameters());
+		int con = CArray.indexOf(params, CStreamOf.findFirst(params, e->e.length==0) );
+		inits[con].setAccessible(true);
+		try {
+			test=inits[con].newInstance(new Object[0]);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) { throw new java.util.concurrent.CompletionException(e); }
+		Map<String, Object> output = CObject.fieldEntriesMap(test);
+		Log.out(LogDebug,"%s; %s\n", test, output);
+		for (String line : CMap.print(output)) Log.out(LogInfo,line);
+	}
+	/**
+	 * unused {@code CObject} Test method
+	 * <p>
+	 * uses a user provided {@code Object} and runs the same test as in {@link #CobjectTest()}
+	 * @param test the {@code Object} to scan
+	 */
+	public static void CobjectTest(Object test) {
+		Map<String, Object> output = CObject.fieldEntriesMap(test);
+		Log.out(LogDebug,"%s; %s\n", test, output);
+		for (String line : CMap.print(output)) Log.out(LogInfo,line);
 	}
 }
