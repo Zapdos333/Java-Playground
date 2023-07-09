@@ -15,6 +15,7 @@ public class Args {
 	 * <p> as a static field it doesnt require {@code @SuppressWarnings("ressource")}
 	 */
 	public static final Scanner input = new Scanner(System.in);
+	public static final Log.Level level = Log.Level.USER_INPUT;
 	/** copy of constructors {@code type} */
 	public final OutputType createdType;
 	/** copy of constructors {@code args} */
@@ -53,7 +54,7 @@ public class Args {
 	 */
 	public static String ask(String term){
 		term = term==null ? "" : term;
-		Log.out(Log.Level.INFO,"%s:", term);
+		Log.out(Log.Level.USER_INPUT,"%s:", term);
 		return input.nextLine();
 	}
 	/**
@@ -63,8 +64,8 @@ public class Args {
 	 */
 	public static void suspend(String term){
 		term = term==null ? "" : term;
-		if (term != "") Log.out(Log.Level.INFO,"%s. Suspending,\nPress enter to continue...", term);
-		else Log.out(Log.Level.INFO,"Suspending,\nPress enter to continue...");
+		if (term != "") Log.out(level,"%s. Suspending,\nPress enter to continue...", term);
+		else Log.out(level,"Suspending,\nPress enter to continue...");
 		input.nextLine();
 	}
 	/**
@@ -81,7 +82,7 @@ public class Args {
 			switch (key) {
 				case "print":
 					for (Map.Entry<String, String> entry : output.entrySet()) {
-						System.out.printf("Key:%s; Value:%s\n", entry.getKey(), entry.getValue());
+						Log.out(Log.Level.INFO,"Key:%s; Value:%s\n", entry.getKey(), entry.getValue());
 					}
 					break;
 				case"": end=true; break;

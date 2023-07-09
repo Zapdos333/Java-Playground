@@ -102,7 +102,7 @@ public class MainMethods {
 	public static void CircleMain() {
 		Args input = new Args(Args.OutputType.Double, "X","Y","Radius","Corners");
 		input.parseWithDefaults(new double[] {5,5,5,10});
-		Log.out(LogInfo,"Test program: ");
+		Log.out(LogInfo,"Starting...");
 		double[] Nargs = input.outputDouble;
 		int aC = (int)Math.floor(Nargs[3]);
 		double aX= Nargs[0];

@@ -10,11 +10,11 @@ import java.util.Calendar;
 public class Log {
 	/** the default output PrintStream {@link System#out} */
 	public static final PrintStream OUT = System.out;
-	/** the default output PrintStream {@link System#err} */
+	/** the default error PrintStream {@link System#err} */
 	public static final PrintStream ERROR = System.err;
 	/** the Level of an output */
 	public static enum Level {
-		DEBUG((byte)0), INFO((byte)1), WARNING((byte)2), ERROR((byte)3), FATAL((byte)4);
+		DEBUG((byte)0), INFO((byte)1), USER_INPUT((byte)1), WARNING((byte)2), ERROR((byte)3), FATAL((byte)4);
 		byte nr;
 		private Level(byte nr) { this.nr=nr; }
 	}
@@ -34,13 +34,17 @@ public class Log {
 	 */
 	public static void out(Level level, String message) {
 		Calendar time = Calendar.getInstance();
-		String t_ = String.format("[%d:%d:%d]:[%s]:%s",
+		String t_1 = String.format("[%d:%d:%d]:[%s]:%s",
 			time.get(Calendar.HOUR_OF_DAY),time.get(Calendar.MINUTE),time.get(Calendar.SECOND),
 			level.name(),message
 		);
+		String[] t_2 = t_1.split("\n");
 		if (level.nr >= Log.outputLevel.nr) {
-			if (level.nr < Log.Level.ERROR.nr) Log.OUT.println(t_);
-			else Log.ERROR.println(t_);
+			for (String line : t_2) {
+				if (level.nr >= Log.Level.ERROR.nr) Log.ERROR.println(line);
+				else if (level != Log.Level.USER_INPUT) Log.OUT.println(line);
+				else Log.OUT.print(line==t_2[t_2.length-1]?line:line+"\n");
+			}
 		}
 	}
 	/**
