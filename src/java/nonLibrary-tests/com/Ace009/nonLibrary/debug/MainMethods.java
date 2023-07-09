@@ -164,6 +164,8 @@ public class MainMethods {
 	 * creates two test {@code Fraction} with the given parameters,
 	 * adds, subtracts, multiplies, or divides the two, depending on the parameters
 	 * and prints out the result
+	 * 
+	 * @see com.Ace009.library.Math.Fraction
 	 */
 	public static void FractionTest(){
 		int[] input = new Args(Args.OutputType.Int, "numerator","demoninator").outputInt;
@@ -193,10 +195,12 @@ public class MainMethods {
 		Log.out(LogInfo,"Fraction is: %s\n",test.toString());
 	}
 	/**
-     * {@link com.Ace009.library.CoordinateSystem.Triangle}s main method:
+     * {@code Triangle}s main method:
      * <p>
      * creates a test {@code Triangle} with the given parameters,
      * prints out the result
+	 * 
+	 * @see com.Ace009.library.CoordinateSystem.Triangle
 	 */
 	public static void TriangleTest() {
 		Map<String,String> t1_ = Args.createMap(9);
