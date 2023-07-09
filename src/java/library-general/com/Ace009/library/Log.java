@@ -39,7 +39,7 @@ public class Log {
 			level.name(),message
 		);
 		if (level.nr >= Log.outputLevel.nr) {
-			if (level.nr < 3) Log.OUT.println(t_);
+			if (level.nr < Log.Level.ERROR.nr) Log.OUT.println(t_);
 			else Log.ERROR.println(t_);
 		}
 	}
