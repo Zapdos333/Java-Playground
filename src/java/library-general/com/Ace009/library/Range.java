@@ -52,7 +52,7 @@ public class Range {
 	 * @return a {@code List<Integer>}
 	 */
 	public static List<Integer> ListRange(int start, int stop, int steps) {
-		int amount = (int)Math.floor(stop-start/steps);
+		int amount = Math.ceilDiv(stop-start,steps);
 		List<Integer> output = new ArrayList<>(amount);
 		for (int i = 0; i < amount; i++) {
 			output.add(start+i*steps);
@@ -91,7 +91,7 @@ public class Range {
 	 * @return an {@code int array} containing the specified {@code int}
 	 */
 	public static int[] arrayRange(int start, int stop, int steps) {
-		int amount = (int)Math.floor(stop-start/steps);
+		int amount = Math.ceilDiv(stop-start,steps);
 		int[] output = new int[amount];
 		for (int i = 0; i < amount; i++) {
 			output[i] = start+i*steps;

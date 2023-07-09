@@ -6,7 +6,6 @@ import com.Ace009.library.CoordinateSystem.*;
 import com.Ace009.library.Math.*;
 import com.Ace009.nonLibrary.school.*;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +41,7 @@ public class MainMethods {
 		int columnWidth = arguments.output[0].length();
 		int[] array = Range.arrayRange(start, stop, steps);
 		List<Integer> list = Range.ListRange(start, stop, steps);
-		for (int i : Range.arrayRange((stop-start)/steps)) {
+		for (int i : Range.arrayRange( Math.max(array.length,list.size()) )) {
 			Log.out(LogInfo,"%s|%s\n",
 				CString.formatToLength(Integer.toString(array[i]),columnWidth),
 				CString.formatToLength(list.get(i).toString(),columnWidth)
@@ -109,10 +108,10 @@ public class MainMethods {
 		double aY= Nargs[1];
 		double aR= Nargs[2];
 		Circle test = new Circle(new NumberCoordinate<Double>(aX,aY),aR);
-		//AbstractList, because AbstractCollection implements the readable .toString()
+		//ArrayList, because AbstractCollection implements the readable .toString()
 		// so we can use neither Collection nor List
-		AbstractList<NumberCoordinate<Double>> result = new ArrayList<>(test.constructPoly(aC));
-		Log.out(LogInfo,"Circle: %s",result.toString());
+		ArrayList<NumberCoordinate<Double>> result = new ArrayList<>(test.constructPoly(aC));
+		Log.out(LogDebug,"Circle: %s",result.toString());
 		Log.out(LogInfo,"Circularity: %f/%f=%f\n",test.circumferance(),NumberCoordinate.totalDistance(result,true),+Circle.getCircularity(result,aR));
 	}
 	/* ** object parse test **
